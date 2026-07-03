@@ -17,7 +17,7 @@
 **路线三句话**:
 1. **训练端**:走主线 `Wu-4DGS`(canonical + HexPlane + deformation)+ **MonST3R** 动态 SfM,产出**带 MEGA 训练路径(存储压缩 190×/125×)** 的 4DGS 资源。`[01- §7.1 / §7.3]`
 2. **加速端**:走 7 步加速链(稀疏化 → 训练期 bitpack → tile-based GPU → 时空复用 → 内部降采样 → 上采样 → compute/fragment 分工)。每步收益**全部为推测,需真机实测**。`[02- §1]`
-3. **风险**:`4DGS-1K-lite` 公开论文**未在公开材料找到**;Adreno 8 Gen 4 上 4DGS FPS baseline = 0;**未在 public 找到任何 mobile 4DGS 实测** —— **本路线图是工程化方向,不是确定 SOTA 实现**。`[02- §9]`
+3. **风险与现状(2026-07-03 修订)**:✅ `4DGS-1K(arxiv:2503.16422, Yuan et al., NUS, 2025-03)` 公开论文**已找到**(`[paper-notes/2025-yuan-4dgs-1k.md PDF 全文级]`),**替代"用 MEGA 当替身"的错口径**;**TITAN X 200+ FPS 是移动端可行性的关键证据**(`论文 §7.2 直引`)。剩余风险:Adreno 8 Gen 4 上 4DGS FPS baseline = 0;**未在 public 找到任何 mobile 4DGS 实测**。`[02- §9]`
 
 **关键决策**:在 **M0 立项 + M1 桌面 Vulkan baseline** 之后,必须做一次"go / pivot"决策 —— 决策标准 = **桌面 Vulkan baseline 走完 `02- §7` 那张 compute/fragment pipeline 后,30~60 FPS 在笔记本 RTX 4090 / Snapdragon 8 Gen 4 Reference Design 上是否 ≥ 15 FPS**(下限 15 FPS 的理由:30 FPS 目标的 50%,达成一半说明 pipeline 路径成立,反向至少可以倒推差异化空间)。
 
@@ -30,7 +30,7 @@
 | **M0 立项** | 2 周 | Go/pivot 标准 + 项目宪章 + 6 个月预算 + 测试机锁型 | `01- §7`、`02- §1~§9` | — |
 | **M1 桌面 Vulkan baseline** | 4 周 | 桌面 Vulkan 上跑通 4DGS 原始资源,记录 FPS / 显存 | NVIDIA `vk_gaussian_splatting` + 4DGS 仓库 | **≥ 30 FPS @ 800p ✓** 否则 pivot |
 | **M2 高精度训练管线** | 4 周 | 6 高速相机阵列 + MonST3R + Wu-4DGS 训练 pipeline,产出 1 个 demo scene | M0 选定的采集设备 + 单 GPU | PSNR ≥ 28 dB on D-NeRF subset ✓ |
-| **M3 训练期 bitpack + 稀疏化** | 4 周 | 训练管线接入 MEGA 路径(190×/125× 压缩) | M2 pipeline | 压缩后 PSNR 损失 < 1 dB ✓ |
+| **M3 训练期 bitpack + 稀疏化** | 4 周 | 训练管线接入 **4DGS-1K 路径**(Spatial-Temporal Variation Score pruning + Temporal Filter mask + PP) | M2 pipeline | **压缩后 PSNR 损失 < 0.5 dB**(`[arxiv:2503.16422 PDF Table 1 直引]:N3V 31.91→31.88 = -0.03 dB`)✓ |
 | **M4 移动端 rendering pipeline** | 4 周 | Vulkan 1.3 compute + fragment shader 在 Adreno 上跑 | `02- §7` + 测试机 | 720p internal ≥ 15 FPS ✓ |
 | **M5 上采样 + 优化** | 4 周 | FSR 2 / Arm ASR 上采样 + temporal mask 自研 | `02- §5`、`02- §6` | 1080p ≥ 30 FPS ✓ |
 | **M6 实机 demo + 路线收口** | 2 周 | 一段 60 FPS × 30 s demo + README 路线收口 | M5 | demo 成功跑通 ✓ |
@@ -138,7 +138,7 @@
 
 **任务**(基于 `02- §5~§6`):
 - 引入 FSR 2 / Arm ASR(`02- §6`) 720p internal → 1080p output
-- **自研 temporal mask + frame coherence**(`02- §5` §"4. 时空复用") —— **4DGS-1K-lite 公开论文未找到,需自研**
+- **移植 4DGS-1K 的 temporal filter mask 到 Vulkan 1.3 + Adreno**(`paper-notes/2025-yuan-4dgs-1k.md §5.3`);**Spatial-Temporal Variation Score pruning 离线算法** + **Temporal Filter mask 跨帧复用(IoU ≈ 1)**
 - **跑**同一段 30 秒测试场景,测:
   - **1080p ≥ 30 FPS**(目标下限)
   - 视觉质量 PSNR vs internal 1080p(基线)目标 loss < 0.5 dB
@@ -148,7 +148,7 @@
 - **< 30 FPS** → 把 internal render 降级(540p)或将 FSR 切到 quality → balanced 模式
 - **PSNR 损失大** → 调整自研 mask 的 reuse ratio / 检查运动补偿错位
 
-**风险**:`02- §9.1` 第 1 项 — 4DGS-1K-lite 公开论文未找到,自研 temporal mask 的 reuse ratio 调试周期未知。`02- §9.2` FSR 2 / ASR 在 splatting 边缘的视觉质量需实测。
+**风险**:`02- §9.1` 第 1 项 — 4DGS-1K 已找到(`arxiv:2503.16422`),**新风险**:**4DGS-1K 无 Vulkan / Adreno 移植实现,需 M3/M4 自研**(代码移植工作量大);`02- §9.2` FSR 2 / ASR 在 splatting 边缘的视觉质量需实测。
 
 **依赖**:M4 pipeline + FSR / ASR SDK + `02- §5` §"5. 时空复用"。
 
@@ -195,7 +195,7 @@
 | **`torbys/3DGS_App`**(uni-app 移动端 demo) | open-source | 公开(`[abstract 直引]`) |
 | **FSR 2 / FSR 3 (MIT)** | open-source | 可商用(`[abstract 直引]`) |
 | **Arm ASR** | open-source | 2025-03-24 全面开放(`[abstract 直引]`) |
-| **4DGS-1K-lite 公开论文** | **未找到** | **`[未在公开材料找到]`** —— **自研或等待** |
+| **`4DGS-1K` 公开论文(arxiv:2503.16422)** | ✅ **已找到**(2026-07-03) | Yuan et al., **NUS**, 2025-03-20,PDF 全文级 paper note 已写入[`paper-notes/2025-yuan-4dgs-1k.md`] |
 | **Adreno SDK / 官方 mobile 4DGS demo** | 内部 | 需向 Qualcomm 申请 |
 | **采集相机阵列(6 路 4K 60fps 工业相机)** | 硬件采购 | M0 锁定型号 |
 | **Snapdragon 8 Gen 4 Reference Design** | 厂商 | 需向 Qualcomm 申请 |
@@ -240,7 +240,7 @@
 
 | 风险 | 触发条件 | 回退路径 |
 |---|---|---|
-| **4DGS-1K-lite 公开论文未找到** `02- §9.1.1` | M5 自研 temporal mask 卡 4 周没进展 | 砍掉这一加速步骤,仅以 M3 输出的 bitpack + M4 输出的 tile-based GPU 为成品,接受 720p 上限 |
+| ✅ **4DGS-1K 论文已找到 (`arxiv:2503.16422`)** | n/a | 移植 + 实测风险交 M3/M4(无 Vulkan/Adreno 实现) |
 | **Adreno 8 Gen 4 上 4DGS FPS 不达 30** `02- §9.1.2` | G4 / G5 不达标 | 降低 splat 上限(3M → 1.5M → 1M),牺牲精度换速度;**这是这个项目的最大单点风险** |
 | **MEGA 190× 压缩在本数据集不成立** `02- §9.1.3` | G3 PSNR 损失大 | 改走 inference 后训练 bitpack(训练不感知,部署期量化) |
 | **Adreno fp16 / 8-bit storage feature 部分机型缺** `02- §9.1.4` | M4 跑 fp16 兼容性测试失败 | 自动 fallback fp32,接受 50% 显存涨 |
@@ -286,7 +286,7 @@
 
 | 问题 | 在哪 | 备注 |
 |---|---|---|
-| 4DGS-1K-lite 公开论文 | `02- §9.1.1` | 公开材料仍缺,本路线图只能"自研" |
+| 4DGS-1K 公开论文 | ~~`02- §9.1.1`~~ | ✅ **2026-07-03 已找到**(`arxiv:2503.16422`) |
 | Adreno 8 Gen 4 上 4DGS FPS 实测 baseline | `02- §9.1.2` | 没有公开实现,**我们 M1 / M4 自己跑出来** |
 | 移动端 4DGS 在 4K 上的可行性 | 不在范围 | `00-goal.md` §"硬约束"明确 1080p |
 | 多 GPU 训练 / 大模型训练优化 | 不在本路线 | 桌面 RTX 4090 / A100 单卡训练够用 |
