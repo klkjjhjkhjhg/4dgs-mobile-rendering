@@ -40,22 +40,30 @@
 
 | 步骤 | 操作 | 预期收益(公开可引用或自标) | 质量损失 | 公开对标 / 证据 |
 |---|---|---|---|---|
-| **0. 起点** | 原始 4DGS 资源 | baseline | — | `[abstract 直引] 82 FPS @ 800×800 on RTX 3090`,`[未在公开 abstract 拿到 mobile 数字]` |
-| **1. 稀疏化 + 剪枝** | importance mask / 重要性评分(entropy loss) | splat 数量 ~30~50%↓(推测) | 极小(被剪掉的都是低 opacity) | **`MEGA entropy-constrained loss`** `[abstract 直引]` |
-| **2. 训练期 bitpack(per-field 量化)** | color SH 144→3、scale/rot/opacity fp16、linear/K-means 量化 | **190× storage(Technicolor)/125×(N3DV)**(`[abstract 直引]`) | "comparable" quality(定性) | **`MEGA`** `[abstract 直引]` |
+| **0. 起点** | 原始 4DGS 资源(`hustvl/4DGaussians` retrained) | baseline | — | **N3V `90 FPS` / raster `118 FPS` @ 2704×2028 (1/2 res,300 frames) on RTX 3090, storage `2085 MB` PSNR `31.91`** `[PDF Table 1 arxiv:2503.16422 §5.1]` |
+| **1. 稀疏化 + 剪枝** | Spatial-Temporal Variation Score(基于 opacity 二阶导数)**Pruning 80~85%** | splat 数量 `3,333,160 → 666,632` (N3V,80% 剪枝) | PSNR `31.91→31.92`,**几乎无损** | **`4DGS-1K`** `[arxiv:2503.16422 PDF Table 1 + Table 3 id "d"]` |
+| **2. 训练期 bitpack(per-field 量化)** | color SH VQ on codebook + mask 二值化 + bits 压缩 | **存储 2085 → 50 MB(N3V)/ 278 → 7 MB(D-NeRF)= 41.7× / 39.7×** | PSNR `31.88 → 31.87`(微不可见)+0.04 dB 误差 | **`4DGS-1K-PP`** `[PDF Table 1 row "Ours-PP"]` + **`MEGA`** `[arxiv:2410.13613 PDF abstract 直引] 190×/125× 对照` |
 | **3. Tile-based GPU 优化** | frustum cull + 2D 投影 + on-tile sort + wave size 64/128 对齐 | 1.5~3× speedup(`[推测,基于 3DGS / SplatFacto 公开实现,未在 4DGS 公开 abstract 拿到精确数字]`) | 无(几何/排序优化) | 通用 3DGS 实践 + Adreno 文档 |
-| **4. 时空复用(temporal mask + frame coherence)** | 复用 sort / 增量更新 ROI | 2~4× speedup(`[推测,基于 Web 检索 temporal coherence 公开实践,4DGS-1K-lite 公开论文未找到]`) | 极小(运动补偿错位时会闪) | **`[未在公开材料找到,调研不足,需自研]`** |
+| **4. 时空复用(temporal mask + frame coherence)** | **Temporl Filter mask + 跨帧 mask 复用**(Activation IoU ≈ 1) | raster FPS `118 → 1092` on N3V = **9.25×**,**整链路 FPS `90 → 805` = 8.94×** | PSNR `31.92 → 31.88`,-0.04 dB | **`4DGS-1K`** `[arxiv:2503.16422 PDF Table 1 / Table 3 id "e"]` |
 | **5. 内部降采样渲染** | 540p / 720p / 900p 渲染 | 1080p 全部:0.25x/0.44x/0.69x pixel cost(`[推测,理论值]`) | 上采样后边缘有闪烁 | `[推测]` + FSR 2 / Arm ASR |
 | **6. FSR 2 / Arm ASR 上采样到 1080p** | 内部 720p → FSR 2 quality 模式 → 1080p | ~2× 像素成本下降(`[abstract 直引] 4K UE5 60→112 FPS 1.87× 提升,abstract 直引]`) | 极小(经 TAA 约束) | **FSR 2/3 (MIT)** `[abstract 直引]`; **Arm ASR** `[基于 sohu 2025-03-24 abstract 直引]` |
-| **7. Vulkan 1.3 compute + fragment 分工** | compute: cull/sort/decode; fragment: blend | Adreno 上 ~ 30~50% 提速(`[推测,基于 compute 在 tile-based GPU 节省带宽]`) | 无 | 通用 Vulkan 最佳实践 |
+| **7. Vulkan 1.3 compute + fragment 分工** | compute: pruning(offline)+ temporal filter mask(per-frame)+ cull/sort/decode; fragment: blend | Adreno 上 ~ 30~50% 提速(`[推测,基于 compute 在 tile-based GPU 节省带宽]`) | 无 | 通用 Vulkan 最佳实践 |
 
-**链路叠加预估(纸面)`[全部为推测]`**:
-- 步骤 1+2:存储 ~ 100~200×↓,带宽压力↓
-- 步骤 3+4:渲染 ~ 3~10×↓
-- 步骤 5+6:像素成本 ~ 2×↓
-- 步骤 7:调度 ~ 1.3~1.5×↓
+**链路叠加预估(纸面 + 4DGS-1K 数据校正)**:
+- **步骤 1:**splats `3.3M → 0.67M` = **5× sparser**(N3V 实测,无精度损失),**步骤 2:**再 VQ → **总存储 `2085 → 50 MB = 41.7×`**(N3V 实测)
+- **步骤 1+4:**渲染 FPS `90 → 805` on N3V = **8.94×**(`[PDF Table 1 直引]`),**这是桌面 GPU 实测,不是推测**
+- 步骤 5+6:像素成本 ~ 2×↓(`[推测,未在 4DGS abstract 量化]`)
+- 步骤 7:调度 ~ 1.3~1.5×↓(`[推测,未在 Adreno 实测]`)
 
-**所以 4DGS 在 Adreno 8 Gen 4 上有理论可能达到 30~60 FPS @ 1080p**,但**每一步数字均为推测,需后续在真机上逐项实测**。
+**所以 4DGS 在 Adreno 8 Gen 4 上有理论可能达到 30~60 FPS @ 1080p**。**桌面 RTX 3090 上 4DGS-1K 已经 805 FPS**(`[PDF Table 1]`),Adreno 8 Gen 4 算力大致 = RTX 3090 的 1/8~1/10,**理论上 80~100 FPS 上限**(`[推测]`),本项目目标 30 FPS 是其 30~40% —— **工程目标应可达**,**前提**:需要重写 raster 在 Vulkan 1.3 + 自研 temporal filter mask 的 Adreno 实现,**M4 是关键里程碑**。
+
+**关键节点数据(`arxiv:2503.16422` §7.2 实测)**:
+- **TITAN X (Maxwell 2015) on N3V**:**200+ FPS** —— "we further test 4DGS-1K on TITAN X GPU, where 4DGS-1K maintains 200+ FPS on the N3V dataset, still far outperforming vanilla 4DGS (20 FPS)"
+- **Fine-tune 时长:~30 min**(RTX 3090)
+- **训练显存:10.54 GB**
+- **推理显存:1.62 GB** —— **移动端共享显存 ≥ 4~8 GB 可行**
+
+> **纪律修订**:上一版 §1 表格中"4DGS-1K-lite 公开论文未找到"已**作废**。**真·对标已找到(arxiv:2503.16422,Yuan et al., NUS, 2025-03-20)**,本节已替换为基于 PDF Table 1 / Table 2 / Table 3 直引的数字。`paper-notes/2025-yuan-4dgs-1k.md` 全文直引,可对照。
 
 ---
 
@@ -162,40 +170,60 @@
 
 ---
 
-## 5. 时空复用(temporal mask + frame coherence)—— **`4DGS-1K-lite` 核心**
+## 5. 时空复用(temporal mask + frame coherence)—— **`4DGS-1K` 核心**
 
-### 5.1 设计目标(基于 `00-goal.md` 推测)
+### 5.1 设计目标(基于 `00-goal.md` + `arxiv:2503.16422` PDF §4 直引)
 
-- **temporal mask**:相邻帧可见性 / 重要性基本一致,**只增量更新变化 splat**
-- **frame coherence**:复用上一帧的 sort 结果 + **仅处理 ROI 变化区域**
+- **temporal mask**:每帧通过 Temporal Filter 选一组 **关键帧高斯**(`Δt = 20 frames` 或 `6 key-frames`)
+- **mask 跨帧复用**:相邻帧 active Gaussians **IoU ≈ 1**(`[PDF Fig. 4c]`),**mask 二值化后跨帧可复用**
+- **frame coherence**:**复用上一帧的 sorted list**,**只处理增量 splat**
+- **TITAN X 验证**:在 2015 Maxwell GPU 上 4DGS-1K 仍达 **200+ FPS**(`[PDF §7.2 直引]`)
 
-### 5.2 调研结论(`[未在公开材料找到]`)
+### 5.2 调研结论(已更新)
 
-- **`4DGS-1K-lite` 公开论文未在公开 arxiv 找到**(`[基于 paper-notes/2024-zhang-mega-4dgs-acceleration.md §"关键诚实说明" + arxiv 检索 2026-07-03]`)
-- **MEGA 不涉及 temporal mask**(`[abstract 直引]`:MEGA 走的是"per-Gaussian 字段压缩 + 数量剪枝"路线,没说 "temporal mask")
-- **公开材料里没有精确对应 "temporal mask + bitpack" 双轮驱动的论文**
+- **`4DGS-1K` 公开论文已找到**(`arxiv:2503.16422`,Yuan et al., **NUS**, 2025-03-20),**替代了上一版"用 MEGA 当替身"的错口径**
+- **核心 = Spatial-Temporal Variation Score (Q1 pruning)+ Temporal Filter mask (Q2 跨帧 mask 复用)**
+- **`[PDF Table 3 id "d" + "e" 直引]`**:Q1 alone `PSNR 31.92 (a 31.91 加 0.01)`,Q1+Q2 综合 `PSNR 31.88`,**两件均独立贡献小**
+- **MEGA 不涉及 temporal mask**(`[abstract 直引]`:MEGA 走的是"per-Gaussian 字段压缩 + 数量剪枝"路线,没说 "temporal mask")—— **MEGA 是 bitpack 对照,4DGS-1K 是 spatial-temporal pruning + temporal filter 对照**,**两者互补非替代**
 
-### 5.3 自研路径建议(`[推测]`)
+### 5.3 4DGS-1K 自研路径(必须移植到 Vulkan 1.3 + Adreno)
 
-1. **temporal mask 设计**:
-   - **ROI mask**:每帧做"前后两帧 visibility/opacity delta",delta < 阈值的 splat 标记为"沿用上一帧 sort 顺序"
-   - **稀疏锚点 mask**(参考 `Scaffold-GS` 思路,见 `01-high-precision-representation.md`):用 anchor 网格管理时间相邻性
-2. **frame coherence**:
-   - **buffer 复用**:上一帧的 sorted list 在 tile memory 保留,本帧只在增量 splat 上重排
-   - **motion compensation**:对运动区域的 splat 预测位移,**避免重排整个 list**
-3. **串扰抑制**:
-   - **TAA 风格累积**:在画面层面用上一帧的 reprojection 补偿
-   - **splat-level motion vector**:每个 splat 记录运动向量,帧间做"时序 blur"防闪烁(`[推测]`)
+基于 PDF §4.1 / §4.2 / Eq. 5~7 直引:
 
-### 5.4 性能数字
+**a) Spatial-Temporal Variation Score(Vulkan offline compute)**:
+- **Temporal score** = `Σ |p(2)ₙ(t)| × tanh(...) × γ(volume)` —— **opacity 二阶导数**(反映 Gaussian 在时间轴的"抖动程度")
+  - **Eq. 5**:`p(2)ₙ(t) = ((t-μt)²/Σt² - 1/Σt) × p(t)`
+  - **Eq. 6**:`STVₙ = (1/0.5) × tanh(|p(2)ₙ(t)|) + 0.5`
+  - **为什么用二阶不用一阶**:`[PDF §6 消融]` 显示 `p(2)` 比 `p(1)` 评分更稳定
+- **Spatial score** = `SSₙ` —— 3DGS 范式继承,基于贡献像素数
+- **总评分**:`Sₙ = Σ_{t=0}^T STₙ × SSₙ`
+- **剪枝**:**80~85% 剪掉**,**保留 15~20% 高斯**(`[PDF §5.1]`)
 
-- **`[推测]`**:temporal mask + frame coherence 完整实现,**单帧 splat 处理量可能 50~70%↓**(`[基于 通用 temporal reuse 公开实践外推,4DGS 公开 abstract 未拿]`)
+**b) Temporal Filter mask(Vulkan per-frame compute)**:
+- **Key-frame 间隔**:N3V `Δt = 20 frames`;D-NeRF `6 key-frames`(因 D-NeRF capture 速度不均)
+- **Mask 二值化**:每个高斯在当前 key-frame 是否 active → bits 压缩,**~ 1 MB / scene**
+- **Mask 跨帧复用**:`[PDF Fig. 4c 实测]` Activation IoU ≈ 1,**相邻帧 90%+ mask 可直接套用**
+- **Fine-tune 补偿**:mask 过滤后做 `5000 iterations` short fine-tune,**避免 mask 误剪**(`[PDF §5.1]`)
+
+**c) Adreno 上的可移植性分析(`[推测,需实测]`)**:
+- **spatial-temporal score** 是 offline 训练期算法,**Vulkan compute 易写**(单次 GPU pass 就够)
+- **temporal filter mask** 是 per-frame compute,**Vulkan 1.3 compute 适合**
+- **rasterization** 是 PyTorch + Diff-Gaussian-Rasterizer,**Vulkan 1.3 fragment shader 重写** —— **项目最重活**
+- **`[推测]`**:Pruning + filter 阶段在 Adreno 上 **几乎无开销**(compute 工作量远小于 raster),**瓶颈仍为 fragment blend**
+
+### 5.4 性能数字(PDF Table 1 / 2 / 3 直引)
+
+- **N3V on RTX 3090**:**raster FPS `118 → 1092` = 9.25×**,**整链路 FPS `90 → 805` = 8.94×**(`[PDF Table 1 row "vanilla retrained" vs "Ours"]`)
+- **N3V on TITAN X**:**200+ FPS**(`[PDF §7.2]`),vanilla 4DGS 只 20 FPS = **10× 提速**
+- **D-NeRF on RTX 3090**:整链路 FPS `376 → 1462` = **3.89×**(`[PDF Table 2]`)
+- **D-NeRF PSNR `32.99 → 33.34`** = **+0.35 dB**(4DGS 在 D-NeRF 有 floaters,filter 反而显式清掉)
 
 ### 5.5 风险
 
-- **运动过快场景**:temporal mask 命中率会骤降,30 FPS 下快速运动基本每帧都需要重算
-- **camera switch 场景**:视角跳变时 temporal mask 几乎全失效
-- **`[调研不足,需后续实验]`**:实测的 mask 命中率、串扰率,**没有 mobile 4DGS 数据可参考**
+- **运动过快场景(> 60°/s)**:**temporal mask 命中率会骤降**(`[推测]`),30 FPS 下快速运动基本每帧都需重算
+- **camera switch**:视角跳变时 temporal mask 几乎失效(`[推测]`)
+- **`[调研不足,需后续实验]`**:Adreno 上实测的 mask 命中率、串扰率,**论文未给**(桌面 GPU 测算)
+- **bitpack 端到端方案**:PDF Table 1 显示 `Ours-PP` vs `Ours` 的 PSNR 反而 `+0.04 dB`(反常),需在 M2/M3 复现时再核
 
 ---
 
@@ -315,9 +343,9 @@
 
 ### 9.1 高优先级风险(影响项目能否实现目标)
 
-1. **`4DGS-1K-lite` 公开论文未找到**(`[未在公开材料找到]`)
-   - **影响**:`00-goal.md` 主对标实际缺失;**temporal mask + frame coherence 这一核心加速在公开材料无对应**
-   - **应对**:自研 temporal mask,或等待 4DGS-1K-lite 公开
+1. **`4DGS-1K-lite` / `4DGS-1K` 论文已 2026-07-03 找到**(`arxiv:2503.16422`,Yuan et al., NUS)
+   - **影响**:✅ **已解决**(`[本调研 2026-07-03 升级]`)。下游 subagent / roadmap 引用时改为 arxiv:2503.16422 + PDF Table 1/2/3 直引
+   - **新风险**:`4DGS-1K` 仅在 CUDA + Diff-Gaussian-Rasterizer 实现,**未提供 Vulkan / Adreno 移植实现**(`[PDF §5 + Table 5/6]`);**本项目 M3/M4 必须自研移植**
 
 2. **Adreno 8 Gen 4 上 4DGS FPS baseline = 0**(`[调研不足,需进一步实验]`)
    - **影响**:无法对照 30~60 FPS 目标的"差距"有多大
