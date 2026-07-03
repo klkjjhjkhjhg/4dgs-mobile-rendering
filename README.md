@@ -17,7 +17,7 @@
 
 | 是 | 不是 |
 |---|---|
-| 两块调研 + 路线图 + 12 篇 paper notes | 实机 demo / 代码工程实现 |
+| 两块调研 + 路线图 + 21 篇 paper notes | 实机 demo / 代码工程实现 |
 | 列出现有公开 SOTA,标注每条数字的可追溯出处 | 拍胸脯保证 mobile 4DGS 一定跑得动 |
 | 明确指出"未在公开材料找到 / 调研不足"的地方 | 凭印象补全缺失数字 |
 
@@ -30,9 +30,10 @@ docs/
 ├─ 00-goal.md             调研目标 spec(硬约束 / 必覆盖 / 产出要求)
 ├─ 01-high-precision-representation.md   第一块调研:离线高精度 4DGS 表示
 ├─ 02-rendering-acceleration.md         第二块调研:渲染加速(Vulkan 1.3 移动端)
+│  └─ 附录 X: 综述(2026 H1 现状 / 趋势 / 难点 / 落地问题)
 ├─ 03-end-to-end-roadmap.md              整合路线图(6 个月 M0~M6)
 └─ appendix/
-   ├─ paper-notes/         12 篇核心论文 PDF 全文级精读笔记(详见下)
+   ├─ paper-notes/         21 篇核心论文 PDF 全文级 / abstract 级精读笔记
    ├─ collection-sop.md    采集 SOP(指针型,内容在 01- §8)
    └─ vulkan-impl-notes.md Vulkan 1.3 实现笔记(指针型,内容在 02- §7)
 ```
@@ -80,24 +81,91 @@ docs/
 
 ---
 
-## Paper Notes 库(12 篇,全部 PDF 全文级)
+## 现状与趋势(2026 H1 截止,综合 21 篇 paper notes)
+
+> 详细数据表格见 `docs/02-rendering-acceleration.md` §"附录 X·综述"。本节是高层摘要。
+
+### A. 桌面 / 老卡 / 移动端实测现状
+
+| 平台 | SOTA | FPS↑ | Storage |
+|---|---|---|---|
+| **桌面 RTX 3090**(Mip-NeRF 360)| **Mobile-GS** (static) | **1125** | 4.6 MB |
+| **桌面 RTX 3090**(N3V dynamic)| **4DGS-1K** | **805** / **1092 raster** | 50 MB(PP) |
+| **桌面 RTX 3090**(D-NeRF dynamic)| **4D-RotorGS** | **1257** | 112 MB |
+| **桌面 TITAN X**(Maxwell 2015)| **4DGS-1K** | **200+** | - |
+| **Snap 8 Gen 3**(Mip-NeRF 360)| **Mobile-GS** | **127** | 4.6 MB |
+| **Snap 8 Gen 3**(Bicycle 1600×1063)| **Mobile-GS Fig.1** | **116** | 4.6 MB |
+| ⚠ **Adreno 8 Gen 4**(本项目目标)| **4DGS 实测 = 0 篇** | - | - |
+
+### B. 趋势
+
+1. **性能加速"三条主线"已成清晰格局**:
+   - **Sort-free / Order-independent**(Mobile-GS 路)—— 杀 sort 需求
+   - **Spatial-Temporal Pruning + Mask**(4DGS-1K 路)—— STV + Temporal Filter
+   - **Bitpack / NVQ / Distill**(MEGA / HAC++ / Mobile-GS-2 路)—— 压 storage
+2. **Distillation 已成标配**:Mobile-GS 用 Mini-Splatting 做 teacher;同类工作(`Sparse4DGS` 2025-11 AAAI 2026)沿用。
+3. **3DGS-acceleration → 4DGS-acceleration 是真实断层**:**4DGS 在 mobile GPU 上 0 篇公开实测**(`截至 2026-07-03`)。本项目如果做到,即填上调研空白。
+
+### C. 难点
+
+1. **Adreno tile-based + 稀疏 splat 的 on-tile sort 路径**:3DGS raster 在 Adreno 上最大开销不是渲染本身而是 sort 的 CPU/GPU 调度。**Mobile-GS 的 OIT(去掉 sort)是 4DGS in mobile 上的最优解路线**。
+2. **训练算力 vs 移动端推理算力严重不对称**:4DGS 单场景训练 3~10h on RTX 3090,M6 demo 多场景批量 ≥ 1 天,**必然需要云端分布式训练 + 离线预制**。
+3. **Visual quality vs Storage vs FPS 三方不可能三角**:极致 FPS 必损 visual(OIT artifact),极致 Storage 必增训练时间(NVQ),极端视觉质量必退 FPS / storage。**Mobile-GS 三者取 ~同均衡**(4.6 MB / 127 FPS / 27.12 PSNR);**本项目 4DGS 不可能同时 60 FPS + 1080p + 全动态**,M5 需 Go/Pivot 边界。
+
+### D. 产品落地问题
+
+| 问题 | 现状 | 阻碍 |
+|---|---|---|
+| **4DGS 单场景训练时间** | 3~10h on RTX 3090 | 多场景产品批量不可承受 → **必然 toB / 云端** |
+| **4DGS per-scene 资源体积** | 50 MB(PP 后)| OK for streaming,但 not for inline App |
+| **通用性** | per-scene 强绑定 | **不是 to-C 通用 App,是 to-B / 高价值场景** (VR / AR / VFX / 数字孪生 / 体积视频 streaming) |
+| **Vulkan 1.3 on Adreno feature 差异** | 未在公开 abstract 拿到精确列表 | M4 需实测锁定 SKU |
+| **Qualcomm AI Hub / Snapdragon Spaces 4DGS SDK** | 未在公开 abstract 找到 | 需向 Qualcomm 申请 |
+| **Apple Vision Pro / Meta Quest 4DGS** | 3DGS 已有支持,**4DGS 未有** | Apple RealityKit / Meta Quest 是更适配市场但**调研空白** |
+| **Streaming 路线** | **4DGCPro**(SJTU MediaX Zheng 2025-09)布局 progressive volumetric video streaming | 4DGS mobile streaming 是 2025-2026 明显趋势,本项目可走 |
+
+### E. 趋势总图(2024 H1 → 2026 H1)
+
+```
+2024 H1        2024 H2        2025 H1        2025 H2        2026 H1
+   |              |              |              |              |
+4DGS-1K(本项主线)----------------------------(2025-03,NUS)--------+
+                                                                       |
+Mobile-GS(2026-03,Du ICLR)--------------------------------------+
+                                                                       |
+4DGS mobile **空白**----------------------------------------+
+              ↑ 这是本项目要填的位置
+```
+
+---
+
+## Paper Notes 库(21 篇,全部 PDF 全文级 或 abstract 直引)
 
 按相关性 + 时间排序:
 
 | 年份 | 论文 | 类别 | 相关性 | 核心数字 |
 |---|---|---|---|---|
 | **2026-03** | **Mobile-GS** (Du, ICLR 2026, arxiv:2603.11531) | mobile-GPU | **⭐⭐⭐ 高度** | **Snap 8 Gen 3 上 127 FPS** |
+| **2025-11** | **Sparse4DGS** (Shi, AAAI 2026, arxiv:2511.07122) | 4DGS sparse-frame | **⭐⭐⭐** | sparse-frame dynamic 重建 SOTA |
+| **2025-09** | **4DGCPro** (Zheng, SJTU MediaX, arxiv:2509.17513) | 4DGS streaming | **⭐⭐⭐** | progressive volumetric video streaming on mobile |
+| **2025-09** | **4DGRT** (Liu, NTU+Intel, arxiv:2509.10759) | 4DGS ray tracing | ⭐⭐ | 替代 raster, fastest rendering |
+| **2025-03** | **SEELE** (Huang, SJTU, arxiv:2503.05168) | 3DGS mobile | **⭐⭐⭐** | 2.6× speedup + 32.3% model reduction |
 | **2025-03** | **4DGS-1K** (Yuan, NUS, arxiv:2503.16422) | 4DGS 加速 | **⭐⭐⭐ 主线** | **1000+ FPS / 41.7× 压缩** |
 | 2024-10 | **MEGA** (Zhang, arxiv:2410.13613) | 4DGS bitpack | ⭐⭐⭐ 对照 | 190× Technicolor 压缩 |
-| **2024-02** | **4D-RotorGS** (Duan, SIGGRAPH 2024) | 4DGS 加速 | ⭐⭐⭐ | **D-NeRF 1257 FPS** |
+| 2024-10 | **FCGS** (Chen, Monash, arxiv:2410.08017) | 3DGS 压缩 | ⭐⭐ | 20× compression,sec-level |
+| **2024-08** | **FlashGS** (Feng, CVPR 2025, arxiv:2408.07967) | 3DGS 桌面临近 SOTA | ⭐⭐ | 4× speedup on mobile consumer GPUs |
+| 2024-04 | **EfficientGS** (Liu, arxiv:2404.12777) | 3DGS 大规模 | ⭐⭐ | 10× smaller model + 4K aerial |
+| **2024-02** | **4D-RotorGS** (Duan, SIGGRAPH 2024) | 4DGS 加速 | **⭐⭐⭐** | **D-NeRF 1257 FPS** |
 | 2024-04 | Mip-Splatting (Yu, CVPR 2024 best student) | 3DGS 抗锯齿 | ⭐⭐ 视觉质量 | "无推理开销" |
 | 2024-04 | Spacetime Gaussians (Li, CVPR 2024) | 4DGS | ⭐⭐ | CC0 视觉质量 |
+| 2024-01 | HAC++ (Chen, ECCV 2024, arxiv:2501.12255) | 3DGS 压缩 | ⭐⭐ | 100× avg compression |
 | 2023-10 | Wu-4DGS (CVPR 2024, arxiv:2310.08528) | 4DGS 奠基 | ⭐⭐⭐ 主线 | 82 FPS @ 800×800 on RTX 3090 |
 | 2023-09 | Deformable 3DGS (Yang) | 4DGS 备选 | ⭐⭐ | 单目,< 250K splats |
 | 2023-01 | HyperReel (Attal) | NeRF dynamic | ⭐ 路线对照 | 18 FPS @ megapixel |
 | 2024-06 | LightGaussian (NeurIPS 2024 Spotlight) | 3DGS 剪枝 | ⭐ | pruning 通用技术 |
 | 2023 | Compact3D / CompGS (ECCV 2024) | 3DGS VQ | ⭐ | K-means codebook |
-| (Wu 4DGS 原版) | Deformable 3DGS (Yang 2023) | 单目 | ⭐⭐ 备选 | (同上) |
+
+**统计**:21 篇 / 4 类(static / dynamic / mobile / 学派 baseline)。抽象 / 直引最新一条为 ICLR 2026。
 
 ---
 
@@ -108,6 +176,7 @@ docs/
 | ✅ **桌面 RTX 3090 上 4DGS 1000+ FPS 实测存在**(4DGS-1K) |
 | ✅ **桌面 TITAN X(2015 Maxwell)上 4DGS-1K 200+ FPS 实测** |
 | ✅ **Snap 8 Gen 3 上 3DGS 127 FPS 实测存在**(Mobile-GS) |
+| ✅ **Snap 8 Gen 3 上 4DGS mobile 实测 = 0 篇** → 本项目如果做到,**填补空白** |
 | ❌ **Adreno 8 Gen 4 上 4DGS 实测 FPS = 0**(调研空白,需项目 M4 实测) |
 | ❌ **4DGS-1K 仅 CUDA 实现,无 Vulkan/Adreno 移植**(项目 M3/M4 必须自研移植) |
 
@@ -128,7 +197,7 @@ docs/
 
 ## 怎么读这份调研
 
-1. **先读 `docs/00-goal.md`**(200 行左右,明确"为什么做这件事")
-2. **如果只看一个数字**:读完本文档即可。Snap 8 Gen 3 实测 127 FPS(3DGS)+ TITAN X 实测 200 FPS(4DGS-1K) = Adreno 8 Gen 4 4DGS 应 60 FPS。
-3. **如果要做工程**:读 `02-rendering-acceleration.md` §1(7 步加速链) + `03-end-to-end-roadmap.md`(M0~M6 路线),然后读 `paper-notes/2026-du-mobile-gs.md` + `2025-yuan-4dgs-1k.md`。
+1. **先读本文档**(大约 5 分钟,如果你只看本文件足够)
+2. **如果只看一个数字**:Adreno 8 Gen 4 上 4DGS 60 FPS **理论上可达**。Snap 8 Gen 3 实测 127 FPS(3DGS)+ TITAN X 实测 200 FPS(4DGS-1K)+ Adreno 8 Gen 4 比 Gen 3 快 ~30% = 看似可达
+3. **如果要做工程**:读 `02-rendering-acceleration.md` §1(7 步加速链) + §"附录 X·综述"+ `03-end-to-end-roadmap.md`(M0~M6 路线),然后读 `paper-notes/2026-du-mobile-gs.md` + `2025-yuan-4dgs-1k.md`。
 4. **如果做调研**:直接读 `01-` / `02-` / 每篇 paper note,数字全部 PDF Table 直引。
