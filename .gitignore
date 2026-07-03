@@ -8,6 +8,10 @@ venv/
 # Large / binary
 *.pdf
 !docs/**/*.pdf
+
+# Local PDF stash (PDFs are kept locally for offline reading;
+# never committed to the repo. Naming: <year>-<author>-<keyword>.pdf)
+.pdfs/
 *.ply
 *.splat
 *.bin
