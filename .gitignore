@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Large / binary
+*.pdf
+!docs/**/*.pdf
+*.ply
+*.splat
+*.bin
+*.spz
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets / tokens — never commit
+*.pem
+*.key
+*token*
+.env
+.env.*
