@@ -22,6 +22,9 @@ venv/
 .vscode/
 .idea/
 
+# Intermediate research artefacts (PDFs parse / S2 cited-by / arxiv lists)
+scripts_refs/
+
 # Secrets / tokens — never commit
 *.pem
 *.key
