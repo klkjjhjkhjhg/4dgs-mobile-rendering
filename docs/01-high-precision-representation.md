@@ -18,11 +18,11 @@
 
 1. **主线推荐 = 4DGS 原论文(Wu et al., CVPR 2024, arxiv 2310.08528)** 加上后续衍生。具体选型在 §7 详述。
 2. **公开数字**:`4DGS` 在桌面 RTX 3090 上 **`82 FPS @ 800×800`**(`[abstract 直引]`)是与本项目目标最近的可比 SOTA;精度上 `4DGS` 在 D-NeRF / Plenoptic Video 上报告"comparable or better than previous SOTA"(`[abstract 直引]`,**未在 abstract 拿到具体 Table 1 数字**)。
-3. **4DGS-1K-lite**:精确叫这个名字的论文对象**未在公开 arxiv 找到**(`[未在公开材料找到]`,见 `2024-zhang-mega-4dgs-acceleration.md` §"关键诚实说明")。`MEGA`(arxiv 2410.13613)是公开材料里最相关的"4DGS 显存压缩"代表作,声称 **Technicolor 上 ~190× / Neural 3D Video 上 ~125× 存储压缩**(`[abstract 直引]`,abstract 未给具体 PSNR/FPS 数字)。
+3. **`4DGS-1K`**(`arxiv:2503.16422`,Yuan et al., **NUS**, 2025-03-20):**真·对标已找到**(2026-07-03),`[paper-notes/2025-yuan-4dgs-1k.md PDF 全文级]`。**N3V 上 8.94× 加速 + 41.7× 压缩**,PSNR -0.04 dB;TITAN X (2015 Maxwell) 上 200+ FPS(`论文 §7.2 直引`)→ 移动端路径成立的直接证据。`MEGA`(arxiv:2410.13613,2024-10)是同期 bitpack + entropy-driven 路线对照;**MEGA ≠ 4DGS-1K** —— 两者路线不同,互补非替代。
 4. **采集端反推**:目标 1080p + ~3M splats 上限(Snap 8 Gen 4 移动 GPU 内存带宽约束)→ 推荐**多视角相机阵列**(8~16 路,同帧同步触发)+ 高精度 SfM(初版用 COLMAP,**对大动态场景建议用 MonST3R / DUSt3R 路线**,见 §3)。**理由**:Deformable 3DGS(Yang 2023, arxiv 2309.13101)走单目路线,**abstract 直引**"model monocular dynamic scenes"——**单目是低精度天花板**,无法满足"高精度"目标。
 5. **训练算力**:桌面 RTX 3090 / A6000 级 24GB 显存,**未在公开材料拿到 4DGS 训练单 scene 精确分钟数**(推测 ~ 数小时 / scene)。
 6. **per-splat 资源体积估算**:`原 4DGS` 单 splat ~ 145B(3+4+3+1+144+0+others 推测); `MEGA` 用 `per-Gaussian DC 3 + 共享 AC predictor` 把 color 字段从 144→3,叠加 fp16+zip → **`~190×` 压缩**(`[abstract 直引]`)。
-7. **关键风险**:`4DGS-1K-lite` 公开材料不存在 → 移动端 4DGS 加速的"主对标"实际缺失;**移动端(Adreno)FPS baseline 数字未在公开 abstract 拿到**。
+7. **关键风险(2026-07-03 修订)**:✅ `4DGS-1K` 真本已找到(`arxiv:2503.16422`),**新风险** = 无 Vulkan / Adreno 移植实现,需在 M3/M4 自研移植;**Adreno FPS baseline 数字仍未在 public 拿到**,需 M4 实测。
 
 ---
 
@@ -230,7 +230,7 @@ graph LR
   - HexPlane 分解使 4D voxel grid 显存可控
 - **缺点**:
   - 桌面数字,移动端 FPS **未在公开 abstract 拿到**
-  - `4DGS-1K-lite` 不存在 → 移动端加速方案需自研
+  - ✅ `4DGS-1K` 已找到(`arxiv:2503.16422`)→ 移植 + 实测风险交 M3/M4
 - **反例**:`Deformable 3DGS` 单目路线精度天花板低,不符合"高精度"目标
 
 ### 7.2 备选 1:**`Deformable 3DGS`(Yang 2023,canonical + 纯 MLP deformation,无 HexPlane)**
@@ -356,11 +356,11 @@ graph LR
 | **`MEGA`** | Color 字段从 SH 144 → per-Gaussian DC 3 + 共享 AC predictor | `[abstract 直引]` |
 | **`MEGA`** 精度 | "maintains comparable rendering speeds and scene representation quality" | `[abstract 直引,未在公开 abstract 拿到具体 PSNR/FPS]` |
 
-### 11.2 关于 `4DGS-1K-lite`
+### 11.2 关于 `4DGS-1K`(2026-07-03 修订)
 
-- **`[未在公开材料找到]`**:精确叫 "4DGS-1K-lite" / "4DGS-1K" 的论文对象在公开 arxiv 上不存在(2026-07-03 检索为止)
+- **✅ 已找到真本**:`arxiv:2503.16422`,Yuan et al., **NUS**, 2025-03-20,**PDF 全文级精读见**[`docs/appendix/paper-notes/2025-yuan-4dgs-1k.md`]
 - 详细检索过程见 `docs/appendix/paper-notes/2024-zhang-mega-4dgs-acceleration.md` §"关键诚实说明"
-- **所以 `00-goal.md` 中"对标 4DGS-1K-lite"的目标实际指向未公开的对象**,需在 `02-rendering-acceleration.md` 中以 **MEGA 作为公开材料里最相关的对标** + 显式声明"4DGS-1K-lite 公开材料未找到"
+- **`00-goal.md` 中"对标 4DGS-1K-lite"已收口**:`4DGS-1K-lite` 是 **`4DGS-1K`(arxiv:2503.16422)的口语简称 / 项目别名**,核心论文就是 2025-03 这篇。所有之前的"未找到"叙述**作废**。`02-rendering-acceleration.md` §5 / §3 已重写,基于 PDF Table 直引
 
 ---
 
@@ -368,7 +368,7 @@ graph LR
 
 ### 12.1 已识别风险
 
-1. **`4DGS-1K-lite` 公开材料未找到** → `00-goal.md` 主对标实际缺失;**所有"对标"段落均要显式说明**(见 `02-rendering-acceleration.md` §5)
+1. ✅ **`4DGS-1K` 论文已找到(`arxiv:2503.16422`)**;**剩余风险** = 4DGS-1K 仅有 CUDA 实现,无 Vulkan/Adreno 移植,本项目 M3/M4 必须自研移植(见 `02-rendering-acceleration.md` §5.3c)
 2. **4DGS Table 1 精确 PSNR 数字**:`[未在公开 abstract 拿到]` → 下游写 `03-end-to-end-roadmap.md` 时必须打开 PDF 实抄
 3. **移动端 4DGS FPS baseline**:`[调研不足,需进一步实验]` → 没有任何公开 abstract 报告 Adreno 8 Gen 4 上的 4DGS FPS 数字
 4. **MEGA 移动端数字**:`[未在公开 abstract 拿到]`,MEGA abstract 仅给桌面数字
