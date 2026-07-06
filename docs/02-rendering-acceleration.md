@@ -317,8 +317,9 @@
 
 ### 8.1 结论
 
-- **`[调研不足,需进一步实验]`**:**没有任何公开 abstract / 论文给出 4DGS 在 Adreno / Mali / Apple GPU 上的 FPS 数字**(`[基于 2026-07-03 web 检索 + paper notes]`)。
+- **`[调研不足,需进一步实验]`**:**没有任何公开 abstract / 论文给出 4DGS 在 Adreno / Mali / Apple GPU 上的 FPS 数字**(`[基于 2026-07-06 GitHub + arxiv 双线检索]`)。
 - 公开 baseline 都是桌面(4DGS 82 FPS @ 800×800 on RTX 3090; HyperReel 18 FPS @ megapixel; MEGA "comparable")。
+- **GitHub 公开材料盘点**(2026-07-06 检索):见 §8.4
 
 ### 8.2 我们能"外推"的最强参考
 
@@ -334,6 +335,78 @@
 
 - **没有公开 baseline → 必须跑实机**:本项目的"30~60 FPS @ 1080p on Snap 8 Gen 4"目标**不能在论文里找到**;`experiments/` 下需补 benchmark 脚本
 - **`[调研不足]`**:`experiments/` 当前为空(占位),本文件不写实验脚本(留给主对话 session 后续 step)
+
+### 8.4 4DGS 移动端公开材料盘点(2026-07-06 GitHub 检索)
+
+> **本节目的**:**穷举**当前 GitHub / arxiv 公开材料里所有跟 4DGS 移动端相关的工作,**不管是否给出 FPS 数字**,作为"调研空白"的论证依据。
+>
+> **检索方法**:GitHub REST API 仓库搜索(`4d-gaussian` / `4dgaussians` / `4dgs` / `gsplat-android` / `webgpu-gaussian`)+ arxiv 双线 web 检索(`4DGS mobile FPS benchmark`)。
+
+#### 8.4.1 4DGS 相关 GitHub 仓库(按 star 数)
+
+| 仓库 | ⭐ | 状态 | 与本项目关系 |
+|---|---|---|---|
+| `hustvl/4DGaussians` | **3808** | CVPR 2024 原仓库 | 主仓库;issue #266 提到 **Web 4DGS viewer (Visionary)** 但**未测过 mobile FPS** |
+| `fudan-zvg/4d-gaussian-splatting` | 1002 | ICLR 2024 原仓库 | 主仓库;**无 mobile 相关 issue / 文档** |
+| `jiawei-ren/dreamgaussian4d` | 617 | arXiv 2023 | 生成式 4DGS,**无 mobile 实测** |
+| `zrporz/4DLangSplat` | 202 | — | 语言 4DGS,**无 mobile** |
+| `Zerg-Overmind/GaussianFlow` | 192 | TMLR | **无 mobile** |
+| `markomih/SplatFields` | 187 | ECCV 2024 | **无 mobile** |
+| `Zhanpeng1202/Instant4D` | 182 | NeurIPS 2025 | **无 mobile** |
+| `yangzf-1023/4C4D` | 121 | CVPR 2026 (Tsinghua) | **无 mobile** |
+| `XuanchenLi/Topo4D` | 112 | ECCV 2024 + T-PAMI 2025 | **无 mobile** |
+| `Visionary-Laboratory/visionary` | **510** | **WebGPU 端 4DGS 实时 viewer** | **关键仓库,见 §8.4.2** |
+
+**结论**:4DGS 主流仓库 (10 个) **没有一个做了 mobile 实测**。
+
+#### 8.4.2 Visionary —— 4DGS WebGPU 实时平台(本盘点最关键证据)
+
+- **GitHub**: `Visionary-Laboratory/visionary` (510 ⭐, 2026-06-30 更新)
+- **团队**: Shanghai AI Laboratory + Sichuan University + The University of Tokyo + Shanghai Jiao Tong University + Northwestern Polytechnical University
+- **论文**: arxiv:2512.08478
+- **功能**:
+  - **WebGPU 端 3DGS / 4DGS / Neural Avatars 实时渲染**
+  - **ONNX Runtime 推理**
+  - 支持 4DGS 通过 ONNX 导出后,在浏览器中**实时**运行
+- **平台推荐**(README 直引):
+  > "**Recommended platform:** Windows 10/11 with a **discrete GPU** (NVIDIA / AMD) is strongly recommended for stable performance.
+  > macOS: GPU performance on most Macs is limited for heavy 3D Gaussian Splatting workloads. Unless you are using a high-end chip (e.g., M4 Max or better), we **do not recommend** macOS as the primary platform"
+- **mobile 端**:
+  - **iOS**: iPhone 15 Pro+ Safari 支持 WebGPU,**未在 README / issue 实测**
+  - **Android**: Snap 8 Gen 2+ Chrome 支持 WebGPU,**未在 README / issue 实测**
+- **对本项目意义**:
+  - **4DGS 实时技术栈已 web 化** = 4DGS 不再是 CUDA-only,移动浏览器可达
+  - **但未在 mobile 端验证 FPS** = 仍是"理论可达,未实测"状态
+  - **本项目可借鉴** ONNX 导出 + WebGPU 渲染路径作为 mobile 端 fallback / demo 方案
+
+#### 8.4.3 3DGS 端侧落地间接证据(3DGS 静态,不算 4DGS 直证)
+
+| 仓库 / 应用 | 平台 | 关键事实 | 4DGS 借鉴价值 |
+|---|---|---|---|
+| `fukuda-A-HU/gsplat-colocation-ar` (0 ⭐) | **Meta Quest 3/3S + Android AR** (Unity) | **3DGS 多用户协作**,`aras-p/UnityGaussianSplatting` 渲染, Niantic Spatial SDK VPS colocalization,**无 FPS 数字** | **间接** —— 3DGS 已在头显 + 手机 AR 端落地,4DGS 借鉴工程模式 |
+| Apple SHARP + Splat Studio (visionOS App) | **Apple Vision Pro** | **3DGS 静态**,**无 FPS 数字** | **间接** —— 3DGS 已在出货头显设备上跑 |
+| `playcanvas/supersplat` (9470 ⭐) | Web 端 3DGS 编辑器 | 桌面为主 | 间接 —— Web 端 3DGS 工具链成熟 |
+| `KeKsBoTer/web-splat` (286 ⭐) | WebGPU + Rust 3DGS | **未在 mobile 测** | 间接 —— WebGPU 3DGS 移动端**未测** |
+
+#### 8.4.4 调研空白结论
+
+- **核心空白**:**4DGS 在 Adreno / Apple GPU / Mali / Quest GPU / 任何 mobile SoC 上的实测 FPS = 0 篇公开材料**。
+- **间接证据强度**:
+  - **强间接**:Visionary (4DGS WebGPU 实时 web viewer 已存在,WebGPU 在 Snap 8 Gen 2+ / iPhone 15 Pro+ 官方支持)
+  - **中间接**:3DGS 已在 Quest 3 + Vision Pro 出货设备上跑(头显算力 ≈ 手机 SoC)
+  - **弱间接**:WebGPU 移动浏览器支持成熟
+- **未填满的细颗粒度空白**:
+  - 4DGS WebGPU 端在 **iOS Safari 实测 FPS**
+  - 4DGS WebGPU 端在 **Android Chrome (Snap 8 Gen 2/3/4) 实测 FPS**
+  - 4DGS native Vulkan 1.3 实现在 **Snap 8 Gen 4 Adreno 830 实测 FPS**
+  - 4DGS native Vulkan 1.3 实现在 **Apple GPU (M2/M3/M4) 实测 FPS**
+  - 4DGS 端侧**多用户**协作 (3DGS gsplat-colocation-ar 路径)
+
+#### 8.4.5 补全路径(本项目可填哪些)
+
+- **M3**:在 Visionary 4DGS 路径上做 ONNX 导出 → WebGPU 端 → iOS Safari / Android Chrome 实测 FPS(低工程量,**先填空白**)
+- **M4**:Native Vulkan 1.3 实现 + Adreno 830 实测(本项目主线目标)
+- **M5 (可选)**:Vision Pro / Quest 3 native 4DGS viewer(走 UnityGaussianSplatting 路径)
 
 ---
 
