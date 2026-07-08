@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4DGS / 3DGS Mobile Rendering 调研</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: #0a0e1a;
+      color: #e8eaed;
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+    header { text-align: center; margin-bottom: 40px; }
+    h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .subtitle { color: #9ca3af; font-size: 15px; margin-bottom: 20px; }
+    .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .badge {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .evolution-frame {
+      width: 100%;
+      height: 70vh;
+      min-height: 500px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      background: #0a0e1a;
+    }
+    .evolution-frame iframe { width: 100%; height: 100%; border: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: rgba(20, 26, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(59, 130, 246, 0.5); }
+    .card h3 {
+      font-size: 14px;
+      color: #3b82f6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .card h2 { font-size: 18px; color: #fff; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: #9ca3af; margin-bottom: 12px; }
+    .card a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .card a:hover { text-decoration: underline; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .stat {
+      background: rgba(20, 26, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>4DGS / 3DGS Mobile Rendering</h1>
+      <p class="subtitle">Snapdragon 8 Gen 4 + Vulkan 1.3 实时动态高斯溅射可行性调研</p>
+      <div class="badges">
+        <span class="badge">50 paper notes</span>
+        <span class="badge">4 docs</span>
+        <span class="badge">3D 演进图</span>
+        <span class="badge">5 步法方法论</span>
+        <span class="badge">4 cron 自动扫描</span>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">50</span>
+        <span class="stat-label">论文 notes</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">派系</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">技术转折点</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">论据表（实测）</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">60+</span>
+        <span class="stat-label">FPS（Snap 8 Gen 4 目标）</span>
+      </div>
+    </div>
+
+    <div class="evolution-frame">
+      <iframe src="evolution/index.html" title="3D 演进图"></iframe>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>README</h3>
+        <h2>30 秒看懂 + 论据表</h2>
+        <p>7 条实测论据（Snap 8 Gen 3 / Jetson Orin / mobile Volta）+ 派系 SOTA 排名</p>
+        <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering#-30-秒看懂">查看 →</a>
+      </div>
+
+      <div class="card">
+        <h3>Mission</h3>
+        <h2>完整 4 件套 + 4 cron 架构</h2>
+        <p>方法论 / 演进图 / 模板升级 / cron 论文扫描</p>
+        <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering/blob/main/docs/mission/mission.md" target="_blank">查看 →</a>
+      </div>
+
+      <div class="card">
+        <h3>Venues</h3>
+        <h2>白名单 + 1-hop 引用规则</h2>
+        <p>Tier 1/2/3 会议 + Pre-print 栏 + Lumina 30 refs 验证</p>
+        <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering/blob/main/venues.md">查看 →</a>
+      </div>
+
+      <div class="card">
+        <h3>Paper Notes</h3>
+        <h2>50 篇 9 → 11 区块 paper notes</h2>
+        <p>派系 A/B/C/D/E 分组 + §0.5 元数据 + 5 篇示范 §11 1-hop 关系图</p>
+        <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering/tree/main/docs/appendix/paper-notes" target="_blank">查看 →</a>
+      </div>
+
+      <div class="card">
+        <h3>调研文档</h3>
+        <h2>4 docs (00 → 04)</h2>
+        <p>目标 / 高精度表示 / 渲染加速 / 路线图 / 2026 H1 趋势</p>
+        <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering/tree/main/docs">查看 →</a>
+      </div>
+
+      <div class="card">
+        <h3>方法论 5 步法</h3>
+        <h2>白名单 → 扫描 → 1-hop → 9 区块 → 应用</h2>
+        <p>可复用的调研方法论 (适合任何技术领域)</p>
+        <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering/blob/main/docs/05-survey-methodology.md" target="_blank">查看 →</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>项目仓库: <a href="https://github.com/klkjjhjkhjhg/4dgs-mobile-rendering" style="color:#60a5fa">github.com/klkjjhjkhjhg/4dgs-mobile-rendering</a></p>
+      <p style="margin-top:8px">© 2026 LiangHao Zhang · 小米图形架构部</p>
+    </footer>
+  </div>
+</body>
+</html>
