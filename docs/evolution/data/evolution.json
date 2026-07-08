@@ -1,0 +1,748 @@
+{
+  "meta": {
+    "title": "4DGS / 3DGS Mobile Rendering 演进图",
+    "total_nodes": 49,
+    "factions": {
+      "A": {
+        "name": "4DGS 表示",
+        "color": "#e74c3c",
+        "y": 0
+      },
+      "B": {
+        "name": "4DGS 加速 / 动静态分离",
+        "color": "#3498db",
+        "y": 1
+      },
+      "C": {
+        "name": "3DGS 加速",
+        "color": "#2ecc71",
+        "y": 2
+      },
+      "D": {
+        "name": "移动端 / 流式落地",
+        "color": "#f1c40f",
+        "y": 3
+      },
+      "E": {
+        "name": "Cross-disciplinary",
+        "color": "#9b59b6",
+        "y": 4
+      }
+    },
+    "turning_points": [
+      {
+        "id": "T1",
+        "label": "3DGS 起点",
+        "year": 2023.7,
+        "x": 2023.7
+      },
+      {
+        "id": "T2",
+        "label": "4DGS 起点",
+        "year": 2024.1,
+        "x": 2024.1
+      },
+      {
+        "id": "T3",
+        "label": "4DGS-1K 动静态分离",
+        "year": 2025.3,
+        "x": 2025.3
+      },
+      {
+        "id": "T4",
+        "label": "Lumina 移动端 + 体系结构",
+        "year": 2025.4,
+        "x": 2025.4
+      }
+    ],
+    "year_range": [
+      2023.0,
+      2026.7
+    ]
+  },
+  "nodes": [
+    {
+      "id": "2023-attal-hyperreel",
+      "label": "HyperReel: High-Fidelity 6-DoF Video with Ray-Conditioned Sampling",
+      "year": 2301.02,
+      "faction": "A",
+      "arxiv": "2301.02238",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2023-fan-lightgaussian",
+      "label": "LightGaussian: Unbounded 3D Gaussian Compression with 15× Reduction and 200+ FPS",
+      "year": 2311.17,
+      "faction": "C",
+      "arxiv": "2311.17245",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2023-navaneet-compact3d",
+      "label": "COMPACT3D",
+      "year": 2023.0,
+      "faction": "C",
+      "arxiv": "2312.08826",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2023-yang-deformable-3dgs",
+      "label": "DEFORMABLE-3DGS",
+      "year": 2023.0,
+      "faction": "A",
+      "arxiv": "2309.13101",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2024-chen-fcgs",
+      "label": "Fast Feedforward 3D Gaussian Splatting Compression",
+      "year": 2410.08,
+      "faction": "C",
+      "arxiv": "2410.08017",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2024-chen-hacpp",
+      "label": "HAC++: Towards 100X Compression of 3D Gaussian Splatting",
+      "year": 2501.12,
+      "faction": "C",
+      "arxiv": "2501.12255",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2024-duan-4drotorgs",
+      "label": "4DROTORGS",
+      "year": 2024.0,
+      "faction": "A",
+      "arxiv": "2402.03306",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2024-feng-flashgs",
+      "label": "FlashGS: Efficient 3D Gaussian Splatting for Large-scale and High-resolution Rendering",
+      "year": 2408.07,
+      "faction": "C",
+      "arxiv": "2408.07967",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2024-li-spacetime-gaussians",
+      "label": "Spacetime Gaussian Feature Splatting for Real-Time Dynamic View Synthesis",
+      "year": 2312.16,
+      "faction": "A",
+      "arxiv": "2312.16812",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2024-liu-efficientgs",
+      "label": "EfficientGS: Streamlining Gaussian Splatting for Large-Scale High-Resolution Scene Representation",
+      "year": 2404.12,
+      "faction": "C",
+      "arxiv": "2404.12777",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2024-wu-4dgs",
+      "label": "4DGS",
+      "year": 2024.0,
+      "faction": "A",
+      "arxiv": "2310.08528",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2024-yu-mip-splatting",
+      "label": "Mip-Splatting: Alias-free 3D Gaussian Splatting",
+      "year": 2311.16,
+      "faction": "C",
+      "arxiv": "2311.16493",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2024-zhang-mega-4dgs-acceleration",
+      "label": "MEGA-4DGS-ACCELERATION",
+      "year": 2024.0,
+      "faction": "A",
+      "arxiv": "2410.13613",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-chen-4dgscc",
+      "label": "4DGSCC",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": "2504.18925",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-feng-lumina",
+      "label": "Lumina: Real-Time Mobile Neural Rendering by Exploiting Computational Redundancy",
+      "year": 2506.05,
+      "faction": "E",
+      "arxiv": "2506.05682",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2025-huang-seele",
+      "label": "SeeLe: A Unified Acceleration Framework for Real-Time Gaussian Splatting",
+      "year": 2503.05,
+      "faction": "B",
+      "arxiv": "2503.05168",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-ke-streamstgs",
+      "label": "StreamSTGS: Streaming Spatial and Temporal Gaussian Grids for Real-Time Free-Viewpoint Video",
+      "year": 2511.06,
+      "faction": "D",
+      "arxiv": "2511.06046",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-lee-omg4",
+      "label": "OMG4",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": "2510.03857",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-li-gifstream",
+      "label": "GIFStream: 4D Gaussian-based Immersive Video with Feature Stream",
+      "year": 2505.07,
+      "faction": "D",
+      "arxiv": "2505.07539",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-liu-4dgrt",
+      "label": "4DGRT",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": "2509.10759",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-oh-neo",
+      "label": "Neo: Real-Time On-Device 3D Gaussian Splatting with Reuse-and-Update Sorting Acceleration",
+      "year": 2511.12,
+      "faction": "C",
+      "arxiv": "2511.12930",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2025-shi-sparse4dgs",
+      "label": "SPARSE4DGS",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": "2511.07122",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-tu-speede3dgs",
+      "label": "SPEEDE3DGS",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": "2506.07917",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-wang-airgs",
+      "label": "AirGS: Real-Time 4D Gaussian Streaming for Free-Viewpoint Video Experiences",
+      "year": 2512.2,
+      "faction": "D",
+      "arxiv": "2512.20943",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-wang-p4dgs",
+      "label": "P4DGS",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": "2510.10030",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-youn-success-gs",
+      "label": "SUCCESS-GS: Survey of Compactness and Compression for Efficient Static and Dynamic Gaussian Splatting",
+      "year": 2512.07,
+      "faction": "B",
+      "arxiv": "2512.07197",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-yuan-4dgs-1k",
+      "label": "4DGS-1K",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": "2503.16422",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2025-zheng-4dgcpro",
+      "label": "4DGCPRO",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": "2509.17513",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-chen-refine",
+      "label": "REFINE: Super-efficient 3D Gaussian Splatting Pruning via Rendering-Free Primitive Importance",
+      "year": 2606.09,
+      "faction": "C",
+      "arxiv": "2606.09074",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-du-flux-gs",
+      "label": "Flux-GS: Monte Carlo Energy Aggregation for Mobile 3D Gaussian Splatting",
+      "year": 2606.3,
+      "faction": "C",
+      "arxiv": "2606.30017",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2026-du-mobile-gs",
+      "label": "Mobile-GS: Real-time Gaussian Splatting for Mobile Devices",
+      "year": 2603.11,
+      "faction": "C",
+      "arxiv": "2603.11531",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2026-ghosh-gs-nfs",
+      "label": "GS-NFS: Bandwidth-adaptive Streaming of Dynamic Gaussian Splats and Point Clouds",
+      "year": 2606.05,
+      "faction": "D",
+      "arxiv": "2606.05650",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2026-gong-dict-3dgs",
+      "label": "DICT-3DGS",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": "2605.30396",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-hong-polymerge",
+      "label": "PolyMerge: Compressing 3D Gaussian Splats with Polytope Coverings for Provably Safe Resource-Constrained Navigation",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": "2606.16232",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-huang-gaussianfluent",
+      "label": "GaussianFluent: Gaussian Simulation for Dynamic Scenes with Mixed Materials",
+      "year": 2601.09,
+      "faction": "A",
+      "arxiv": "2601.09265",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-li-pd4dgs",
+      "label": "PD4DGS",
+      "year": 2026.0,
+      "faction": "A",
+      "arxiv": "2605.11427",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-li-pocket-slam",
+      "label": "Pocket-SLAM: Rendering-Area-Aware Pruning for Memory-Efficient 3DGS-SLAM",
+      "year": 2606.24,
+      "faction": "C",
+      "arxiv": "2606.24796",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-li-vedal",
+      "label": "VEDAL: Variational Error-Driven Asynchronous Learning for 3D Gaussian Splatting Pruning",
+      "year": 2606.02,
+      "faction": "B",
+      "arxiv": "2606.02346",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-liao-sharptimegs",
+      "label": "SharpTimeGS: Sharp and Stable Dynamic Gaussian Splatting via Lifespan Modulation",
+      "year": 2602.02,
+      "faction": "B",
+      "arxiv": "2602.02989",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-ren-cubifygs",
+      "label": "CubifyGS: Object-Centric 3D Gaussian Splatting for Lifelong Dynamic Scene Maintenance",
+      "year": 2606.28,
+      "faction": "B",
+      "arxiv": "2606.28720",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-shi-evogs",
+      "label": "EvoGS: Constructing Continuous-Layered Gaussian Splatting with Evolution Tree for Scalable 3D Streaming",
+      "year": 2606.07,
+      "faction": "D",
+      "arxiv": "2606.07179",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-thomas-gausslite",
+      "label": "GaussLite: Online Task-Conditioned 3D Gaussian Splatting for Real-Time Robotic Mapping",
+      "year": 2606.3,
+      "faction": "C",
+      "arxiv": "2606.30809",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-veicht-zipsplat",
+      "label": "ZipSplat: Fewer Gaussians, Better Splats",
+      "year": 2606.05,
+      "faction": "D",
+      "arxiv": "2606.05102",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-wang-retimegs",
+      "label": "RetimeGS: Continuous-Time Reconstruction of 4D Gaussian Splatting",
+      "year": 2603.13,
+      "faction": "A",
+      "arxiv": "2603.13783",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-yin-cags",
+      "label": "CAGS: Color-Adaptive Volumetric Video Streaming with Dynamic 3D Gaussian Splatting",
+      "year": 2605.09,
+      "faction": "B",
+      "arxiv": "2605.09279",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-yu-codecsplat",
+      "label": "CodecSplat: Ultra-Compact Latent Coding for Feed-Forward 3D Gaussian Splatting",
+      "year": 2605.25,
+      "faction": "D",
+      "arxiv": "2605.25563",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-zhang-geta3dgs",
+      "label": "GETA3DGS",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": "2605.02086",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-zhao-ace-gs",
+      "label": "ACE-GS: Acing the Trade-off with Accurate, Compact and Efficient 3D Gaussian Splatting",
+      "year": 2606.21,
+      "faction": "C",
+      "arxiv": "2606.21244",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-zhao-mmgs",
+      "label": "MMGS: 10× Compressed 3DGS through Optimal Transport Aggregation based on Multi-view Ranking",
+      "year": 2605.19,
+      "faction": "D",
+      "arxiv": "2605.19304",
+      "refs": 0,
+      "rating": "⭐⭐"
+    }
+  ],
+  "edges": [
+    {
+      "from": "2024-wu-4dgs",
+      "to": "2023-yang-deformable-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-yuan-4dgs-1k",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2024-yu-mip-splatting",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2024-feng-flashgs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2024-zhang-mega-4dgs-acceleration",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-feng-lumina",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2025-feng-lumina",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-du-mobile-gs",
+      "to": "2025-feng-lumina",
+      "type": "direct"
+    },
+    {
+      "from": "2026-du-flux-gs",
+      "to": "2026-du-mobile-gs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-ghosh-gs-nfs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-wang-retimegs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-chen-4dgscc",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-chen-4dgscc",
+      "to": "2024-zhang-mega-4dgs-acceleration",
+      "type": "direct"
+    },
+    {
+      "from": "2025-tu-speede3dgs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-lee-omg4",
+      "to": "2025-yuan-4dgs-1k",
+      "type": "direct"
+    },
+    {
+      "from": "2026-liao-sharptimegs",
+      "to": "2025-yuan-4dgs-1k",
+      "type": "direct"
+    },
+    {
+      "from": "2026-huang-gaussianfluent",
+      "to": "2024-wu-4dgs",
+      "type": "indirect"
+    },
+    {
+      "from": "2026-li-pd4dgs",
+      "to": "2025-chen-4dgscc",
+      "type": "direct"
+    },
+    {
+      "from": "2026-yin-cags",
+      "to": "2025-tu-speede3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2024-li-spacetime-gaussians",
+      "to": "2023-yang-deformable-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2024-duan-4drotorgs",
+      "to": "2023-yang-deformable-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2024-chen-fcgs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2024-liu-efficientgs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2023-navaneet-compact3d",
+      "to": "2023-attal-hyperreel",
+      "type": "direct"
+    },
+    {
+      "from": "2023-fan-lightgaussian",
+      "to": "2023-navaneet-compact3d",
+      "type": "direct"
+    },
+    {
+      "from": "2025-huang-seele",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-oh-neo",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-zheng-4dgcpro",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-li-gifstream",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-ke-streamstgs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-wang-p4dgs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-wang-airgs",
+      "to": "2025-li-gifstream",
+      "type": "direct"
+    },
+    {
+      "from": "2025-youn-success-gs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-shi-sparse4dgs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2025-liu-4dgrt",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-li-vedal",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-chen-refine",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-thomas-gausslite",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-shi-evogs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-zhang-geta3dgs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-hong-polymerge",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-zhao-mmgs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-yu-codecsplat",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-veicht-zipsplat",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-ren-cubifygs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-li-pocket-slam",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-zhao-ace-gs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-gong-dict-3dgs",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    }
+  ]
+}

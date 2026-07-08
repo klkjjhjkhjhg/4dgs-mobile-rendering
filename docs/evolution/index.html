@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4DGS / 3DGS Mobile Rendering 演进图</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="canvas-3d"></canvas>
+    <svg id="canvas-2d" xmlns="http://www.w3.org/2000/svg"></svg>
+
+    <div id="info-bar">
+      <h1>4DGS / 3DGS 演进图</h1>
+      <div class="subtitle">Snap 8 Gen 4 + Vulkan 1.3 调研项目</div>
+      <div class="stats" id="stats-text">加载中...</div>
+    </div>
+
+    <div id="faction-filter">
+      <h3>派系筛选</h3>
+      <div id="faction-list"></div>
+      <div id="year-filter">
+        <h3>时间范围</h3>
+        <input type="range" id="year-min" min="2023" max="2026" value="2023" step="1">
+        <div class="range-labels">
+          <span id="year-min-label">2023</span>
+          <span id="year-max-label">2026</span>
+        </div>
+        <input type="range" id="year-max" min="2023" max="2026" value="2026" step="1">
+      </div>
+    </div>
+
+    <div id="view-toggle">
+      <button class="view-btn active" data-view="3d">3D 视图</button>
+      <button class="view-btn" data-view="2d">2D 视图</button>
+    </div>
+
+    <div id="tooltip"></div>
+    <div id="modal">
+      <button class="close" onclick="closeModal()">&times;</button>
+      <h2 id="modal-title">-</h2>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+  /* ===== 全局状态 ===== */
+  const state = {
+    data: null,
+    scene: null,
+    camera: null,
+    renderer: null,
+    controls: null,
+    nodeMeshes: {},
+    edgeLines: {},
+    factionEnabled: { A: true, B: true, C: true, D: true, E: true },
+    yearMin: 2023.0,
+    yearMax: 2026.7,
+    raycaster: null,
+    mouse: null,
+    hoverObj: null
+  };
+
+  /* ===== 初始化 ===== */
+  async function init() {
+    try {
+      const resp = await fetch('data/evolution.json');
+      state.data = await resp.json();
+    } catch (e) {
+      alert('无法加载 evolution.json。请用 HTTP 服务器打开（如 python3 -m http.server）。');
+      return;
+    }
+
+    setupFactionFilter();
+    setupYearFilter();
+    setupViewToggle();
+    setup3D();
+    render2DFallback();
+    updateStats();
+
+    animate();
+  }
+
+  /* ===== 派系筛选器 ===== */
+  function setupFactionFilter() {
+    const list = document.getElementById('faction-list');
+    Object.entries(state.data.meta.factions).forEach(([key, fac]) => {
+      const label = document.createElement('label');
+      label.className = 'faction-checkbox';
+      label.innerHTML = `
+        <input type="checkbox" data-faction="${key}" checked>
+        <span class="dot" style="background:${fac.color}"></span>
+        <span>${key} · ${fac.name}</span>
+      `;
+      list.appendChild(label);
+      label.querySelector('input').addEventListener('change', e => {
+        state.factionEnabled[key] = e.target.checked;
+        updateVisibility();
+        render2DFallback();
+      });
+    });
+  }
+
+  function setupYearFilter() {
+    const min = document.getElementById('year-min');
+    const max = document.getElementById('year-max');
+    const minLabel = document.getElementById('year-min-label');
+    const maxLabel = document.getElementById('year-max-label');
+    min.addEventListener('input', e => {
+      state.yearMin = parseFloat(e.target.value);
+      minLabel.textContent = state.yearMin;
+      updateVisibility();
+      render2DFallback();
+    });
+    max.addEventListener('input', e => {
+      state.yearMax = parseFloat(e.target.value);
+      maxLabel.textContent = state.yearMax;
+      updateVisibility();
+      render2DFallback();
+    });
+  }
+
+  function setupViewToggle() {
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.dataset.view;
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (view === '3d') {
+          document.getElementById('canvas-3d').classList.remove('hidden');
+          document.getElementById('canvas-2d').classList.remove('active');
+        } else {
+          document.getElementById('canvas-3d').classList.add('hidden');
+          document.getElementById('canvas-2d').classList.add('active');
+        }
+      });
+    });
+  }
+
+  /* ===== 3D 视图（Three.js） ===== */
+  function setup3D() {
+    const canvas = document.getElementById('canvas-3d');
+    state.scene = new THREE.Scene();
+    state.scene.background = new THREE.Color(0x0a0e1a);
+    state.scene.fog = new THREE.Fog(0x0a0e1a, 20, 80);
+
+    const aspect = window.innerWidth / window.innerHeight;
+    state.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
+    state.camera.position.set(20, 12, 20);
+
+    state.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    state.renderer.setSize(window.innerWidth, window.innerHeight);
+    state.renderer.setPixelRatio(window.devicePixelRatio);
+
+    state.controls = new THREE.OrbitControls(state.camera, canvas);
+    state.controls.enableDamping = true;
+    state.controls.dampingFactor = 0.05;
+
+    // 灯光
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+    state.scene.add(ambient);
+    const dir = new THREE.DirectionalLight(0xffffff, 0.8);
+    dir.position.set(20, 30, 20);
+    state.scene.add(dir);
+
+    // 网格
+    const grid = new THREE.GridHelper(40, 20, 0x222a3a, 0x1a2030);
+    grid.position.y = -2;
+    state.scene.add(grid);
+
+    // 坐标轴
+    drawAxes();
+
+    // 节点
+    state.data.nodes.forEach(node => {
+      const pos = nodePosition(node);
+      const faction = state.data.meta.factions[node.faction];
+      const color = parseInt(faction.color.slice(1), 16);
+      const radius = 0.3 + Math.min(0.6, (node.refs || 0) * 0.05 + 0.3);
+      const geometry = new THREE.SphereGeometry(radius, 16, 16);
+      const material = new THREE.MeshPhongMaterial({
+        color,
+        emissive: color,
+        emissiveIntensity: node.rating && node.rating.includes('⭐⭐⭐') ? 0.4 : 0.1
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(pos.x, pos.y, pos.z);
+      mesh.userData = node;
+      state.scene.add(mesh);
+      state.nodeMeshes[node.id] = mesh;
+    });
+
+    // 边
+    state.data.edges.forEach((edge, i) => {
+      const from = state.nodeMeshes[edge.from];
+      const to = state.nodeMeshes[edge.to];
+      if (!from || !to) return;
+      const fromPos = from.position;
+      const toPos = to.position;
+      const curve = new THREE.QuadraticBezierCurve3(
+        fromPos,
+        new THREE.Vector3(
+          (fromPos.x + toPos.x) / 2,
+          (fromPos.y + toPos.y) / 2 + 1.5,
+          (fromPos.z + toPos.z) / 2
+        ),
+        toPos
+      );
+      const points = curve.getPoints(20);
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({
+        color: edge.type === 'direct' ? 0x4a90e2 : 0x888888,
+        transparent: true,
+        opacity: edge.type === 'direct' ? 0.45 : 0.25
+      });
+      const line = new THREE.Line(geometry, material);
+      state.scene.add(line);
+      state.edgeLines[edge.from + '->' + edge.to] = line;
+    });
+
+    // 转折点
+    state.data.meta.turning_points.forEach(tp => {
+      const x = yearToX(tp.x);
+      const geo = new THREE.PlaneGeometry(0.1, 12);
+      const mat = new THREE.MeshBasicMaterial({
+        color: 0xf59e0b,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.DoubleSide
+      });
+      const plane = new THREE.Mesh(geo, mat);
+      plane.position.set(x, 4, 0);
+      state.scene.add(plane);
+    });
+
+    // 交互
+    state.raycaster = new THREE.Raycaster();
+    state.mouse = new THREE.Vector2();
+    canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('click', onClick);
+    window.addEventListener('resize', () => {
+      state.camera.aspect = window.innerWidth / window.innerHeight;
+      state.camera.updateProjectionMatrix();
+      state.renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+
+  function nodePosition(node) {
+    return {
+      x: yearToX(node.year),
+      y: state.data.meta.factions[node.faction].y * 2.5,
+      z: Math.random() * 0.3  // 微小抖动避免完全重合
+    };
+  }
+
+  function yearToX(year) {
+    const [min, max] = state.data.meta.year_range;
+    return ((year - min) / (max - min)) * 30 - 15;
+  }
+
+  function drawAxes() {
+    const matX = new THREE.LineBasicMaterial({ color: 0xef4444 });
+    const matY = new THREE.LineBasicMaterial({ color: 0x10b981 });
+    const matZ = new THREE.LineBasicMaterial({ color: 0x3b82f6 });
+    const pointsX = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(15, -1.5, 0)];
+    const pointsY = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(-15, 8.5, 0)];
+    const pointsZ = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(-15, -1.5, 5)];
+    state.scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsX), matX));
+    state.scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsY), matY));
+    state.scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsZ), matZ));
+  }
+
+  function onMouseMove(e) {
+    state.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    state.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    const tooltip = document.getElementById('tooltip');
+    if (state.hoverObj) {
+      tooltip.style.display = 'block';
+      tooltip.style.left = (e.clientX + 14) + 'px';
+      tooltip.style.top = (e.clientY + 14) + 'px';
+    } else {
+      tooltip.style.display = 'none';
+    }
+  }
+
+  function onClick() {
+    if (state.hoverObj) {
+      openModal(state.hoverObj.userData);
+    }
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    state.controls.update();
+    state.raycaster.setFromCamera(state.mouse, state.camera);
+    const intersects = state.raycaster.intersectObjects(Object.values(state.nodeMeshes));
+    if (intersects.length > 0) {
+      const obj = intersects[0].object;
+      if (state.hoverObj !== obj) {
+        state.hoverObj = obj;
+        updateTooltip(obj.userData);
+        document.body.style.cursor = 'pointer';
+      }
+    } else {
+      if (state.hoverObj) {
+        state.hoverObj = null;
+        document.getElementById('tooltip').style.display = 'none';
+        document.body.style.cursor = 'default';
+      }
+    }
+    state.renderer.render(state.scene, state.camera);
+  }
+
+  function updateTooltip(node) {
+    const tt = document.getElementById('tooltip');
+    const faction = state.data.meta.factions[node.faction];
+    tt.innerHTML = `
+      <div class="tt-title">${node.label}</div>
+      <div class="tt-row">派系: <strong style="color:${faction.color}">${node.faction} · ${faction.name}</strong></div>
+      <div class="tt-row">时间: <strong>${node.year}</strong></div>
+      <div class="tt-row">arxiv: <strong>${node.arxiv || '-'}</strong></div>
+      <div class="tt-row">评级: <strong>${node.rating || '-'}</strong></div>
+    `;
+  }
+
+  function updateVisibility() {
+    Object.values(state.nodeMeshes).forEach(mesh => {
+      const n = mesh.userData;
+      const inFaction = state.factionEnabled[n.faction];
+      const inYear = n.year >= state.yearMin && n.year <= state.yearMax;
+      mesh.visible = inFaction && inYear;
+    });
+    Object.values(state.edgeLines).forEach(line => {
+      line.visible = state.factionEnabled[Object.values(state.nodeMeshes).find(m => m.userData.id === line.userData?.from)?.userData.faction] !== false;
+    });
+  }
+
+  function updateStats() {
+    const total = state.data.nodes.length;
+    const edges = state.data.edges.length;
+    const factions = Object.keys(state.data.meta.factions).length;
+    document.getElementById('stats-text').innerHTML =
+      `${total} 篇 paper notes · ${edges} 条引用边 · ${factions} 个派系 · 4 个转折点`;
+  }
+
+  /* ===== 2D Fallback（纯 SVG） ===== */
+  function render2DFallback() {
+    const svg = document.getElementById('canvas-2d');
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const margin = { left: 100, right: 40, top: 60, bottom: 50 };
+    const w = W - margin.left - margin.right;
+    const h = H - margin.top - margin.bottom;
+
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    svg.innerHTML = '';
+
+    const yearMin = state.yearMin;
+    const yearMax = state.yearMax;
+    const yearRange = state.data.meta.year_range;
+    const xScale = y => margin.left + ((y - yearMin) / (yearMax - yearMin)) * w;
+    const factions = Object.entries(state.data.meta.factions);
+    const yScale = i => margin.top + (i / factions.length) * h;
+
+    // 派系行背景
+    factions.forEach(([key, fac], i) => {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', margin.left);
+      rect.setAttribute('y', yScale(i));
+      rect.setAttribute('width', w);
+      rect.setAttribute('height', h / factions.length);
+      rect.setAttribute('fill', i % 2 === 0 ? '#0f1424' : '#0a0e1a');
+      svg.appendChild(rect);
+
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', 10);
+      label.setAttribute('y', yScale(i) + h / factions.length / 2 + 4);
+      label.setAttribute('fill', fac.color);
+      label.setAttribute('font-size', '13');
+      label.setAttribute('font-weight', '600');
+      label.textContent = `${key} · ${fac.name}`;
+      svg.appendChild(label);
+    });
+
+    // 转折点竖线
+    state.data.meta.turning_points.forEach(tp => {
+      if (tp.x < yearMin || tp.x > yearMax) return;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', xScale(tp.x));
+      line.setAttribute('x2', xScale(tp.x));
+      line.setAttribute('y1', margin.top);
+      line.setAttribute('y2', margin.top + h);
+      line.setAttribute('stroke', '#f59e0b');
+      line.setAttribute('stroke-dasharray', '4,4');
+      line.setAttribute('opacity', '0.5');
+      svg.appendChild(line);
+
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', xScale(tp.x) + 4);
+      label.setAttribute('y', margin.top - 8);
+      label.setAttribute('fill', '#fbbf24');
+      label.setAttribute('font-size', '10');
+      label.textContent = `${tp.id} ${tp.label}`;
+      svg.appendChild(label);
+    });
+
+    // 边
+    state.data.edges.forEach(edge => {
+      const from = state.data.nodes.find(n => n.id === edge.from);
+      const to = state.data.nodes.find(n => n.id === edge.to);
+      if (!from || !to) return;
+      if (!state.factionEnabled[from.faction] || !state.factionEnabled[to.faction]) return;
+      if (from.year < yearMin || from.year > yearMax) return;
+      if (to.year < yearMin || to.year > yearMax) return;
+      const fi = factions.findIndex(([k]) => k === from.faction);
+      const ti = factions.findIndex(([k]) => k === to.faction);
+      const x1 = xScale(from.year);
+      const y1 = yScale(fi) + h / factions.length / 2;
+      const x2 = xScale(to.year);
+      const y2 = yScale(ti) + h / factions.length / 2;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', edge.type === 'direct' ? '#4a90e2' : '#666');
+      line.setAttribute('stroke-width', edge.type === 'direct' ? 1 : 0.5);
+      line.setAttribute('opacity', edge.type === 'direct' ? 0.4 : 0.2);
+      svg.appendChild(line);
+    });
+
+    // 节点
+    state.data.nodes.forEach(node => {
+      if (!state.factionEnabled[node.faction]) return;
+      if (node.year < yearMin || node.year > yearMax) return;
+      const fi = factions.findIndex(([k]) => k === node.faction);
+      const fac = state.data.meta.factions[node.faction];
+      const cx = xScale(node.year);
+      const cy = yScale(fi) + h / factions.length / 2;
+      const r = 6 + (node.rating && node.rating.includes('⭐⭐⭐') ? 4 : 0);
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', cx);
+      circle.setAttribute('cy', cy);
+      circle.setAttribute('r', r);
+      circle.setAttribute('fill', fac.color);
+      circle.setAttribute('stroke', node.rating && node.rating.includes('⭐⭐⭐') ? '#fff' : 'none');
+      circle.setAttribute('stroke-width', '1.5');
+      circle.style.cursor = 'pointer';
+      circle.addEventListener('click', () => openModal(node));
+      circle.addEventListener('mouseover', e => showSvgTooltip(e, node));
+      circle.addEventListener('mouseout', () => document.getElementById('tooltip').style.display = 'none');
+      svg.appendChild(circle);
+
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', cx + r + 2);
+      label.setAttribute('y', cy + 3);
+      label.setAttribute('fill', '#e8eaed');
+      label.setAttribute('font-size', '10');
+      label.textContent = node.label;
+      svg.appendChild(label);
+    });
+  }
+
+  function showSvgTooltip(e, node) {
+    const tt = document.getElementById('tooltip');
+    const faction = state.data.meta.factions[node.faction];
+    tt.innerHTML = `
+      <div class="tt-title">${node.label}</div>
+      <div class="tt-row">派系: <strong style="color:${faction.color}">${node.faction} · ${faction.name}</strong></div>
+      <div class="tt-row">时间: <strong>${node.year}</strong></div>
+      <div class="tt-row">arxiv: <strong>${node.arxiv || '-'}</strong></div>
+    `;
+    tt.style.display = 'block';
+    tt.style.left = (e.clientX + 14) + 'px';
+    tt.style.top = (e.clientY + 14) + 'px';
+  }
+
+  /* ===== Modal ===== */
+  function openModal(node) {
+    const modal = document.getElementById('modal');
+    const faction = state.data.meta.factions[node.faction];
+    document.getElementById('modal-title').textContent = node.label;
+    document.getElementById('modal-body').innerHTML = `
+      <div class="modal-row">派系: <strong style="color:${faction.color}">${node.faction} · ${faction.name}</strong></div>
+      <div class="modal-row">时间: <strong>${node.year}</strong></div>
+      <div class="modal-row">评级: <strong>${node.rating || '-'}</strong></div>
+      <div class="modal-row">arxiv: <strong><a href="https://arxiv.org/abs/${node.arxiv}" target="_blank">${node.arxiv}</a></strong></div>
+      <div class="modal-row" style="margin-top:10px">
+        <a href="../appendix/paper-notes/${node.id}.md" target="_blank">📄 查看 paper note</a>
+      </div>
+    `;
+    modal.classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+
+  /* ===== 启动 ===== */
+  init();
+  </script>
+</body>
+</html>

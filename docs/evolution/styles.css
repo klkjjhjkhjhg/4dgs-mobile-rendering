@@ -1,0 +1,290 @@
+/* 4DGS / 3DGS Mobile Rendering 演进图 - 样式 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #0a0e1a;
+  color: #e8eaed;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#canvas-3d, #canvas-2d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#canvas-2d {
+  display: none;
+  background: #0a0e1a;
+}
+
+#canvas-2d.active {
+  display: block;
+}
+
+#canvas-3d.hidden {
+  display: none;
+}
+
+/* 顶部信息栏 */
+#info-bar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background: rgba(20, 26, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 18px;
+  backdrop-filter: blur(10px);
+  max-width: 380px;
+}
+
+#info-bar h1 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+#info-bar .subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+#info-bar .stats {
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* 派系筛选器 */
+#faction-filter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  background: rgba(20, 26, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 14px 18px;
+  backdrop-filter: blur(10px);
+  min-width: 220px;
+}
+
+#faction-filter h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #9ca3af;
+}
+
+.faction-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.faction-checkbox input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.faction-checkbox .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* 时间段筛选 */
+#year-filter {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#year-filter h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: #9ca3af;
+}
+
+#year-filter input[type=range] {
+  width: 100%;
+  margin: 4px 0;
+}
+
+#year-filter .range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #6b7280;
+}
+
+/* 视图切换 */
+#view-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+.view-btn {
+  background: rgba(20, 26, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e8eaed;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+.view-btn:hover {
+  background: rgba(40, 50, 80, 0.95);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.view-btn.active {
+  background: rgba(59, 130, 246, 0.5);
+  border-color: #3b82f6;
+}
+
+/* Tooltip */
+#tooltip {
+  position: absolute;
+  display: none;
+  z-index: 100;
+  background: rgba(15, 20, 35, 0.95);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+  max-width: 280px;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+#tooltip .tt-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+#tooltip .tt-row {
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+#tooltip .tt-row strong {
+  color: #e8eaed;
+}
+
+/* 弹窗 */
+#modal {
+  position: absolute;
+  display: none;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 26, 42, 0.98);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+#modal.active {
+  display: block;
+}
+
+#modal h2 {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+#modal .modal-row {
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+#modal .modal-row strong {
+  color: #e8eaed;
+}
+
+#modal a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+#modal a:hover {
+  text-decoration: underline;
+}
+
+#modal .close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#modal .close:hover {
+  color: #fff;
+}
+
+/* 转折点标记 */
+.turning-marker {
+  position: absolute;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px dashed rgba(245, 158, 11, 0.4);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #fbbf24;
+  z-index: 5;
+  pointer-events: none;
+}
