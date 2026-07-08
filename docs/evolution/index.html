@@ -155,7 +155,7 @@
 
     const aspect = window.innerWidth / window.innerHeight;
     state.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
-    state.camera.position.set(20, 12, 20);
+    state.camera.position.set(22, 14, 18);  // 拉远一点看更多节点
 
     state.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     state.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -227,19 +227,28 @@
       state.edgeLines[edge.from + '->' + edge.to] = line;
     });
 
-    // 转折点
+    // 转折点（半透明垂直面，跨越派系 Y 范围 + Z 范围）
     state.data.meta.turning_points.forEach(tp => {
       const x = yearToX(tp.x);
-      const geo = new THREE.PlaneGeometry(0.1, 12);
+      // BoxGeometry 替代 PlaneGeometry，加 0.2 厚度让它侧面也能看到
+      const geo = new THREE.BoxGeometry(0.15, 14, 4);
       const mat = new THREE.MeshBasicMaterial({
         color: 0xf59e0b,
         transparent: true,
-        opacity: 0.15,
+        opacity: 0.18,
         side: THREE.DoubleSide
       });
-      const plane = new THREE.Mesh(geo, mat);
-      plane.position.set(x, 4, 0);
-      state.scene.add(plane);
+      const box = new THREE.Mesh(geo, mat);
+      box.position.set(x, 4.5, 0);  // y 中心 = 4.5 (派系 0~9 范围中点)
+      state.scene.add(box);
+
+      // 转折点标签（用 HTML 不好放，用 Sprite text 麻烦，改为屏幕空间 LineSegments 不可行）
+      // 简化：加发光边缘线让面更明显
+      const edges = new THREE.EdgesGeometry(geo);
+      const lineMat = new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.5 });
+      const edgeLine = new THREE.LineSegments(edges, lineMat);
+      edgeLine.position.set(x, 4.5, 0);
+      state.scene.add(edgeLine);
     });
 
     // 交互
@@ -258,7 +267,7 @@
     return {
       x: yearToX(node.year),
       y: state.data.meta.factions[node.faction].y * 2.5,
-      z: Math.random() * 0.3  // 微小抖动避免完全重合
+      z: ((parseInt(node.id.replace(/\D/g, '')) || 0) % 7) * 0.4 - 1.2  // 用 id 数字 mod 7 决定 Z, 避免节点全挤一起
     };
   }
 
