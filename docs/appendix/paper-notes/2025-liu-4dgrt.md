@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**4D-GRT 是 4DGS(动态)工作**,但 **核心应用场景是"camera effect 数据生成"** —— 不是直接 mobile rendering 加速。**其相关性在本调研的间接价值是**:**"**4D Gaussian + ray tracing** 替代 4D Gaussian + rasterization"** 是本项目 M3 阶段可考虑的另一条渲染管线思路。
 
+## 0.5 元数据
+
+- **venue**: SIGGRAPH Asia 2025
+- **arxiv-id**: 2509.10759
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 4DGS 假设 **理想 pinhole 相机**,无法模拟真实相机的 **fisheye 畸变 + rolling shutter** 等物理效果 —— 如何在 **4DGS 框架内**加入 **physically-based ray tracing** 来生成可控的物理真实相机效果 4D 视频数据,且做到 **fastest rendering speed**?

@@ -2,6 +2,19 @@
 
 > **相关性**:**中等相关** — ECCV 2024 Vector Quantization 路线压缩 3DGS;**与 MEGA / LightGaussian 互补的第三条 bitpack 路径**;**对项目 M4 bitpack 路线**提供 K-means / VQ 思路。
 
+## 0.5 元数据
+
+- **venue**: ECCV 2024
+- **arxiv-id**: 2312.08826
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 3DGS 的 per-splat 字节数(48 SH + 14 metadata = ~200 bytes/splat)过大,如何用 **Vector Quantization(VQ)** 大幅压缩同时保持 comparable 质量?
 

@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**SeeLe 是 3DGS(静态) mobile 加速**。**与 Mobile-GS(已有 11 号笔记)直接对标**:同方向,同目标(mobile device),**同期工作**(SeeLe 2025-03 vs Mobile-GS 2026-03 提交)。**两条 mobile 加速路径对照**:**SeeLe = GPU 端 algorithmic**(hybrid preprocessing + contribution-aware rasterization),**Mobile-GS = 算法 + Vulkan 端 OIT + NVQ + SH-distill**。
 
+## 0.5 元数据
+
+- **venue**: ICLR 2025
+- **arxiv-id**: 2503.05168
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 3DGS 在 **mobile device** 上达不到 real-time —— 如何通过 **hybrid preprocessing + contribution-aware rasterization** 两件套做到 **2.6× 加速 + 32.3% 模型压缩**,且"**seamlessly integrated into existing 3DGS pipelines with minimal fine-tuning**"?

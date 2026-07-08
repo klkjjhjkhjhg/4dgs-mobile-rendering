@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**SUCCESS-GS 是 3DGS + 4DGS efficient 方向 survey**,**不提出新方法**;**abstract §"first unified overview" 直引**;**写作目标 = 给本项目"4DGS 压缩 + 加速"提供完整方法学 map**;**37 页内容覆盖 §3 静态 + §4 动态 + §5 datasets/metrics + §6 future directions**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2025-07)
+- **arxiv-id**: 2512.07197
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS / 4DGS 实用化的最大瓶颈 = **存储开销(百万级 Gaussians) + 计算开销(per-Gaussian motion inference)**。**如何系统化分类现有 efficient 3DGS / 4DGS 方法,给研究者一张完整的 roadmap?**

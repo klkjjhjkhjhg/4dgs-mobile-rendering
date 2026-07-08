@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**Lumina 是 3DGS 静态加速硬件论文**,**不是 4DGS 动态工作**;**abstract §3.2 提"Rasterization 仍是最 dominant step",其 RC 机制直接对应"per-frame compute"**—— **可作为本项目"4DGS 静态 + 动态融合"中静态端 SOTA 移动硬件方案**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2025-06)
+- **arxiv-id**: 2506.05682
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 3DGS 在 mobile SoC 上实时性不够(传统 GPU 算 color integration + sorting 太重)。**如何用硬件-算法 co-design 同时解决"Sorting 重"和"Rasterization 颜色积分重"两个 bottleneck,质量损失 < 0.2 dB?**
@@ -167,3 +180,27 @@
 - PDF §8 Discussion 直引(S2 在 head rotation 退化场景的应对)
 
 [abstract 直引] [PDF 直引] [推测] [调研深度:abstract + §1-7 + §8 关键页,§6.4 GSCore 详细 Table 数字未及]
+
+## 11. 1-hop 关系图
+
+### 11.1 引用的相关工作 (downstream)
+
+Lumina 30 references（来自 Semantic Scholar 2026-07-08 验证）：
+
+- **核心相关（7 条）全部已在 INDEX**（**Lumina 30 references 验证案例**）：
+  - [2023-kerbl-3dgs](2023-kerbl-3dgs.md)（3DGS 原论文）
+  - [2023-yang-deformable-3dgs](2023-yang-deformable-3dgs.md)（Deformable 3DGS）
+  - [2024-wu-4dgs](2024-wu-4dgs.md)（4DGS 原论文）
+  - [2024-yu-mip-splatting](2024-yu-mip-splatting.md)（Mip-Splatting）
+  - [2024-li-spacetime-gaussians](2024-li-spacetime-gaussians.md)（Scaffold-GS 系）
+  - [2025-chen-4dgscc](2025-chen-4dgscc.md)（4DGS-CC）
+  - [2026-du-mobile-gs](2026-du-mobile-gs.md)（Mobile-GS）
+
+- **23 条不相关**：医学 / 自动驾驶 / SLAM / 任务规划 / 行人预测 / 路径规划 / 双目匹配 / 运动捕捉（**不在本项目调研范围**）
+
+### 11.2 被引用的后续工作 (upstream)
+
+- [2026-du-mobile-gs](2026-du-mobile-gs.md)（Mobile-GS 引用 Lumina 体系结构 co-design）
+- [2026-du-flux-gs](2026-du-flux-gs.md)（Flux-GS 也关注 mobile）
+
+**v2 用 S2 API 自动拉取完整 cited-by 列表**。

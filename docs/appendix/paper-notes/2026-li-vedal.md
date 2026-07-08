@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** pruning 工作，**不是 4DGS**。**对 4DGS 适用性**：variational 框架 + 异步 pruning + KL sparsity prior 都是**模型无关**的，可直接套到 4DGS canonical-space Gaussians 上。**对本项目 M3 spike 阶段有方法学价值**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-04)
+- **arxiv-id**: 2606.02346
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 3DGS pruning 方法用 **heuristic importance score**（快但次优）或 **synchronous batch update**（一致但慢），**如何在 closed-form variational 框架下，做到 prediction-error gating + 异步更新，且数学可证 retention-error 对应**？

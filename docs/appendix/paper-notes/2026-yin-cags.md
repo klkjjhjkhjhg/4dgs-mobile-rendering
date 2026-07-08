@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**CAGS 是 3DGS-based VV streaming 系统**(不是 4DGS 原生)—— abstract 直引 "3DGS-based FVV methods"。**但**:**动态场景(N3DV)** + **server-client 架构** + **LoD streaming** —— **与本项目"高速相机阵列预制 + 端侧流式播放"工作流强相关**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-05)
+- **arxiv-id**: 2605.09279
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 Volumetric Video(VV)streaming 现有 3DGS 方案存在 1) **LoD-based 质量下降明显**(density-based LoD 在 Gaussian 上不适用),2) **aggressive attribute compression 导致 color distortion**。**如何做"color-adaptive" 自适应 streaming,在 aggressive 量化下保持视觉质量**?

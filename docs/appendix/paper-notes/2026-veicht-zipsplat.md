@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **Feed-forward 3DGS**（不是 4DGS，也不是 per-scene optimization 3DGS）。**Feed-forward 路线 = 给定几张图像一次性 forward pass 重建 3D scene**，不需 minutes-hours 的 per-scene training。**对 4DGS 适用性**：token-based decoupled-from-pixel-grid 思路理论上对 4DGS canonical-space 可借鉴。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-06)
+- **arxiv-id**: 2606.05102
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 Feed-forward 3DGS methods 的 inductive bias = **Gaussian 与 input pixel 一一对应**（"tied to input pixels"）—— **Gaussian 预算由 2D camera resolution 决定，而非 3D scene complexity**（"a flat wall and a richly textured object thus produce equally many Gaussians despite very different geometric needs"）。**如何 decouple Gaussian placement from pixel grid，在 fewer Gaussians 下实现更高 quality**？

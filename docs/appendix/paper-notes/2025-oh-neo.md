@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**Neo 是 3DGS(静态)工作**,**不是 4DGS**。**但**:**直接打到本项目"on-device 3DGS / 4DGS 加速"的核心瓶颈——sorting**;**KAIST + Meta 团队**;**7nm ASIC 综合**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2511.12930
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS on-device AR/VR 渲染的瓶颈是 **sorting 阶段**(高 memory bandwidth demand)。**如何利用相邻帧 Gaussian 顺序的时序冗余,做 reuse-and-update 排序,避免每帧重新 sort**?

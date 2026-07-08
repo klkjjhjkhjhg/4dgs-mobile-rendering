@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **4DGS 表示层面的连续时间**工作（不是专门 mobile 加速）—— 但**对 4DGS Mobile 路线的子问题（时间冗余 / 帧间一致性）有价值**。**本项目 M4/M5 路线中，4DGS-1K 的 mask 复用 + RetimeGS 的 continuous-time 表示 = 更紧的 frame-to-frame 缓存利用**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2026 Oral
+- **arxiv-id**: 2603.13783
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://william-wang2.github.io/RetimeGS/
+- **github**: （无）
+- **status**: received (Oral)
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 现有 4DGS 方法在**离散帧时间戳**上训练，**过拟合离散帧**但在**连续时间插值**时出现 **ghosting artifacts** —— 这是 **temporal aliasing**。**如何在 4DGS 训练时显式建模时间的连续性，避免插值鬼影**？

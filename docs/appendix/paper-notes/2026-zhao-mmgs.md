@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** 压缩工作，不是 4DGS。**对 4DGS 适用性**：OT-based aggregation 在 canonical-space Gaussians 上理论可移植（global 几何分布匹配），但 abstract 未做 4DGS 实验。**对本项目派系 1（训练期压缩）方法学价值**：OT 框架提供了比 local-heuristic pruning 更 global 的视角。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-05)
+- **arxiv-id**: 2605.19304
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS 通过 2D view-space gradients 做 densification，导致 **massive redundant primitives + 几何不一致性**。**如何用 global 几何分布匹配（Optimal Transport）将 3DGS 压缩到 10% primitives 同时保持 ∆PSNR ≥ 0**？

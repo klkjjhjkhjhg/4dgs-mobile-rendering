@@ -2,6 +2,19 @@
 
 > **升级说明**:本笔记从 abstract 级升级为 PDF 全文级。**关键数字全部 PDF Table 2 直引**(NeRF-DS real-world);**D-NeRF synthetic Table 1 在本次 pypdf 6.13.0 + pdfplumber 双盲抽都未拿到(可能是图像化或字体编码问题)**,从已 verified 的 `2025-yuan-4dgs-1k.md` Table 2(同源 arxiv 2503.16422)与 `2024-zhang-mega-4dgs-acceleration.md` Table 1 转引 —— 这两条数据已被严格验证。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2503.16422
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://ingra14m.github.io/Deformable-3D-Gaussians/
+- **github**: https://github.com/ingra14m/Deformable-3D-Gaussians
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐⭐
+
 ## 一句话问题
 如何用 3DGS 范式重建**单目视频动态场景**,并在不损失精度的前提下实现**实时渲染**?
 
@@ -134,3 +147,19 @@
 - 此前 abstract 级笔记 6162 B → **本次升级 → 见最终 commit hash**。
 - 与 `2025-yuan-4dgs-1k.md` 关系:Deformable 3DGS 是 4DGS-1K Table 2 中的 baseline 之一,**两者数据点已交叉引用**;下游 `02-rendering-acceleration.md` §2(范式分类)应把 Deformable 3DGS 归到 **"单目 + canonical + deformation"** 范式分支。
 - 与 `2024-wu-4dgs.md` 关系:4DGS 与 Deformable 3DGS 是 **同期 / 同思路** 工作(2023-09~10),差异在 HexPlane 编码 vs 直接 MLP —— **下游** §2 加速技术树**应**把两者视为"基础范式双胞胎"。
+
+## 11. 1-hop 关系图
+
+### 11.1 引用的相关工作 (downstream)
+
+Deformable 3DGS 是 3DGS → 4DGS 演化的**早期桥梁**：
+
+- **3DGS 原论文**：[2023-kerbl-3dgs](2023-kerbl-3dgs.md)
+- **后续 4DGS 工作引用了它**：
+  - [2024-wu-4dgs](2024-wu-4dgs.md)（4DGS 原论文，canonical + deformation 范式继承）
+  - [2024-li-spacetime-gaussians](2024-li-spacetime-gaussians.md)（geometry-aware KNN 时空网格）
+  - [2024-duan-4drotorgs](2024-duan-4drotorgs.md)（canonical rotation，D-NeRF 1257 FPS）
+
+### 11.2 被引用的后续工作 (upstream)
+
+**v2 用 S2 API 自动拉取**。

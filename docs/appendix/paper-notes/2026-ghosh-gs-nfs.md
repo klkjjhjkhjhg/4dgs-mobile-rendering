@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **4DGS** 编码 + 流式工作，**是 4DGS 专项**——与本项目主线 100% 对标。**实测在 Jetson Orin mobile GPU**——与本项目 Snap 8 Gen 4 不同代（Jetson Orin = 2018 GPU 架构，Snap 8 Gen 3 = 2023 Adreno 700 系列），**但都是 mobile GPU**，**有参考价值**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-06)
+- **arxiv-id**: 2606.05650
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 4DGS 是 30+ FPS 动态场景渲染的 SOTA，**但 4DGS 编码 + 解码 + 流式传输的整条 pipeline 在 mobile GPU 上 = 0 公开工作**。**如何设计一个 GPU codec（基于 octree + RAHT）实现 4DGS bandwidth-adaptive streaming + 25 FPS mobile decode**？

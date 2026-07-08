@@ -2,6 +2,19 @@
 
 > **升级说明**:本笔记从 abstract 级升级为 PDF 全文级。**关键数字全部 PDF Table 1/2/3 直引**,不再外推。补充:MEGA 是 **bitpack 路线**(SH→DC+AC + entropy-constrained deformation),与 4DGS-1K(Spatial-Temporal Variation Score pruning + Temporal Filter mask)**不同思路**,**两者可叠加**(已在 `2025-yuan-4dgs-1k.md` §"与本调研主线的关系"中明确说明)。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2410.13613
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: https://github.com/Xinjie-Q/MEGA
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 如何把 4DGS 的"百万级高斯 × 161 参数(其中 144 是 SH 系数)"从**GB 级存储**压到**几十 MB**,**同时保持 comparable quality 和实时速度**?
 

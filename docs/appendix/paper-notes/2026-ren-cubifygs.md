@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态 per object）+ 4DGS（rigid object rearrangement over time）** 的混合工作，**不是完整 4DGS**。**测试平台：RTX 4090**（不是 mobile GPU）。**对本项目 4DGS Mobile 适用性较弱**，但**对 dynamic SLAM 路线有价值**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-06)
+- **arxiv-id**: 2606.28720
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 3DGS SLAM 在 **rigid object rearrangement**（家具移动 / 物体出现消失）场景下，**需要 erase-and-reconstruct 全场景**——**如何做到 object-level 资产复用 + 终身动态维护**？

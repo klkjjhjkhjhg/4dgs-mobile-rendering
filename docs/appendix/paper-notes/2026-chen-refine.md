@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** pruning 工作，**不是 4DGS**。**对 4DGS 适用性**：Hessian 重要度场是 per-Gaussian 几何属性推导，理论上可扩展到 4DGS 的 canonical-space Gaussians，但 abstract 未做实验。**本项目主线是 mobile 4DGS streaming，REFINE 提供了一种"零渲染 passes 评估重要性"的方法学** —— 对**训练期剪枝阶段**有借鉴价值。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-04)
+- **arxiv-id**: 2606.09074
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://zhangchen2022.github.io/REFINE.github.io/
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 3DGS pruning 方法面临 **"parameter-space heuristic（快但粗）"vs "render-aware（精但慢）"** 的两难：**如何在完全 bypass 前向渲染 passes 的前提下，达到 render-aware pruning 的 perceptual accuracy**？

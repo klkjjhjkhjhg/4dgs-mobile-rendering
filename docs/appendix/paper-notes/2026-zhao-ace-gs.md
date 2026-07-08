@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** 工作，不是 4DGS。**但其方法学（momentum-consistency densification + statistical sensitivity sparsification + frequency-domain residual compensation）对 4DGS canonical-space 剪枝有借鉴价值**。**未做 4DGS / mobile GPU 实测**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-03)
+- **arxiv-id**: 2606.21244
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 3DGS 加速框架为追求快速收敛往往 **aggressive pruning primitives → 高频细节严重丢失**。**如何在保持 ultra-fast 训练速度（3-5 min）的同时，保留甚至超越原始 3DGS 的 PSNR**？

@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**OMG4 是 4DGS(动态)工作**,abstract 直引 —— **本项目主线命中**。**关键创新是把 3DGS 的 sample / prune / merge 范式系统化搬到 4DGS**;**多作者跨 4 单位(Yonsei / SNU / POSTECH / Sungkyunkwan)**,韩国 4DGS 派系。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2025-10)
+- **arxiv-id**: 2510.03857
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 4DGS 用数百万 Gaussian 拟合动态,存储开销巨大(单 Gaussian + 时间属性 = 巨大 footprint)。**能否用 3 阶段 progressive 压缩(Sample → Prune → Merge)+ 属性压缩 + SVQ,既降 60% 体积又保持质量**?

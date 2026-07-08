@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**SpeeDe3DGS 是 Deformable 3DGS(Yang 2024)的优化版**,**不是纯 4DGS canonical rotation 派**,**针对 DeformableGS 的"per-Gaussian neural motion field" 瓶颈**;**GroupFlow 模块也可单独叠加在 4DGS 上**(MonoDyGauBench Table 2 第二段"4DGS + Pruning + GroupFlow" 行)。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2506.07917
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 Deformable 3DGS 及其动态扩展虽然质量 SOTA,**但 per-Gaussian neural inference 的 cost 让它们算不动**(MonoDyGauBench 文献里 DeformableGS 20 FPS,4DGS 63 FPS)。**如何既保住 neural motion field 的表达力,又把渲染速度拉到 non-neural baseline 水平?**

@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）**工作，不是 4DGS。**但其方法学（Monte Carlo SH 压缩 + multi-view densification + WebGL 端侧渲染）对 4DGS 同样可移植**——**Mobile-GS 也是 3DGS 静态，但已经成功成为本项目派系 3 首选**；Flux-GS 是其继任工作，应该替换或并列 Mobile-GS 作为新的派系 3 首选。
 
+## 0.5 元数据
+
+- **venue**: ECCV 2026 (under review)
+- **arxiv-id**: 2606.30017
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://xiaobiaodu.github.io/flux-gs-project/
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐⭐
+
 ## 一句话问题
 
 如何在 **mobile GPU (Snap 8 Gen 3)** 上以 **3rd-order SH 等价视觉质量 + 更小 storage** 实时渲染 3DGS，**且训练时间从 Mobile-GS 的 86 min 缩短到 11 min 量级**？
@@ -150,3 +163,16 @@
 - `INDEX.md` 派系 3（C 渲染加速）加 Flux-GS 行 + 调整排名
 - `README.md` §2 派系 3 表格 #1 改 Flux-GS，#2 改 Mobile-GS；§1 论据表加新行（论据 6：Flux-GS 1.6 MB / 147 FPS / 11 min 训练）
 - `docs/02-rendering-acceleration.md` 加 §X 节"Mobile 端 2026 H2 新基线"
+
+## 11. 1-hop 关系图
+
+### 11.1 引用的相关工作 (downstream)
+
+Flux-GS 是 3DGS 移动端 SOTA（Snap 8 Gen 3 实测 147 FPS @ 2.1 MB）：
+
+- **3DGS 原论文**：[2023-kerbl-3dgs](2023-kerbl-3dgs.md)
+- **Mobile-GS**：[2026-du-mobile-gs](2026-du-mobile-gs.md)（直接前置工作）
+
+### 11.2 被引用的后续工作 (upstream)
+
+**v2 用 S2 API 自动拉取完整 cited-by 列表**——预计会成为 3DGS 移动端后续工作的引用基线。

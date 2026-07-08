@@ -2,6 +2,19 @@
 
 > **相关性**:**中等相关** — 静态 3DGS 15× 压缩 + 200+ FPS 的**轻量级"后处理"加速**,**对 mobile 端** bitpack 路线**直接借鉴价值**;与 MEGA 思路不同(MEGA 是 SH→DC+AC 训练时;LightGaussian 是训练后 prune + VQ)。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2311.17245
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://lightgaussian.github.io/
+- **github**: https://github.com/VITA-Group/LightGaussian
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 3DGS 训练后的高斯点云**过密**,如何在**不重新训练**的前提下,通过后处理 pipeline 把它压到 1/15 + 200+ FPS?
 

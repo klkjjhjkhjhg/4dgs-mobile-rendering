@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**FCGS 是 3DGS(静态)压缩**。其价值在**"feedforward 压缩,把 minutes-level 优化压成 seconds-level"** —— 是 **HAC++ 的速度版**(HAC++ 还是 per-scene optimization,FCGS 是 feedforward)。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2410.08017
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: https://github.com/YihangChen-ee/FCGS
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS 压缩通常需要 **per-scene optimization** (分钟级) —— 如何做到 **feedforward single-pass**(秒级),且 **>20× 压缩率** + 维持 PSNR?

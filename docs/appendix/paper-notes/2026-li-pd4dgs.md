@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**PD-4DGS 是 4DGS(动态)工作**,abstract 直引 —— **本项目主线命中**。**4DGS 在 mobile bandwidth 下"all-or-nothing 等待"问题被本研究首次系统化解决**:73~930 秒的等待降至 1.7 秒,**on-demand progressive streaming first framework for 4DGS**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-05)
+- **arxiv-id**: 2605.11427
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 4DGS 的"monolithic bitstream"是 streaming 的"all-or-nothing"瓶颈:典型 ~25 MB 单一 bitstream(15 MB 静态 + 1.5 MB 全局 deformation + 8 MB 局部 deformation)在 2 Mbps 移动网络下需要 **100 秒**等待。**如何把 4DGS 改为 progressive,使得"任何 prefix 都可渲染"且兼容 DASH/HLS adaptive-bitrate**?

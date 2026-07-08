@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**Sparse4DGS 是 4DGS(动态)工作**,**但**其核心贡献 **不是"性能加速"** 而是"**稀疏帧输入下重建质量**"**。本调研取其**两个间接加速价值**:1) **"texture-aware" pruning 思路与 4DGS-1K STV pruning 平行**;2) **iPhone-4D 数据集** —— 是本项目"高速相机阵列预制高密度场景"路线的数据形态先例。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2025-11)
+- **arxiv-id**: 2511.07122
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://changyueshi.github.io/Sparse4DGS/
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 4DGS 方法(Deformable-3DGS / 4DGS / 4DGS-1K 等)需要 **dense-frame video sequence** 才能高质量重建;**当输入帧稀疏** (e.g. iPhone 拍摄的低 FPS 视频)时,4DGS 重建质量急剧下降。**如何让 4DGS 在 sparse-frame 输入下保持质量**?

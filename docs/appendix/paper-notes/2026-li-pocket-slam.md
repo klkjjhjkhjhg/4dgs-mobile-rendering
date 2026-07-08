@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS + SLAM**，**不是 4DGS**。**对 4DGS 适用性**：Pocket-SLAM 是 **plug-in**（"enable edge-device (AV/drone embedded GPU) deployment"）——可以接到 4DGS-SLAM pipeline 上，作为 4DGS 之外的**渲染剪枝层**。**对派系 1（压缩）和派系 3（移动端）都有强 relevance**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-06)
+- **arxiv-id**: 2606.24796
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS-SLAM 在大场景（KITTI / EuRoC）下**显存爆炸（10-40 GB）**——单卡 GPU 跑不动，**更别说 edge device**。**如何在不破坏 SLAM 跟踪精度的前提下，按渲染区域贡献度做 tile-level budget-aware pruning**？

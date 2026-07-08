@@ -2,6 +2,19 @@
 
 > **升级说明**:本笔记从 abstract 级升级为 PDF 全文级。**关键数字全部 PDF Table 1/2/3 直引**。HyperReel 是 **NeRF-style 6-DoF 视频** 路线(非 3DGS 范式),**本项目不直接采用其渲染路径**;但**"ray-conditioned sample prediction network"**的"稀疏采样"思想是后续 3DGS 加速路线的精神先驱。**NeRF-style 6-DoF 在 §1 引言中也是明确列出的"非 3DGS 路线"对照**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2023
+- **arxiv-id**: 2301.02238
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://hyperreel.github.io
+- **github**: https://github.com/facebookresearch/hyperreel
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 如何在**多视角视频**(4×4 / 18~20 / 46 相机阵列)上同时实现**高质量 6-DoF 视频**、**实时渲染**、**紧凑存储**,**不用 custom CUDA code**?
 

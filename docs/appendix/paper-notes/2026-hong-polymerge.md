@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）→ polytope 几何抽象**工作，**不是 4DGS**，**不是为了渲染**。**PolyMerge 目标不是渲染而是 collision avoidance** —— 把 3DGS 转成 **凸多面体覆盖**，用于 CBF-based safe navigation。**对本项目 4DGS mobile rendering 不直接命中渲染管线**，但其 **"3DGS → 紧凑几何抽象"** 思路对派系 1（训练期压缩）**有借鉴价值**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-05)
+- **arxiv-id**: 2606.16232
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS radiance field 适合 photorealistic 重建，但 **memory-heavy（hundreds of thousands to millions Gaussians，MB-GB 级）**，**远超 mobile platforms**（"mobile platforms typically on the order of kilobytes for small drones such as Crazyflies"）—— abstract 直引。**如何在保持 provable obstacle over-approximation 的前提下，把 3DGS 模型压缩到 drone on-board 内存容量，且支持实时 CBF safe planning**？

@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**4DGS-CC 是 4DGS(动态)工作**,**本项目主线命中**。**核心创新是 NVCC(Neural Voxel Contextual Coding) + VQCC(Vector Quantization Contextual Coding)双模块**,把信息论上下文模型借鉴到 4DGS 压缩。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2504.18925
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 4DGS 重建动态场景存储开销大(动态 deformation 4D neural voxels + canonical 3DGS)。**能否借鉴神经上下文编码(NCC,已在 NeRF / 3DGS 静态场景验证)到 4DGS 动态场景,实现 12× 压缩同时保持 SOTA 渲染质量**?

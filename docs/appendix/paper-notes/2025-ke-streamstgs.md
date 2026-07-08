@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**StreamSTGS 是 4DGS(动态)工作**,abstract 直引"canonical 3D Gaussians, temporal features, and a deformation field" —— **本项目主线命中**。**核心创新是把 canonical Gaussian 编码为 2D 图像,temporal features 编码为视频** —— **直接借鉴视频编码工具,无需重训即可支持 adaptive bitrate**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2511.06046
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 3DGS-based FVV 方案每帧 10 MB storage,**无法 real-time streaming**。**如何用视频编码思路(2D 图像 / 视频)压缩 4DGS,既降低每帧存储又支持 adaptive bitrate + 实时解码**?

@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**GIFStream 是 4DGS(动态)工作**,abstract 直引"4D Gaussian Splatting" + "6-Dof-free viewing experience" —— **本项目主线命中**。**核心创新是把 4DGS 重新组织为 2 个 video(VTI + VGF),借助 VVC / HEVC 视频编解码器压缩**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2505.07539
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 Immersive video 需要 6-DoF 自由观看 + 高质量重建 + 可控存储。**4DGS 当前方法难以平衡质量与存储**。**如何把 4DGS 重新组织成 2D 视频格式,让传统视频编解码器(VVC / HEVC)直接压缩**?

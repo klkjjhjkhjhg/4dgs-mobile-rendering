@@ -2,6 +2,19 @@
 
 > **相关性**:**高度相关** — 同期(CVPR 2024)4DGS 范式,**与 Wu 4DGS(2023-10)同思路,实现路径不同**;直接对标 4DGS-1K 的"per-Gaussian 时间建模"路线。**本项目 mobile 4DGS rendering 的"per-Gaussian trajectory"思路来源**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2312.16812
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: https://github.com/oppo-us-research/SpacetimeGaussians
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 如何让 4D 高斯显式包含"时间轨迹",从而在动态场景中实现**实时 + 高质量**渲染?
 

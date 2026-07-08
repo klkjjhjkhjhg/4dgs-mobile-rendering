@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** post-training compression 工作，不是 4DGS。**但其 dictionary-learning 框架（共享字典 + 稀疏码 + 直接在 sparse codes 上 render）是**对 4DGS temporal dimension 兼容的方法学**：sparse codes 比 dense SH 系数更易 compress / transmit，**对派系 4（流式）有借鉴价值**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-03)
+- **arxiv-id**: 2605.30396
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS 训练后 SH 系数占 80%+ storage，**如何在不动现有 3DGS 模型的前提下，用 dictionary-learning + sparse codes 在 SH 上做 post-training compression，并同步利用稀疏性做 faster rendering**？

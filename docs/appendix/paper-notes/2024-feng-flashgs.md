@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**FlashGS 是 3DGS(静态)工作**,**不是 4DGS**。但其 "**average 4× speedup over mobile consumer GPUs**" 这个 abstract 直引数字是**桌面对标**层面非常难得的 mobile GPU 实测数字;虽然不是 4DGS,本调研作为"4DGS mobile 路径的桌面先例"收录。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2408.07967
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 如何在 **CUDA 层面**让 3DGS 在 **mobile consumer GPU(笔记本/手机 GPU)** 上获得 **平均 4× 加速 + 内存下降**,且开源一个 Python + CUDA 的可集成库?

@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS + 物理仿真** 跨领域工作，**不是 4DGS 加速**。**对 4DGS 适用性**: GaussianFluent 用 MPM 做物理模拟，**4DGS-CC 的神经上下文编码思路可以做"几何-物理"混合 representation**（`[推测]`）。**对本项目 4DGS Mobile 路线间接价值**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2026 Oral
+- **arxiv-id**: 2601.09265
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://hb-pencil-zero.github.io/GaussianFluent/
+- **github**: （无）
+- **status**: received (Oral)
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 3DGS **没有内部纹理**（仅表面），**没有 fracture-aware simulation**——所以**不能做脆性断裂 / 切片 / 内部结构变化**。**如何用 3DGS 表示 + 物理模拟生成真实的多材质动态场景**？

@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**SharpTimeGS 是 4DGS(动态)工作**,**本项目主线命中**。**核心创新是 lifespan-aware 4DGS 框架**:**learnable lifespan parameter 重新设计时序 visibility**(从 Gaussian-shaped decay → flat-top profile),**decoupling motion magnitude from temporal duration**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-02)
+- **arxiv-id**: 2602.02989
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 4DGS 现有方法难以平衡"长时静态区域"与"短时动态区域"在 representation + optimization 两方面。**如何用一个 unified 4DGS 框架,通过 lifespan parameter 自动调节静态 / 动态区域,既保持 long-term stability 又不妥协 dynamic fidelity**?

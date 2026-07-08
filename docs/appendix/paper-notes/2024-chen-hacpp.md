@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**HAC++ 是 3DGS(静态)工作**,**不是 4DGS**。但其 **100× 压缩 + 优于 Scaffold-GS 20×** 是 **3DGS 压缩的当前公开 abstract 数字天花板**,且 monash 团队的 *HAC → HAC++ 路线*(ECCV 2024 接收 + 2025-01 期刊扩展版)与本项目 **"MEGA → 4DGS-1K" 的 bitpack 路线**直接平行。**核心借鉴点:hash-grid 辅助 context model 是 4DGS 压缩的潜在工具**。
 
+## 0.5 元数据
+
+- **venue**: ECCV 2024
+- **arxiv-id**: 2501.12255
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: https://github.com/YihangChen-ee/HAC-plus
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 如何把 3DGS 的存储从 **vanilla 几百 MB / 场景**压到 **1× 量级 MB / 场景**,且比 Scaffold-GS 进一步压 **20×** —— 同时不损失 PSNR?

@@ -2,6 +2,19 @@
 
 > **相关性**:**高度相关** — 同期(SIGGRAPH 2024)4DGS 加速工作中**最快**(D-NeRF 1257 FPS @ abstract),4DGS-1K Table 2 中直接对标的 baseline。**本项目 mobile 4DGS rendering 路线的主要灵感来源之一**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2402.03306
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://wdfvvy.github.io/4DRotorGS.github.io/
+- **github**: https://github.com/weify627/4D-Rotor-Gaussians
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 如何在保持 4DGS 高质量的前提下,把动态场景新视角合成的**推理 FPS**推到 **1000+**?
 

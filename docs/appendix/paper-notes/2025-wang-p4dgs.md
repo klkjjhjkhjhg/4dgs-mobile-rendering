@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**P-4DGS 是 4DGS(动态)工作** —— **本项目主线命中**。**核心创新是把 video compression 的 intra-/inter-frame prediction 范式借鉴到 4DGS** —— **canonical space 视作 reference frame,deformation field 视作 motion vector**。**对 M2 训练 pipeline 借鉴价值高**。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2510.10030
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 4DGS 的"deformation field + canonical space"框架有大量 spatial / temporal 冗余,且对 storage 极不友好(典型 4DGS 100+ MB / scene)。**能否借鉴视频编码的 intra-/inter-frame prediction + CABAC 上下文熵编码,把 4DGS 压到 ~1 MB 同时保留 SOTA 质量**?

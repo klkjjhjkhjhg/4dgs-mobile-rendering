@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **Feed-forward 3DGS（静态）** 工作，不是 4DGS。**对 4DGS 适用性**：**intermediate 2D Gaussian-generation feature latent coding** 思路理论上可扩展到 4DGS 中间 latent 特征，但 abstract 未做 4DGS 实验。**对派系 4（流式）价值最高**：**kB-level scene bitstream** + **controllable rate-distortion** 与本项目 M2 训练→流式播放 pipeline 强契合。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-06)
+- **arxiv-id**: 2605.25563
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 FF3DGS 给定 sparse context views 在单次 forward pass 内重建 3D scene，但**生成后的 Gaussians 是 irregular representation，对压缩不友好**。**如何把 coding bottleneck 移到 feed-forward 内部（before 2D-to-3D Gaussian mapping），实现 kB-level scene bitstream + 可控 RD trade-off**？

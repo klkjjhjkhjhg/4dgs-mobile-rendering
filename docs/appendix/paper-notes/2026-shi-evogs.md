@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** streaming 工作，**不是 4DGS**。**对 4DGS 适用性**：continuous-layered Evolution Tree 在概念上可直接扩展到 4DGS 的时间维度（加一层 time axis），但 abstract 未做实验。**本项目 M4/M5 路线中，4DGS streaming 的 progressive 传输可借鉴 Evolution Tree 的 parent-child 关系**。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-05)
+- **arxiv-id**: 2606.07179
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 现有 3DGS streaming 方法用 **discrete LOD layers**（每个 LOD 独立训练一个 splat set），**layer 之间 splat 冗余 65%+，且 layer transition 不平滑**。**如何在保持 layer-wise 渐进式传输的同时，让 layer 间有连续的质量过渡 + 大幅降低存储**？

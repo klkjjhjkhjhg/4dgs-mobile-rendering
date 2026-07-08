@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**AirGS 是 4DGS(动态)工作**,abstract 直引"4D Gaussian Splatting (4DGS) models dynamic scenes with time-varying 3D Gaussian ellipsoids"—— **本项目主线命中**。**但**:**AirGS 重点是 server 端 streaming / 通信 + training pipeline 优化,不是 mobile GPU 端到端实时渲染**;**没有 Vulkan / Adreno / Snap 实测**。
 
+## 0.5 元数据
+
+- **venue**: SIGGRAPH 2025
+- **arxiv-id**: 2512.20943
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 4DGS 用于 FVV 时,1) **长序列质量下降**,2) **带宽和存储开销大**,3) **传输/训练时延长** —— 如何在 streaming 场景下保持高 PSNR + 低延迟 + 紧凑传输?

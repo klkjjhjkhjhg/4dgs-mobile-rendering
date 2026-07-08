@@ -2,6 +2,19 @@
 
 > **相关性**:**中等相关** — 静态 3DGS alias-free 抗锯齿补丁,**间接影响 4DGS 移动端在 1080p 高分辨率下的边缘质量**,是 mobile 端视觉质量 baseline 的关键参考。CVPR 2024 **Best Student Paper** 含金量高。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2024
+- **arxiv-id**: 2311.16493
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://niujinshuchong.github.io/mip-splatting/
+- **github**: https://github.com/autonomousvision/mip-splatting
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 3DGS 在改变采样率(焦距 / 相机距离)时会出现"膨胀 / 侵蚀"伪影,如何在不损失速度的前提下消除这类 aliasing 伪影?
 

@@ -4,6 +4,19 @@
 
 > **⚠ 重要边界声明**:**4DGCPro 是 4DGS(动态)工作**,**直接打到本项目主线** —— 4DGS 在 **mobile device 实测实时解码 + 流式 streaming** 是本项目"4DGS mobile rendering"目标的最直接对标。**"real-time decoding and rendering on mobile devices"** 是 abstract 段原话。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2025-01)
+- **arxiv-id**: 2509.17513
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://mediax-sjtu.github.io/4DGCPro
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 4DGS 的 **volumetric video** 流式传输面临:1) **无法单模型内调质量 / 码率** (网络带宽 + 设备差异大);2) **mobile device 上做不到实时解码 + 渲染**。**如何在单一 bitstream 中实现 progressive streaming,且在 mobile device 上做到实时解码 + 渲染**?

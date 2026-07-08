@@ -4,6 +4,19 @@
 
 > **⚠ 重要诚实声明**:这是 3DGS(静态)工作,**不是 4DGS**。但它**直接证明了 Snap 8 Gen 3 + Vulkan 上 3DGS 可达 100+ FPS**—— 本项目 4DGS 路线需要类似加速,**Mobile-GS 的方法学(深度感知 + 顺序无关渲染 + 蒸馏 + NVQ + 剪枝)5 件套对 4DGS 同样适用**。
 
+## 0.5 元数据
+
+- **venue**: ICLR 2026
+- **arxiv-id**: 2603.11531
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://xiaobiaodu.github.io/mobile-gs-project
+- **github**: https://github.com/xiaobiaodu/mobile-gs
+- **status**: received
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐
+
 ## 一句话问题
 
 如何在 **mobile GPU(尤其是 Snap 8 Gen 3)+ Vulkan 2.0** 上实现 **实时(snapdragon 至少 30+ FPS)3DGS 渲染**,**PSNR 27+,storage 5 MB 量级**?
@@ -149,3 +162,19 @@
 ## 我的 commit 节奏
 
 本文是 11 篇 paper notes 之外**新加的第 12 篇**,聚焦 mobile GPU 实证。**后续 `02-rendering-acceleration.md` 应加一节"§X. Mobile 端实证(2026 H1)"**,直接引用 Mobile-GS Table 2 + Fig.1 caption。
+
+## 11. 1-hop 关系图
+
+### 11.1 引用的相关工作 (downstream)
+
+Mobile-GS 是小米 / 3DGS 移动端 SOTA：
+
+- **3DGS 原论文**：[2023-kerbl-3dgs](2023-kerbl-3dgs.md)
+- **Lumina**：[2025-feng-lumina](2025-feng-lumina.md)（体系结构 co-design 前置工作）
+- **Snap 8 Gen 3 实测 127 FPS @ 4.6 MB**（ICLR 2026，深度感知 + OIT + NVQ + 剪枝 5 件套）
+
+### 11.2 被引用的后续工作 (upstream)
+
+- [2026-du-flux-gs](2026-du-flux-gs.md)（Flux-GS 在 Mobile-GS 基础上进一步优化，Snap 8 Gen 3 147 FPS @ 2.1 MB）
+
+**v2 用 S2 API 自动拉取完整 cited-by 列表**。

@@ -4,6 +4,19 @@
 
 > **⚠ 重要区分**：这是 **3DGS（静态）** + **SLAM** 工作，**不是 4DGS**。**对 4DGS 适用性**：task-conditioned density allocation 可扩展到 4DGS time-ROI 分配；**对 dynamic SLAM 路线有方法学价值**。**4 Hz 实时性是机器人端侧 mobile-grade 指标**——证明 3DGS-based SLAM 可在低算力硬件上跑。
 
+## 0.5 元数据
+
+- **venue**: arxiv pre-print (2026-04)
+- **arxiv-id**: 2606.30809
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: （无）
+- **github**: （无）
+- **status**: under review
+- **收录日期**: 2026-07-08
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐
+
 ## 一句话问题
 
 3DGS SLAM 系统**对所有 Gaussians 一视同仁（uniform density）**，**但机器人任务只关心场景中一部分**（e.g. "fetch the cup on the table"）—— 浪费算力。**如何在 task-conditioned 方式下分配 Gaussian 密度 + 多机器人 map 融合 + 4 Hz 实时**？

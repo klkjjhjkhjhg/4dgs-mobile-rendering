@@ -2,6 +2,19 @@
 
 > **这是真·4DGS-1K**(2025-03 黄).我之前的 `2024-zhang-mega-4dgs-acceleration.md` 错把 MEGA 当 4DGS-1K 的替身。**MEGA 是同期(2024-10)bitpack + entropy 路线;4DGS-1K 是另一条线:Spatial-Temporal Variation Score pruning + Temporal Filter mask**。**两者解决不同问题,可叠加**,但不是替代。
 
+## 0.5 元数据
+
+- **venue**: CVPR 2025
+- **arxiv-id**: 2503.16422
+- **s2-id**: （v2 用 Semantic Scholar API 补全）
+- **homepage**: https://4DGS-1K.github.io
+- **github**: （无）
+- **status**: received
+- **收录日期**: 2026-07-08（首次）
+- **收录来源**: arxiv scan + 1-hop 引用规则
+- **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
+- **评级**: ⭐⭐⭐
+
 ## 一句话问题
 如何在保留 4DGS 精度的前提下,把它从 **retrained 4DGS 的 90 FPS @ N3V** 推到 **1000+ FPS**,**2% 的原始存储**?
 
