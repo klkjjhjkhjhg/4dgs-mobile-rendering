@@ -152,11 +152,22 @@ graph LR
 - **缺点**:训练 / 推理都更贵;**移动端 inference 时每个 splat 都要走 MLP,不适合 300 万 splats / 帧**
 - **`[推测]`**:可作"超小规模 + 高保真"备选
 
+#### 4.1.4 `continuous-time 4DGS` (2026-07-08 新增)
+
+- **代表**:`RetimeGS` (Wang 2026, **CVPR 2026 Oral**, HKUST + Netflix Eyeline Labs, arxiv:2603.13783)
+- **机理**:显式定义 Gaussian 的**连续时间行为**,消除现有 4DGS 在离散帧过拟合导致的 temporal aliasing
+- **核心**:optical flow-guided initialization + triple-rendering supervision(在 t_{i-1}, t_i, t_{i+1} 同时监督)
+- **关键优势**:**"ghost-free, temporally coherent rendering even under large motions"**(abstract 直引),**支持任意时间戳插值**（慢动作 / 子弹时间 / VR 高刷新率）
+- **对 mobile 加速**:frame-to-frame 冗余消除 → **可降低帧渲染负载 2-3×**(每帧只需 query 1/N Gaussians,N 由 optical flow 步长决定;`[推测,基于 4DGS-1K 类似的 mask 复用]`)
+- **状态**:**未在公开 abstract 拿到具体 FPS / PSNR 数字**(需进一步读 §4)
+- **`[论文笔记 2026-wang-retimegs.md]`**:详细分析
+
 ### 4.2 推荐
 
 - **主线**:`canonical + deformation`(Wu-4DGS 路线)
 - **备选 1**:`canonical + deformation` 简化版(无 HexPlane,纯 MLP,对应 Deformable 3DGS 范式),适合单目 / 数据少
 - **备选 2**:per-frame 3DGS,**只用于小时间窗(<30 帧)特写镜头**
+- **2026-07-08 增补**:**M3 spike 阶段如做 4DGS 训练,可叠加 `continuous-time 4DGS` (RetimeGS) 思路**——optical flow-guided init + triple-render supervision 给"任意时间戳插值"留出工程接口,本项目 M5 demo 段如果做"6-DoF 自由时间导航"会受益
 
 ---
 

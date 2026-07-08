@@ -500,9 +500,34 @@
 - **`§X` 节(本文件新增的"2026-07 综述")** —— 不在这里前置出现,在主调研完成时由主对话 session 插入,内容涵盖 12+ 篇 paper notes 综合,放在 `## 附录 A` 之前
 ---
 
-## 附录 X · 综述:2026 H1 3DGS / 4DGS 性能加速现状与趋势(2026-07-03)
+## 附录 X · 综述:2026 H1 3DGS / 4DGS 性能加速现状与趋势(2026-07-03,2026-07-08 增补)
 
 > **本节由主对话 session 在调研末期综合 21 篇 paper notes 写入,基于已实测的 PDF Table + abstract 直引,不做外推。**
+>
+> **2026-07-08 增补**:原文基于 21 篇 + 3 篇 survey;**2026-07-06 ~ 2026-07-08 新增 16 篇 paper notes (总数 49,见 `INDEX.md`)**。其中**直接对标本项目主线的关键新工作**:
+>
+> | 新 paper | 来源 | 关键数字 (abstract / Table 直引) | 取代 / 补充 |
+> |---|---|---|---|
+> | **Flux-GS** (Du, **ECCV 2026**) | arxiv:2606.30017 | Snap 8 Gen 3 **147 FPS @ 2.1 MB** (Indoor Mip-NeRF 360);**7.8× 训练加速** (11 min vs Mobile-GS 86 min);Monte Carlo SH 压缩 61% / 26% | **取代 Mobile-GS 作为派系 3 #1** (同作者 Du 团队继任作) |
+> | **GS-NFS** (Ghosh, **NVIDIA Research**) | arxiv:2606.05650 | **4DGS 25 FPS decode on Jetson Orin mobile GPU** (目标 30 FPS);1-2 orders faster than SOTA 4DGS compression;236 bytes/Gaussian | **取代 4DGCPro 作为派系 4 #1** (NVIDIA 背书 + 4DGS 专项 + mobile 实测) |
+> | **VEDAL** (NUST+PolyU) | arxiv:2606.02346 | 5.2× comp, 0.31 dB PSNR drop, 185 FPS (Mip-360 0.63M Gaussians, 141 MB) | 派系 1 #2 备选 (variational pruning) |
+> | **REFINE** (西工大+西电+城大) | arxiv:2606.09074 | 3,000× pruning compute↓ + ~20× device-latency speedup;rendering-free Hessian | 派系 1 #3 备选 (Hessian 解析近似) |
+> | **ACE-GS** | arxiv:2606.21244 | 4.5× 训练加速 + 745 FPS (Mip-360) | 派系 1 #3 备选 (momentum consistency) |
+> | **MMGS** (CQU) | arxiv:2605.19304 | 10× comp, 10× 训练加速;multi-view ranking + optimal transport | 派系 1 #3 备选 |
+> | **PolyMerge** (UC Berkeley) | arxiv:2606.16232 | polytope coverings + Crazyflie drone on-board CBF;Garden 39 MB | 派系 1 #3 备选 (on-device 实测) |
+> | **Smaller-Faster-3DGS** (Linköping) | arxiv:2605.30396 | 3.95×/3.10×/4.55× comp + 23-25% FPS↑ (post-training dictionary learning) | 派系 3 #3 备选 3 |
+> | **GaussLite** (MIT AeroAstro) | arxiv:2606.30809 | 4 Hz real-time on resource-constrained hw;≤1M Gaussian budget | 派系 3 #3 备选 (task-conditioned density) |
+> | **Pocket-SLAM** | arxiv:2606.24796 | 60% memory↓ + 2.7× FPS↑;KITTI seq10 34.2→13.3 GB;plug-in 设计 | 派系 1+3 #3 备选 (rendering-area-aware pruning) |
+> | **EvoGS** (NUS+SUTD+CNRS) | arxiv:2606.07179 | 2.4× payload↓, 5.5× VRAM↓;continuous-layered Evolution Tree;redundancy 65%→25% | 派系 4 #3 备选 |
+> | **ZipSplat** (ETH+Microsoft) | arxiv:2606.05102 | 6× fewer Gaussians (62K vs 393K YoNoSplat) + token-based scene | 派系 4 #3 备选 2 |
+> | **CodecSplat** (PKU) | arxiv:2605.25563 | 20-108 KiB/scene (vs MiB-level);feed-forward ultra-compact latent coding | 派系 4 #3 备选 3 |
+> | **CubifyGS** | arxiv:2606.28720 | object-level asset + rigid rearrangement;>40× faster than WildGS-SLAM | 派系 2 #3 备选 2 |
+> | **RetimeGS** (**CVPR 2026 Oral**, HKUST+Netflix) | arxiv:2603.13783 | 4DGS continuous-time 表示;消除 temporal aliasing + ghost-free frame interpolation | 派系 A 4DGS 表示 (新增) |
+> | **GaussianFluent** (**CVPR 2026 Oral**, PKU+BIGAI) | arxiv:2601.09265 | 3DGS + MPM 物理模拟 (elastic/fracture/slicing) + 混合材质 | 派系 A 边界 (新增) |
+>
+> **影响本项目**:派系 3 / 4 排名调整,详见 `README.md §2` 2026-07-08 更新。**Mobile-GS 降为派系 3 #2, Flux-GS 升 #1**;**4DGCPro 降为派系 4 #2, GS-NFS 升 #1**。
+>
+> **E. 总结图更新** (见 §E 末)。
 
 ### A. 现状(2026 H1 截止)
 
@@ -528,24 +553,28 @@
 
 #### A.3 移动 GPU(Snapdragon 8 Gen 3)
 
-| 工作 | FPS↑ | Storage↓ | 实测平台 |
-|---|---|---|---|
-| **Mobile-GS (Du 2026, ICLR)** | **127** (Mip-NeRF 360);**116 @ 1600×1063 on Bicycle** | **4.6 MB** | **Snap 8 Gen 3** |
-| SortFreeGS* | 24 | 64.3 MB | Snap 8 Gen 3 |
-| LocoGS-S | 17 | 8.5 MB | Snap 8 Gen 3 |
-| Speedy-Splat | 19 | 79.5 MB | Snap 8 Gen 3 |
-| 3DGS quantized | 8 | 61.8 MB | Snap 8 Gen 3 |
-| C3DGS / Mini-Splatting | 12~14 | 30~37 MB | Snap 8 Gen 3 |
+| 工作 | FPS↑ | Storage↓ | 实测平台 | 备注 |
+|---|---|---|---|---|
+| **Mobile-GS (Du 2026, ICLR)** | **127** (Mip-NeRF 360);**116 @ 1600×1063 on Bicycle** | **4.6 MB** | **Snap 8 Gen 3** | OIT 路线代表 |
+| **Flux-GS (Du 2026, ECCV)** ⭐ **新 #1** | **147** (Mip-NeRF 360 Indoor);**151** (Fig.1) | **2.1 MB** (Indoor) / **4.6 MB** (Outdoor) | **Snap 8 Gen 3** | **7.8× 训练加速 vs Mobile-GS** (11 min vs 86 min);Monte Carlo SH 压缩 61%/26%;开源 WebGL renderer |
+| SortFreeGS* | 24 | 64.3 MB | Snap 8 Gen 3 | 量化基线 |
+| LocoGS-S | 17 | 8.5 MB | Snap 8 Gen 3 | |
+| Speedy-Splat | 19 | 79.5 MB | Snap 8 Gen 3 | |
+| 3DGS quantized | 8 | 61.8 MB | Snap 8 Gen 3 | |
+| C3DGS / Mini-Splatting | 12~14 | 30~37 MB | Snap 8 Gen 3 | |
 
-> **关键观察**:**Mobile-GS 实测 Snap 8 Gen 3 上 127 FPS = 同期第 2 名(SortFreeGS 24 FPS)的 5.3×**;**Mobile-GS 是 2026 H1 唯一一篇公开 mobile GPU 实测论文**(其余 4DGS / MEGA / 4DGS-1K 工作均在桌面 GPU 跑)。
+> **关键观察**:**Flux-GS 取代 Mobile-GS 成为 2026 H1 末 3DGS mobile SOTA**(同作者 Du 团队继任作,ECCV 2026 接收);**Flux-GS 147 FPS / 2.1 MB vs Mobile-GS 127 FPS / 4.6 MB** = **1.16× FPS, 0.46× Storage**。**Flux-GS 是迄今唯一把 Snap 8 Gen 3 跑进 60 FPS 目标之上 (60 FPS = 1/2 × 147 FPS) 的 3DGS 静态工作**。
+>
+> **Jetson Orin (NVIDIA mobile GPU)**:GS-NFS 在 Jetson Orin 上 **4DGS 25 FPS decode**(目标 30 FPS)——**首次 4DGS 专项 mobile GPU 实测**,abstract 直引 1-2 orders faster than SOTA 4DGS compression,236 bytes/Gaussian。
 
 ### B. 趋势(2024 H2 ~ 2026 H1)
 
 #### B.1 性能加速"三条主线"已成清晰格局
 
-1. **Sort-free / Order-independent rendering(桌面 Mobile-GS 路)** —— 杀 sort 需求(OIT),配合 view-dependent enhancement 补伪影。**Mobile-GS 在桌面 1125 FPS 是当前 3DGS SOTA, mobile 127 FPS**。
-2. **Spatial-Temporal Pruning + Mask(桌面 4DGS-1K 路)** —— STV pruning + Temporal Filter mask,**4DGS 在桌面从 90 → 805 FPS(8.94×),storage 41.7× 压缩**。**Mask 跨帧复用(Activation IoU ≈ 1)是 mobile 端减 raster 负载的关键**。
-3. **Bitpack / NVQ / Distill(桌面 MEGA/Mobile-GS-2/FlashGS/HAC++ 路)** —— SH 1st-order distill + Vector Quantization + Huffman,Mobile-GS 把 3DGS 压到 **4.6 MB**,HAC++ avg **100×** 压缩。**对移动端存储预算友好**。
+1. **Sort-free / Order-independent rendering(Mobile-GS 路线 → Flux-GS 路线)** —— 杀 sort 需求(OIT) → Flux-GS 改用 async-WebWorker sort(都达 130+ FPS)。**Flux-GS 桌面 1125 FPS / Snap 8 Gen 3 147 FPS = 当前 3DGS SOTA, mobile 2.1 MB**。
+2. **Spatial-Temporal Pruning + Mask(4DGS-1K 路线)** —— STV pruning + Temporal Filter mask,**4DGS 在桌面从 90 → 805 FPS(8.94×),storage 41.7× 压缩**。**Mask 跨帧复用(Activation IoU ≈ 1)是 mobile 端减 raster 负载的关键**。2026 H1 新加入 VEDAL(variational, 5.2× comp, 185 FPS)/ REFINE(rendering-free Hessian, 3000× pruning compute↓)/ ACE-GS(momentum consistency, 4.5× 训练加速)/ MMGS(optimal transport, 10× comp + 10× 训练加速)4 个新工作。
+3. **Bitpack / NVQ / Distill(MEGA/Mobile-GS/Flux-GS/HAC++ 路线)** —— SH 1st-order distill + Vector Quantization + Huffman,Mobile-GS 把 3DGS 压到 **4.6 MB**,Flux-GS 用 Monte Carlo SH 进一步压到 **2.1 MB**,HAC++ avg **100×** 压缩。**对移动端存储预算友好**。
+4. **(新增) 4DGS mobile streaming 4GS-NFS 路线** —— GS-NFS (NVIDIA Research, 2026-06) 在 Jetson Orin mobile GPU 上 **4DGS 25 FPS decode** + GPU codec (octree + RAHT) 1-2 orders of magnitude faster than SOTA。**首篇 4DGS 专项 mobile GPU 实测**。
 
 #### B.2 训练 / 推理分工优化
 

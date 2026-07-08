@@ -121,6 +121,8 @@
 - **目标**:**720p internal render(540p/720p 二选一)稳定 ≥ 15 FPS**(@ Adreno 830),**未上采样到 1080p**,这是只看原始 pipeline 的下限
 - 测 feature flags:Vulkan 1.3 / `VkPhysicalDeviceTileShadingFeatures` / `storageBuffer16BitAccess` / `storageBuffer8BitAccess` —— **验证 M0 锁定的机型的实际 feature 列表**
 
+> **2026-07-08 增补 (派系 3 派系参考更新)**:M4 移动端 rendering 派系 3 #1 从 Mobile-GS (ICLR 2026, 127 FPS) 改为 **Flux-GS (ECCV 2026, 147 FPS @ 2.1 MB on Snap 8 Gen 3)**——**同作者 Du 团队继任作,7.8× 训练加速 + 公开 WebGL renderer 可直接 fork**。**M4 桌面 baseline 阶段保留 NVIDIA vk_gaussian_splatting (3DGS)**作为 control,**M4 后半段把 Vulkan pipeline 改成"Flux-GS 风格 async WebWorker sort + 1st-order SH distill + NVQ"5 件套**——参考 `paper-notes/2026-du-flux-gs.md` §3.1 + `2026-du-mobile-gs.md` §3.2。**这不影响 M4 Go/Pivot 标准 (≥ 15 FPS)**,只是 implementation 路径调整。
+
 **Go/Pivot 标准**:**720p internal ≥ 15 FPS**(`[推测,基于 02- §7.5]` 理论上限 80~160 FPS,M4 设下限 15 FPS,差距大则说明我们漏了关键成本,需要查 profiler):
 - **达到** → 进 M5
 - **< 15 FPS** → pivot:
