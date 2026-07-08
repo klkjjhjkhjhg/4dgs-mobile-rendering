@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "4DGS / 3DGS Mobile Rendering 演进图",
-    "total_nodes": 49,
+    "total_nodes": 50,
     "factions": {
       "A": {
         "name": "4DGS 表示",
@@ -74,8 +74,17 @@
       "id": "2023-fan-lightgaussian",
       "label": "LightGaussian: Unbounded 3D Gaussian Compression with 15× Reduction and 200+ FPS",
       "year": 2311.17,
-      "faction": "C",
+      "faction": "E",
       "arxiv": "2311.17245",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2023-kerbl-3dgs",
+      "label": "3DGS",
+      "year": 2023.0,
+      "faction": "C",
+      "arxiv": "2308.04079",
       "refs": 0,
       "rating": "⭐"
     },
@@ -191,7 +200,7 @@
       "id": "2025-feng-lumina",
       "label": "Lumina: Real-Time Mobile Neural Rendering by Exploiting Computational Redundancy",
       "year": 2506.05,
-      "faction": "E",
+      "faction": "C",
       "arxiv": "2506.05682",
       "refs": 0,
       "rating": "⭐⭐⭐"
@@ -200,7 +209,7 @@
       "id": "2025-huang-seele",
       "label": "SeeLe: A Unified Acceleration Framework for Real-Time Gaussian Splatting",
       "year": 2503.05,
-      "faction": "B",
+      "faction": "E",
       "arxiv": "2503.05168",
       "refs": 0,
       "rating": "⭐"
@@ -290,7 +299,7 @@
       "id": "2025-youn-success-gs",
       "label": "SUCCESS-GS: Survey of Compactness and Compression for Efficient Static and Dynamic Gaussian Splatting",
       "year": 2512.07,
-      "faction": "B",
+      "faction": "E",
       "arxiv": "2512.07197",
       "refs": 0,
       "rating": "⭐⭐"
@@ -317,7 +326,7 @@
       "id": "2026-chen-refine",
       "label": "REFINE: Super-efficient 3D Gaussian Splatting Pruning via Rendering-Free Primitive Importance",
       "year": 2606.09,
-      "faction": "C",
+      "faction": "E",
       "arxiv": "2606.09074",
       "refs": 0,
       "rating": "⭐⭐"
@@ -398,7 +407,7 @@
       "id": "2026-li-vedal",
       "label": "VEDAL: Variational Error-Driven Asynchronous Learning for 3D Gaussian Splatting Pruning",
       "year": 2606.02,
-      "faction": "B",
+      "faction": "E",
       "arxiv": "2606.02346",
       "refs": 0,
       "rating": "⭐⭐"
@@ -488,7 +497,7 @@
       "id": "2026-zhao-ace-gs",
       "label": "ACE-GS: Acing the Trade-off with Accurate, Compact and Efficient 3D Gaussian Splatting",
       "year": 2606.21,
-      "faction": "C",
+      "faction": "E",
       "arxiv": "2606.21244",
       "refs": 0,
       "rating": "⭐⭐"
@@ -497,7 +506,7 @@
       "id": "2026-zhao-mmgs",
       "label": "MMGS: 10× Compressed 3DGS through Optimal Transport Aggregation based on Multi-view Ranking",
       "year": 2605.19,
-      "faction": "D",
+      "faction": "E",
       "arxiv": "2605.19304",
       "refs": 0,
       "rating": "⭐⭐"
