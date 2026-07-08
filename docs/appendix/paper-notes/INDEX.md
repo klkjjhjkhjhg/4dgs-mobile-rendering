@@ -2,9 +2,10 @@
 
 > **本地 PDF stash**: `/.pdfs/`（仓库根目录，**不进 git**，见 `.gitignore`）
 > **命名约定**: 大部分用纯 arxiv id（`<arxiv-id>.pdf`），4 篇"早期下"的用易读命名（`4DGS-1K.pdf` / `wu-4dgs.pdf` 等）
-> **总计**: **33 篇 paper notes ↔ 33 个本地 PDF**，**约 525 MB**
+> **总计**: **47 篇 paper notes ↔ 47 个本地 PDF**，**约 720 MB**（截至 2026-07-08）
 > **标记**: ⭐⭐⭐ = 本项目直接对标 / ⭐⭐ = 高相关 / ⭐ = 参考
-> **本批扩展（25 H2 ~ 26 H1）**: 14 篇（双跳引用链 + arxiv API + Semantic Scholar cited-by 抓出）
+> **本批扩展（25 H2 ~ 26 H1）**: 14 篇 — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv (3DGS 加速 / 压缩 / mobile / streaming 派系)
+> **本批触发**: 用户用 GitHub 链接 `https://github.com/xiaobiaodu/Flux-GS` 作为入口，扩到同期 13 篇相关工作
 
 ---
 
@@ -24,7 +25,7 @@
 
 ---
 
-## B. 4DGS 加速 / 动静态分离（25-26 主线之三，6 篇）
+## B. 4DGS 加速 / 动静态分离（25-26 主线之三，7 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -33,17 +34,22 @@
 | [2026-yin-cags.md](2026-yin-cags.md) | 2605.09279 | 2026-05 | **CAGS**，色彩自适应的动静态分层 streaming | ⭐ |
 | [2025-tu-speede3dgs.md](2025-tu-speede3dgs.md) | 2506.07917 | 2025-06 | **SpeeDe3DGS**，temporal pruning + motion compensation（UMD, 13.71×） | ⭐⭐ |
 | [2025-chen-4dgscc.md](2025-chen-4dgscc.md) | 2504.18925 | 2025-04 | **4DGS-CC**，contextual coding framework | ⭐⭐ |
-| [2026-li-pd4dgs.md](2026-li-pd4dgs.md) | 2605.11427 | 2026-05 | **PD-4DGS**，progressive decomposition + R-DO（TMC 一致性） | ⭐⭐ |
+| [2025-li-pd4dgs.md](2025-li-pd4dgs.md) | 2605.11427 | 2026-05 | **PD-4DGS**，progressive decomposition + R-DO（TMC 一致性） | ⭐⭐ |
+| [2026-ren-cubifygs.md](2026-ren-cubifygs.md) | 2606.28720 | 2026-06 | **CubifyGS**，object-level asset + rigid rearrangement lifelong dynamic scene（**>40× faster than WildGS-SLAM**） | ⭐ |
 
 ---
 
-## C. 渲染加速（pipeline 级，含 3DGS + 4DGS，8 篇）
+## C. 渲染加速（pipeline 级，含 3DGS + 4DGS，12 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
+| [2026-du-flux-gs.md](2026-du-flux-gs.md) | 2606.30017 | 2026-06 | **Flux-GS** (ECCV 2026)，Mobile-GS 团队继任作，**Snap 8 Gen 3 147 FPS @ 2.1 MB**（Indoor） | ⭐⭐⭐ |
 | [2026-du-mobile-gs.md](2026-du-mobile-gs.md) | 2603.11531 | 2026-03 | **Mobile-GS**，Snap 8 Gen 3 上 127 FPS（**Vulkan 2.0**） | ⭐⭐⭐ |
 | [2025-feng-lumina.md](2025-feng-lumina.md) | 2506.05682 | 2025-06 | **Lumina: Real-Time Mobile Neural Rendering**，SJTU+Rochester，**4.5× speedup + 5.3× energy** | ⭐⭐⭐ |
 | [2025-oh-neo.md](2025-oh-neo.md) | 2511.12930 | 2025-11 | **Neo: On-Device 3DGS** with **Reuse-and-Update Sorting Accelerator** | ⭐⭐⭐ |
+| [2026-thomas-gausslite.md](2026-thomas-gausslite.md) | 2606.30809 | 2026-06 | **GaussLite** (MIT AeroAstro)，**4 Hz real-time on resource-constrained hardware** + task-conditioned density | ⭐⭐ |
+| [2026-li-pocket-slam.md](2026-li-pocket-slam.md) | 2606.24796 | 2026-06 | **Pocket-SLAM**，3DGS-SLAM **60% memory↓ + 2.7× FPS↑**（KITTI seq10 34.2→13.3 GB） | ⭐⭐ |
+| [2026-gong-dict-3dgs.md](2026-gong-dict-3dgs.md) | 2605.30396 | 2026-05 | **Smaller-Faster-3DGS** (Linköping)，post-training dictionary learning，**3.95×/3.10×/4.55× comp** + 23-25% FPS↑ | ⭐⭐ |
 | [2024-yu-mip-splatting.md](2024-yu-mip-splatting.md) | 2311.16493 | 2023-11 | Mip-Splatting，CVPR 2024 best student（尺度修正） | ⭐⭐ |
 | [2024-feng-flashgs.md](2024-feng-flashgs.md) | 2408.07967 | 2024-08 | FlashGS，CVPR 2025 | ⭐⭐ |
 | [2024-liu-efficientgs.md](2024-liu-efficientgs.md) | 2404.12777 | 2024-04 | EfficientGS | ⭐ |
@@ -52,20 +58,25 @@
 
 ---
 
-## D. 流式 streaming / 移动端落地（6 篇）
+## D. 流式 streaming / 移动端落地（10 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
+| [2026-ghosh-gs-nfs.md](2026-ghosh-gs-nfs.md) | 2606.05650 | 2026-06 | **GS-NFS** (NVIDIA Research)，**4DGS 25 FPS decode on Jetson Orin mobile GPU** | ⭐⭐⭐ |
 | [2025-wang-airgs.md](2025-wang-airgs.md) | 2512.20943 | 2025-12 | **AirGS**，4DGS streaming + ILP pruning（**6× 训练加速** + 50% transmission） | ⭐⭐ |
+| [2025-zheng-4dgcpro.md](2025-zheng-4dgcpro.md) | 2509.17513 | 2025-09 | **4DGCPro**，4DGS mobile streaming（abstract 级） | ⭐⭐ |
+| [2025-li-pd4dgs.md](2025-li-pd4dgs.md) | 2605.11427 | 2026-05 | **PD-4DGS**（同时见派系 B），**iPhone 2 Mbps 移动网络 1.7s 启动**，progressive decomposition + R-DO | ⭐⭐ |
 | [2025-ke-streamstgs.md](2025-ke-streamstgs.md) | 2511.06046 | 2025-11 | **StreamSTGS**，streaming spatial-temporal grids（real-time FVV） | ⭐⭐ |
+| [2026-shi-evogs.md](2026-shi-evogs.md) | 2606.07179 | 2026-06 | **EvoGS**，continuous-layered Evolution Tree，**2.4× payload↓, 5.5× VRAM↓, redundancy 65%→25%** | ⭐⭐ |
+| [2026-veicht-zipsplat.md](2026-veicht-zipsplat.md) | 2606.05102 | 2026-06 | **ZipSplat** (ETH/Microsoft)，feed-forward 3DGS，**6× fewer Gaussians** + token-based scene | ⭐⭐ |
+| [2026-yu-codecsplat.md](2026-yu-codecsplat.md) | 2605.25563 | 2026-05 | **CodecSplat** (PKU)，ultra-compact latent coding，**20-108 KiB/scene** | ⭐ |
 | [2025-li-gifstream.md](2025-li-gifstream.md) | 2505.07539 | 2025-05 | **GIFStream**，4D Gaussian feature stream | ⭐ |
 | [2025-wang-p4dgs.md](2025-wang-p4dgs.md) | 2510.10030 | 2025-10 | **P-4DGS**，**90× compression**（predictive 4DGS） | ⭐ |
-| [2025-zheng-4dgcpro.md](2025-zheng-4dgcpro.md) | 2509.17513 | 2025-09 | **4DGCPro**，4DGS mobile streaming（abstract 级） | ⭐ |
 | [2025-liu-4dgrt.md](2025-liu-4dgrt.md) | 2509.10759 | 2025-09 | 4DGRT，4DGS Ray Tracing（NTU+Intel） | ⭐ |
 
 ---
 
-## E. 3DGS 静态加速 / 通用加速（3 篇）
+## E. 3DGS 静态加速 / 通用加速（8 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -73,6 +84,13 @@
 | [2023-fan-lightgaussian.md](2023-fan-lightgaussian.md) | 2311.17245 | 2023-11 | LightGaussian，NeurIPS 2024 Spotlight | ⭐ |
 | [2025-huang-seele.md](2025-huang-seele.md) | 2503.05168 | 2025-03 | SEELE（SJTU） | ⭐ |
 | [2026-zhang-geta3dgs.md](2026-zhang-geta3dgs.md) | 2605.02086 | 2026-05 | **GETA-3DGS**，joint structured pruning + quantization | ⭐⭐ |
+| [2026-li-vedal.md](2026-li-vedal.md) | 2606.02346 | 2026-06 | **VEDAL** (NUST+PolyU)，variational free-energy pruning，**5.2× comp, 0.31 dB PSNR drop, 185 FPS** | ⭐⭐ |
+| [2026-chen-refine.md](2026-chen-refine.md) | 2606.09074 | 2026-06 | **REFINE** (西工大)，**3,000× pruning compute↓ + ~20× device-latency speedup**（Hessian-field 解析） | ⭐⭐ |
+| [2026-zhao-ace-gs.md](2026-zhao-ace-gs.md) | 2606.21244 | 2026-06 | **ACE-GS** (单作者)，momentum consistency + statistical sensitivity，**4.5× 训练加速 + 745 FPS** | ⭐⭐ |
+| [2026-zhao-mmgs.md](2026-zhao-mmgs.md) | 2605.19304 | 2026-05 | **MMGS** (CQU)，multi-view ranking + optimal transport，**10× comp, 10× 训练加速** | ⭐⭐ |
+| [2026-hong-ploymerge.md](2026-hong-polymerge.md) | 2606.16232 | 2026-06 | **PolyMerge** (UC Berkeley)，polytope coverings + Crazyflie drone on-board CBF | ⭐⭐ |
+
+> *注：PolyMerge 文件路径为 `2026-hong-polymerge.md`（修正拼写，之前为 `ploymerge`）*
 
 ---
 
@@ -88,17 +106,26 @@
 ## 总数与对照组
 
 ```
-- **33 篇 paper notes ↔ 33 个本地 PDF**（一一对应，无遗漏）
-- **约 525 MB 总计**（`.pdfs/`）
+- **47 篇 paper notes ↔ 47 个本地 PDF**（一一对应，无遗漏）
+- **约 720 MB 总计**（`.pdfs/`，截至 2026-07-08）
 - **2023**：4 篇
 - **2024 H1**：5 篇
 - **2024 H2**：4 篇
 - **2025 H1**：7 篇
 - **2025 H2**：6 篇
-- **2026 H1**：7 篇
+- **2026 H1**：21 篇  ←  本批加 14 篇（Flux-GS ECCV 2026 + 13 篇 arxiv H1）
 ```
 
-**重点提示**: 25 H2 ~ 26 H1 = **强加速期**（13 / 33 = 39% 的论文集中这 12 月内）
+**重点提示**: 25 H2 ~ 26 H1 = **强加速期**（27 / 47 = 57% 的论文集中这 12 月内）。**本批 14 篇全部是 2026-05 ~ 2026-06 arxiv 期间论文**——**2 个月内的进展密度比过去 2 年还高**，3DGS/4DGS mobile 加速进入工程化落地期。
+
+**派系分布**（按本表分组）：
+- A. 4DGS 表示（9 篇）
+- B. 4DGS 加速 / 动静态分离（7 篇）
+- C. 渲染加速 / 移动端（12 篇）
+- D. 流式 streaming / 移动端落地（10 篇）
+- E. 3DGS 静态加速 / 通用（8 篇）
+- F. Survey / Roadmap（1 篇）
+- **合计 47 篇**
 
 ---
 

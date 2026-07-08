@@ -20,6 +20,8 @@
   | 3 | **4DGS-1K 在 RTX 3090 上 8.94× 加速**（90 → 805 FPS, N3V, PSNR -0.04 dB 几乎无损）| 4DGS-1K, arxiv:2503.16422 Table 1 | **实测**（桌面 GPU） |
   | 4 | **Lumina 在 mobile Volta 上 4.5× speedup + 5.3× energy**（PSNR 损失 < 0.2 dB），说明"sorting 是 mobile 3DGS 最大瓶颈"已被 co-design 攻破 | Lumina, arxiv:2506.05682 abstract | **实测**（mobile Volta） |
   | 5 | **Snap 8 Gen 4 算力 ≈ Gen 3 × 1.3**（高通官方升级）→ 3DGS 估算 **~165 FPS**；4DGS ≈ 3DGS × 2× 时间维度复杂度，**减去 4DGS-1K 的剪枝 + 跨帧 mask 复用**，本项目目标 60 FPS = 165/2×0.7 ≈ **60 FPS 是工程可达**| 高通官方 + 4DGS-1K | **推测**（Adreno 8 Gen 4 无公开 4DGS 实测） |
+  | 6 | **Flux-GS (ECCV 2026) Snap 8 Gen 3 实测 147 FPS @ 2.1 MB**（Indoor Mip-NeRF 360）= **3DGS 在 Snap 8 Gen 3 上一代已超 2× 60 FPS 目标**；4DGS 时间维度增量 + 4DGS-1K mask 复用 = 60 FPS 可行 | Flux-GS, arxiv:2606.30017 Table 1 | **实测**（Snap 8 Gen 3 静态 3DGS） |
+  | 7 | **GS-NFS (NVIDIA Research 2026) Jetson Orin 实测 4DGS 25 FPS decode**（目标 30 FPS）= **4DGS 专项在 mobile GPU 上 25 FPS streaming 已验证** | GS-NFS, arxiv:2606.05650 abstract | **实测**（Jetson Orin 4DGS） |
 
   > **底线**：4DGS 在手机 SoC 上**没有公开实测**（Snap 8 Gen 4 时代）。M4 实测是本项目最大不确定性 —— **但论据 1+2+3+4 已把"是否工程上能做到"压到"实现问题"，不是"原理问题"**。
 
@@ -44,6 +46,11 @@
 |---|---|---|---|
 | **#1 ⭐** | **4DGS-1K** (Yuan, NUS, 2025-03, arxiv:2503.16422) | N3V 上 **8.94× FPS 提升（90 → 805）+ 41.7× 存储压缩（with PP），PSNR 几乎无损（-0.04 dB）**；TITAN X (2015) 仍 **200+ FPS** | ✅ **本项目首选** |
 | **#2** | **MEGA** (Zhang, 2024-10, arxiv:2410.13613) | Technicolor **190× storage 压缩**、Neu3DV **125× 压缩**；FPS 1.5× 提升（Technicolor）/ 0.8×（Neu3DV） | ✅ bitpack 字段拆解的可引用实例 |
+| **#2 备选** | **VEDAL** (Li, NUST+PolyU, 2026-06, arxiv:2606.02346) | **5.2× comp, 0.31 dB PSNR drop, 185 FPS**（Mip-360 0.63M Gaussians, 141 MB），variational free-energy + 异步 pruning | ✅ closed-form retention-error 保证；3DGS 静态，对 4DGS canonical space 适用 |
+| **#3** | **REFINE** (Chen, 西工大+西电+城大, 2026-06, arxiv:2606.09074) | **3,000× pruning compute↓ + ~20× device-latency speedup**，Hessian 解析近似 + content-adaptive λ | ✅ 零 rendering passes 评估重要性；M3 spike 可借鉴 |
+| **#3 备选** | **ACE-GS** (Zhao, 2026-06, arxiv:2606.21244) | **4.5× 训练加速 + 745 FPS**（Mip-360），momentum consistency + statistical sensitivity | ✅ training speed 提升；4DGS 训练同样适用 |
+| **#3 备选 2** | **MMGS** (Zhao, CQU, 2026-05, arxiv:2605.19304) | **10× comp, 10× 训练加速**，multi-view ranking + optimal transport aggregation | ✅ 4DGS 训练期剪枝可借鉴 |
+| **#3 备选 3** | **PolyMerge** (Hong, UC Berkeley, 2026-06, arxiv:2606.16232) | polytope coverings + Crazyflie drone on-board CBF；**Garden 39 MB**（vs SaferSplat 626 MB） | ✅ kB-scale budget；on-device 实测 |
 | **推荐** | **#1 4DGS-1K** | FPS 提升 8.94× 远超 MEGA 1.5×，对 mobile 渲染更直接；MEGA 仅作 bitpack 字段拆解参考 | — |
 
 ### 派系 2：动静态分离 / 时序压缩 —— 让 4DGS 不再"每帧全量重算"
@@ -52,31 +59,44 @@
 |---|---|---|---|
 | **#1 ⭐** | **4DGS-CC** (Chen, 2025-04, arxiv:2504.18925) | **神经上下文编码首次用于 4DGS**，**12× 存储压缩**、多速率可调 | ✅ **本项目首选** |
 | **#2** | **OMG4** (Lee, 2025-10, arxiv:2510.03857) | 三阶段（sampling + pruning + merging）+ SVQ 量化，**>60% 压缩**，RD 曲线领先近期 SOTA | ✅ 多阶段 pipeline 工程化参考 |
+| **#2 备选** | **SharpTimeGS** (Liao, 2026-02, arxiv:2602.02989) | lifespan modulation 时间/动态分层，隐式动静态分离 | ✅ 隐式分层思路可与 4DGS-CC 互补 |
+| **#3 备选** | **SpeeDe3DGS** (Tu, UMD, 2025-06, arxiv:2506.07917) | temporal pruning + motion compensation，**13.71× 压缩** | ✅ **GroupFlow SE(3) 群变换** motion 蒸馏 |
+| **#3 备选 2** | **CubifyGS** (Ren, 2026-06, arxiv:2606.28720) | object-level asset + rigid rearrangement，**>40× faster than WildGS-SLAM** | ✅ asset-level update 思想对长期 4DGS 场景有价值（仅 rigid） |
 | **推荐** | **#1 4DGS-CC** | 4DGS 专门化更好（神经上下文编码是 4DGS 的真问题）；OMG4 是次选，**GroupFlow SE(3) 群变换** (SpeeDe3DGS, 13.71×) 也可作为 motion 蒸馏备选 | — |
 
 ### 派系 3：移动端渲染管线 —— 让 sort / raster 在手机 GPU 上跑得动
 
 | 排名 | 论文 | 关键数字 | 适用判断 |
 |---|---|---|---|
-| **#1 ⭐** | **Mobile-GS** (Du, ICLR 2026, arxiv:2603.11531) | **Snap 8 Gen 3 / Vulkan 2.0 上 127 FPS @ 4.6 MB**（3DGS 静态），**OIT 杀 sort 需求** | ✅ **本项目首选**（唯一在真实 Snap 8 Gen 3 上 3DGS 实测的工作） |
-| **#2** | **Lumina** (Feng, SJTU+Rochester, 2025-06, arxiv:2506.05682) | mobile Volta 上 **4.5× speedup + 5.3× energy 降低**，S2 帧间 sort 共享 + RC radiance caching | ✅ 硬件-算法 co-design 思路参考 |
+| **#1 ⭐** | **Flux-GS** (Du, ECCV 2026, arxiv:2606.30017) | **Snap 8 Gen 3 147 FPS @ 2.1 MB**（Indoor Mip-NeRF 360）；训练 11 min vs Mobile-GS 86 min（**7.8× 训练加速**）；Monte Carlo SH 压缩 61%（vs 3rd-order）/ 26%（vs 1st-order）；开源 WebGL 移动端渲染器 | ✅ **本项目首选**（替代 Mobile-GS） |
+| **#2** | **Mobile-GS** (Du, ICLR 2026, arxiv:2603.11531) | Snap 8 Gen 3 / Vulkan 2.0 上 **127 FPS @ 4.6 MB**（3DGS 静态），**OIT 杀 sort 需求** | ✅ Flux-GS 同一作者团队的前作，仍是 #2（OIT 路线代表） |
 | **#2 备选** | **Neo** (Oh, KAIST+Meta, ASPLOS 2026, arxiv:2511.12930) | 7nm ASIC，**vs Orin AGX 10× / vs GSCore 5.6×**，QHD **99.3 FPS**，sorting 内存流量 -94.5% | ✅ reuse-and-update 排序思路（需 ASIC，本项目 M3+ 借鉴思路而非照搬硬件） |
-| **推荐** | **#1 Mobile-GS** | 唯一在真实手机 SoC 上 3DGS 实测 127 FPS 的工作，且 ICLR 2026 = 同行评审背书 | — |
+| **#3** | **Lumina** (Feng, SJTU+Rochester, 2025-06, arxiv:2506.05682) | mobile Volta 上 **4.5× speedup + 5.3× energy 降低**，S2 帧间 sort 共享 + RC radiance caching | ✅ 硬件-算法 co-design 思路参考（mobile Volta 与 Snap 8 不同代） |
+| **#3 备选** | **GaussLite** (Thomas, MIT AeroAstro, 2026-06, arxiv:2606.30809) | **4 Hz real-time on resource-constrained hardware** + task-conditioned density allocation；≤1M Gaussian budget | ✅ task-conditioned 思路对 4DGS 长期动态场景有价值 |
+| **#3 备选 2** | **Pocket-SLAM** (Li, 2026-06, arxiv:2606.24796) | 3DGS-SLAM **60% memory↓ + 2.7× FPS↑**（KITTI seq10 34.2→13.3 GB），plug-in 设计 | ✅ 渲染时剪枝 + tile budget，对 4DGS-SLAM 路线有借鉴 |
+| **#3 备选 3** | **Smaller-Faster-3DGS** (Gong, Linköping, 2026-05, arxiv:2605.30396) | post-training dictionary learning，**3.95×/3.10×/4.55× comp** + 23-25% FPS↑ | ✅ plug-and-play，对 4DGS 训练后压缩可借鉴 |
+| **推荐** | **#1 Flux-GS** | 训练快 7.8× + 存储更小 + FPS 更高 + 公开 WebGL renderer + 同一作者 Mobile-GS 继任 | — |
 
 ### 派系 4：流式 / 移动落地 —— 让 4DGS 走"云端训练 + 端侧流式播放"
 
 | 排名 | 论文 | 关键数字 | 适用判断 |
 |---|---|---|---|
-| **#1 ⭐** | **4DGCPro** (Zheng, SJTU MediaX, 2025-09, arxiv:2509.17513) | **real-time mobile decode + rendering**，hierarchical 4DGS + 单 bitstream progressive streaming | ✅ **本项目首选**（最直接对标"4DGS on mobile"） |
-| **#2** | **PD-4DGS** (Li, 2026-05, arxiv:2605.11427) | **iPhone 2 Mbps 移动网络 1.7s 启动**，progressive decomposition + R-DO (TMC 一致性) | ✅ 端到端 progressive 传输验证 |
-| **#2 备选** | **AirGS** (Wang, 2025-12, arxiv:2512.20943) | server 端 **6× 训练加速** + 50% transmission 节省（ILP pruning） | ✅ 长序列训练 pipeline 借鉴 |
-| **推荐** | **#1 4DGCPro** | mobile device 实测 + 4DGS 命中，比 PD-4DGS 更"mobile-native"；PD-4DGS 的 1.7s 启动时间是 M5 demo 关键指标 | — |
+| **#1 ⭐** | **GS-NFS** (Ghosh, NVIDIA Research, 2026-06, arxiv:2606.05650) | **4DGS 25 FPS decode on Jetson Orin mobile GPU**（目标 30 FPS），**1-2 orders of magnitude faster** than SOTA 4DGS compression，**236 bytes/Gaussian**，GPU codec (octree + RAHT) | ✅ **本项目首选**（替代 4DGCPro；NVIDIA 背书 + 4DGS 专项 + mobile 实测） |
+| **#2** | **4DGCPro** (Zheng, SJTU MediaX, 2025-09, arxiv:2509.17513) | real-time mobile decode + rendering，hierarchical 4DGS + 单 bitstream progressive streaming | ✅ 仍是 abstract 级 4DGS mobile 对标；GS-NFS 出来后降为 #2 |
+| **#2 备选** | **PD-4DGS** (Li, 2026-05, arxiv:2605.11427) | **iPhone 2 Mbps 移动网络 1.7s 启动**，progressive decomposition + R-DO (TMC 一致性) | ✅ 端到端 progressive 传输验证 + 启动时间数字 |
+| **#3** | **AirGS** (Wang, 2025-12, arxiv:2512.20943) | server 端 **6× 训练加速** + 50% transmission 节省（ILP pruning） | ✅ 长序列训练 pipeline 借鉴 |
+| **#3 备选** | **EvoGS** (Shi, NUS+SUTD+CNRS, 2026-06, arxiv:2606.07179) | continuous-layered Evolution Tree，**2.4× payload↓, 5.5× VRAM↓, redundancy 65%→25%**，4 个 LOD smooth transition | ✅ Evolution Tree 概念可扩展到 4DGS time-axis（parent-child correction） |
+| **#3 备选 2** | **ZipSplat** (Veicht, ETH/Microsoft, 2026-06, arxiv:2606.05102) | feed-forward 3DGS，**6× fewer Gaussians** + token-based scene | ✅ token-based mobile-friendly；3DGS 静态 |
+| **#3 备选 3** | **CodecSplat** (Yu, PKU, 2026-05, arxiv:2605.25563) | ultra-compact latent coding，**20-108 KiB/scene**（vs MiB-level） | ✅ 极致压缩（K 量级），streaming 路线 |
+| **推荐** | **#1 GS-NFS** | 4DGS 专项 + NVIDIA 团队背书 + 25 FPS mobile 实测 = **对 4DGS on mobile 主线最强的 2026 H1 直接对标** | — |
 
 ### 4 派系组合 = 本项目路线
 
-> **本项目 = Mobile-GS (派系 3) + 4DGS-1K (派系 1) + 4DGS-CC (派系 2) + 4DGCPro (派系 4) 的组合**
+> **本项目 = Flux-GS (派系 3 新 #1) + 4DGS-1K (派系 1) + 4DGS-CC (派系 2) + GS-NFS (派系 4 新 #1) 的组合**
 >
 > → 论文没有这个组合 = **工程上未做过 = 调研空白 = 本项目价值点**（`[推测，基于 4 个 SOTA 直引 + 组合未在 abstract 找到]`）
+>
+> **2026-07-08 更新**：原组合 (Mobile-GS + 4DGS-1K + 4DGS-CC + 4DGCPro) 中的 Mobile-GS 被 **Flux-GS (ECCV 2026, 同一作者)** 替代，4DGCPro 被 **GS-NFS (NVIDIA Research, 4DGS 专项 mobile 实测 25 FPS)** 替代。新组合 **更直接** 对标"4DGS on mobile" 主线。
 >
 > 完整论证见 `docs/03-end-to-end-roadmap.md` M0 ~ M6。
 
@@ -196,19 +216,20 @@
 
 **6 大组，全部 paper notes 都已 PDF 全文级验证**（arxiv API 反查 + 本地 PDF /Title 字段直引）：
 - **A. 4DGS 表示**（9 篇）
-- **B. 4DGS 加速 / 动静态分离**（6 篇）
-- **C. 渲染加速**（8 篇）
-- **D. 流式 streaming / 移动端落地**（6 篇）
-- **E. 3DGS 静态加速**（4 篇）
+- **B. 4DGS 加速 / 动静态分离**（7 篇）
+- **C. 渲染加速 / 移动端**（12 篇）
+- **D. 流式 streaming / 移动端落地**（10 篇）
+- **E. 3DGS 静态加速**（8 篇）
 - **F. Survey**（1 篇）
+- **合计 47 篇**（2026-07-08 更新）
 
-> **本批扩展（25 H2 ~ 26 H1）**: 14 篇新 paper notes（验证完成）
+> **本批扩展（2026-07-08）**: 14 篇新 paper notes — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv 加速/压缩/mobile/streaming 工作
 
-> **4 派系 SOTA 与 6 主线 paper notes 的对应**：§2 推荐的 4 篇 SOTA 在 6 主线分组里的位置是
-> - 派系 1 → B 组（4DGS-1K）+ C 组（MEGA）
-> - 派系 2 → B 组（4DGS-CC、OMG4、SpeeDe3DGS）
-> - 派系 3 → C 组（Mobile-GS、Lumina、Neo）
-> - 派系 4 → D 组（4DGCPro、PD-4DGS、AirGS）
+> **4 派系 SOTA 与 6 主线 paper notes 的对应**（2026-07-08 更新）：
+> - 派系 1 → B 组（4DGS-1K）+ E 组（VEDAL、REFINE、ACE-GS、MMGS、PolyMerge）
+> - 派系 2 → B 组（4DGS-CC、OMG4、SpeeDe3DGS、SharpTimeGS、CubifyGS）
+> - 派系 3 → C 组（**Flux-GS** ⭐、Mobile-GS、Lumina、Neo、GaussLite、Pocket-SLAM、Smaller-Faster-3DGS）
+> - 派系 4 → D 组（**GS-NFS** ⭐、4DGCPro、PD-4DGS、AirGS、EvoGS、ZipSplat、CodecSplat）
 
 ---
 
