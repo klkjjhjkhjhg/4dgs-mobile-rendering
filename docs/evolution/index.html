@@ -5,8 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>4DGS / 3DGS Mobile Rendering 演进图</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  THREE.OrbitControls = OrbitControls;  // 挂到 THREE 命名空间下供老代码使用
+  window.THREE = THREE;
+  </script>
 </head>
 <body>
   <div id="app">
@@ -70,16 +82,22 @@
       const resp = await fetch('data/evolution.json');
       state.data = await resp.json();
     } catch (e) {
-      alert('无法加载 evolution.json。请用 HTTP 服务器打开（如 python3 -m http.server）。');
+      console.error('无法加载 evolution.json:', e);
+      document.getElementById('stats-text').textContent = '加载失败: ' + e.message;
       return;
     }
 
-    setupFactionFilter();
-    setupYearFilter();
-    setupViewToggle();
-    setup3D();
-    render2DFallback();
-    updateStats();
+    try {
+      setupFactionFilter();
+      setupYearFilter();
+      setupViewToggle();
+      setup3D();
+      render2DFallback();
+      updateStats();
+    } catch (e) {
+      console.error('3D 初始化失败:', e);
+      document.getElementById('stats-text').textContent = '3D 初始化失败: ' + e.message;
+    }
 
     animate();
   }
@@ -502,7 +520,19 @@
   }
 
   /* ===== 启动 ===== */
-  init();
+  // 等 DOMContentLoaded + THREE 模块挂载（module 脚本是 deferred，先于 inline 跑）
+  const startInit = () => {
+    if (window.THREE && window.THREE.OrbitControls) {
+      init();
+    } else {
+      setTimeout(startInit, 50);
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startInit);
+  } else {
+    startInit();
+  }
   </script>
 </body>
 </html>
