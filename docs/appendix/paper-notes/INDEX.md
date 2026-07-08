@@ -2,10 +2,11 @@
 
 > **本地 PDF stash**: `/.pdfs/`（仓库根目录，**不进 git**，见 `.gitignore`）
 > **命名约定**: 大部分用纯 arxiv id（`<arxiv-id>.pdf`），4 篇"早期下"的用易读命名（`4DGS-1K.pdf` / `wu-4dgs.pdf` 等）
-> **总计**: **47 篇 paper notes ↔ 47 个本地 PDF**，**约 720 MB**（截至 2026-07-08）
+> **总计**: **49 篇 paper notes ↔ 49 个本地 PDF**，**约 790 MB**（截至 2026-07-08）
 > **标记**: ⭐⭐⭐ = 本项目直接对标 / ⭐⭐ = 高相关 / ⭐ = 参考
 > **本批扩展（25 H2 ~ 26 H1）**: 14 篇 — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv (3DGS 加速 / 压缩 / mobile / streaming 派系)
 > **本批触发**: 用户用 GitHub 链接 `https://github.com/xiaobiaodu/Flux-GS` 作为入口，扩到同期 13 篇相关工作
+> **本批 2（2026-07-08 ECCV/CVPR 专扫）**: 2 篇 CVPR 2026 Oral — `RetimeGS` (4DGS continuous-time, HKUST+Netflix) + `GaussianFluent` (3DGS 物理模拟, PKU+BIGAI)。**ECCV 2026 接收名单尚未公开（9 月会议，arXiv+web 搜索 4 来源无数据）**；CVPR 2026 Poster 全名单非常稀疏（amusi 3DGS 段仅 3 篇），本项目相关核心（Mobile-GS / Flux-GS / Flow4DGS-SLAM / RAP / FastGS / Topology-Aware）已在前批 commit 覆盖。
 
 ---
 
@@ -22,6 +23,8 @@
 | [2024-li-spacetime-gaussians.md](2024-li-spacetime-gaussians.md) | 2312.16812 | 2023-12 | Spacetime Gaussians，geometry-aware KNN 时空网格 | ⭐ |
 | [2025-shi-sparse4dgs.md](2025-shi-sparse4dgs.md) | 2511.07122 | 2025-11 | Sparse4DGS，稀疏化 + 4DGS 加速 | ⭐ |
 | [2025-liu-4dgrt.md](2025-liu-4dgrt.md) | 2509.10759 | 2025-09 | 4DGRT，4DGS Ray Tracing（NTU+Intel） | ⭐ |
+| [2026-wang-retimegs.md](2026-wang-retimegs.md) | 2603.13783 | 2026-03 | **RetimeGS** (CVPR 2026 Oral, HKUST+Netflix)，4DGS continuous-time 表示，**消除 temporal aliasing + ghost-free frame interpolation** | ⭐⭐ |
+| [2026-huang-gaussianfluent.md](2026-huang-gaussianfluent.md) | 2601.09265 | 2026-01 | **GaussianFluent** (CVPR 2026 Oral, PKU+BIGAI)，3DGS + MPM 物理模拟（elastic / fracture / slicing）+ 混合材质 | ⭐⭐ |
 
 ---
 
@@ -106,26 +109,26 @@
 ## 总数与对照组
 
 ```
-- **47 篇 paper notes ↔ 47 个本地 PDF**（一一对应，无遗漏）
-- **约 720 MB 总计**（`.pdfs/`，截至 2026-07-08）
+- **49 篇 paper notes ↔ 49 个本地 PDF**（一一对应，无遗漏）
+- **约 790 MB 总计**（`.pdfs/`，截至 2026-07-08）
 - **2023**：4 篇
 - **2024 H1**：5 篇
 - **2024 H2**：4 篇
 - **2025 H1**：7 篇
 - **2025 H2**：6 篇
-- **2026 H1**：21 篇  ←  本批加 14 篇（Flux-GS ECCV 2026 + 13 篇 arxiv H1）
+- **2026 H1**：23 篇  ←  本批 2 加 2 篇（RetimeGS + GaussianFluent, CVPR 2026 Oral）
 ```
 
-**重点提示**: 25 H2 ~ 26 H1 = **强加速期**（27 / 47 = 57% 的论文集中这 12 月内）。**本批 14 篇全部是 2026-05 ~ 2026-06 arxiv 期间论文**——**2 个月内的进展密度比过去 2 年还高**，3DGS/4DGS mobile 加速进入工程化落地期。
+**重点提示**: 25 H2 ~ 26 H1 = **强加速期**（29 / 49 = 59% 的论文集中这 12 月内）。**2026-07-08 专扫 CVPR 2026 Oral (ooonesevennn/CVPR_2026_Oral_Papers) 加 2 篇 4DGS-related Oral**。**ECCV 2026 接收名单尚未公开**（9 月会议，2026-07 仍无 accepted 名单数据）。
 
 **派系分布**（按本表分组）：
-- A. 4DGS 表示（9 篇）
+- A. 4DGS 表示（11 篇）  ←  本批 2 加 2
 - B. 4DGS 加速 / 动静态分离（7 篇）
 - C. 渲染加速 / 移动端（12 篇）
 - D. 流式 streaming / 移动端落地（10 篇）
 - E. 3DGS 静态加速 / 通用（8 篇）
 - F. Survey / Roadmap（1 篇）
-- **合计 47 篇**
+- **合计 49 篇**
 
 ---
 

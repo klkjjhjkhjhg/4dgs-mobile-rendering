@@ -212,18 +212,20 @@
 
 ---
 
-## §7. Paper Notes 库（33 篇，按主线分组见 [`docs/appendix/paper-notes/INDEX.md`](docs/appendix/paper-notes/INDEX.md)）
+## §7. Paper Notes 库（49 篇，按主线分组见 [`docs/appendix/paper-notes/INDEX.md`](docs/appendix/paper-notes/INDEX.md)）
 
 **6 大组，全部 paper notes 都已 PDF 全文级验证**（arxiv API 反查 + 本地 PDF /Title 字段直引）：
-- **A. 4DGS 表示**（9 篇）
+- **A. 4DGS 表示**（11 篇）
 - **B. 4DGS 加速 / 动静态分离**（7 篇）
 - **C. 渲染加速 / 移动端**（12 篇）
 - **D. 流式 streaming / 移动端落地**（10 篇）
 - **E. 3DGS 静态加速**（8 篇）
 - **F. Survey**（1 篇）
-- **合计 47 篇**（2026-07-08 更新）
+- **合计 49 篇**（2026-07-08 更新）
 
 > **本批扩展（2026-07-08）**: 14 篇新 paper notes — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv 加速/压缩/mobile/streaming 工作
+>
+> **本批 2（2026-07-08 CVPR 2026 专扫）**: 2 篇 CVPR 2026 Oral — `RetimeGS` (HKUST+Netflix, 4DGS continuous-time) + `GaussianFluent` (PKU+BIGAI, 3DGS 物理模拟)
 
 > **4 派系 SOTA 与 6 主线 paper notes 的对应**（2026-07-08 更新）：
 > - 派系 1 → B 组（4DGS-1K）+ E 组（VEDAL、REFINE、ACE-GS、MMGS、PolyMerge）
