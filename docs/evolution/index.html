@@ -155,26 +155,51 @@
       state.factionCenters[key] = { x: cx, y: cy };
       const nodeCount = state.data.nodes.filter(n => n.faction === key).length;
       const clusterR = 60 + nodeCount * 7;
+      // 派系 cluster 背景圆 — 双层强化轮廓 (强化 A/D 黄橙等近色派系区分)
+      clusterGroup.append('circle')
+        .attr('cx', cx)
+        .attr('cy', cy)
+        .attr('r', clusterR + 6)
+        .attr('fill', 'none')
+        .attr('stroke', fac.color)
+        .attr('stroke-opacity', 0.18)
+        .attr('stroke-width', 8)
+        .attr('class', 'cluster-halo cluster-' + key);
       clusterGroup.append('circle')
         .attr('cx', cx)
         .attr('cy', cy)
         .attr('r', clusterR)
         .attr('fill', fac.color)
-        .attr('fill-opacity', 0.06)
+        .attr('fill-opacity', 0.10)
         .attr('stroke', fac.color)
-        .attr('stroke-opacity', 0.45)
-        .attr('stroke-width', 1.5)
-        .attr('stroke-dasharray', '5,4')
+        .attr('stroke-opacity', 0.85)
+        .attr('stroke-width', 2.5)
         .attr('class', 'cluster-bg cluster-' + key);
+      clusterGroup.append('rect')
+        .attr('x', cx - 90)
+        .attr('y', cy - clusterR - 32)
+        .attr('width', 180)
+        .attr('height', 22)
+        .attr('rx', 11)
+        .attr('fill', '#1e1e2e')
+        .attr('fill-opacity', 0.78)
+        .attr('stroke', fac.color)
+        .attr('stroke-opacity', 0.55)
+        .attr('stroke-width', 1.5)
+        .attr('class', 'cluster-badge cluster-' + key)
+        .attr('pointer-events', 'none');
       clusterGroup.append('text')
         .attr('x', cx)
-        .attr('y', cy - clusterR - 8)
+        .attr('y', cy - clusterR - 14)
         .attr('text-anchor', 'middle')
         .attr('fill', fac.color)
-        .attr('font-size', '15')
-        .attr('font-weight', '700')
-        .attr('opacity', 0.9)
+        .attr('font-size', '18')
+        .attr('font-weight', '800')
+        .attr('opacity', 1)
+        .attr('class', 'cluster-label cluster-' + key)
+        .attr('filter', 'drop-shadow(0 0 4px rgba(0,0,0,0.9)) drop-shadow(0 0 8px ' + fac.color + ')')
         .text(`${key} · ${fac.name} (${nodeCount})`);
+      // 派系标题底板 — 半透明 Base，强化红/黄等暖色派系的标题可读性
     });
 
     /* 容器 */
@@ -244,33 +269,50 @@
       .attr('r', d => d.rating && d.rating.includes('⭐⭐⭐') ? 4 : (d.rating && d.rating.includes('⭐⭐') ? 3 : 2))
       .attr('fill', d => d.rating && d.rating.includes('⭐⭐⭐') ? '#f9e2af' : (d.rating && d.rating.includes('⭐⭐') ? '#45475a' : '#313244'));
 
-    /* 时间文字 (节点属性，不占布局轴) */
+    /* 时间文字 (节点属性，不占布局轴) — 字号加大 + 加粗 + 黑底描边 */
     nodeG.append('text')
       .attr('class', 'node-year')
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
-      .attr('fill', '#1e1e2e')
-      .attr('font-size', '9px')
-      .attr('font-weight', '700')
+      .attr('fill', '#f9e2af')
+      .attr('font-size', '13px')
+      .attr('font-weight', '900')
       .attr('pointer-events', 'none')
+      .attr('paint-order', 'stroke')
+      .attr('stroke', '#11111b')
+      .attr('stroke-width', '3')
+      .attr('stroke-linejoin', 'round')
       .text(d => {
-        const y = String(d.year);
-        return y.length >= 4 ? y.slice(2, 4) : y;
+        // 节点内显示年份末两位:
+        //   "2023" (JS int) / "2024" -> "23" / "24" (取 index 2-3)
+        //   "2301.02" / "2606.05" (arxiv YYMM.xx) -> "23" / "26" (取 index 0-1)
+        // 通用规则: 看前 4 位是否以 "20" 开头 — 是则取末 2 位，否则取前 2 位
+        const s = String(d.year);
+        const m = s.match(/^(\d{4})/);
+        if (m) {
+          const yyyy = m[1];
+          return yyyy.startsWith('20') ? yyyy.slice(2, 4) : yyyy.slice(0, 2);
+        }
+        return s;
       });
 
-    /* 时长标签（始终显示） */
+    /* 时长标签（始终显示） — 字号略加 */
     nodeG.append('text')
       .attr('class', 'node-label')
       .attr('text-anchor', 'middle')
-      .attr('dy', '24px')
-      .attr('fill', '#bac2de')
-      .attr('font-size', '10px')
-      .attr('font-weight', '600')
+      .attr('dy', '26px')
+      .attr('fill', '#cdd6f4')
+      .attr('font-size', '11px')
+      .attr('font-weight', '700')
       .attr('pointer-events', 'none')
+      .attr('paint-order', 'stroke')
+      .attr('stroke', '#11111b')
+      .attr('stroke-width', '2.5')
+      .attr('stroke-linejoin', 'round')
       .text(d => {
         const l = d.label;
-        if (l.length <= 16) return l;
-        return l.slice(0, 16) + '…';
+        if (l.length <= 18) return l;
+        return l.slice(0, 18) + '…';
       });
 
     /* tick */
@@ -317,28 +359,100 @@
   }
 
   /* ===== Tooltip ===== */
+  function fmtYear(y) {
+    // year 字段在 JS 中两种形态:
+    //   a) "2023" / "2024" — JSON 整数 2023.0 被 JS 截成 "2023"
+    //   b) "2301.02" / "2606.05" — JSON 浮点 arxiv YYMM.xx 风格
+    // 都需要展示为 4 位发布年份 20YY
+    const s = String(y);
+    const m = s.match(/^(\d{4})/);
+    if (m) {
+      const yyyy = m[1];
+      if (yyyy.startsWith('20')) return yyyy;
+      // 前 4 位形如 2301 (YYMM) -> 20YY
+      return '20' + yyyy.slice(0, 2);
+    }
+    return s;
+  }
+
   function showTooltip(e, d) {
     const tt = document.getElementById('tooltip');
     const faction = state.data.meta.factions[d.faction];
+    const arxivUrl = d.arxiv ? `https://arxiv.org/abs/${d.arxiv}` : '';
     tt.innerHTML = `
       <div class="tt-title">${d.label}</div>
-      <div class="tt-row">派系: <strong style="color:${faction.color}">${d.faction} · ${faction.name}</strong></div>
-      <div class="tt-row">时间: <strong>${d.year}</strong></div>
-      <div class="tt-row">评级: <strong>${d.rating || '-'}</strong></div>
-      <div class="tt-row">arxiv: <strong>${d.arxiv || '-'}</strong></div>
+      <div class="tt-row"><span class="tt-k">派系</span><strong style="color:${faction.color}">${d.faction} · ${faction.name}</strong></div>
+      <div class="tt-row"><span class="tt-k">年份</span><strong>${fmtYear(d.year)}</strong></div>
+      <div class="tt-row"><span class="tt-k">评级</span><strong>${d.rating || '-'}</strong></div>
+      <div class="tt-row"><span class="tt-k">arxiv</span><strong>${arxivUrl ? `<a href="${arxivUrl}" target="_blank">${d.arxiv}</a>` : '-'}</strong></div>
+      <div class="tt-row tt-id"><span class="tt-k">id</span><code>${d.id}</code></div>
     `;
     tt.style.display = 'block';
     moveTooltip(e);
+    highlightFaction(d.faction);
   }
 
   function moveTooltip(e) {
     const tt = document.getElementById('tooltip');
-    tt.style.left = (e.clientX + 14) + 'px';
-    tt.style.top = (e.clientY + 14) + 'px';
+    const ttW = tt.offsetWidth || 280;
+    const ttH = tt.offsetHeight || 120;
+    let x = e.clientX + 16;
+    let y = e.clientY + 16;
+    if (x + ttW > window.innerWidth - 8) x = e.clientX - ttW - 16;
+    if (y + ttH > window.innerHeight - 8) y = e.clientY - ttH - 16;
+    tt.style.left = x + 'px';
+    tt.style.top = y + 'px';
   }
 
   function hideTooltip() {
     document.getElementById('tooltip').style.display = 'none';
+    clearFactionHighlight();
+  }
+
+  /* ===== 派系高亮：hover 节点时所属派系亮，其他 dim ===== */
+  function highlightFaction(factionKey) {
+    if (!state.gNodes) return;
+    const DIM = 0.18;
+    state.gNodes.selectAll('g.node')
+      .style('opacity', d => d.faction === factionKey ? 1 : DIM);
+    state.gLinks.selectAll('line')
+      .style('opacity', d => {
+        const s = typeof d.source === 'object' ? d.source : state.data.nodes.find(n => n.id === d.source);
+        const t = typeof d.target === 'object' ? d.target : state.data.nodes.find(n => n.id === d.target);
+        if (!s || !t) return 0;
+        return (s.faction === factionKey && t.faction === factionKey) ? 0.85 : 0.05;
+      });
+    Object.keys(state.factionCenters).forEach(key => {
+      const isActive = key === factionKey;
+      state.svg.selectAll('.cluster-bg.cluster-' + key)
+        .style('opacity', isActive ? 1 : 0.22)
+        .attr('stroke-width', isActive ? 3.5 : 2.5)
+        .attr('stroke-opacity', isActive ? 1 : 0.4);
+      state.svg.selectAll('.cluster-label.cluster-' + key)
+        .style('opacity', isActive ? 1 : 0.25);
+      state.svg.selectAll('.cluster-badge.cluster-' + key)
+        .style('opacity', isActive ? 1 : 0.25);
+      state.svg.selectAll('.cluster-halo.cluster-' + key)
+        .style('opacity', isActive ? 1 : 0.0);
+    });
+  }
+
+  function clearFactionHighlight() {
+    if (!state.gNodes) return;
+    state.gNodes.selectAll('g.node').style('opacity', 1);
+    state.gLinks.selectAll('line').style('opacity', null);
+    Object.keys(state.factionCenters).forEach(key => {
+      state.svg.selectAll('.cluster-bg.cluster-' + key)
+        .style('opacity', 1)
+        .attr('stroke-width', 2.5)
+        .attr('stroke-opacity', 0.85);
+      state.svg.selectAll('.cluster-label.cluster-' + key)
+        .style('opacity', 1);
+      state.svg.selectAll('.cluster-badge.cluster-' + key)
+        .style('opacity', 1);
+      state.svg.selectAll('.cluster-halo.cluster-' + key)
+        .style('opacity', 1);
+    });
   }
 
   /* ===== Modal ===== */
