@@ -5,37 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>4DGS / 3DGS Mobile Rendering 演进图</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/three@0.147.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://unpkg.com/d3@7.8.5/dist/d3.min.js"></script>
 </head>
 <body>
   <div id="app">
-    <canvas id="canvas-3d"></canvas>
-    <svg id="canvas-2d" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg id="canvas-graph"></svg>
 
     <div id="info-bar">
       <h1>4DGS / 3DGS 演进图</h1>
       <div class="subtitle">Snap 8 Gen 4 + Vulkan 1.3 调研项目</div>
       <div class="stats" id="stats-text">加载中...</div>
+      <div class="hint">派系同色聚类 · 拖拽节点 · 滚轮缩放 · 时间显示在节点内</div>
     </div>
 
     <div id="faction-filter">
       <h3>派系筛选</h3>
       <div id="faction-list"></div>
-      <div id="year-filter">
-        <h3>时间范围</h3>
-        <input type="range" id="year-min" min="2023" max="2026" value="2023" step="1">
-        <div class="range-labels">
-          <span id="year-min-label">2023</span>
-          <span id="year-max-label">2026</span>
-        </div>
-        <input type="range" id="year-max" min="2023" max="2026" value="2026" step="1">
+      <div id="turning-points-box">
+        <h3>转折点 (4)</h3>
+        <div id="turning-list"></div>
       </div>
     </div>
 
-    <div id="view-toggle">
-      <button class="view-btn active" data-view="3d">3D 视图</button>
-      <button class="view-btn" data-view="2d">2D 视图</button>
+    <div id="legend-box">
+      <h3>图例</h3>
+      <div class="legend-row"><span class="line-swatch" style="background:#fab387;height:2px;"></span>直接引用</div>
+      <div class="legend-row"><span class="line-swatch" style="background:#6c7086;height:1px;"></span>间接引用</div>
+      <div class="legend-row"><span class="dot-swatch" style="background:#f9e2af;border:2px solid #f9e2af;"></span>⭐⭐⭐ 必读</div>
+      <div class="legend-row"><span class="dot-swatch" style="background:#45475a;"></span>⭐⭐ 重要</div>
+      <div class="legend-row"><span class="dot-swatch" style="background:#313244;"></span>⭐ 参考</div>
     </div>
 
     <div id="tooltip"></div>
@@ -50,18 +48,14 @@
   /* ===== 全局状态 ===== */
   const state = {
     data: null,
-    scene: null,
-    camera: null,
-    renderer: null,
-    controls: null,
-    nodeMeshes: {},
-    edgeLines: {},
     factionEnabled: { A: true, B: true, C: true, D: true, E: true },
-    yearMin: 2023.0,
-    yearMax: 2026.7,
-    raycaster: null,
-    mouse: null,
-    hoverObj: null
+    simulation: null,
+    svg: null,
+    gLinks: null,
+    gNodes: null,
+    factionCenters: {},
+    width: 0,
+    height: 0
   };
 
   /* ===== 初始化 ===== */
@@ -75,19 +69,15 @@
       return;
     }
 
+    setupFactionFilter();
+    setupTurningList();
+    updateStats();
     try {
-      setupFactionFilter();
-      setupYearFilter();
-      setupViewToggle();
-      setup3D();
-      render2DFallback();
-      updateStats();
+      setupGraph();
     } catch (e) {
-      console.error('3D 初始化失败:', e);
-      document.getElementById('stats-text').textContent = '3D 初始化失败: ' + e.message;
+      console.error('setupGraph error:', e);
+      document.getElementById('stats-text').textContent = '渲染失败: ' + e.message;
     }
-
-    animate();
   }
 
   /* ===== 派系筛选器 ===== */
@@ -100,262 +90,28 @@
         <input type="checkbox" data-faction="${key}" checked>
         <span class="dot" style="background:${fac.color}"></span>
         <span>${key} · ${fac.name}</span>
+        <span class="count" id="count-${key}">0</span>
       `;
       list.appendChild(label);
       label.querySelector('input').addEventListener('change', e => {
         state.factionEnabled[key] = e.target.checked;
         updateVisibility();
-        render2DFallback();
       });
     });
   }
 
-  function setupYearFilter() {
-    const min = document.getElementById('year-min');
-    const max = document.getElementById('year-max');
-    const minLabel = document.getElementById('year-min-label');
-    const maxLabel = document.getElementById('year-max-label');
-    min.addEventListener('input', e => {
-      state.yearMin = parseFloat(e.target.value);
-      minLabel.textContent = state.yearMin;
-      updateVisibility();
-      render2DFallback();
-    });
-    max.addEventListener('input', e => {
-      state.yearMax = parseFloat(e.target.value);
-      maxLabel.textContent = state.yearMax;
-      updateVisibility();
-      render2DFallback();
-    });
-  }
-
-  function setupViewToggle() {
-    document.querySelectorAll('.view-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const view = btn.dataset.view;
-        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        if (view === '3d') {
-          document.getElementById('canvas-3d').classList.remove('hidden');
-          document.getElementById('canvas-2d').classList.remove('active');
-        } else {
-          document.getElementById('canvas-3d').classList.add('hidden');
-          document.getElementById('canvas-2d').classList.add('active');
-        }
-      });
-    });
-  }
-
-  /* ===== 3D 视图（Three.js） ===== */
-  function setup3D() {
-    const canvas = document.getElementById('canvas-3d');
-    state.scene = new THREE.Scene();
-    // Catppuccin Mocha 主题：场景背景用 Mantle 略深一档
-    state.scene.background = new THREE.Color(0x181825);
-    state.scene.fog = new THREE.Fog(0x181825, 20, 80);
-
-    const aspect = window.innerWidth / window.innerHeight;
-    state.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
-    state.camera.position.set(25, 16, 22);  // 拉远看更多 Z 范围
-
-    state.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    state.renderer.setSize(window.innerWidth, window.innerHeight);
-    state.renderer.setPixelRatio(window.devicePixelRatio);
-
-    state.controls = new THREE.OrbitControls(state.camera, canvas);
-    state.controls.enableDamping = true;
-    state.controls.dampingFactor = 0.05;
-
-    // 灯光
-    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-    state.scene.add(ambient);
-    const dir = new THREE.DirectionalLight(0xffffff, 0.8);
-    dir.position.set(20, 30, 20);
-    state.scene.add(dir);
-
-    // 网格
-    // Catppuccin Mocha 网格：Surface0 主线 + Base 辅线（弱化且和场景底色协调）
-    const grid = new THREE.GridHelper(40, 20, 0x313244, 0x1e1e2e);
-    grid.position.y = -2;
-    state.scene.add(grid);
-
-    // 坐标轴
-    drawAxes();
-
-    // 节点
-    state.data.nodes.forEach(node => {
-      const pos = nodePosition(node);
-      const faction = state.data.meta.factions[node.faction];
-      const color = parseInt(faction.color.slice(1), 16);
-      const radius = 0.5 + Math.min(0.8, (node.refs || 0) * 0.05 + 0.4);  // 加大基础半径
-      const geometry = new THREE.SphereGeometry(radius, 24, 24);  // 更高分段
-      const material = new THREE.MeshPhongMaterial({
-        color,
-        emissive: color,
-        emissiveIntensity: node.rating && node.rating.includes('⭐⭐⭐') ? 0.6 : 0.25,
-        shininess: 60
-      });
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(pos.x, pos.y, pos.z);
-      mesh.userData = node;
-      state.scene.add(mesh);
-      state.nodeMeshes[node.id] = mesh;
-    });
-
-    // 边
-    state.data.edges.forEach((edge, i) => {
-      const from = state.nodeMeshes[edge.from];
-      const to = state.nodeMeshes[edge.to];
-      if (!from || !to) return;
-      const fromPos = from.position;
-      const toPos = to.position;
-      const curve = new THREE.QuadraticBezierCurve3(
-        fromPos,
-        new THREE.Vector3(
-          (fromPos.x + toPos.x) / 2,
-          (fromPos.y + toPos.y) / 2 + 1.5,
-          (fromPos.z + toPos.z) / 2
-        ),
-        toPos
-      );
-      const points = curve.getPoints(20);
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const material = new THREE.LineBasicMaterial({
-        // Catppuccin Mocha 连线：直接引用 Peach，间接引用 Overlay0
-        color: edge.type === 'direct' ? 0xfab387 : 0x6c7086,
-        transparent: true,
-        opacity: edge.type === 'direct' ? 0.45 : 0.25
-      });
-      const line = new THREE.Line(geometry, material);
-      state.scene.add(line);
-      state.edgeLines[edge.from + '->' + edge.to] = line;
-    });
-
-    // 转折点（半透明垂直面，跨越派系 Y 范围 + Z 范围）
+  function setupTurningList() {
+    const list = document.getElementById('turning-list');
     state.data.meta.turning_points.forEach(tp => {
-      const x = yearToX(tp.x);
-      // BoxGeometry 但缩小不要遮住节点
-      const geo = new THREE.BoxGeometry(0.12, 9, 7.5);  // Z 加宽到 7.5 配合节点 Z 范围
-      // Catppuccin Mocha 转折点 box：Yellow
-      const mat = new THREE.MeshBasicMaterial({
-        color: 0xf9e2af,
-        transparent: true,
-        opacity: 0.12,
-        side: THREE.DoubleSide,
-        depthWrite: false  // 不写 depth, 让节点透过来
-      });
-      const box = new THREE.Mesh(geo, mat);
-      box.position.set(x, 4, 0);  // y 中心 = 4
-      state.scene.add(box);
-
-// 转折点边缘线 (发光) — Catppuccin Mocha Yellow
-      const edges = new THREE.EdgesGeometry(geo);
-      const lineMat = new THREE.LineBasicMaterial({ color: 0xf9e2af, transparent: true, opacity: 0.4 });
-      const edgeLine = new THREE.LineSegments(edges, lineMat);
-      edgeLine.position.set(x, 4, 0);
-      state.scene.add(edgeLine);
-    });
-
-    // 交互
-    state.raycaster = new THREE.Raycaster();
-    state.mouse = new THREE.Vector2();
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('click', onClick);
-    window.addEventListener('resize', () => {
-      state.camera.aspect = window.innerWidth / window.innerHeight;
-      state.camera.updateProjectionMatrix();
-      state.renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  }
-
-  function nodePosition(node) {
-    return {
-      x: yearToX(node.year),
-      y: state.data.meta.factions[node.faction].y * 2.5,
-      z: ((parseInt(node.id.replace(/\D/g, '')) || 0) % 8) * 0.9 - 3.15  // 8 离散值, Z 范围 -3.15 ~ 3.15 (6.3 单位宽)
-    };
-  }
-
-  function yearToX(year) {
-    const [min, max] = state.data.meta.year_range;
-    return ((year - min) / (max - min)) * 30 - 15;
-  }
-
-  function drawAxes() {
-    // Catppuccin Mocha 坐标轴：X Red / Y Green / Z Peach
-    const matX = new THREE.LineBasicMaterial({ color: 0xf38ba8 });
-    const matY = new THREE.LineBasicMaterial({ color: 0xa6e3a1 });
-    const matZ = new THREE.LineBasicMaterial({ color: 0xfab387 });
-    const pointsX = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(15, -1.5, 0)];
-    const pointsY = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(-15, 8.5, 0)];
-    const pointsZ = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(-15, -1.5, 5)];
-    state.scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsX), matX));
-    state.scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsY), matY));
-    state.scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsZ), matZ));
-  }
-
-  function onMouseMove(e) {
-    state.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    state.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    const tooltip = document.getElementById('tooltip');
-    if (state.hoverObj) {
-      tooltip.style.display = 'block';
-      tooltip.style.left = (e.clientX + 14) + 'px';
-      tooltip.style.top = (e.clientY + 14) + 'px';
-    } else {
-      tooltip.style.display = 'none';
-    }
-  }
-
-  function onClick() {
-    if (state.hoverObj) {
-      openModal(state.hoverObj.userData);
-    }
-  }
-
-  function animate() {
-    requestAnimationFrame(animate);
-    state.controls.update();
-    state.raycaster.setFromCamera(state.mouse, state.camera);
-    const intersects = state.raycaster.intersectObjects(Object.values(state.nodeMeshes));
-    if (intersects.length > 0) {
-      const obj = intersects[0].object;
-      if (state.hoverObj !== obj) {
-        state.hoverObj = obj;
-        updateTooltip(obj.userData);
-        document.body.style.cursor = 'pointer';
-      }
-    } else {
-      if (state.hoverObj) {
-        state.hoverObj = null;
-        document.getElementById('tooltip').style.display = 'none';
-        document.body.style.cursor = 'default';
-      }
-    }
-    state.renderer.render(state.scene, state.camera);
-  }
-
-  function updateTooltip(node) {
-    const tt = document.getElementById('tooltip');
-    const faction = state.data.meta.factions[node.faction];
-    tt.innerHTML = `
-      <div class="tt-title">${node.label}</div>
-      <div class="tt-row">派系: <strong style="color:${faction.color}">${node.faction} · ${faction.name}</strong></div>
-      <div class="tt-row">时间: <strong>${node.year}</strong></div>
-      <div class="tt-row">arxiv: <strong>${node.arxiv || '-'}</strong></div>
-      <div class="tt-row">评级: <strong>${node.rating || '-'}</strong></div>
-    `;
-  }
-
-  function updateVisibility() {
-    Object.values(state.nodeMeshes).forEach(mesh => {
-      const n = mesh.userData;
-      const inFaction = state.factionEnabled[n.faction];
-      const inYear = n.year >= state.yearMin && n.year <= state.yearMax;
-      mesh.visible = inFaction && inYear;
-    });
-    Object.values(state.edgeLines).forEach(line => {
-      line.visible = state.factionEnabled[Object.values(state.nodeMeshes).find(m => m.userData.id === line.userData?.from)?.userData.faction] !== false;
+      const item = document.createElement('div');
+      item.className = 'turning-item';
+      item.innerHTML = `
+        <span class="turning-dot"></span>
+        <span class="turning-label">${tp.id}</span>
+        <span class="turning-text">${tp.label}</span>
+        <span class="turning-year">${tp.x.toFixed(1)}</span>
+      `;
+      list.appendChild(item);
     });
   }
 
@@ -365,146 +121,224 @@
     const factions = Object.keys(state.data.meta.factions).length;
     document.getElementById('stats-text').innerHTML =
       `${total} 篇 paper notes · ${edges} 条引用边 · ${factions} 个派系 · 4 个转折点`;
-  }
-
-  /* ===== 2D Fallback（纯 SVG） ===== */
-  function render2DFallback() {
-    const svg = document.getElementById('canvas-2d');
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-    const margin = { left: 100, right: 40, top: 60, bottom: 50 };
-    const w = W - margin.left - margin.right;
-    const h = H - margin.top - margin.bottom;
-
-    svg.setAttribute('width', W);
-    svg.setAttribute('height', H);
-    svg.innerHTML = '';
-
-    const yearMin = state.yearMin;
-    const yearMax = state.yearMax;
-    const yearRange = state.data.meta.year_range;
-    const xScale = y => margin.left + ((y - yearMin) / (yearMax - yearMin)) * w;
-    const factions = Object.entries(state.data.meta.factions);
-    const yScale = i => margin.top + (i / factions.length) * h;
-
-    // 派系行背景
-    factions.forEach(([key, fac], i) => {
-      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      rect.setAttribute('x', margin.left);
-      rect.setAttribute('y', yScale(i));
-      rect.setAttribute('width', w);
-      rect.setAttribute('height', h / factions.length);
-      // Catppuccin Mocha 2D 背景带：Surface0 / Base 交替
-      rect.setAttribute('fill', i % 2 === 0 ? '#313244' : '#1e1e2e');
-      svg.appendChild(rect);
-
-      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      label.setAttribute('x', 10);
-      label.setAttribute('y', yScale(i) + h / factions.length / 2 + 4);
-      label.setAttribute('fill', fac.color);
-      label.setAttribute('font-size', '13');
-      label.setAttribute('font-weight', '600');
-      label.textContent = `${key} · ${fac.name}`;
-      svg.appendChild(label);
-    });
-
-    // 转折点竖线
-    state.data.meta.turning_points.forEach(tp => {
-      if (tp.x < yearMin || tp.x > yearMax) return;
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', xScale(tp.x));
-      line.setAttribute('x2', xScale(tp.x));
-      line.setAttribute('y1', margin.top);
-      line.setAttribute('y2', margin.top + h);
-      // Catppuccin Mocha 2D 转折线：Yellow
-      line.setAttribute('stroke', '#f9e2af');
-      line.setAttribute('stroke-dasharray', '4,4');
-      line.setAttribute('opacity', '0.5');
-      svg.appendChild(line);
-
-      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      label.setAttribute('x', xScale(tp.x) + 4);
-      label.setAttribute('y', margin.top - 8);
-      // Catppuccin Mocha 2D 转折 label：Yellow
-      label.setAttribute('fill', '#f9e2af');
-      label.setAttribute('font-size', '10');
-      label.textContent = `${tp.id} ${tp.label}`;
-      svg.appendChild(label);
-    });
-
-    // 边
-    state.data.edges.forEach(edge => {
-      const from = state.data.nodes.find(n => n.id === edge.from);
-      const to = state.data.nodes.find(n => n.id === edge.to);
-      if (!from || !to) return;
-      if (!state.factionEnabled[from.faction] || !state.factionEnabled[to.faction]) return;
-      if (from.year < yearMin || from.year > yearMax) return;
-      if (to.year < yearMin || to.year > yearMax) return;
-      const fi = factions.findIndex(([k]) => k === from.faction);
-      const ti = factions.findIndex(([k]) => k === to.faction);
-      const x1 = xScale(from.year);
-      const y1 = yScale(fi) + h / factions.length / 2;
-      const x2 = xScale(to.year);
-      const y2 = yScale(ti) + h / factions.length / 2;
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', x1);
-      line.setAttribute('y1', y1);
-      line.setAttribute('x2', x2);
-      line.setAttribute('y2', y2);
-      // Catppuccin Mocha 2D 连线：直接引用 Peach，间接引用 Overlay0
-      line.setAttribute('stroke', edge.type === 'direct' ? '#fab387' : '#6c7086');
-      line.setAttribute('stroke-width', edge.type === 'direct' ? 1 : 0.5);
-      line.setAttribute('opacity', edge.type === 'direct' ? 0.4 : 0.2);
-      svg.appendChild(line);
-    });
-
-    // 节点
-    state.data.nodes.forEach(node => {
-      if (!state.factionEnabled[node.faction]) return;
-      if (node.year < yearMin || node.year > yearMax) return;
-      const fi = factions.findIndex(([k]) => k === node.faction);
-      const fac = state.data.meta.factions[node.faction];
-      const cx = xScale(node.year);
-      const cy = yScale(fi) + h / factions.length / 2;
-      const r = 6 + (node.rating && node.rating.includes('⭐⭐⭐') ? 4 : 0);
-
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', cx);
-      circle.setAttribute('cy', cy);
-      circle.setAttribute('r', r);
-      circle.setAttribute('fill', fac.color);
-      // Catppuccin Mocha 2D 高亮节点描边：Yellow
-      circle.setAttribute('stroke', node.rating && node.rating.includes('⭐⭐⭐') ? '#f9e2af' : 'none');
-      circle.setAttribute('stroke-width', '1.5');
-      circle.style.cursor = 'pointer';
-      circle.addEventListener('click', () => openModal(node));
-      circle.addEventListener('mouseover', e => showSvgTooltip(e, node));
-      circle.addEventListener('mouseout', () => document.getElementById('tooltip').style.display = 'none');
-      svg.appendChild(circle);
-
-      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      label.setAttribute('x', cx + r + 2);
-      label.setAttribute('y', cy + 3);
-      // Catppuccin Mocha 2D 节点文字：Text 主色
-      label.setAttribute('fill', '#cdd6f4');
-      label.setAttribute('font-size', '10');
-      label.textContent = node.label;
-      svg.appendChild(label);
+    // 派系节点计数
+    const factionCounts = {};
+    state.data.nodes.forEach(n => { factionCounts[n.faction] = (factionCounts[n.faction] || 0) + 1; });
+    Object.entries(factionCounts).forEach(([k, v]) => {
+      const el = document.getElementById('count-' + k);
+      if (el) el.textContent = v;
     });
   }
 
-  function showSvgTooltip(e, node) {
+  /* ===== 力导向图：派系聚类布局 ===== */
+  function setupGraph() {
+    const container = document.getElementById('app');
+    state.width = window.innerWidth;
+    state.height = window.innerHeight;
+    const svg = d3.select('#canvas-graph')
+      .attr('width', state.width)
+      .attr('height', state.height);
+    state.svg = svg;
+
+    /* 清空 */
+    svg.selectAll('*').remove();
+
+    /* 派系 cluster 背景圆 — 五边形布局 */
+    const clusterGroup = svg.append('g').attr('class', 'clusters');
+    const factionKeys = Object.keys(state.data.meta.factions);
+    const radius = Math.min(state.width, state.height) * 0.32;
+    factionKeys.forEach((key, i) => {
+      const fac = state.data.meta.factions[key];
+      const angle = (i / factionKeys.length) * Math.PI * 2 - Math.PI / 2;
+      const cx = state.width / 2 + Math.cos(angle) * radius;
+      const cy = state.height / 2 + Math.sin(angle) * radius;
+      state.factionCenters[key] = { x: cx, y: cy };
+      const nodeCount = state.data.nodes.filter(n => n.faction === key).length;
+      const clusterR = 60 + nodeCount * 7;
+      clusterGroup.append('circle')
+        .attr('cx', cx)
+        .attr('cy', cy)
+        .attr('r', clusterR)
+        .attr('fill', fac.color)
+        .attr('fill-opacity', 0.06)
+        .attr('stroke', fac.color)
+        .attr('stroke-opacity', 0.45)
+        .attr('stroke-width', 1.5)
+        .attr('stroke-dasharray', '5,4')
+        .attr('class', 'cluster-bg cluster-' + key);
+      clusterGroup.append('text')
+        .attr('x', cx)
+        .attr('y', cy - clusterR - 8)
+        .attr('text-anchor', 'middle')
+        .attr('fill', fac.color)
+        .attr('font-size', '15')
+        .attr('font-weight', '700')
+        .attr('opacity', 0.9)
+        .text(`${key} · ${fac.name} (${nodeCount})`);
+    });
+
+    /* 容器 */
+    const containerG = svg.append('g').attr('class', 'graph-content');
+    state.gLinks = containerG.append('g').attr('class', 'links');
+    state.gNodes = containerG.append('g').attr('class', 'nodes');
+
+    /* 力模拟 — 边用 source/target 而不是 from/to */
+    const linksForSim = state.data.edges.map(e => ({ source: e.from, target: e.to, type: e.type }));
+    const simulation = d3.forceSimulation(state.data.nodes)
+      .force('link', d3.forceLink(linksForSim).id(d => d.id).distance(60).strength(0.5))
+      .force('charge', d3.forceManyBody().strength(-180))
+      .force('collision', d3.forceCollide().radius(28))
+      .force('factionX', d3.forceX().x(d => state.factionCenters[d.faction]?.x || state.width / 2).strength(0.25))
+      .force('factionY', d3.forceY().y(d => state.factionCenters[d.faction]?.y || state.height / 2).strength(0.25))
+      .force('center', d3.forceCenter(state.width / 2, state.height / 2).strength(0.02));
+
+    state.simulation = simulation;
+
+    /* 边 */
+    const link = state.gLinks
+      .selectAll('line')
+      .data(linksForSim)
+      .join('line')
+      .attr('class', d => 'edge edge-' + d.type)
+      .attr('stroke', d => d.type === 'direct' ? '#fab387' : '#6c7086')
+      .attr('stroke-width', d => d.type === 'direct' ? 1.6 : 0.6)
+      .attr('stroke-opacity', d => d.type === 'direct' ? 0.55 : 0.3);
+
+    /* 节点组：外圈 + 内部圆点 + 文字 */
+    const nodeG = state.gNodes
+      .selectAll('g.node')
+      .data(state.data.nodes)
+      .join('g')
+      .attr('class', d => 'node node-faction-' + d.faction)
+      .style('cursor', 'pointer')
+      .call(d3.drag()
+        .on('start', dragStarted)
+        .on('drag', dragged)
+        .on('end', dragEnded))
+      .on('mouseover', (e, d) => showTooltip(e, d))
+      .on('mousemove', (e) => moveTooltip(e))
+      .on('mouseout', () => hideTooltip())
+      .on('click', (e, d) => openModal(d));
+
+    /* 高亮圈 ⭐⭐⭐ */
+    nodeG.filter(d => d.rating && d.rating.includes('⭐⭐⭐'))
+      .append('circle')
+      .attr('r', 18)
+      .attr('fill', 'none')
+      .attr('stroke', '#f9e2af')
+      .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '3,2')
+      .attr('class', 'node-highlight');
+
+    /* 主节点圆 */
+    nodeG.append('circle')
+      .attr('class', 'node-main')
+      .attr('r', d => 8 + (d.rating && d.rating.includes('⭐⭐⭐') ? 3 : 0))
+      .attr('fill', d => state.data.meta.factions[d.faction].color)
+      .attr('stroke', '#1e1e2e')
+      .attr('stroke-width', 1.5);
+
+    /* 内圈颜色（编码评级） */
+    nodeG.append('circle')
+      .attr('class', 'node-inner')
+      .attr('r', d => d.rating && d.rating.includes('⭐⭐⭐') ? 4 : (d.rating && d.rating.includes('⭐⭐') ? 3 : 2))
+      .attr('fill', d => d.rating && d.rating.includes('⭐⭐⭐') ? '#f9e2af' : (d.rating && d.rating.includes('⭐⭐') ? '#45475a' : '#313244'));
+
+    /* 时间文字 (节点属性，不占布局轴) */
+    nodeG.append('text')
+      .attr('class', 'node-year')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.35em')
+      .attr('fill', '#1e1e2e')
+      .attr('font-size', '9px')
+      .attr('font-weight', '700')
+      .attr('pointer-events', 'none')
+      .text(d => {
+        const y = String(d.year);
+        return y.length >= 4 ? y.slice(2, 4) : y;
+      });
+
+    /* 时长标签（始终显示） */
+    nodeG.append('text')
+      .attr('class', 'node-label')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '24px')
+      .attr('fill', '#bac2de')
+      .attr('font-size', '10px')
+      .attr('font-weight', '600')
+      .attr('pointer-events', 'none')
+      .text(d => {
+        const l = d.label;
+        if (l.length <= 16) return l;
+        return l.slice(0, 16) + '…';
+      });
+
+    /* tick */
+    simulation.on('tick', () => {
+      link
+        .attr('x1', d => d.source.x)
+        .attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x)
+        .attr('y2', d => d.target.y);
+      nodeG.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+
+    /* 缩放 */
+    const zoom = d3.zoom()
+      .scaleExtent([0.3, 2.5])
+      .on('zoom', (event) => {
+        containerG.attr('transform', event.transform);
+      });
+    svg.call(zoom);
+
+    /* Window resize */
+    window.addEventListener('resize', () => {
+      state.width = window.innerWidth;
+      state.height = window.innerHeight;
+      svg.attr('width', state.width).attr('height', state.height);
+    });
+  }
+
+  function dragStarted(event, d) {
+    if (!event.active) state.simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragEnded(event, d) {
+    if (!event.active) state.simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+
+  /* ===== Tooltip ===== */
+  function showTooltip(e, d) {
     const tt = document.getElementById('tooltip');
-    const faction = state.data.meta.factions[node.faction];
+    const faction = state.data.meta.factions[d.faction];
     tt.innerHTML = `
-      <div class="tt-title">${node.label}</div>
-      <div class="tt-row">派系: <strong style="color:${faction.color}">${node.faction} · ${faction.name}</strong></div>
-      <div class="tt-row">时间: <strong>${node.year}</strong></div>
-      <div class="tt-row">arxiv: <strong>${node.arxiv || '-'}</strong></div>
+      <div class="tt-title">${d.label}</div>
+      <div class="tt-row">派系: <strong style="color:${faction.color}">${d.faction} · ${faction.name}</strong></div>
+      <div class="tt-row">时间: <strong>${d.year}</strong></div>
+      <div class="tt-row">评级: <strong>${d.rating || '-'}</strong></div>
+      <div class="tt-row">arxiv: <strong>${d.arxiv || '-'}</strong></div>
     `;
     tt.style.display = 'block';
+    moveTooltip(e);
+  }
+
+  function moveTooltip(e) {
+    const tt = document.getElementById('tooltip');
     tt.style.left = (e.clientX + 14) + 'px';
     tt.style.top = (e.clientY + 14) + 'px';
+  }
+
+  function hideTooltip() {
+    document.getElementById('tooltip').style.display = 'none';
   }
 
   /* ===== Modal ===== */
@@ -528,8 +362,26 @@
     document.getElementById('modal').classList.remove('active');
   }
 
+  /* ===== 筛选可见性 ===== */
+  function updateVisibility() {
+    if (!state.gNodes) return;
+    state.gNodes.selectAll('g.node')
+      .style('display', d => state.factionEnabled[d.faction] ? null : 'none');
+    state.gLinks.selectAll('line')
+      .style('display', d => {
+        const sourceNode = typeof d.source === 'object' ? d.source : state.data.nodes.find(n => n.id === d.source);
+        const targetNode = typeof d.target === 'object' ? d.target : state.data.nodes.find(n => n.id === d.target);
+        if (!sourceNode || !targetNode) return 'none';
+        return state.factionEnabled[sourceNode.faction] && state.factionEnabled[targetNode.faction] ? null : 'none';
+      });
+    /* 派系 cluster 背景 */
+    Object.keys(state.factionCenters).forEach(key => {
+      const clusterEl = state.svg.select('.cluster-' + key);
+      if (clusterEl) clusterEl.style('display', state.factionEnabled[key] ? null : 'none');
+    });
+  }
+
   /* ===== 启动 ===== */
-  // UMD 加载 Three.js + OrbitControls 是同步的,直接 init
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

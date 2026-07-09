@@ -1,4 +1,5 @@
 /* 4DGS / 3DGS Mobile Rendering 演进图 - Catppuccin Mocha 暖色主题 */
+/* v2: 力导向派系聚类图 + 时间降级为节点属性 */
 
 * {
   margin: 0;
@@ -19,30 +20,23 @@ html, body {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-#canvas-3d, #canvas-2d {
+#canvas-graph {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  cursor: grab;
 }
 
-#canvas-2d {
-  display: none;
-  background: #181825;
+#canvas-graph:active {
+  cursor: grabbing;
 }
 
-#canvas-2d.active {
-  display: block;
-}
-
-#canvas-3d.hidden {
-  display: none;
-}
-
-/* 顶部信息栏 */
+/* ===== 顶部信息栏 ===== */
 #info-bar {
   position: absolute;
   top: 20px;
@@ -53,7 +47,7 @@ html, body {
   border-radius: 10px;
   padding: 12px 18px;
   backdrop-filter: blur(12px);
-  max-width: 380px;
+  max-width: 360px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -74,9 +68,19 @@ html, body {
   font-size: 11px;
   color: #a6adc8;  /* Subtext0 */
   line-height: 1.6;
+  margin-bottom: 6px;
 }
 
-/* 派系筛选器 */
+#info-bar .hint {
+  font-size: 10px;
+  color: #6c7086;
+  font-style: italic;
+  border-top: 1px solid rgba(69, 71, 90, 0.4);
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+/* ===== 派系筛选器 ===== */
 #faction-filter {
   position: absolute;
   top: 20px;
@@ -87,7 +91,8 @@ html, body {
   border-radius: 10px;
   padding: 14px 18px;
   backdrop-filter: blur(12px);
-  min-width: 220px;
+  min-width: 240px;
+  max-width: 260px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -105,7 +110,7 @@ html, body {
   align-items: center;
   padding: 6px 0;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   color: #cdd6f4;  /* Text */
 }
 
@@ -127,15 +132,74 @@ html, body {
   margin-right: 8px;
 }
 
-/* 时间段筛选 */
-#year-filter {
+.faction-checkbox .count {
+  margin-left: auto;
+  font-size: 10px;
+  color: #6c7086;
+  background: rgba(69, 71, 90, 0.4);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+
+/* ===== 转折点 box ===== */
+#turning-points-box {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid rgba(69, 71, 90, 0.5);
 }
 
-#year-filter h3 {
-  font-size: 12px;
+.turning-item {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  padding: 4px 0;
+  color: #bac2de;
+}
+
+.turning-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f9e2af;
+  margin-right: 8px;
+  box-shadow: 0 0 6px rgba(249, 226, 175, 0.6);
+}
+
+.turning-label {
+  font-weight: 700;
+  color: #f9e2af;
+  margin-right: 6px;
+}
+
+.turning-text {
+  flex: 1;
+  color: #cdd6f4;
+}
+
+.turning-year {
+  font-size: 10px;
+  color: #6c7086;
+  font-family: monospace;
+}
+
+/* ===== 图例 ===== */
+#legend-box {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  background: rgba(30, 30, 46, 0.88);
+  border: 1px solid rgba(69, 71, 90, 0.6);
+  border-radius: 10px;
+  padding: 12px 16px;
+  backdrop-filter: blur(12px);
+  min-width: 160px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+#legend-box h3 {
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -143,55 +207,31 @@ html, body {
   color: #fab387;
 }
 
-#year-filter input[type=range] {
-  width: 100%;
-  margin: 4px 0;
-  accent-color: #fab387;
-}
-
-#year-filter .range-labels {
+.legend-row {
   display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: #a6adc8;
+  align-items: center;
+  font-size: 11px;
+  padding: 3px 0;
+  color: #bac2de;
 }
 
-/* 视图切换 */
-#view-toggle {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  z-index: 10;
-  display: flex;
-  gap: 8px;
+.line-swatch {
+  display: inline-block;
+  width: 24px;
+  margin-right: 8px;
+  border-radius: 1px;
 }
 
-.view-btn {
-  background: rgba(30, 30, 46, 0.88);
-  border: 1px solid rgba(69, 71, 90, 0.7);
-  color: #cdd6f4;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  transition: all 0.2s;
-  backdrop-filter: blur(12px);
+.dot-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+  box-sizing: border-box;
 }
 
-.view-btn:hover {
-  background: rgba(49, 50, 68, 0.95);  /* Surface0 */
-  border-color: #fab387;
-  color: #f9e2af;
-}
-
-.view-btn.active {
-  background: rgba(250, 179, 135, 0.18);  /* Peach 18% */
-  border-color: #fab387;
-  color: #f9e2af;
-}
-
-/* Tooltip */
+/* ===== Tooltip ===== */
 #tooltip {
   position: absolute;
   display: none;
@@ -223,7 +263,7 @@ html, body {
   color: #f5e0dc;  /* Rosewater 重点 */
 }
 
-/* 弹窗 */
+/* ===== Modal ===== */
 #modal {
   position: absolute;
   display: none;
@@ -288,15 +328,36 @@ html, body {
   color: #f38ba8;  /* Red hover */
 }
 
-/* 转折点标记 */
-.turning-marker {
-  position: absolute;
-  background: rgba(249, 226, 175, 0.12);  /* Yellow 12% */
-  border: 1px dashed rgba(249, 226, 175, 0.4);
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 11px;
-  color: #f9e2af;
-  z-index: 5;
-  pointer-events: none;
+/* ===== SVG 元素样式 (D3 渲染) ===== */
+.edge {
+  fill: none;
+}
+
+.node:hover .node-main {
+  filter: brightness(1.4);
+  stroke: #f9e2af;
+  stroke-width: 2;
+}
+
+.node:hover .node-year {
+  fill: #f9e2af;
+}
+
+.node:hover .node-label {
+  fill: #f9e2af;
+  font-weight: 700;
+}
+
+.node-year {
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+
+.node-label {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+/* 转折点背景圆动画 */
+.cluster-bg {
+  transition: r 0.6s ease-out;
 }
