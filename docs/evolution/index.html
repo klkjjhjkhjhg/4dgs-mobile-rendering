@@ -150,12 +150,13 @@
   function setup3D() {
     const canvas = document.getElementById('canvas-3d');
     state.scene = new THREE.Scene();
-    state.scene.background = new THREE.Color(0x0a0e1a);
-    state.scene.fog = new THREE.Fog(0x0a0e1a, 20, 80);
+    // Catppuccin Mocha 主题：场景背景用 Mantle 略深一档
+    state.scene.background = new THREE.Color(0x181825);
+    state.scene.fog = new THREE.Fog(0x181825, 20, 80);
 
     const aspect = window.innerWidth / window.innerHeight;
     state.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
-    state.camera.position.set(22, 14, 18);  // 拉远一点看更多节点
+    state.camera.position.set(25, 16, 22);  // 拉远看更多 Z 范围
 
     state.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     state.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -173,7 +174,8 @@
     state.scene.add(dir);
 
     // 网格
-    const grid = new THREE.GridHelper(40, 20, 0x222a3a, 0x1a2030);
+    // Catppuccin Mocha 网格：Surface0 主线 + Base 辅线（弱化且和场景底色协调）
+    const grid = new THREE.GridHelper(40, 20, 0x313244, 0x1e1e2e);
     grid.position.y = -2;
     state.scene.add(grid);
 
@@ -219,7 +221,8 @@
       const points = curve.getPoints(20);
       const geometry = new THREE.BufferGeometry().setFromPoints(points);
       const material = new THREE.LineBasicMaterial({
-        color: edge.type === 'direct' ? 0x4a90e2 : 0x888888,
+        // Catppuccin Mocha 连线：直接引用 Peach，间接引用 Overlay0
+        color: edge.type === 'direct' ? 0xfab387 : 0x6c7086,
         transparent: true,
         opacity: edge.type === 'direct' ? 0.45 : 0.25
       });
@@ -232,9 +235,10 @@
     state.data.meta.turning_points.forEach(tp => {
       const x = yearToX(tp.x);
       // BoxGeometry 但缩小不要遮住节点
-      const geo = new THREE.BoxGeometry(0.12, 9, 2.5);
+      const geo = new THREE.BoxGeometry(0.12, 9, 7.5);  // Z 加宽到 7.5 配合节点 Z 范围
+      // Catppuccin Mocha 转折点 box：Yellow
       const mat = new THREE.MeshBasicMaterial({
-        color: 0xf59e0b,
+        color: 0xf9e2af,
         transparent: true,
         opacity: 0.12,
         side: THREE.DoubleSide,
@@ -244,9 +248,9 @@
       box.position.set(x, 4, 0);  // y 中心 = 4
       state.scene.add(box);
 
-      // 转折点边缘线 (发光)
+// 转折点边缘线 (发光) — Catppuccin Mocha Yellow
       const edges = new THREE.EdgesGeometry(geo);
-      const lineMat = new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.7 });
+      const lineMat = new THREE.LineBasicMaterial({ color: 0xf9e2af, transparent: true, opacity: 0.4 });
       const edgeLine = new THREE.LineSegments(edges, lineMat);
       edgeLine.position.set(x, 4, 0);
       state.scene.add(edgeLine);
@@ -268,7 +272,7 @@
     return {
       x: yearToX(node.year),
       y: state.data.meta.factions[node.faction].y * 2.5,
-      z: ((parseInt(node.id.replace(/\D/g, '')) || 0) % 7) * 0.4 - 1.2  // 用 id 数字 mod 7 决定 Z, 避免节点全挤一起
+      z: ((parseInt(node.id.replace(/\D/g, '')) || 0) % 8) * 0.9 - 3.15  // 8 离散值, Z 范围 -3.15 ~ 3.15 (6.3 单位宽)
     };
   }
 
@@ -278,9 +282,10 @@
   }
 
   function drawAxes() {
-    const matX = new THREE.LineBasicMaterial({ color: 0xef4444 });
-    const matY = new THREE.LineBasicMaterial({ color: 0x10b981 });
-    const matZ = new THREE.LineBasicMaterial({ color: 0x3b82f6 });
+    // Catppuccin Mocha 坐标轴：X Red / Y Green / Z Peach
+    const matX = new THREE.LineBasicMaterial({ color: 0xf38ba8 });
+    const matY = new THREE.LineBasicMaterial({ color: 0xa6e3a1 });
+    const matZ = new THREE.LineBasicMaterial({ color: 0xfab387 });
     const pointsX = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(15, -1.5, 0)];
     const pointsY = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(-15, 8.5, 0)];
     const pointsZ = [new THREE.Vector3(-15, -1.5, 0), new THREE.Vector3(-15, -1.5, 5)];
@@ -389,7 +394,8 @@
       rect.setAttribute('y', yScale(i));
       rect.setAttribute('width', w);
       rect.setAttribute('height', h / factions.length);
-      rect.setAttribute('fill', i % 2 === 0 ? '#0f1424' : '#0a0e1a');
+      // Catppuccin Mocha 2D 背景带：Surface0 / Base 交替
+      rect.setAttribute('fill', i % 2 === 0 ? '#313244' : '#1e1e2e');
       svg.appendChild(rect);
 
       const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -410,7 +416,8 @@
       line.setAttribute('x2', xScale(tp.x));
       line.setAttribute('y1', margin.top);
       line.setAttribute('y2', margin.top + h);
-      line.setAttribute('stroke', '#f59e0b');
+      // Catppuccin Mocha 2D 转折线：Yellow
+      line.setAttribute('stroke', '#f9e2af');
       line.setAttribute('stroke-dasharray', '4,4');
       line.setAttribute('opacity', '0.5');
       svg.appendChild(line);
@@ -418,7 +425,8 @@
       const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       label.setAttribute('x', xScale(tp.x) + 4);
       label.setAttribute('y', margin.top - 8);
-      label.setAttribute('fill', '#fbbf24');
+      // Catppuccin Mocha 2D 转折 label：Yellow
+      label.setAttribute('fill', '#f9e2af');
       label.setAttribute('font-size', '10');
       label.textContent = `${tp.id} ${tp.label}`;
       svg.appendChild(label);
@@ -443,7 +451,8 @@
       line.setAttribute('y1', y1);
       line.setAttribute('x2', x2);
       line.setAttribute('y2', y2);
-      line.setAttribute('stroke', edge.type === 'direct' ? '#4a90e2' : '#666');
+      // Catppuccin Mocha 2D 连线：直接引用 Peach，间接引用 Overlay0
+      line.setAttribute('stroke', edge.type === 'direct' ? '#fab387' : '#6c7086');
       line.setAttribute('stroke-width', edge.type === 'direct' ? 1 : 0.5);
       line.setAttribute('opacity', edge.type === 'direct' ? 0.4 : 0.2);
       svg.appendChild(line);
@@ -464,7 +473,8 @@
       circle.setAttribute('cy', cy);
       circle.setAttribute('r', r);
       circle.setAttribute('fill', fac.color);
-      circle.setAttribute('stroke', node.rating && node.rating.includes('⭐⭐⭐') ? '#fff' : 'none');
+      // Catppuccin Mocha 2D 高亮节点描边：Yellow
+      circle.setAttribute('stroke', node.rating && node.rating.includes('⭐⭐⭐') ? '#f9e2af' : 'none');
       circle.setAttribute('stroke-width', '1.5');
       circle.style.cursor = 'pointer';
       circle.addEventListener('click', () => openModal(node));
@@ -475,7 +485,8 @@
       const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       label.setAttribute('x', cx + r + 2);
       label.setAttribute('y', cy + 3);
-      label.setAttribute('fill', '#e8eaed');
+      // Catppuccin Mocha 2D 节点文字：Text 主色
+      label.setAttribute('fill', '#cdd6f4');
       label.setAttribute('font-size', '10');
       label.textContent = node.label;
       svg.appendChild(label);
