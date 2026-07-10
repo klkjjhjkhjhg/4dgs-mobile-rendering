@@ -34,8 +34,8 @@ or does it have obvious blind spots?
 |-------|------------|
 | 1 | Coverage of 1-2 派系 only, >20% papers uncited |
 | 2 | 3 派系 covered, 50-80% papers cited |
-| 3 | 4 派系 covered, 80-90% papers cited, 1-2 sections with no paper |
-| 4 | 5 派系 covered, 90-100% papers cited, all sections have papers |
+| 3 | 4 派系 covered, 60-80% papers cited, 1-2 sections with no paper |
+| 4 | 5 派系 covered, 80-95% papers cited, all sections have papers |
 | 5 | 5 派系 covered, 100% papers cited, all sections balanced (no section has <5% of total) |
 
 ---
