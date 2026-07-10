@@ -1,0 +1,25 @@
+%% sec-1-intro.tex -- Introduction
+
+\section{Introduction}
+
+动态场景的实时神经渲染是计算机图形学近年来的核心研究方向之一。3D Gaussian
+Splatting (3DGS)~\cite{kerbl20233dgs} 自 2023 年提出以来,凭借显式点云表示 + 可微分
+光栅化,在桌面 GPU 上实现了 1080p 实时辐射场渲染。然而,将其扩展到动态场景
+(4DGS) 时面临三个核心挑战: (1) 时间维度参数化方式选择; (2) 动静态内容分离的
+存储开销; (3) 移动端 GPU 的算力 / 带宽 / 显存三重约束。
+
+本综述聚焦 \emph{移动端实时 4DGS},系统性梳理 2023--2026 H1 的 50+ 篇代表性工作,
+回答以下问题:
+\begin{itemize}
+  \item 4DGS 表示路线有哪些?各自权衡如何?
+  \item 训练阶段 (pruning / quantization / temporal redundancy) 如何压缩?
+  \item 渲染阶段 (光栅化 / ray tracing / mesh extraction) 怎样加速?
+  \item Snapdragon / Adreno 当前瓶颈在哪?未来路径是什么?
+\end{itemize}
+
+\noindent\textbf{与项目 README 的关系}: 本综述与项目主文档
+\texttt{README.md} 互补——前者侧重学术调研纵深,后者侧重 Snapdragon 8 Gen 4 /
+Adreno 830 + Vulkan 1.3 的工程落地路径。综述面向研究者,README 面向工程师。
+
+\bigskip
+\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S A]

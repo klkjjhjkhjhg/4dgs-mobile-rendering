@@ -1,0 +1,59 @@
+%% survey.tex -- 综述主文件（M1 骨架）
+%% 模板: acmart + sigconf 双栏 (替代 tog 官方, 版权干净)
+%% 编译: latexmk -pdf survey.tex
+
+\documentclass[acmlarge,sigconf,nonacm,review=false,letterpaper]{acmart}
+
+%% 0. 全局包
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{amsmath}
+%% amssymb 省略: acmart 已包含, 同时定义会冲突 \Bbbk
+
+%% 0a. 中文支持 (xelatex 编译, Mac TeX Live 默认含 HiraginoSansGB / STSong)
+\usepackage{xeCJK}
+\setCJKmainfont{Hiragino Sans GB}  % Mac 默认中文字体, fallback 到系统其他 CJK 字体
+
+%% 1. 文档元数据 (review=false 时非 ACM 元数据也要填)
+\title{Toward Real-Time Dynamic 4D Gaussian Splatting\\
+  on Mobile GPUs: A Survey}
+\author{Lianghao Zhang}
+\affiliation{%
+  \institution{Xiaomi Inc., Graphics Architecture Department}
+  \city{Beijing}
+  \country{China}}
+\email{lianghao@xiaomi.com}
+
+%% 2. 综述元信息
+\renewcommand{\shortauthors}{Zhang}
+
+\begin{document}
+
+%% 3. 标题 + 摘要
+\begin{abstract}
+本综述系统性整理 4D Gaussian Splatting (4DGS) 在移动端 GPU（Snapdragon 8 Gen 4
+/ Adreno 830 + Vulkan 1.3）实时渲染方向的最新进展，涵盖 4DGS 表示路线、训练加速、
+渲染加速、移动端部署四大主题,辅以数据集 / 评估指标 / 未来方向的系统讨论。
+本文与项目 README 互补——前者侧重工程落地路径,后者侧重学术调研纵深。
+\end{abstract}
+
+\maketitle
+
+%% 4. 9 节骨架 (M1: 每节占位 1 段, M2 再回填 paper notes)
+\input{sections/sec-1-intro}
+\input{sections/sec-2-background}
+\input{sections/sec-3-representation}
+\input{sections/sec-4-training-acceleration}
+\input{sections/sec-5-rendering-acceleration}
+\input{sections/sec-6-mobile-deployment}
+\input{sections/sec-7-datasets-metrics}
+\input{sections/sec-8-discussion}
+\input{sections/sec-9-conclusion}
+
+%% 5. 参考文献
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{survey}
+
+\end{document}

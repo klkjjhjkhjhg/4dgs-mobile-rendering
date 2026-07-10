@@ -1,0 +1,15 @@
+# LaTeX 临时文件 (latexmk 自动管理, 不进 git)
+*.aux
+*.bbl
+*.blg
+*.log
+*.fls
+*.fdb_latexmk
+*.out
+*.xdv
+*.toc
+*.lot
+*.lof
+*.synctex.gz
+# survey.pdf 保留 (产物)
+!survey.pdf

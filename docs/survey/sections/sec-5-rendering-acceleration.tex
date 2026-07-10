@@ -1,0 +1,26 @@
+%% sec-5-rendering-acceleration.tex -- Rendering Acceleration
+
+\section{Rendering Acceleration}
+
+渲染阶段的加速聚焦三个方向:
+
+\subsection{光栅化优化}
+Mobile-GS~\cite{du2026mobilegs} (Snapdragon 8 Gen 3, 127 FPS, Vulkan 2.0)、
+Flux-GS~\cite{du2026fluxgs} (Snapdragon 8 Gen 3, 147 FPS @ 2.1 MB Indoor)
+是当前移动端光栅化的天花板,均来自 Mobile-GS 团队。
+
+\subsection{Ray Tracing 趋势}
+4DGRT~\cite{liu20254dgrt} (NTU+Intel) 提出 4DGS Ray Tracing,代表
+未来高保真渲染路径。GS-NFS~\cite{ghosh2026gsnfs} (NVIDIA Research) 在
+Jetson Orin mobile GPU 上达到 4DGS 25 FPS decode。
+
+\subsection{Mesh Extraction}
+Lumina~\cite{feng2025lumina} (SJTU+Rochester) 走 mobile neural rendering 路线,
+4.5× speedup + 5.3× energy efficiency。
+
+\subsection{Hardware Acceleration}
+Neo~\cite{oh2025neo} 提出 Reuse-and-Update Sorting Accelerator,on-device
+3DGS 硬件加速。
+
+\bigskip
+\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S C / D]

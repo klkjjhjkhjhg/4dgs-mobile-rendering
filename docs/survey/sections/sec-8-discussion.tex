@@ -1,0 +1,27 @@
+%% sec-8-discussion.tex -- Discussion & Future Directions
+
+\section{Discussion \& Future Directions}
+
+\subsection{未来 5 条方向}
+
+\begin{enumerate}
+  \item \textbf{Feed-forward 4DGS}: 消除 per-scene optimization,
+        L2D2-GS~\cite{song2026l2d2gs} 是开端,
+        后续可能出现 end-to-end "一段视频进, 4DGS 出" 的模型
+  \item \textbf{Hardware-Software Co-design}: Neo~\cite{oh2025neo} 的
+        Reuse-and-Update Sorting Accelerator 是开端,
+        移动端 GPU 可能引入专用 4DGS 计算单元
+  \item \textbf{4DGS Ray Tracing}: 4DGRT~\cite{liu20254dgrt} 路线,
+        高保真场景的最终路径, 但移动端 ray tracing 仍是开放问题
+  \item \textbf{Temporal Compression}: 动静态分离 + 残差编码 + 上下文编码
+        三件套可能收敛, 形成 4DGS 压缩标准
+  \item \textbf{Cross-Domain}: 4DGS + 物理模拟 (GaussianFluent)、
+        4DGS + SLAM、4DGS + 端侧大模型的多模态融合
+\end{enumerate}
+
+\subsection{与本项目的关系}
+本项目 README 锁定的 Snapdragon 8 Gen 4 + Vulkan 1.3 实时渲染路径,
+与上述 5 条方向高度交叉, 详见主文档 [01-/02-/03-]。
+
+\bigskip
+\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S G]

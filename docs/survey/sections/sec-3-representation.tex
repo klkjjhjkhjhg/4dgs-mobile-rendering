@@ -1,0 +1,48 @@
+%% sec-3-representation.tex -- Representation Taxonomy
+
+\section{Representation Taxonomy}
+
+按时间维度参数化方式,4DGS 表示路线可分为 5 类。下表给出代表工作与权衡对比。
+
+\begin{table}[t]
+\centering
+\caption{4DGS 表示路线对比 (5 类)}
+\label{tab:representation}
+\begin{tabular}{llll}
+\toprule
+\textbf{类别} & \textbf{代表工作} & \textbf{优点} & \textbf{代价} \\
+\midrule
+Canonical + Def & 4DGS / Deformable-3DGS & 灵活 & MLP 推理开销 \\
+动静态分离 & 4DGS-1K / MEGA & 静态部分复用 & 评分误差传播 \\
+Continuous-Time & RetimeGS & 帧率自由 & 时间参数化复杂 \\
+Feed-forward & L2D2-GS & 消除 per-scene opt & 训练数据依赖 \\
+Memory-efficient & Sparse4DGS / CubifyGS & 显存友好 & 实现复杂 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Canonical + Deformation Field}
+4DGS~\cite{wu20244dgs} 提出 canonical 空间静态高斯 + 时空 deformation field,
+通过 MLP 输出每个高斯在每帧的位移。Deformable-3DGS~\cite{yang2023deformable3dgs}
+引入 canonical anchor 机制,降低 deformation 搜索空间。
+
+\subsection{动静态分离}
+4DGS-1K~\cite{yuan20254dgs1k} (本项目直接对标) 用 STV 评分将高斯分为
+静态 / 动态,静态部分跨帧复用。MEGA~\cite{zhang2024mega} 用 buffer-A/B 残差编码
+实现结构化动静态分离。
+
+\subsection{Continuous-Time}
+RetimeGS~\cite{wang2026retimegs} (CVPR 2026 Oral, HKUST+Netflix) 用
+continuous-time 参数化消除 temporal aliasing,支持 ghost-free frame interpolation。
+
+\subsection{Feed-forward}
+L2D2-GS~\cite{song2026l2d2gs} (小米+北大联合, ECCV 2026) 用 feedforward
+网络 + 自监督 densification policy,消除 per-scene optimization,
+对作者 heliangliang@xiaomi.com 有合作背景。
+
+\subsection{Memory-Efficient}
+Sparse4DGS / CubifyGS 等工作通过稀疏化、object-level asset 化等方式
+降低显存占用。
+
+\bigskip
+\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S A / B]
