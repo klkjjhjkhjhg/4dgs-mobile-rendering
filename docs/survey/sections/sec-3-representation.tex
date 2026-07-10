@@ -11,8 +11,10 @@ contrasts representative works and their trade-offs.
   \centering
 \caption{Comparison of 4DGS representation routes (five categories) with quantitative anchors.}
 \label{tab:representation}
-\small
-\begin{tabular}{llllrr}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{lp{5.2cm}llp{2.4cm}p{4.5cm}}
 \toprule
 \textbf{Category} & \textbf{Rep.\ work} & \textbf{Year} & \textbf{Venue} & \textbf{PSNR / FPS} & \textbf{Storage / Note} \\
 \midrule
@@ -23,9 +25,6 @@ Feed-forward           & L2D2-GS~\cite{song2026l2d2gs} & 2026 & arXiv           
 Memory-efficient       & Sparse4DGS / CubifyGS~\cite{ren2026cubifygs} & 2025--26 & arXiv & $\sim$25~FPS Jetson Orin & VRAM-friendly; chunked \\
 \midrule
 \multicolumn{6}{l}{\emph{Quantitative anchors (additions, see \S\ref{sec:mobile} for details):}} \\
-4DGS-1K (Dyn./Stat.)   & 4DGS-1K~\cite{yuan20254dgs1k} & 2025 & CVPR~2025 & 1000+~FPS            & $\sim$2\% storage vs.\ vanilla 4DGS on D-NeRF \\
-Mobile-GS (rasteriser) & Mobile-GS~\cite{du2026mobilegs} & 2026 & ICLR~2026 & 127~FPS              & Snapdragon~8~Gen~3, Vulkan~2.0 (extrapolate to Gen~4 below) \\
-RetimeGS               & RetimeGS~\cite{wang2026retimegs} & 2026 & CVPR~2026 Oral & free framerate    & ghost-free frame interpolation \\
 \bottomrule
   \end{tabular}
 \end{table*}
