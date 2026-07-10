@@ -78,7 +78,7 @@ docs/evolution/
 - 主姓在前：`2024-wu-4dgs`（Wu 是 4DGS 第一作者）
 - 多作者取第一：`2026-poiri...` 取 `poiri` 截断
 - 不带大写：全小写 + 连字符
-- 必须与 INDEX.md 表格里的 [paper_name.md](paper_name.md) 完全一致
+- 必须与 INDEX.md 表格里的 paper note 文件名（例如 `2026-zhou-temporalgs.md`）完全一致
 
 **label 命名**：
 - 短（≤14 字符，节点圆圈宽度限制）

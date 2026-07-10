@@ -8,7 +8,7 @@
 
 | 用户预期的问题 | 在哪儿找 |
 |---|---|
-| 必备 Vulkan 1.3 拓展清单 | [`docs/02-rendering-acceleration.md` §7.4 "Adreno 兼容性要点"](../../02-rendering-acceleration.md#74-adreno-兼容性要点) |
+| 必备 Vulkan 1.3 拓展清单 | [`docs/02-rendering-acceleration.md` §7.4 "Adreno 兼容性要点"](../02-rendering-acceleration.md#74-adreno-兼容性要点) |
 | Compute shader 与 fragment shader 的分工(每阶段的 pipeline 划分) | 同上 §7.1 "Compute + Fragment 分工" |
 | 显存布局(SoA vs AoS,per-frame uniform / SSBO / UBO 用法) | 同上 §7.2 "显存布局(SoA)" |
 | On-tile sort 在 Adreno 上的实现要点 | 同上 §4 "Tile-based GPU 优化(Adreno 特别重要)" + §7.1 |
@@ -18,7 +18,7 @@
 
 ## 加速技术树里的"Vulkan 步骤"
 
-参考 [`docs/02-rendering-acceleration.md` §1 "加速技术树"](../../02-rendering-acceleration.md#1-加速技术树从原始-4dgs--30-60-fps--1080p-on-snap-8-gen-4) 第 7 步 — "Vulkan 1.3 compute + fragment 分工",其中 §7.5 "性能数字" 给出的纸面估算**全部为推测**。
+参考 [`docs/02-rendering-acceleration.md` §1 "加速技术树"](../02-rendering-acceleration.md#1-加速技术树从原始-4dgs--30-60-fps--1080p-on-snap-8-gen-4) 第 7 步 — "Vulkan 1.3 compute + fragment 分工",其中 §7.5 "性能数字" 给出的纸面估算**全部为推测**。
 
 ## 与其他关系说明
 

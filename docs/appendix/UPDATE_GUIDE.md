@@ -59,7 +59,7 @@
 ### 2.3 新增 1 行 note 引用
 按派系分组插到对应表里：
 ```markdown
-| [2026-mousa-provablepruning.md](2026-mousa-provablepruning.md) | 2607.02721 | 2026-07 | 首个可证明 3DGS coreset theory（派系 C 理论补强 + D 部署） | ⭐⭐ |
+| [2026-mousa-provablepruning.md](paper-notes/2026-mousa-provablepruning.md) | 2607.02721 | 2026-07 | 首个可证明 3DGS coreset theory（派系 C 理论补强 + D 部署） | ⭐⭐ |
 ```
 
 ### 2.4 新批扩展 marker（如果是新批次）

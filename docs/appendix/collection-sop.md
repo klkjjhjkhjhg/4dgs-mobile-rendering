@@ -10,7 +10,7 @@
 
 | 用户预期的问题 | 在哪儿找 |
 |---|---|
-| 设备清单(型号 / 数量 / 单价估算 / 替代品) | [`docs/01-high-precision-representation.md` §8 "采集 SOP 草案"](../../01-high-precision-representation.md#8-采集-sop-草案设备清单--拍摄步骤--同步方案) |
+| 设备清单(型号 / 数量 / 单价估算 / 替代品) | [`docs/01-high-precision-representation.md` §8 "采集 SOP 草案"](../01-high-precision-representation.md#8-采集-sop-草案设备清单--拍摄步骤--同步方案) |
 | 同步方案(硬件触发器型号 / 软件时间戳对齐) | 同上 §8.1 / §8.2 |
 | 标定方案(标定板 / 重投影误差目标 / re-cal 频率) | 同上 §8.3 |
 | 拍摄步骤(摆位 / 重叠率 / 帧率 / 曝光 / 白平衡 / 焦距) | 同上 §8.4 |
