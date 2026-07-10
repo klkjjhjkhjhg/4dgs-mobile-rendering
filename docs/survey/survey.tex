@@ -11,6 +11,8 @@
 \usepackage{url}
 \usepackage{amsmath}
 %% amssymb omitted: acmart provides it; redefining \Bbbk clashes.
+%% Silence fancyhdr \headheight too-small warnings (acmart default 13pt).
+\setlength{\headheight}{16.5pt}
 
 %% 0a. CJK font fallback (xelatex path).
 %% Local macOS uses Hiragino Sans GB; CI uses Noto Sans CJK SC.
