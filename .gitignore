@@ -31,3 +31,7 @@ scripts_refs/
 *token*
 .env
 .env.*
+
+# Hermes cron scheduler artefacts (workdir redirected to repo root;
+# these are scanning/upgrading job logs, not project data)
+cron/
