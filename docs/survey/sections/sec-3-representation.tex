@@ -28,7 +28,7 @@ Memory-efficient & Sparse4DGS / CubifyGS & 显存友好 & 实现复杂 \\
 
 \subsection{动静态分离}
 4DGS-1K~\cite{yuan20254dgs1k} (本项目直接对标) 用 STV 评分将高斯分为
-静态 / 动态,静态部分跨帧复用。MEGA~\cite{zhang2024mega} 用 buffer-A/B 残差编码
+静态 / 动态,静态部分跨帧复用。MEGA~\cite{zhang2024mega4dgsacceleration} 用 buffer-A/B 残差编码
 实现结构化动静态分离。
 
 \subsection{Continuous-Time}
@@ -45,4 +45,30 @@ Sparse4DGS / CubifyGS 等工作通过稀疏化、object-level asset 化等方式
 降低显存占用。
 
 \bigskip
+\begin{itemize}
+\item \textbf{2023-attal-hyperreel}~\cite{attal2023hyperreel}: 如何在多视角视频(4×4 / 18~20 / 46 相机阵列)上同时实现高质量 6-DoF 视频、实时渲染、紧凑存储,不用 custom CUDA code? 方法: 1. Ray-Conditioned Sample Prediction Network(PDF §3..
+\item \textbf{2023-yang-deformable-3dgs}~\cite{yang2023deformable3dgs}: 如何用 3DGS 范式重建单目视频动态场景,并在不损失精度的前提下实现实时渲染? 方法: 1. Deformable 3D Gaussians(canonical + deformation 范式): 3D 高斯在 canonical space 学习 轻量级 deformation fi..
+\item \textbf{2024-duan-4drotorgs}~\cite{duan20244drotorgs}: 如何在保持 4DGS 高质量的前提下,把动态场景新视角合成的推理 FPS推到 1000+? 方法: 1. 4D Rotation + 3DGS 范式融合:核心思想是把 4D 高斯旋转(rotation in 4D space)显式建模..
+\item \textbf{2024-li-spacetime-gaussians}~\cite{li2024spacetimegaussians}: 如何让 4D 高斯显式包含"时间轨迹",从而在动态场景中实现实时 + 高质量渲染? 方法: 1. "Spacetime Gaussian"概念:把每个 3D 高斯 + 显式的 per-Gaussian 时间轨迹(time trajectory) 合并为"4D spacetime Gaussi..
+\item \textbf{2024-wu-4dgs}~\cite{wu20244dgs}: 如何在保留 3DGS 实时渲染能力的前提下,整体表示(非逐帧)动态场景的运动与形变,并保持高分辨率下的实时帧率? 方法: 1. 整体表示,非逐帧 3DGS:不把动态场景拆成 N 个独立 3DGS;只维护一套 canonical 3D 高斯..
+\item \textbf{2024-zhang-mega-4dgs-acceleration}~\cite{zhang2024mega4dgsacceleration}: 如何把 4DGS 的"百万级高斯 × 161 参数(其中 144 是 SH 系数)"从GB 级存储压到几十 MB...
+\item \textbf{2025-shi-sparse4dgs}~\cite{shi2025sparse4dgs}: 现有 4DGS 方法(Deformable-3DGS / 4DGS / 4DGS-1K 等)需要 dense-frame video sequence 才能高质...
+\item \textbf{2025-yuan-4dgs-1k}~\cite{yuan20254dgs1k}: 如何在保留 4DGS 精度的前提下,把它从 retrained 4DGS 的 90 FPS @ N3V 推到 1000+ FPS,2% 的原始存储? 方法: > 两个独立的问题(abstract § 直引): > > (Q1) Short-Lifespan Gaussians —— 4DGS 用大量"短生命周期"高斯去拟合复杂动态...
+\item \textbf{2026-huang-gaussianfluent}~\cite{huang2026gaussianfluent}: 3DGS 没有内部纹理（仅表面），没有 fracture-aware simulation——所以不能做脆性断裂 / 切片 / 内部结构变化...
+\item \textbf{2026-song-l2d2-gs}~\cite{song2026l2d2gs}: 方法: 数字:.
+\item \textbf{2026-wang-retimegs}~\cite{wang2026retimegs}: 现有 4DGS 方法在离散帧时间戳上训练，过拟合离散帧但在连续时间插值时出现 ghosting artifacts —— 这是 temporal aliasin...
+\end{itemize}
+\begin{itemize}
+\item \textbf{2023-attal-hyperreel}~\cite{attal2023hyperreel}: 如何在多视角视频(4×4 / 18~20 / 46 相机阵列)上同时实现高质量 6-DoF 视频、实时渲染、紧凑存储,不用 custom CUDA code? 方法: 1. Ray-Conditioned Sample Prediction Network(PDF §3..
+\item \textbf{2023-yang-deformable-3dgs}~\cite{yang2023deformable3dgs}: 如何用 3DGS 范式重建单目视频动态场景,并在不损失精度的前提下实现实时渲染? 方法: 1. Deformable 3D Gaussians(canonical + deformation 范式): 3D 高斯在 canonical space 学习 轻量级 deformation fi..
+\item \textbf{2024-duan-4drotorgs}~\cite{duan20244drotorgs}: 如何在保持 4DGS 高质量的前提下,把动态场景新视角合成的推理 FPS推到 1000+? 方法: 1. 4D Rotation + 3DGS 范式融合:核心思想是把 4D 高斯旋转(rotation in 4D space)显式建模..
+\item \textbf{2024-li-spacetime-gaussians}~\cite{li2024spacetimegaussians}: 如何让 4D 高斯显式包含"时间轨迹",从而在动态场景中实现实时 + 高质量渲染? 方法: 1. "Spacetime Gaussian"概念:把每个 3D 高斯 + 显式的 per-Gaussian 时间轨迹(time trajectory) 合并为"4D spacetime Gaussi..
+\item \textbf{2024-wu-4dgs}~\cite{wu20244dgs}: 如何在保留 3DGS 实时渲染能力的前提下,整体表示(非逐帧)动态场景的运动与形变,并保持高分辨率下的实时帧率? 方法: 1. 整体表示,非逐帧 3DGS:不把动态场景拆成 N 个独立 3DGS;只维护一套 canonical 3D 高斯..
+\item \textbf{2024-zhang-mega-4dgs-acceleration}~\cite{zhang2024mega4dgsacceleration}: 如何把 4DGS 的"百万级高斯 × 161 参数(其中 144 是 SH 系数)"从GB 级存储压到几十 MB...
+\item \textbf{2025-shi-sparse4dgs}~\cite{shi2025sparse4dgs}: 现有 4DGS 方法(Deformable-3DGS / 4DGS / 4DGS-1K 等)需要 dense-frame video sequence 才能高质...
+\item \textbf{2025-yuan-4dgs-1k}~\cite{yuan20254dgs1k}: 如何在保留 4DGS 精度的前提下,把它从 retrained 4DGS 的 90 FPS @ N3V 推到 1000+ FPS,2% 的原始存储? 方法: > 两个独立的问题(abstract § 直引): > > (Q1) Short-Lifespan Gaussians —— 4DGS 用大量"短生命周期"高斯去拟合复杂动态...
+\item \textbf{2026-huang-gaussianfluent}~\cite{huang2026gaussianfluent}: 3DGS 没有内部纹理（仅表面），没有 fracture-aware simulation——所以不能做脆性断裂 / 切片 / 内部结构变化...
+\item \textbf{2026-song-l2d2-gs}~\cite{song2026l2d2gs}: 方法: 数字:.
+\item \textbf{2026-wang-retimegs}~\cite{wang2026retimegs}: 现有 4DGS 方法在离散帧时间戳上训练，过拟合离散帧但在连续时间插值时出现 ghosting artifacts —— 这是 temporal aliasin...
+\end{itemize}
 \noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S A / B]

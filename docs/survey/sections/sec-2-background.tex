@@ -13,7 +13,7 @@
   \item \textbf{Canonical + Deformation Field}: 4DGS~\cite{wu20244dgs}、
         Deformable-3DGS~\cite{yang2023deformable3dgs}，canonical 空间静态表示
         + per-frame deformation MLP
-  \item \textbf{动静态分离}: 4DGS-1K~\cite{yuan20254dgs1k}、MEGA~\cite{zhang2024mega}，
+  \item \textbf{动静态分离}: 4DGS-1K~\cite{yuan20254dgs1k}、MEGA~\cite{zhang2024mega4dgsacceleration}，
         STV 评分或 buffer-A/B 残差编码
   \item \textbf{Continuous-Time}: RetimeGS~\cite{wang2026retimegs}，消除
         temporal aliasing + ghost-free frame interpolation
@@ -24,4 +24,7 @@
 Vulkan 1.3 驱动成熟度、tile-based rendering 架构对 alpha-blending 的开销。
 
 \bigskip
+\begin{itemize}
+\item \textbf{2023-kerbl-3dgs}~\cite{kerbl20233dgs}: 如何用各向异性 3D 高斯做辐射场（radiance field）表示，用纯 splatting 光栅化替代 NeRF 的体积渲染...
+\end{itemize}
 \noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S A / B]
