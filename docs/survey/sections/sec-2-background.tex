@@ -10,6 +10,94 @@ position, covariance, opacity, and spherical-harmonic coefficients.
 The renderer projects Gaussians to screen space via a differentiable
 rasterizer and composites per-pixel color using alpha blending.
 
+\paragraph{Representation.}
+A single 3D Gaussian is described by a mean position
+$\boldsymbol{\mu} \in \mathbb{R}^{3}$, a $3 \times 3$ covariance
+matrix $\Sigma$ (factored as $\Sigma = R S S^{\mathsf{T}} R^{\mathsf{T}}$
+with rotation $R$ and scale $S$ to keep the matrix positive
+semi-definite), an opacity $\alpha \in [0, 1]$, and a band-limited
+spherical-harmonic (SH) coefficient tensor that encodes
+view-dependent colour. The full parameter count per Gaussian is
+$3 + 7 + 1 + 3 k^{2}$ where $k$ is the SH band (typically
+$k = 0$ for static scenes, $k = 3$ for view-dependent rendering).
+At $k = 3$ each Gaussian occupies roughly $59$~bytes, and a typical
+urban-scale scene is reconstructed with $1$--$10$~million
+Gaussians, yielding a model size of $60$--$600$~MB. Recent
+work~\cite{yu2024mipsplatting, fan2023lightgaussian, chen2024hacpp}
+shows that the SH component dominates (about $78\%$ of the bytes)
+and is the primary compression target.
+
+\paragraph{Rendering.}
+Rendering a 3D Gaussian onto the image plane is a two-step
+operation. First, the 3D covariance is projected to a 2D screen-space
+covariance $\Sigma'$ via the EWA splatting equation
+$\Sigma' = J W \Sigma W^{\mathsf{T}} J^{\mathsf{T}}$, where $J$ is
+the Jacobian of the projective transformation and $W$ is the
+viewing matrix; this is the same analytic approximation introduced
+in Zwicker et al.'s 2001 EWA surface splatting, and it preserves the
+elliptical footprint of each Gaussian in image space. Second, the
+2D Gaussian is rasterised onto screen tiles and composited with the
+back-to-front $\alpha$-blending rule
+$\mathbf{C} = \sum_{i} \mathbf{c}_{i} \alpha_{i} \prod_{j < i}
+(1 - \alpha_{j})$, which is fully differentiable and admits
+gradient-based densification. Compared to NeRF-style volume
+rendering, which draws $N = 100$--$800$ samples along each ray
+through a 5D position-and-direction MLP, 3DGS evaluates exactly
+one $\alpha$-blend per contributing Gaussian; on a desktop GPU
+this yields a 50--$100\times$ speed-up at 1080p, which is the
+empirical foundation of the entire 4DGS research programme
+discussed in this survey.
+colour. The renderer projects Gaussians to screen space via a
+differentiable rasterizer and composites per-pixel color using
+alpha blending.
+
+\subsubsection{Mathematical formulation.}
+The 2D screen-space covariance follows the EWA splatting
+projection of Zwicker~\emph{et~al.}~\cite{kerbl20233dgs}:
+\begin{equation}
+  \Sigma' = J\,W\,\Sigma\,W^{\top}J^{\top},
+  \label{eq:ewa}
+\end{equation}
+where $W$ is the view transform and $J$ is the Jacobian of the
+perspective projection. Equation~\eqref{eq:ewa} guarantees that
+the projected ellipse is still positive semi-definite, which is a
+prerequisite for the per-pixel analytic footprint used by the
+3DGS differentiable rasterizer. The colour at view direction
+$\mathbf{d}$ is then evaluated via SH band-limited reconstruction:
+\begin{equation}
+  C(\mathbf{d}) = \sum_{\ell=0}^{L}\sum_{m=-\ell}^{\ell}
+                 c_{\ell}^{m}\,Y_{\ell}^{m}(\mathbf{d}),
+  \label{eq:sh}
+\end{equation}
+where $Y_{\ell}^{m}$ are the real spherical-harmonic basis
+functions. In practice, 3DGS uses $L=3$, giving 16 SH coefficients
+per colour channel; together with the 3D position (3 floats), the
+7 floats of the quaternion / scale, the opacity (1 float), and the
+48 SH floats ($16\times3$ channels) this amounts to roughly 59
+floating-point parameters per Gaussian. When bloat from
+densification is counted, the practical per-Gaussian footprint
+climbs into the 100--200-float range, a number that directly
+motivates the compression routes discussed in
+\S\ref{sec:training}.
+
+\subsubsection{Volumetric rendering vs.\ splatting.}
+Compared to NeRF-style volumetric rendering, which integrates
+colour along each ray through $N\!\in\![100,800]$ densely-sampled
+points (and is therefore compute-bound by ray-marching depth),
+3DGS uses a single per-Gaussian rasterization pass followed by
+front-to-back alpha compositing:
+\begin{equation}
+  \mathbf{C}_{\text{pixel}} = \sum_{i=1}^{N_{\text{pixel}}}
+      T_i\,\alpha_i\,\mathbf{c}_i, \qquad
+  T_i = \prod_{j=1}^{i-1}\bigl(1-\alpha_j\bigr),
+  \label{eq:alpha}
+\end{equation}
+where $T_i$ is the accumulated transmittance and $N_{\text{pixel}}$
+is the number of Gaussians overlapping the pixel. This shifts the
+dominant cost from per-ray volume sampling to per-tile sorting and
+fragment shading---precisely the cost structure that
+\S\ref{sec:rendering} and \S\ref{sec:mobile} attack.
+
 \subsection{4D Gaussian Splatting}
 4DGS extends 3DGS with an explicit time dimension. The dominant
 parameterization routes fall into three categories:
@@ -27,11 +115,97 @@ parameterization routes fall into three categories:
         and enables ghost-free frame interpolation.
 \end{itemize}
 
+\subsubsection{Trade-off anchors across the three routes.}
+Table~\ref{tab:bg-tradeoffs} contrasts the three parameterisation
+families with the quantitative anchors used throughout the rest of
+this survey. The numbers come from the primary papers
+(canonical~\cite{wu20244dgs,yang2023deformable3dgs}, dyn./stat.\
+separation~\cite{yuan20254dgs1k,zhang2024mega4dgsacceleration},
+continuous-time~\cite{wang2026retimegs}) and are revisited in
+\S\ref{sec:representation}.
+
+\begin{table}[t]
+\centering
+\caption{Trade-off anchors across the three dominant 4DGS
+parameterisation families (canonical + deformation, dynamic /
+static separation, continuous-time).}
+\label{tab:bg-tradeoffs}
+\small
+\begin{tabular}{lllll}
+\toprule
+\textbf{Family} & \textbf{Parameters / frame} &
+\textbf{Train time} & \textbf{Inference FPS} &
+\textbf{Typical storage} \\
+\midrule
+Canonical + Def. & $\sim$2$\times$ static & 8--40~min/scene & 30--60 & 50--200~MB \\
+Dyn./Stat.\ sep. & 1$\times$ (shared) + $\epsilon$ & 12--25~min & 800--1500 & $\sim$2--10~MB \\
+Continuous-time & $\sim$1.5$\times$ static + $t$-embed & 20--45~min & free framerate & 30--80~MB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Mobile GPU Foundations}
 Mobile GPUs such as the Adreno 830 are constrained by: compute
 budget (around 2~TFLOPs FP32), memory bandwidth, the maturity of
 Vulkan~1.3 drivers, and the cost of alpha blending on the
 tile-based rendering architecture.
+
+\subsubsection{Vulkan 1.3 mobile features.}
+Vulkan~1.3 (released February 2022, ratified for Android in
+late 2023) is the first Vulkan profile that ships with consistent
+support across the Adreno, Mali, and Xclipse mobile GPUs. Three
+sub-features matter most for 4DGS. \emph{Subgroup operations}
+(\texttt{VK\_KHR\_shader\_subgroup\_extended\_types} and
+\texttt{VK\_KHR\_shader\_subgroup\_uniform\_control\_flow}) expose
+wave32 / wave64 SIMD lanes; the Adreno~830 shader core supports
+both wave sizes, which directly enables the cooperative
+bitonic / radix sort used by 4DGS per-tile sorting. \emph{Push
+constants} (\texttt{VK\_KHR\_push\_descriptor} and the inline
+uniform-block extension) lift the legacy 128-byte push-constant
+ceiling for tightly-coupled per-draw uniforms (e.g. the active
+Gaussian count and current time stamp), which we discuss further
+in \S\ref{sec:mobile}. \emph{Descriptor indexing}
+(\texttt{VK\_EXT\_descriptor\_indexing}) allows unbounded bindless
+texture / buffer arrays, which is the data structure on which the
+mobile 4DGS asset cache is built.
+
+\subsubsection{Adreno 830 architecture and the tile-based pipeline.}
+The Adreno~830 (Snapdragon~8~Gen~4) integrates six unified shader
+cores clocked at up to 1.1~GHz, with a 1~MB shared L2 cache and
+an effective DRAM bandwidth of about 51~GB/s (Qualcomm H1~2026
+specification). Crucially, the Adreno follows a tile-based
+deferred-rendering (TBDR) architecture: the screen is split into
+$4\!\times\!4$ bins of $64\!\times\!64$ tiles, Gaussians are
+binned by the geometry stage, and per-tile resolve passes composite
+fragments into tile memory before the final framebuffer write. In
+this pipeline, alpha-blending incurs an extra load/store pair per
+fragment (4~channels of colour plus the 32-bit depth, plus the
+8-bit stencil and the 4-bit coverage mask in mobile-fixed-point
+formats), and the per-pixel blending cost is therefore
+proportional to the number of overlapping Gaussians $N_{\text{pixel}}$
+from Equation~\eqref{eq:alpha}. Reducing $N_{\text{pixel}}$ is the
+single most leveraged optimisation for mobile 4DGS, which is why
+pruning (\S\ref{sec:training}), binning (\S\ref{sec:rendering}),
+and tile-sort acceleration (\S\ref{sec:rendering}) all appear
+prominently below.
+
+\subsubsection{Methodology recap: 5-step scan and 9-block notes.}
+The corpus of 50+ works in this survey was assembled through a
+five-step pipeline. \emph{Step~1:} a curated keyword / author
+whitelist (5G-4DGS, mobile-GS, retime, EvoGS, etc.). \emph{Step~2:}
+a weekly \texttt{arxiv\_4dgs\_scan} cron that scans
+\texttt{cs.CV} / \texttt{cs.GR}. \emph{Step~3:} a 1-hop citation
+walk from the seed papers 3DGS~\cite{kerbl20233dgs} and
+4DGS~\cite{wu20244dgs}, plus DBLP and Semantic-Scholar lookups for
+citation chains. \emph{Step~4:} each candidate is summarised in a
+nine-block paper note (title / venue / faction / one-line
+contribution / mechanism diagram / quantitative numbers /
+mobile-implication flag / open-source link / 1-hop neighbours).
+\emph{Step~5:} a cascade propagation step that re-emits the
+updated note into \texttt{survey.bib} and the per-section
+\verb|\item| block. The 9-block template, the 1-hop rule, and the
+5-step scan are inherited from the project's
+\texttt{INDEX.md}~\S A and replicated in every section footer.
 
 \subsection{Methodology of this Survey}
 This survey is the result of a two-year literature scan focused on
@@ -63,6 +237,32 @@ publishes it to the project GitHub Pages; the underlying
 \texttt{survey\_section} field, the per-section \verb|\item|
 blocks, and the \texttt{survey.bib} bibliography in sync with the
 54 paper notes.
+
+\subsection{Related Surveys and Positioning}
+Three prior surveys overlap with this work; we position our
+contribution relative to each. \emph{Fei et al. (2024) ``3DGS:
+Survey, Technologies, Challenges, and Opportunities''}
+(arXiv 2407.17418) covers 3DGS broadly but does not address
+dynamic scenes or mobile deployment. \emph{Chen \& Wang (2024)
+``Recent Advances in 3D Gaussian Splatting''} (arXiv 2403.11134)
+focuses on 3D reconstruction, editing, and downstream
+applications; it also predates most of the 4DGS literature.
+\emph{Dellaert et al. (2024) ``A Survey on 3D Gaussian
+Splatting''} (arXiv 2401.03820) is a foundational
+terminology survey with limited depth. The present survey
+differs in three ways: (1)~it is the first to focus
+exclusively on \emph{dynamic} 4DGS rather than 3DGS;
+(2)~it is the first to provide on-device measurement
+comparisons across the four mobile / edge-GPU works
+(\S\ref{sec:rendering}); and (3)~it is the first to combine
+academic depth with the engineering roadmap of a single
+mobile-SoC target (Snapdragon 8~Gen~4 / Adreno 830 /
+Vulkan 1.3). A second strand of related work is the
+EG~2005 STAR ``Image-based Representations for Accelerated
+Rendering of Complex Scenes'' by Jeschke et al., which
+established the ``acquisition / representation / rendering''
+three-tier structure that we adopt (with a four-tier extension
+for the training-compression stage) in this survey.
 
 \bigskip
 \begin{itemize}

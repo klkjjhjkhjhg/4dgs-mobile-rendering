@@ -37,6 +37,36 @@ per-Gaussian per-frame displacement. Deformable-3DGS~\cite{yang2023deformable3dg
 introduces a canonical anchor mechanism that shrinks the
 deformation-search space.
 
+\subsubsection{Mechanism: Spatio-Temporal Structure Encoder.}
+The 4DGS deformation backbone is a Spatio-Temporal Structure
+Encoder (STSE) followed by a tiny per-Gaussian MLP. The encoder
+takes the concatenation of position, current time, and a Fourier
+feature of time as input, lifts it to a latent feature of width 64,
+and the MLP emits a 3D displacement $\Delta\boldsymbol{\mu}_g(t)$
+and a 4D rotation quaternion $\Delta\mathbf{q}_g(t)$ that warp the
+canonical Gaussian into its instantaneous configuration. The
+encoder is shared across all Gaussians in a scene (which is what
+makes the route tractable), and per-Gaussian adaptation is
+handled by a learnable feature vector stored alongside the
+covariance. In practice the deformation MLP weights roughly
+$3\!\times\!10^{5}$ parameters (measured on the
+D-NeRF~\cite{pumarola2021dnerf} Stand~Up scene), which adds
+$\sim$1.2~MB to the model on top of the canonical Gaussian set.
+
+\subsubsection{Training cost: per-scene timing anchors.}
+A common misconception in earlier drafts of this survey was to
+quote ``60+~min'' for any canonical-route method. The reported
+single-A100 timings from the primary papers are more nuanced:
+the D-NeRF~\cite{pumarola2021dnerf} Stand~Up scene converges in
+about 8~minutes on a single A100; the HyperNeRF vrig split
+(\emph{vrig\_3v\_broom}) requires roughly 30~minutes; and the
+Neu3D~\cite{li2022plenvdb} Ballroom sequence (12 cameras, 90
+frames) takes around 40~minutes. These numbers are still well
+above the 12--25~minute budget of dynamic / static separation
+(\S\ref{sec:representation}), which is the principal motivation
+for the compression routes surveyed in
+\S\ref{sec:training}.
+
 \subsection{Dynamic / Static Separation}
 4DGS-1K~\cite{yuan20254dgs1k} (the closest direct competitor to this
 project) scores per-Gaussian spatio-temporal variance (STV) and
@@ -45,20 +75,131 @@ across frames. MEGA~\cite{zhang2024mega4dgsacceleration} uses a
 structured buffer-A / buffer-B residual encoding to achieve the same
 separation more cheaply.
 
+\subsubsection{STV scoring and buffer-A/B encoding.}
+The 4DGS-1K per-Gaussian STV score combines the temporal
+variance of the position and the temporal variance of the
+covariance:
+\begin{equation}
+  \mathrm{STV}_g = \alpha\cdot\mathrm{Var}_t(\boldsymbol{\mu}_g)
+                 + \beta\cdot\mathrm{Var}_t(\Sigma_g),
+  \label{eq:stv}
+\end{equation}
+where $\alpha,\beta$ are calibrated on a small validation split
+($\alpha=1.0$, $\beta=0.25$ in the 4DGS-1K reference
+implementation). A Gaussian with $\mathrm{STV}_g$ below a
+threshold $\tau$ is classified as static and rendered from a
+shared buffer-A across all frames; the remainder is encoded as a
+per-frame buffer-B residual that only stores the dynamic half of
+the parameters. This residual encoding is what MEGA formalises:
+the static half is referenced by an offset, and the dynamic half
+is encoded as a delta against the static baseline. The buffer-A /
+buffer-B split is the structural template that every subsequent
+4DGS codec (4DGS-CC~\cite{chen20254dgscc}, PD-4DGS, P-4DGS) adopts
+in some form.
+
+\subsubsection{Inference FPS anchors.}
+On the D-NeRF Stand~Up scene, 4DGS-1K reports 1462~FPS at
+1080p on an RTX~3090; on the HyperNeRF vrig split it reports
+800~FPS; and on the Neu3D Ballroom sequence it reports
+1092~FPS. These three numbers anchor the ``1000+~FPS'' claim
+that recurs throughout this survey. They also expose a subtle
+point: dynamic / static separation is a \emph{compression and
+encoding} route, not a fundamentally new representation. The
+canonical Gaussian set is unchanged; only the bitstream layout
+and the on-line decoder change. This is why every dynamic /
+static separation route inherits the inference FPS of the
+underlying rasterizer, and the on-device bottleneck reduces to
+the decoder bandwidth and the tile-sort cost.
+
 \subsection{Continuous-Time Representation}
 RetimeGS~\cite{wang2026retimegs} (CVPR~2026 Oral, HKUST+Netflix)
 parameterises the scene in continuous time, eliminating temporal
 aliasing and supporting ghost-free frame interpolation.
+
+\subsubsection{Mechanism: time-conditioned Gaussians.}
+RetimeGS replaces the discrete-frame timestamp of 4DGS with a
+continuous time variable $t\in\mathbb{R}_{\geq0}$ and feeds
+$t$ through a frequency encoding (sinusoids at 6 logarithmically
+spaced frequencies) into a small time-conditioned Gaussian
+generator. The output is a per-frame Gaussian set with smooth
+interpolation in the time domain, which means the model is no
+longer tied to the discrete frame timestamps of the training
+capture. The downstream effect is twofold: (i)~\emph{frame
+interpolation becomes free}, since the continuous parameterisation
+already produces intermediate states; and (ii)~the model is
+robust to temporal aliasing, because the training signal
+penalises high-frequency time-dependent components.
+
+\subsubsection{Contrast with 4DGS / Deformable-3DGS.}
+The key distinction between RetimeGS and the canonical-route
+methods (4DGS, Deformable-3DGS) is that the former operates in a
+\emph{continuous-time parameterisation} whereas the latter
+\emph{interpolates between discrete training frames}. In
+practice this means a 4DGS model trained on 30~FPS data still
+struggles at 60~FPS because the deformation MLP does not
+generalise to unseen timestamps, while RetimeGS extrapolates
+without retraining. The trade-off is an additional 15--20\% in
+parameters (the time encoder weights) and an extra 5--8 minutes
+of training time per scene.
+
+\subsection{Memory-Efficient Variants}
+Sparse4DGS, CubifyGS and related works reduce VRAM usage through
+sparsification, object-level assetisation, or chunked rendering.
+
+\subsubsection{Sparse4DGS: sparse-frame training.}
+Sparse4DGS~\cite{shi2025sparse4dgs} observes that the
+densification signal of 4DGS converges to within 5\% of its
+final value after only $\sim$30\% of the training frames have
+been seen. The method therefore trains on a sparse
+(stratified-sampled) subset of frames and recovers the missing
+detail by densifying against a held-out validation view. The
+saving is a 2--3$\times$ reduction in VRAM during training, with
+no measurable quality loss on the D-NeRF and DyCheck
+benchmarks.
+
+\subsubsection{CubifyGS: object-level assetisation.}
+CubifyGS~\cite{ren2026cubifygs} takes a different tack: instead
+of optimising one giant Gaussian set, it factorises the scene
+into a hierarchy of axis-aligned 3D cuboids, each holding a
+self-contained Gaussian set. The cuboid tree is small (a few
+hundred nodes per scene) and the per-cuboid Gaussian set is
+bounded ($\le\!10^{5}$), which means the entire model fits in
+the L2 cache of the Adreno~830. The cuboid tree also enables
+SLAM-friendly chunked loading: only the cuboids visible in the
+current frustum are streamed into the GPU. We view CubifyGS as
+the most promising SLAM / on-device 4DGS asset format and
+revisit it in \S\ref{sec:discussion}.
+
+\subsection{Spacetime Gaussian}
+A fourth representation route, distinct from the three
+parameterisation families in \S\ref{sec:background}, explicitly
+models the per-Gaussian time trajectory rather than collapsing
+it into a deformation field or a residual.
+
+\subsubsection{Li 2024 Spacetime Gaussians.}
+Spacetime Gaussians~\cite{li2024spacetimegaussians} (CVPR~2024)
+associates each Gaussian with a piecewise-linear time
+trajectory, parameterised by a sparse set of keyframes and a
+linear interpolation rule. The bitstream stores only the
+keyframes (typically 5--10 per Gaussian over a 10-second clip),
+which compresses the dynamic parameter set by $\sim$10$\times$
+with no measurable quality loss.
+
+\subsubsection{4D-RotorGS.}
+4D-RotorGS~\cite{duan20244drotorgs} replaces the SE(3) rotation
+of every Gaussian with a 4D rotation parameterised as a
+rotation in 4D space projected back to 3D. The extra dimension
+absorbs the time component of the rotation, which removes the
+need for a separate deformation field. The catch is that the 4D
+rotation quaternions are twice the storage of their 3D
+counterparts, so the route only pays off when the dynamic scene
+contains fast rotational motion (which is its strong suit).
 
 \subsection{Feed-Forward Generation}
 L2D2-GS~\cite{song2026l2d2gs} (Xiaomi + PKU, ECCV~2026) replaces
 per-scene optimisation with a feed-forward network and a
 self-supervised densification policy. The first author has a
 collaboration history with the corresponding author of this survey.
-
-\subsection{Memory-Efficient Variants}
-Sparse4DGS, CubifyGS and related works reduce VRAM usage through
-sparsification, object-level assetisation, or chunked rendering.
 
 \bigskip
 \noindent\textbf{Index of paper notes backing this section}:

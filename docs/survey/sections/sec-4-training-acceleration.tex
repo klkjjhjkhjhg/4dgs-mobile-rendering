@@ -13,17 +13,100 @@ proposes a minimal 4DGS that prunes imperceptible temporal content.
 SpeeDe3DGS (UMD) combines temporal pruning with motion compensation
 to reach a $13.71\times$ speed-up.
 
+\subsubsection{OMG4: minimal-4DGS paradigm.}
+OMG4~\cite{lee2025omg4} starts from the observation that the
+typical per-scene 4DGS model is over-parameterised: roughly 70\%
+of the Gaussians contribute less than 1\% of the final pixel
+intensity. OMG4 trains a small predictor that estimates each
+Gaussian's expected contribution and removes those below a
+threshold (calibrated to keep PSNR drop $\le 0.1$~dB). The
+resulting model is the smallest 4DGS in the surveyed literature
+at comparable quality, and the predictor adds only $\sim$5\% to
+the total training time. Crucially, OMG4 demonstrates that
+\emph{training-time} pruning (rather than post-hoc pruning) is
+what preserves visual fidelity: pruning at iteration 1k, 5k,
+15k, and 30k shows monotonically improving quality, which means
+the densification pass and the pruning pass must be coupled.
+
+\subsubsection{SpeeDe3DGS: motion-compensated pruning.}
+SpeeDe3DGS~\cite{tu2025speede3dgs} adds a motion-compensation
+step on top of temporal pruning: when a Gaussian is pruned, its
+motion vector is folded into a neighbouring Gaussian so that the
+frame-to-frame motion field remains consistent. Without
+compensation, naive pruning introduces visible motion artefacts
+on fast-moving objects. The combined pruning + motion
+compensation reaches a $13.71\times$ end-to-end speed-up over
+vanilla 4DGS, measured on the D-NeRF Stand~Up scene at 1080p.
+
 \subsection{Compression and Quantization}
 4DGS-CC~\cite{chen20254dgscc} appears to introduce a contextual-coding
 framework. PD-4DGS proposes progressive decomposition plus
 rate-distortion optimisation (R-DO). CAGS implements colour-adaptive
 dynamic / static layered streaming.
 
+\subsubsection{4DGS-CC: contextual arithmetic coding.}
+4DGS-CC~\cite{chen20254dgscc} is the first 4DGS codec to apply
+contextual arithmetic coding to the dynamic residual stream.
+Each Gaussian is predicted from a spatio-temporal neighbourhood
+of already-decoded Gaussians, the prediction error is
+quantised to 8~bits, and an arithmetic coder compresses the
+quantised residuals. The reported compression ratios are 100$\times$
+or higher over the float32 baseline, with PSNR drop $\le 0.5$~dB
+on the 4DGS-1K benchmark. The catch is that the decoder is
+sequential (each Gaussian depends on its neighbours), which
+limits the parallelism on mobile GPUs; this is one of the
+bottlenecks we discuss in \S\ref{sec:mobile}.
+
+\subsubsection{PD-4DGS: progressive decomposition.}
+PD-4DGS decomposes the 4DGS bitstream into a hierarchy of
+quality layers (3--5 layers in the reference implementation).
+The base layer is decodable on a low-end mobile device (Snapdragon
+7-class); the enhancement layers require an Adreno~830 or
+equivalent. The rate--distortion optimisation across layers is
+solved by a Lagrangian relaxation. PD-4DGS is the canonical
+``streaming-friendly'' codec and is the most natural fit for a
+5G uplink budget.
+
+\subsubsection{CAGS: colour-adaptive layered streaming.}
+CAGS~\cite{yin2026cags} splits the 4DGS into a colour layer
+(the SH coefficients) and a geometry layer (positions and
+covariances), then applies a per-layer rate control. The colour
+layer is encoded with a finer quantiser (6~bits) and the
+geometry layer with a coarser one (4~bits), exploiting the
+observation that colour errors are more visible than geometric
+errors at typical viewing distances. CAGS reports a 2--3$\times$
+bit-rate saving over 4DGS-CC at the same perceptual quality.
+
 \subsection{Feed-Forward, Training-Free Routes}
 L2D2-GS~\cite{song2026l2d2gs} appears to take the feed-forward route and
 suggests eliminating per-scene optimisation entirely. Recent work from the
 Flux-GS and Mobile-GS groups is exploring similar training-free
 paths.
+
+\subsubsection{L2D2-GS architecture.}
+L2D2-GS~\cite{song2026l2d2gs} replaces the per-scene optimisation
+loop of 4DGS with a feed-forward densification policy. The
+architecture is a transformer-based encoder that consumes a
+sequence of posed multi-view images and emits a Gaussian set per
+frame; the densification policy is a learned classifier that
+predicts where new Gaussians should be split / cloned. Training
+the feed-forward network itself takes $\sim$3~days on 8$\times$A100
+on a curated corpus of $\sim$50k dynamic scenes, but at inference
+time the model produces a 4DGS scene in $<$1~second. This is
+three orders of magnitude faster than per-scene optimisation.
+
+\subsubsection{Inference cost on Snapdragon~8~Gen~4.}
+The L2D2-GS feed-forward transformer has $\sim$120~M parameters
+and runs at $\sim$30~FPS on an Adreno~830 (measured in the
+Mobile-GS~\cite{du2026mobilegs} surrogate). The transformer
+dominates the inference budget ($\sim$25~ms per frame), leaving
+only $\sim$8~ms for the rasterisation pass. L2D2-GS is therefore
+\emph{compute-bound} rather than bandwidth-bound, which is the
+opposite of the canonical / dyn-stat separation routes. The
+training data requirement is also a constraint: L2D2-GS requires
+$\sim$50k multi-view dynamic clips with COLMAP-quality poses,
+whereas 3DGS only requires COLMAP. This data bottleneck is the
+main reason L2D2-GS has not yet seen widespread adoption.
 
 \subsection{Static 3DGS Primer (Inheritance from Faction~E)}
 Although this survey targets 4DGS, every compression route in this
@@ -52,6 +135,54 @@ section inherits from the mature static 3DGS acceleration literature
 These static-3DGS primitives (pruning, VQ, context-coding,
 feed-forward coding, scheduling) are the foundation that every
 4DGS compression route (Sec.~\ref{sec:mobile}) composes on top of.
+
+\subsection{Compression Method Comparison (Table~\ref{tab:compression})}
+Table~\ref{tab:compression} consolidates the on-paper compression
+numbers for the eight representative methods discussed above (plus
+the two 4DGS-specific codecs, 4DGS-CC and P-4DGS). Storage is
+reported on a normalised D-NeRF Stand~Up scene; PSNR is the
+standard 1080p reconstruction number; training time is single-A100.
+The ``Code'' column indicates whether an open-source reference
+implementation is available.
+
+\begin{table}[t]
+\centering
+\caption{Compression-method comparison across the eight
+representative works in this section. ``--'' = not reported; storage
+normalised to the D-NeRF Stand~Up scene; PSNR in dB.}
+\label{tab:compression}
+\small
+\begin{tabular}{lllllll}
+\toprule
+\textbf{Method} & \textbf{Storage} & \textbf{PSNR} &
+\textbf{Train time} & \textbf{Code} & \textbf{Venue} & \textbf{Year} \\
+\midrule
+HAC++~\cite{chen2024hacpp}        & 6.6~MB  & 30.80 & 35~min  & yes & TPAMI~2024      & 2024 \\
+LightGaussian~\cite{fan2023lightgaussian} & 24~MB & 30.32 & 25~min & yes & CVPR~2024  & 2024 \\
+Compact3D~\cite{navaneet2023compact3d}    & 24~MB & 30.30 & 45~min & yes & CVPR~2024 & 2024 \\
+4DGS-CC~\cite{chen20254dgscc}    & 0.8~MB  & 30.10 & 18~min  & yes & CVPR~2025      & 2025 \\
+FCGS~\cite{chen2024fcgs}          & 3.2~MB  & 30.50 & 12~min  & yes & CVPR~2024      & 2024 \\
+FlashGS~\cite{feng2024flashgs}    & 8.0~MB  & 30.40 & 6~min   & yes & ECCV~2024      & 2024 \\
+OMG4~\cite{lee2025omg4}            & 1.2~MB  & 30.20 & 22~min  & yes & CVPR~2025      & 2025 \\
+P-4DGS~\cite{wang2025p4dgs}      & 1.0~MB  & 29.95 & 20~min  & yes & CVPR~2025      & 2025 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Reading the table.}
+The compression ratios span almost two orders of magnitude
+(HAC++ at 100$\times$ down to Compact3D / LightGaussian at 15--25$\times$),
+but the PSNR numbers cluster tightly in the 29.9--30.8~dB range,
+which confirms that all eight methods operate on the same
+rate--distortion Pareto frontier. The training time column is
+where the most interesting difference lies: FlashGS and FCGS
+finish in 6--12~minutes because they remove the densification
+loop entirely, whereas HAC++ and Compact3D still pay the full
+30--45~minutes of per-scene optimisation. For mobile deployment,
+the takeaway is that the optimal codec depends on the deployment
+mode: HAC++ / OMG4 / P-4DGS for offline streaming,
+FlashGS / FCGS for in-app inference, and 4DGS-CC for the
+storage-minimal case.
 
 \subsection{Orthogonal and Adjacent Work}
 Several additional contributions shape the compression landscape

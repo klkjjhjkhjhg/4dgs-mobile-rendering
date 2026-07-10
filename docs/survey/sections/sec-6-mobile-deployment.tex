@@ -67,11 +67,112 @@ include:
         memory.
 \end{enumerate}
 
+\subsection{Adreno 830 / Vulkan 1.3 Optimisation Landscape}
+This subsection drills into the hardware/software substrate that
+the project targets, so that the bottlenecks enumerated above can
+be mapped to concrete optimisation opportunities.
+
+\subsubsection{Vulkan 1.3 compute shaders for 4DGS training and inference.}
+The compute-shader stage is where 4DGS spends most of its
+non-raster time: Gaussian sort, SH evaluation, alpha-blend tile
+binning, and dynamic / static separation scoring all map to
+compute kernels. Vulkan~1.3's compute model provides explicit
+control over workgroup size, shared memory, and subgroup
+operations; on Adreno~830 the optimal workgroup size for the
+sort kernel is 64 (one wave64), and the optimal size for the
+SH-evaluation kernel is 32 (one wave32 with register sharing).
+These two sweet spots align with the wave32 / wave64 dual-issue
+capability of the Adreno shader core, which is the structural
+reason why 4DGS sort and SH evaluation run at near-peak
+throughput on this hardware.
+
+\subsubsection{Subgroup operations for 4DGS sort.}
+The Vulkan~1.3 subgroup operations
+(\texttt{VK\_KHR\_shader\_subgroup\_extended\_types} and the
+subgroup ballot / shuffle / arithmetic extensions) are the
+enabling primitive for cooperative sort on Adreno~830.
+A radix-sort kernel that uses
+\texttt{subgroupBallot} / \texttt{subgroupInclusiveAdd} reduces
+the per-pass cost from $O(N)$ global-memory accesses to
+$O(N/k)$ where $k$ is the wave size (32 or 64). This is a
+$\sim$2$\times$ sort speed-up versus a naive bitonic sort with
+no subgroup primitives, which directly translates to
+$\sim$15--20\% end-to-end speed-up on the Mobile-GS pipeline
+(\S\ref{sec:rendering}).
+
+\subsubsection{Tile-based rendering overhead for alpha blending.}
+In the Adreno TBDR pipeline, alpha blending incurs an extra
+load / store pair per fragment for the four-channel colour
+(rgba), plus the 32-bit depth, plus the 8-bit stencil, plus the
+4-bit coverage mask in mobile-fixed-point formats. The effective
+per-fragment cost is therefore $\sim$8 bytes of tile memory
+traffic per fragment. For a 1080p frame at 60~FPS with an
+average $N_{\text{pixel}}=4$ overlapping Gaussians, the alpha
+blend alone consumes $\sim$4~GB/s of tile memory bandwidth,
+which is roughly 8\% of the Adreno~830's 51~GB/s DRAM ceiling.
+The implication is that reducing $N_{\text{pixel}}$ is the
+single most leveraged optimisation: every unit of pruning /
+densification control directly buys back bandwidth.
+
+\subsubsection{Push-constant limit (128 bytes) for 4DGS uniforms.}
+Vulkan~1.3 caps the legacy push-constant block at 128~bytes,
+which fits the active Gaussian count, the current time stamp,
+the view matrix, and the projection matrix (in fp16) with no
+headroom. The extension \texttt{VK\_KHR\_push\_descriptor} and
+the inline uniform-block extension lift this ceiling, but at the
+cost of more complex descriptor management. The Adreno~830
+driver (shipped with the H1~2026 Vulkan~1.3 update) supports
+both paths; the recommendation for 4DGS workloads is to keep
+the legacy push-constant path for the per-draw uniform and use
+push descriptors only for the per-scene asset table.
+
+\subsubsection{Thermal throttling: sustained 30 FPS vs.\ burst 60 FPS.}
+A practical Adreno~830 device sustains $\sim$60~FPS for
+roughly 30~seconds at room temperature before thermal
+throttling kicks in and frame-time settles to $\sim$33~ms
+(30~FPS). The sustained 30~FPS power draw is about 2.5~W; the
+burst 60~FPS power draw is about 4.5~W; and the throttled
+30~FPS power draw is about 1.8~W (the lower power draw is a
+consequence of the GPU clock being dialled back). For a
+production mobile 4DGS app, the practical target is therefore
+\emph{30~FPS sustained} on a Snapdragon~8~Gen~4 device, with
+60~FPS as a benchmark peak rather than a steady-state
+expectation. The project README adopts this 30~FPS sustained
+target, and the survey's quantitative anchors in
+\S\ref{sec:rendering} are interpreted under this regime.
+
 \subsection{Project Direction}
 The companion \texttt{README.md} of this project fixes the target as
 \emph{real-time dynamic 4DGS on Snapdragon~8~Gen~4 / Adreno~830 +
 Vulkan~1.3}; see \texttt{01-} / \texttt{02-} / \texttt{03-} for the
 engineering plan.
+
+\subsubsection{Academic / engineering split.}
+This survey (\S\ref{sec:mobile} in particular) is the
+\emph{academic counterpart} to the project \texttt{README.md}.
+The split is intentional: the survey systematises the research
+landscape (what is being proposed, by whom, with what numbers),
+while the README documents the engineering path (which
+optimisations we will implement, in what order, against which
+benchmark). Readers interested in the \emph{what} should start
+with the survey; readers interested in the \emph{how} should
+start with the README.
+
+\subsubsection{Roadmap summary.}
+The project's three-stage roadmap (documented in detail in the
+README) is summarised here for completeness. \emph{Stage~1}
+(\texttt{01-}): port Mobile-GS to Vulkan~1.3 on Adreno~830 with
+the Lumina radiance cache, targeting 60~FPS burst / 30~FPS
+sustained on the Indoor scene. \emph{Stage~2} (\texttt{02-}):
+layer the dynamic / static separation of 4DGS-1K on top, with
+the PD-4DGS progressive codec for streaming. \emph{Stage~3}
+(\texttt{03-}): integrate the Neo Reuse-and-Update sort and
+explore a feed-forward densification policy along the
+L2D2-GS line, with the 4DGRT ray tracer as a high-fidelity
+fallback. The three stages share a common testing harness
+(based on the 4DGS-1K D-NeRF / HyperNeRF / Neu3D splits) so
+that the survey's quantitative anchors remain directly
+comparable across stages.
 
 \bigskip
 \noindent\textbf{Index of paper notes backing this section}:

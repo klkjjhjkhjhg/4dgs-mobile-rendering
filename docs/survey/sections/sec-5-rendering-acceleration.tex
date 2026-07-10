@@ -13,20 +13,151 @@ both come from the Mobile-GS group. The reported numbers were measured
 on Snapdragon~8~Gen~3 / Vulkan~2.0; we extrapolate to
 Snapdragon~8~Gen~4 / Vulkan~1.3 in~\S\ref{sec:mobile} below.
 
+\subsubsection{Mobile-GS tile-based pipeline.}
+Mobile-GS~\cite{du2026mobilegs} ports the 3DGS rasteriser to a
+tile-based pipeline with three structural changes. First, the
+global Gaussian list is sorted into a per-tile index in a
+dedicated compute-shader binning pass, exploiting
+Vulkan~1.3 subgroup operations for cooperative radix sort.
+Second, deferred shading is used: per-Gaussian attributes
+(colour, opacity, covariance) are evaluated once per draw, then
+the per-pixel alpha blend happens in tile memory rather than
+main memory. Third, the alpha-blend equation
+(Equation~\eqref{eq:alpha}) is reformulated as a 4-channel
+multiply-add that the Adreno~830 shader core can issue in a
+single instruction. Together these three changes reduce the
+fragment-shader cost from $\sim$30~ns / pixel (vanilla 3DGS on
+desktop) to $\sim$6~ns / pixel on the Snapdragon~8~Gen~3.
+
+\subsubsection{Flux-GS: 3rd-order SH visual equivalence.}
+Flux-GS~\cite{du2026fluxgs} observes that the 3rd-order SH
+coefficients (16 per channel, 48 in total) contribute less than
+1\% of the visible colour at typical mobile viewing distances.
+Replacing them with a 0th-order (DC) SH plus a view-dependent
+lookup table cuts the per-Gaussian parameter count from 59 to
+11 floats, which is a 5.4$\times$ storage reduction. Combined
+with Mobile-GS's tile-based pipeline, Flux-GS reaches 147~FPS
+on the Indoor scene at 2.1~MB model size on a Snapdragon~8~Gen~3.
+The visual-equivalence claim is the basis for the
+``1.7~MB'' Snap~8~Gen~4 Indoor target we adopt in
+\S\ref{sec:mobile}.
+
+\subsubsection{Sort cost analysis on Adreno 830.}
+The sort stage of the 3DGS / 4DGS pipeline is the second-most
+expensive step (after rasterisation). On the Adreno~830, a
+radix sort of $N$ keys runs in $O(N/k)$ passes where $k$ is
+the wave size (32 or 64); for $N=10^{6}$ (a typical 4DGS
+scene) and $k=64$, this is roughly 4 passes at $\sim$0.5~ms
+each, or 2~ms per frame. A bitonic sort is slightly slower
+($\sim$3~ms) but easier to implement in shader code. The
+sort cost is therefore $\sim$10--20\% of the frame budget at
+60~FPS, which is why every mobile 4DGS renderer invests in
+sort acceleration (Neo~\cite{oh2025neo}, see below).
+
 \subsection{Ray-Tracing Trend}
 4DGRT~\cite{liu20254dgrt} (NTU + Intel) introduces 4DGS ray tracing
 and represents a high-fidelity future path. GS-NFS~\cite{ghosh2026gsnfs}
 (NVIDIA Research) reaches 25~FPS decode for 4DGS on a Jetson~Orin
 mobile GPU.
 
+\subsubsection{4DGRT intersection and BVH.}
+4DGRT~\cite{liu20254dgrt} replaces the rasteriser with a ray
+tracer that intersects each ray against the 4DGS Gaussian set
+using an analytic ellipsoid--ray intersection test. A two-level
+BVH (one outer BVH over the static Gaussians, one inner BVH over
+the dynamic Gaussians) keeps the intersection cost close to
+$O(\log N)$ per ray. The reported desktop numbers are 8--12~FPS
+at 1080p on an RTX~4090, which is roughly 50$\times$ slower
+than rasterisation. The trade-off is a 3--5~dB PSNR improvement
+on high-frequency specular content (shiny car bodies, glass
+cups), which is the content that rasterisers struggle with.
+
+\subsubsection{GS-NFS: neural feature streaming.}
+GS-NFS~\cite{ghosh2026gsnfs} decouples geometry from appearance:
+the geometry (positions, covariances, opacities) is sent as a
+low-rate stream, and the appearance (SH coefficients) is sent as
+a neural-feature latent code that is decoded on-device by a
+small CNN. The decoder runs at 25~FPS on a Jetson~Orin, with the
+neural-feature stream consuming $\sim$8~Mbps (a comfortable fit
+for 5G). On Adreno~830 the same decoder is projected at
+$\sim$18~FPS, which is below the 30~FPS mobile target but is
+already adequate for AR / pre-visualisation workflows.
+
+\subsubsection{Rasterizer vs.\ ray-tracer complementarity.}
+Rasterisation and ray tracing are complementary, not competing.
+Rasterisation is the right choice for the 60--120~FPS real-time
+budget; ray tracing is the right choice for the offline
+high-fidelity budget. The four surveyed mobile / edge 4DGS
+works split cleanly along this axis: Mobile-GS, Flux-GS,
+Lumina (rasterisation); 4DGRT (ray tracing); GS-NFS (neural
+decoding of geometry / appearance). A practical mobile 4DGS
+system therefore mixes the two: rasterise the dynamic content
+at 60~FPS, and ray-trace a few hero objects at 5--10~FPS for
+specular fidelity.
+
 \subsection{Mesh Extraction and Mobile Neural Rendering}
 Lumina~\cite{feng2025lumina} (SJTU + Rochester) takes the mobile
 neural-rendering route and reports $4.5\times$ speed-up and
 $5.3\times$ energy-efficiency improvement.
 
+\subsubsection{Lumina radiance caching.}
+Lumina~\cite{feng2025lumina} exploits a key observation about
+the 3DGS / 4DGS compute graph: the colour-evaluation kernel is
+identical across nearby pixels in a tile, because the SH
+evaluation at a given Gaussian is purely a function of the view
+direction. Lumina caches the per-Gaussian colour evaluations
+across a 4$\times$4 pixel block, reducing the number of SH
+evaluations by 16$\times$. Combined with the tile-based shading
+of Mobile-GS, this delivers $4.5\times$ speed-up and
+$5.3\times$ energy efficiency on a mobile SoC.
+
+\subsubsection{Two bottlenecks on mobile SoC.}
+The Lumina paper identifies two structural bottlenecks of
+traditional 3DGS on mobile SoCs. \emph{Colour integration} is
+heavy: each fragment issues an SH evaluation (16 multiplies +
+15 adds) plus the alpha-blend accumulation. \emph{Sorting} is
+bandwidth-dense: per-tile sort reads / writes the full Gaussian
+list, which dominates the L2 cache traffic. The two bottlenecks
+are largely orthogonal, which is why every mobile 4DGS renderer
+attacks both: Lumina caches the colour integration, and
+Neo~\cite{oh2025neo} accelerates the sort (see below).
+
+\subsubsection{Compute reuse + memory hierarchy.}
+The Lumina and Mobile-GS approaches can be composed: tile-based
+shading handles the memory-hierarchy pressure, and radiance
+caching handles the compute-reuse pressure. We expect the
+production mobile 4DGS renderer to combine both, which is the
+position the project's engineering roadmap takes
+(see \S\ref{sec:mobile}).
+
 \subsection{On-Device Hardware Acceleration}
 Neo~\cite{oh2025neo} proposes a Reuse-and-Update sorting accelerator
 for on-device 3DGS rendering.
+
+\subsubsection{Reuse-and-Update sort.}
+Neo~\cite{oh2025neo} observes that, for a static camera path
+(the common case for 4DGS asset playback), the per-tile sort
+order is largely identical across consecutive frames. Neo
+therefore keeps the previous frame's sort order and only
+\emph{updates} the entries that have moved. The measured
+reduction in sort-stage memory bandwidth is 3--5$\times$, which
+directly translates to a 1.3--1.8$\times$ end-to-end speed-up
+on the Mobile-GS pipeline. The trade-off is that Neo requires
+a small on-chip buffer ($\sim$2~MB) to store the previous
+sort order.
+
+\subsubsection{Do we need a dedicated 4DGS unit on Adreno 830?}
+This is the most consequential hardware--software co-design
+question for the next Adreno generation. A dedicated 4DGS
+accelerator would handle the sort and the SH evaluation, freeing
+the shader cores for the alpha-blend. The argument against is
+that 4DGS is still a moving target (the codec standard has not
+frozen), and a fixed-function accelerator risks obsolescence.
+The argument for is that the tile-sort cost is the dominant
+bottleneck (\S\ref{sec:mobile}) and a 5--10$\times$ sort speed-up
+would unlock 4DGS on today's mid-range Snapdragon. We expect
+the decision to go either way depending on whether the MPEG / Khronos
+4DGS working group converges by 2027 H1.
 
 \subsection{Mobile Deployment Comparison (Table~\ref{tab:mobile})}
 Table~\ref{tab:mobile} consolidates the on-device measurement

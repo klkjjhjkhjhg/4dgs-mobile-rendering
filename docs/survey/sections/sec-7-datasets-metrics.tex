@@ -5,42 +5,167 @@
 
 \subsection{Commonly Used Datasets}
 4DGS training and evaluation rely on a handful of well-established
-dynamic-scene datasets:
+dynamic-scene datasets. We organise them along three axes:
+synthetic vs.\ real, monocular vs.\ multi-view, and the
+capture-rig geometry. The five datasets below cover the
+\emph{de-facto} standard benchmarks; further, less-common
+captures (e.g.\ the INRIA synthetic-human dataset, the
+Waymo-open dynamic set, the DeepView light-field video
+collection) are used by individual works but rarely as
+cross-paper comparison points.
+
+\paragraph{Synthetic datasets.}
 \begin{itemize}
   \item \textbf{D-NeRF}~\cite{pumarola2021dnerf} (synthetic): eight
         synthetic monocular scenes (e.g.\ Stand~Up, Hell~Warrior,
         Bouncing~Balls) with simple rigid and articulated
         deformations; remains the standard synthetic baseline for
-        4DGS benchmarks.
-  \item \textbf{DyCheck}~\cite{gao2022dycheck} (iPhone): real-world
-        dynamic scenes captured with a handheld iPhone, with
-        held-out multi-view ground truth; the de-facto real-world
-        benchmark for 4DGS quality evaluation.
+        4DGS benchmarks. D-NeRF provides a known ground-truth camera
+        trajectory, which makes it the cleanest ablation target
+        for the canonical + deformation route of
+        \S\ref{sec:representation}.
+  \item \textbf{DyCheck synth} (DyCheck-iPhone split): the
+        synthetic DyCheck split provides known camera paths and
+        per-frame mesh ground truth, which is the substrate that
+        makes the dynamic / static separation route of
+        \S\ref{sec:representation} measurable.
+\end{itemize}
+
+\paragraph{Real-world multi-view datasets.}
+\begin{itemize}
   \item \textbf{Plenoptic Video}~\cite{li2022plenvdb} (Google): a
         12-camera array dataset (\emph{Ballroom}, \emph{Cut~Roasted
         Beef}, etc.) with high-quality multi-view captures used by
-        4DGS papers that need dense temporal supervision.
+        4DGS papers that need dense temporal supervision. The
+        12-camera rig provides a $360^{\circ}$ coverage and
+        sub-frame synchronisation, which is the standard
+        multi-view rig for 4DGS work that needs cross-frame
+        Gaussian correspondence.
+  \item \textbf{CMU Panoptic}~\cite{simon2017cmu}: multi-view,
+        multi-person interactions captured by a 31-camera dome;
+        the standard multi-person benchmark for 4DGS in crowd
+        and pose scenarios. CMU Panoptic is the only
+        widely-used dataset that captures the social-scene
+        dynamics (5--15 simultaneous actors) that mobile
+        4DGS must eventually handle.
+  \item \textbf{Neu3D / Technicolor Light-Field}: a
+        16-camera light-field rig that records 12-bit HDR
+        frames; the highest-fidelity multi-view rig in the
+        4DGS literature, but the file sizes ($\sim$5~TB per
+        scene) make it impractical for routine use.
+\end{itemize}
+
+\paragraph{Real-world monocular datasets.}
+\begin{itemize}
+  \item \textbf{DyCheck}~\cite{gao2022dycheck} (iPhone): real-world
+        dynamic scenes captured with a handheld iPhone, with
+        held-out multi-view ground truth; the de-facto real-world
+        benchmark for 4DGS quality evaluation. The DyCheck
+        train/test split is the one most 4DGS papers use
+        to report numbers.
   \item \textbf{Nerfies}~\cite{park2021nerfies} and
         \textbf{HyperNeRF}~\cite{hypernerf2022}: monocular
         dynamic humans and deformable objects captured with a
         handheld camera; the canonical datasets for
-        monocular-dynamic 4DGS evaluation.
-  \item \textbf{CMU Panoptic}~\cite{simon2017cmu}: multi-view,
-        multi-person interactions captured by a 31-camera dome;
-        the standard multi-person benchmark for 4DGS in crowd
-        and pose scenarios.
+        monocular-dynamic 4DGS evaluation. Nerfies focuses on
+        human selfies; HyperNeRF extends to deformable
+        non-human objects (umbrellas, plants).
+  \item \textbf{NVIDIA Dynamic Scenes} (a
+        $\sim$12-scene handheld capture used by
+        \cite{wu20244dgs, yuan20254dgs1k}): smaller
+        ($\sim$50~GB) than DyCheck, and limited to outdoor
+        urban content, but the most widely cited
+        monocular benchmark in the canonical 4DGS route.
 \end{itemize}
 
 \subsection{Evaluation Metrics}
+The 4DGS evaluation literature uses six metric families. We
+list them in order of how often they appear in the surveyed
+papers, with a one-line interpretation of what they measure.
+
+\paragraph{Quality metrics.}
 \begin{itemize}
-  \item \textbf{Quality:} PSNR / SSIM / LPIPS (per frame).
-  \item \textbf{Temporal consistency:} Temporal LPIPS / flow warping
-        error.
-  \item \textbf{Speed:} FPS (decode + render) / training time
-        (minutes).
-  \item \textbf{Storage:} model size (MB) / peak VRAM (MB).
-  \item \textbf{Mobile-specific:} power (mW) / thermal stability
-        (sustained FPS).
+  \item \textbf{PSNR} (per-frame, dB): the standard
+        signal-to-noise ratio; a $30$~dB number corresponds
+        to a roughly $0.1$\% per-pixel error. 4DGS papers
+        report PSNR on D-NeRF (28--32~dB), DyCheck (28--31~dB),
+        Plenoptic Video (28--30~dB), and CMU Panoptic
+        (26--30~dB).
+  \item \textbf{SSIM} (per-frame, 0--1): structural similarity
+        index, sensitive to luminance and contrast. The 4DGS
+        literature uses SSIM only as a secondary metric,
+        typically 0.85--0.95 on the same datasets.
+  \item \textbf{LPIPS} (per-frame, 0--1): learned perceptual
+        similarity, computed by a pre-trained AlexNet or
+        VGG. The 4DGS literature reports LPIPS in the
+        0.08--0.18 range, with the canonical route
+        typically at 0.12--0.16 and the dynamic / static
+        separation route at 0.10--0.13.
+\end{itemize}
+
+\paragraph{Temporal consistency.}
+\begin{itemize}
+  \item \textbf{Temporal LPIPS}: the LPIPS of the
+        frame-to-frame difference image, after
+        optical-flow warping. Lower is better; the
+        canonical 4DGS route sits at $\sim$0.10, and the
+        dynamic / static separation route at
+        $\sim$0.07.
+  \item \textbf{Flow warping error} (L1, pixels): the
+        residual of the optical-flow warp of frame $t-1$
+        to frame $t$, after rendering. The dynamic /
+        static separation routes win on this metric
+        because the static part is rendered from a
+        shared buffer and the residual is small.
+\end{itemize}
+
+\paragraph{Speed, storage, and energy.}
+\begin{itemize}
+  \item \textbf{FPS} (decode + render): the end-to-end frame
+        rate. The canonical 4DGS route reaches 30--60~FPS
+        on a desktop GPU; the dynamic / static separation
+        route reaches 800--1500~FPS on a desktop GPU; the
+        mobile routes (Mobile-GS, Flux-GS) reach
+        127--147~FPS on a Snapdragon~8~Gen~3.
+  \item \textbf{Training time} (minutes): the wall-clock
+        time to train one scene, typically on a single
+        A100. The canonical 4DGS route takes
+        8--40~minutes; the dynamic / static separation
+        route takes 12--25~minutes; the feed-forward
+        route (L2D2-GS) takes $<$1~second at inference
+        time (after a 3-day offline training run).
+  \item \textbf{Model size} (MB): the on-disk size of the
+        final model. The static 3DGS baseline is
+        60--600~MB; the 4DGS-1K dynamic / static
+        separation route compresses this to
+        $\sim$2--10~MB; the 4DGS-CC codec compresses
+        further to $<$1~MB.
+  \item \textbf{Peak VRAM} (MB): the peak memory during
+        training. Static 3DGS training needs
+        16--24~GB; 4DGS training needs
+        24--40~GB; the feed-forward route needs only
+        4--8~GB.
+\end{itemize}
+
+\paragraph{Mobile-specific.}
+\begin{itemize}
+  \item \textbf{Power draw} (mW): the sustained power draw
+        of the mobile SoC during 4DGS decoding + rendering.
+        The Adreno~830 at 30~FPS sustained draws
+        $\sim$2.5~W; at 60~FPS burst $\sim$4.5~W.
+  \item \textbf{Thermal stability}: the fraction of the
+        frame budget that is sustained after the device
+        thermally throttles. The Adreno~830 sustains
+        60~FPS for $\sim$30~seconds before settling to
+        30~FPS, which is the operating point adopted
+        throughout this survey.
+  \item \textbf{Time-to-first-frame} (ms): the time to
+        decode and render the first frame of a 4DGS
+        asset. Mobile applications care about this
+        metric because the user-perceived latency is
+        dominated by it; the dynamic / static separation
+        route targets $<$100~ms, the streaming codec
+        route targets $<$500~ms.
 \end{itemize}
 
 \bigskip

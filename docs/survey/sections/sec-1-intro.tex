@@ -14,6 +14,61 @@ temporal parameterization; (\emph{ii})~the storage cost of separating
 dynamic and static content; and (\emph{iii})~the compute, bandwidth,
 and memory budget of mobile GPUs.
 
+\paragraph{Brief history of real-time neural rendering.}
+The 4DGS research programme inherits from three earlier
+threads. \emph{NeRF and its descendants} (2020--2022) demonstrated
+that an MLP could represent a 3D radiance field with high
+quality, but the volumetric rendering loop was too slow for
+real-time use. \emph{Instant-NGP and the hash-grid family}
+(2022) reduced the per-sample cost by 2--3 orders of magnitude
+via a multi-resolution hash encoding, but were still
+constrained to $\sim$10--15~FPS at 1080p. \emph{3D Gaussian
+Splatting} (2023) broke this barrier by replacing the MLP
+with an explicit Gaussian set and a differentiable rasteriser,
+reaching 30--60~FPS at 1080p on a desktop GPU. The 4DGS
+literature (2023--) is the next step in this line: it lifts
+the 3DGS speed advantage to dynamic scenes, at the cost of a
+4--5$\times$ parameter explosion that motivates the
+compression, streaming, and mobile-optimisation routes
+surveyed in \S\ref{sec:training}--\S\ref{sec:mobile}.
+
+\paragraph{The 4DGS timeline (2023--H1 2026).}
+The 4DGS research programme can be divided into three
+generations. \emph{Gen 1 (2023--2024, canonical + deformation):}
+4DGS~\cite{wu20244dgs}, Deformable-3DGS~\cite{yang2023deformable3dgs},
+and the HyperNeRF-derived work establish the canonical
+parameterisation and per-frame deformation MLP paradigm.
+\emph{Gen 2 (2024--2025, dynamic / static separation):}
+4DGS-1K~\cite{yuan20254dgs1k}, MEGA~\cite{zhang2024mega4dgsacceleration},
+and 4DGS-CC~\cite{chen20254dgscc} split the Gaussian set into
+a static buffer-A and a dynamic buffer-B, achieving the
+first 1000+~FPS dynamic reconstruction. \emph{Gen 3 (2025--2026,
+feed-forward + hardware):} L2D2-GS~\cite{song2026l2d2gs},
+Mobile-GS~\cite{du2026mobilegs}, Flux-GS~\cite{du2026fluxgs},
+and Neo~\cite{oh2025neo} attack the per-scene optimisation
+loop and the mobile sort cost, respectively. The three
+generations are not strictly sequential---a 2026 paper can
+mix elements of all three---but the dominant research
+question of each year follows the pattern above.
+
+\paragraph{Contributions of this survey.}
+This survey makes three contributions. (1)~A unified taxonomy
+of 4DGS representation routes (canonical + deformation,
+dynamic / static separation, continuous-time, feed-forward,
+memory-efficient; see \S\ref{sec:representation}) that organises
+the literature along an orthogonal axis to the temporal
+parameterisation. (2)~A side-by-side comparison of the
+on-device measurements of the four mobile / edge-GPU works
+(Mobile-GS, Flux-GS, Lumina, GS-NFS) on a normalised
+throughput / model-size / energy axis (see Table~\ref{tab:mobile}
+in \S\ref{sec:rendering}). (3)~A prescriptive discussion of
+the five most leveraged research directions over the next
+two years (\S\ref{sec:discussion}), each with a concrete
+quantitative target, the missing piece in the current
+literature, and the cross-domain implications. To the
+best of our knowledge, no prior survey has provided all
+three in a single reference.
+
 This survey focuses on \emph{real-time 4DGS on mobile devices} and
 systematizes more than 50 representative works published between 2023
 and the first half of 2026. We organize the field around the following

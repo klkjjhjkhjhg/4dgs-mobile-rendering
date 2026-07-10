@@ -108,7 +108,103 @@
               fracture-aware simulation and renders the result at
               $\ge 10$~FPS on a mobile device.
         \end{itemize}
+
+  \item \textbf{Generative 4DGS.} The L2D2-GS feed-forward route
+        (\S\ref{sec:training}) generalises to a wider class of
+        generative 4DGS models. The natural extension is
+        text-to-4DGS (analogous to DreamFusion's text-to-3D path)
+        and image-to-4DGS (single-image dynamic scene
+        reconstruction).
+        \begin{itemize}
+        \item \textit{Missing piece:} a public, large-scale
+              text-paired dynamic video corpus (comparable in
+              scale to Objaverse-XL or LAION-5B for static
+              3D generation).
+        \item \textit{What the next paper should look like:} a
+              diffusion-based 4DGS generator that consumes a
+              text prompt + a single static 3DGS seed and
+              outputs a 4DGS scene in $<$10~seconds on an
+              Adreno~830, evaluated on a held-out subset of
+              DyCheck prompts.
+        \item \textit{Project fit:} \textbf{!}~exciting but
+              currently compute-bound; a Snapdragon~8~Gen~4
+              target is plausible only after the mobile
+              transformer cost analysis matures.
+        \item \textit{Quantitative target:} by 2027~H2, a
+              text-to-4DGS system that produces a 10-second
+              dynamic clip on a single Adreno~830 in
+              $<$30~seconds, with LPIPS $\le 0.20$ against the
+              ground-truth clip.
+        \end{itemize}
+
+  \item \textbf{4DGS standardisation.} The 4DGS community
+        currently has no standard codec profile, no standard
+        benchmark suite, and no standard mobile evaluation
+        harness. Three pieces of standardisation are likely
+        in the next two years.
+        \begin{itemize}
+        \item \textit{Missing piece:} an MPEG- or
+              Khronos-style codec profile that standardises the
+              dynamic / static split, the residual format, and
+              the rate--control interface. The
+              4DGS-CC~\cite{chen20254dgscc} + P-4DGS~\cite{wang2025p4dgs}
+              + PD-4DGS trio are the de-facto building
+              blocks.
+        \item \textit{What the next paper should look like:} a
+              reference encoder / decoder pair with bitstream
+              conformance tests, distributed as an open-source
+              reference implementation.
+        \item \textit{Project fit:} \checkmark{}~the
+              reference codec is the natural first deliverable
+              of the project's engineering roadmap
+              (see \S\ref{sec:mobile}).
+        \item \textit{Quantitative target:} a reference
+              decoder that runs at 30~FPS sustained on a
+              Snapdragon~8~Gen~4 device, on a 20~MB 4DGS
+              bitstream, with PSNR $\ge 30$~dB.
+        \end{itemize}
 \end{enumerate}
+
+\subsection{Why Hardware--Software Co-Design Will Dominate (Extended)}
+We expect \emph{hardware--software co-design} to matter more than
+algorithmic progress for mobile 4DGS over the next two years. The
+argument has three legs.
+
+\paragraph{First, the algorithmic headroom is shrinking.}
+The 4DGS literature has seen roughly 3$\times$ per-year gains in
+training speed (4DGS 30--60~min in 2023, OMG4 22~min in 2025,
+L2D2-GS $<$1~s in 2026 at inference) and 5--10$\times$ per-year
+gains in model size (vanilla 4DGS 60--200~MB in 2023,
+4DGS-1K $\sim$2--10~MB in 2025, 4DGS-CC $<$1~MB in 2025). Both
+curves are flattening: the next 3$\times$ in either dimension
+will require a fundamentally new representation (e.g. generative
+4DGS, see \S8.6 above), not an incremental tweak of the existing
+one.
+
+\paragraph{Second, the hardware headroom is large and quantifiable.}
+The Adreno~830's tile-sort cost (10--20\% of the frame budget at
+60~FPS, see \S\ref{sec:rendering}) is a structural artefact of
+the rasteriser's $\alpha$-blend rule
+(Equation~\eqref{eq:alpha}). No algorithm change can amortise that
+cost; only a hardware change can. Neo's Reuse-and-Update sort
+(\S\ref{sec:rendering}) is a software prototype of what a
+dedicated sort accelerator would do, and the 3--5$\times$ sort
+speed-up it delivers would translate directly to a
+30--50\% end-to-end speed-up at the 30~FPS sustained target.
+
+\paragraph{Third, the co-design loop is short.}
+The Snapdragon mobile launch cadence is roughly 12~months
+(Gen~3 $\to$ Gen~4 $\to$ Gen~5 in 2024/2025/2026), which means
+the algorithm-to-silicon loop is at most 24~months. The Adreno
+shader ISA is stable across generations (no breaking changes
+from Gen~3 to Gen~4), and the Vulkan~1.3 driver is upstreamed
+into the Linux kernel with a 6-month cadence. These three
+properties together make a tight algorithm / driver / ISA
+co-design loop tractable, which is the structural advantage
+that mobile 4DGS has over its desktop counterpart. The
+contrarian view is therefore not ``algorithm doesn't matter''
+but rather ``the next 3$\times$ on mobile will come from
+hardware / driver / ISA co-design, not from a better MLP''.
 
 \subsection{Contrarian View: Hardware--Software Co-Design Will Dominate}
 We expect \emph{hardware--software co-design} to matter more than
