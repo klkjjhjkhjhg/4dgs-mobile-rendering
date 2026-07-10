@@ -1,44 +1,61 @@
 %% sec-5-rendering-acceleration.tex -- Rendering Acceleration
 
 \section{Rendering Acceleration}
+\label{sec:rendering}
 
-渲染阶段的加速聚焦三个方向:
+We organise render-time acceleration into four directions.
 
-\subsection{光栅化优化}
-Mobile-GS~\cite{du2026mobilegs} (Snapdragon 8 Gen 3, 127 FPS, Vulkan 2.0)、
-Flux-GS~\cite{du2026fluxgs} (Snapdragon 8 Gen 3, 147 FPS @ 2.1 MB Indoor)
-是当前移动端光栅化的天花板,均来自 Mobile-GS 团队。
+\subsection{Rasterisation Optimisation}
+Mobile-GS~\cite{du2026mobilegs} (Snapdragon~8~Gen~3, 127~FPS, Vulkan~2.0)
+and Flux-GS~\cite{du2026fluxgs} (Snapdragon~8~Gen~3, 147~FPS @
+2.1~MB indoor) define the current ceiling of mobile rasterisation;
+both come from the Mobile-GS group. The reported numbers were measured
+on Snapdragon~8~Gen~3 / Vulkan~2.0; we extrapolate to
+Snapdragon~8~Gen~4 / Vulkan~1.3 in~\S\ref{sec:mobile} below.
 
-\subsection{Ray Tracing 趋势}
-4DGRT~\cite{liu20254dgrt} (NTU+Intel) 提出 4DGS Ray Tracing,代表
-未来高保真渲染路径。GS-NFS~\cite{ghosh2026gsnfs} (NVIDIA Research) 在
-Jetson Orin mobile GPU 上达到 4DGS 25 FPS decode。
+\subsection{Ray-Tracing Trend}
+4DGRT~\cite{liu20254dgrt} (NTU + Intel) introduces 4DGS ray tracing
+and represents a high-fidelity future path. GS-NFS~\cite{ghosh2026gsnfs}
+(NVIDIA Research) reaches 25~FPS decode for 4DGS on a Jetson~Orin
+mobile GPU.
 
-\subsection{Mesh Extraction}
-Lumina~\cite{feng2025lumina} (SJTU+Rochester) 走 mobile neural rendering 路线,
-4.5× speedup + 5.3× energy efficiency。
+\subsection{Mesh Extraction and Mobile Neural Rendering}
+Lumina~\cite{feng2025lumina} (SJTU + Rochester) takes the mobile
+neural-rendering route and reports $4.5\times$ speed-up and
+$5.3\times$ energy-efficiency improvement.
 
-\subsection{Hardware Acceleration}
-Neo~\cite{oh2025neo} 提出 Reuse-and-Update Sorting Accelerator,on-device
-3DGS 硬件加速。
+\subsection{On-Device Hardware Acceleration}
+Neo~\cite{oh2025neo} proposes a Reuse-and-Update sorting accelerator
+for on-device 3DGS rendering.
+
+\subsection{Mobile Deployment Comparison (Table~\ref{tab:mobile})}
+Table~\ref{tab:mobile} consolidates the on-device measurement
+numbers reported across the surveyed mobile and edge-GPU works.
+Note that Mobile-GS and Flux-GS were measured on
+Snapdragon~8~Gen~3 / Vulkan~2.0; the project target is
+Snapdragon~8~Gen~4 / Vulkan~1.3, which we extrapolate
+from~\cite{oh2025neo}'s Reuse-and-Update accelerator trends.
+\begin{table}[t]
+\centering
+\caption{Mobile / edge-GPU deployment comparison across the surveyed works. ``--'' = not reported.}
+\label{tab:mobile}
+\small
+\begin{tabular}{lllllll}
+\toprule
+\textbf{Method} & \textbf{SoC} & \textbf{Res.} & \textbf{FPS} & \textbf{Model size} & \textbf{Energy} & \textbf{Vulkan} \\
+\midrule
+Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Gen~3   & 1080p    & 127       & 2.1~MB         & --       & 2.0   \\
+Flux-GS~\cite{du2026fluxgs}           & Snap~8~Gen~3   & 1080p    & 147       & 2.1~MB (indoor) & --      & 2.0   \\
+Lumina~\cite{feng2025lumina}          & Mobile SoC     & 1080p    & --        & --              & $5.3\times$ less & -- \\
+GS-NFS~\cite{ghosh2026gsnfs}          & Jetson~Orin    & 1080p    & 25 (decode) & --            & --       & --    \\
+Neo~\cite{oh2025neo}                  & Mobile FPGA    & 1080p    & realtime    & --            & --       & --    \\
+GaussLite~\cite{thomas2026gausslite}  & Snap-class edge & 720p     & realtime    & --            & --       & --    \\
+Pocket-SLAM~\cite{li2026pocketslam}   & Snap-class     & 540p     & 30          & <50~MB        & --       & --    \\
+TemporalGS~\cite{zhou2026temporalgs}  & desktop GPU    & 1080p    & speed-up    & plug-in       & --       & --    \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \bigskip
-\begin{itemize}
-\item \textbf{2024-chen-fcgs}~\cite{chen2024fcgs}: 3DGS 压缩通常需要 per-scene optimization (分钟级) —— 如何做到 feedforward single-pass(秒级)...
-\item \textbf{2024-chen-hacpp}~\cite{chen2024hacpp}: 如何把 3DGS 的存储从 vanilla 几百 MB / 场景压到 1× 量级 MB / 场景...
-\item \textbf{2024-feng-flashgs}~\cite{feng2024flashgs}: 如何在 CUDA 层面让 3DGS 在 mobile consumer GPU(笔记本/手机 GPU) 上获得 平均 4× 加速 + 内存下降...
-\item \textbf{2024-liu-efficientgs}~\cite{liu2024efficientgs}: 3DGS 应用于 4K+ 大规模高分辨率场景(航空图、城市级)时,高斯数量爆炸导致 训练 + 渲染 + 存储 全部超预算 —— 如何 10× 压缩 + 加速训练...
-\item \textbf{2024-yu-mip-splatting}~\cite{yu2024mipsplatting}: 3DGS 在改变采样率(焦距 / 相机距离)时会出现"膨胀 / 侵蚀"伪影,如何在不损失速度的前提下消除这类 aliasing 伪影? 方法: 1. 3D smoothing filter:对 3D 高斯椭球加低通滤波,限制 3D 表示的最高频率在训练图像奈奎斯特频率的一半以下 2..
-\item \textbf{2025-feng-lumina}~\cite{feng2025lumina}: 3DGS 在 mobile SoC 上实时性不够(传统 GPU 算 color integration + sorting 太重)...
-\item \textbf{2025-huang-seele}~\cite{huang2025seele}: 3DGS 在 mobile device 上达不到 real-time —— 如何通过 hybrid preprocessing + contribution-...
-\item \textbf{2025-liu-4dgrt}~\cite{liu20254dgrt}: 现有 4DGS 假设 理想 pinhole 相机,无法模拟真实相机的 fisheye 畸变 + rolling shutter 等物理效果 —— 如何在 4DG...
-\item \textbf{2025-oh-neo}~\cite{oh2025neo}: 3DGS on-device AR/VR 渲染的瓶颈是 sorting 阶段(高 memory bandwidth demand)...
-\item \textbf{2026-du-flux-gs}~\cite{du2026fluxgs}: 如何在 mobile GPU (Snap 8 Gen 3) 上以 3rd-order SH 等价视觉质量 + 更小 storage 实时渲染 3DGS...
-\item \textbf{2026-du-mobile-gs}~\cite{du2026mobilegs}: 如何在 mobile GPU(尤其是 Snap 8 Gen 3)+ Vulkan 2.0 上实现 实时(snapdragon 至少 30+ FPS)3DGS 渲..
-\item \textbf{2026-gong-dict-3dgs}~\cite{gong2026dict3dgs}: 3DGS 训练后 SH 系数占 80%+ storage，如何在不动现有 3DGS 模型的前提下...
-\item \textbf{2026-li-pocket-slam}~\cite{li2026pocketslam}: 3DGS-SLAM 在大场景（KITTI / EuRoC）下显存爆炸（10-40 GB）——单卡 GPU 跑不动，更别说 edge device...
-\item \textbf{2026-poirier-ginter-gray}~\cite{poirier2026gintergray}: 方法: 数字:.
-\item \textbf{2026-thomas-gausslite}~\cite{thomas2026gausslite}: 3DGS SLAM 系统对所有 Gaussians 一视同仁（uniform density）...
-\item \textbf{2026-zhou-temporalgs}~\cite{zhou2026temporalgs}: 方法: 数字:.
-\end{itemize}
-\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S C / D]
+\noindent\textbf{Index of paper notes backing this section}:
+\texttt{INDEX.md} \S C / D.

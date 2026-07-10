@@ -1,40 +1,58 @@
 %% sec-4-training-acceleration.tex -- Training Acceleration
 
 \section{Training Acceleration}
+\label{sec:training}
 
-训练阶段 (per-scene optimization, 通常 30--60 min) 的加速是移动端部署的前置条件。
-三类主流方法:
+Training a 4DGS scene (per-scene optimisation, typically 30--60~min)
+must be compressed before mobile deployment becomes viable. We
+identify three dominant routes.
 
 \subsection{Temporal Pruning}
-基于时间冗余的高斯剪枝。OMG4~\cite{lee2025omg4} 提出 minimal 4DGS,
-对 imperceptible 时间部分剪枝。SpeeDe3DGS (UMD) 用 temporal pruning + motion
-compensation 实现 13.71× 加速。
+Pruning Gaussians based on temporal redundancy. OMG4~\cite{lee2025omg4}
+proposes a minimal 4DGS that prunes imperceptible temporal content.
+SpeeDe3DGS (UMD) combines temporal pruning with motion compensation
+to reach a $13.71\times$ speed-up.
 
-\subsection{Compression / Quantization}
-4DGS-CC~\cite{chen20254dgscc} 提出 contextual coding framework,
-PD-4DGS 提出 progressive decomposition + R-DO (Rate-Distortion Optimization)。
-CAGS 实现色彩自适应的动静态分层 streaming。
+\subsection{Compression and Quantization}
+4DGS-CC~\cite{chen20254dgscc} introduces a contextual-coding
+framework. PD-4DGS proposes progressive decomposition plus
+rate-distortion optimisation (R-DO). CAGS implements colour-adaptive
+dynamic / static layered streaming.
 
-\subsection{Feed-forward Training-free}
-L2D2-GS~\cite{song2026l2d2gs} 走 feedforward 路线,完全消除 per-scene opt。
-Flux-GS / Mobile-GS 团队的近期工作也在探索 training-free 路径。
+\subsection{Feed-Forward, Training-Free Routes}
+L2D2-GS~\cite{song2026l2d2gs} takes the feed-forward route and
+eliminates per-scene optimisation entirely. Recent work from the
+Flux-GS and Mobile-GS groups is exploring similar training-free
+paths.
+
+\subsection{Static 3DGS Primer (Inheritance from Faction~E)}
+Although this survey targets 4DGS, every compression route in this
+section inherits from the mature static 3DGS acceleration literature
+(Faction~E). Key building blocks that transfer to 4DGS include:
+\begin{itemize}
+  \item \textbf{Compression and vector quantisation.}
+        Compact3D / CompGS~\cite{navaneet2023compact3d},
+        LightGaussian~\cite{fan2023lightgaussian} (15$\times$
+        reduction, 200+~FPS), and HAC++~\cite{chen2024hacpp}
+        ($100\times$ compression) provide the rate--distortion
+        primitives.
+  \item \textbf{Coding frameworks.}
+        FCGS~\cite{chen2024fcgs} and
+        FlashGS~\cite{feng2024flashgs} introduce feed-forward
+        compression and large-scale acceleration, respectively.
+  \item \textbf{Aliasing / quality fixes.}
+        Mip-Splatting~\cite{yu2024mipsplatting} addresses
+        aliasing that becomes severe at high Gaussian counts and
+        directly affects mobile upscaling.
+  \item \textbf{Unified acceleration frameworks.}
+        SeeLe~\cite{huang2025seele} (ICLR~2025) provides a
+        scheduler that maps a static 3DGS graph to mobile
+        GPUs.
+\end{itemize}
+These static-3DGS primitives (pruning, VQ, context-coding,
+feed-forward coding, scheduling) are the foundation that every
+4DGS compression route (Sec.~\ref{sec:mobile}) composes on top of.
 
 \bigskip
-\begin{itemize}
-\item \textbf{2023-fan-lightgaussian}~\cite{fan2023lightgaussian}: 3DGS 训练后的高斯点云过密,如何在不重新训练的前提下,通过后处理 pipeline 把它压到 1/15 + 200+ FPS? 方法: 1. Pruning + 恢复 pipeline:基于 "global significance score" 剪掉对画面质量贡献较小的高斯点 → 剪枝后用真实图像监督微调剩余高斯点(fine-tun..
-\item \textbf{2023-navaneet-compact3d}~\cite{navaneet2023compact3d}: 3DGS 的 per-splat 字节数(48 SH + 14 metadata = ~200 bytes/splat)过大...
-\item \textbf{2025-chen-4dgscc}~\cite{chen20254dgscc}: 4DGS 重建动态场景存储开销大(动态 deformation 4D neural voxels + canonical 3DGS)...
-\item \textbf{2025-lee-omg4}~\cite{lee2025omg4}: 4DGS 用数百万 Gaussian 拟合动态,存储开销巨大(单 Gaussian + 时间属性 = 巨大 footprint)...
-\item \textbf{2025-tu-speede3dgs}~\cite{tu2025speede3dgs}: Deformable 3DGS 及其动态扩展虽然质量 SOTA,但 per-Gaussian neural inference 的 cost 让它们算不动(Mo...
-\item \textbf{2026-chen-refine}~\cite{chen2026refine}: 现有 3DGS pruning 方法面临 "parameter-space heuristic（快但粗）"vs "render-aware（精但慢）" 的两难：...
-\item \textbf{2026-hong-polymerge}~\cite{hong2026polymerge}: 3DGS radiance field 适合 photorealistic 重建，但 memory-heavy（hundreds of thousands to...
-\item \textbf{2026-li-vedal}~\cite{li2026vedal}: 现有 3DGS pruning 方法用 heuristic importance score（快但次优）或 synchronous batch update（一...
-\item \textbf{2026-liao-sharptimegs}~\cite{liao2026sharptimegs}: 4DGS 现有方法难以平衡"长时静态区域"与"短时动态区域"在 representation + optimization 两方面...
-\item \textbf{2026-mousa-provablepruning}~\cite{mousa2026provablepruning}: 方法: 数字:.
-\item \textbf{2026-ren-cubifygs}~\cite{ren2026cubifygs}: 现有 3DGS SLAM 在 rigid object rearrangement（家具移动 / 物体出现消失）场景下...
-\item \textbf{2026-yin-cags}~\cite{yin2026cags}: Volumetric Video(VV)streaming 现有 3DGS 方案存在 1) LoD-based 质量下降明显(density-based LoD...
-\item \textbf{2026-zhang-geta3dgs}~\cite{zhang2026geta3dgs}: 现有 3DGS 压缩(HAC++ / FlexGaussian / LP-3DGS)把 pruning / quantization / entropy cod...
-\item \textbf{2026-zhao-ace-gs}~\cite{zhao2026acegs}: 现有 3DGS 加速框架为追求快速收敛往往 aggressive pruning primitives → 高频细节严重丢失...
-\item \textbf{2026-zhao-mmgs}~\cite{zhao2026mmgs}: 3DGS 通过 2D view-space gradients 做 densification...
-\end{itemize}
-\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S B / C]
+\noindent\textbf{Index of paper notes backing this section}:
+\texttt{INDEX.md} \S B / C.

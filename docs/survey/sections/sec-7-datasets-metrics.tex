@@ -1,25 +1,48 @@
 %% sec-7-datasets-metrics.tex -- Datasets & Metrics
 
-\section{Datasets \& Metrics}
+\section{Datasets and Metrics}
+\label{sec:datasets}
 
-\subsection{常用数据集}
-4DGS 训练 / 评估常用的动态数据集包括:
+\subsection{Commonly Used Datasets}
+4DGS training and evaluation rely on a handful of well-established
+dynamic-scene datasets:
 \begin{itemize}
-  \item \textbf{D-NeRF} (Synthetic): 8 个合成场景, 简单形变
-  \item \textbf{DyCheck} (iPhone): 真实动态场景, 移动端采集
-  \item \textbf{Nerfies / HyperNeRF}: 单目动态人体 / 物体
-  \item \textbf{Plenoptic Video} (Google): 12 相机阵列, 高质量
-  \item \textbf{Meet Room / CMU Panoptic}: 多视角多人交互
+  \item \textbf{D-NeRF}~\cite{pumarola2021dnerf} (synthetic): eight
+        synthetic monocular scenes (e.g.\ Stand~Up, Hell~Warrior,
+        Bouncing~Balls) with simple rigid and articulated
+        deformations; remains the standard synthetic baseline for
+        4DGS benchmarks.
+  \item \textbf{DyCheck}~\cite{gao2022dycheck} (iPhone): real-world
+        dynamic scenes captured with a handheld iPhone, with
+        held-out multi-view ground truth; the de-facto real-world
+        benchmark for 4DGS quality evaluation.
+  \item \textbf{Plenoptic Video}~\cite{li2022plenvdb} (Google): a
+        12-camera array dataset (\emph{Ballroom}, \emph{Cut~Roasted
+        Beef}, etc.) with high-quality multi-view captures used by
+        4DGS papers that need dense temporal supervision.
+  \item \textbf{Nerfies}~\cite{park2021nerfies} and
+        \textbf{HyperNeRF}~\cite{hypernerf2022}: monocular
+        dynamic humans and deformable objects captured with a
+        handheld camera; the canonical datasets for
+        monocular-dynamic 4DGS evaluation.
+  \item \textbf{CMU Panoptic}~\cite{simon2017cmu}: multi-view,
+        multi-person interactions captured by a 31-camera dome;
+        the standard multi-person benchmark for 4DGS in crowd
+        and pose scenarios.
 \end{itemize}
 
-\subsection{评估指标}
+\subsection{Evaluation Metrics}
 \begin{itemize}
-  \item \textbf{质量}: PSNR / SSIM / LPIPS (per-frame)
-  \item \textbf{时序一致性}: Temporal LPIPS / Flow warping error
-  \item \textbf{速度}: FPS (decode + render) / 训练时间 (min)
-  \item \textbf{存储}: 模型大小 (MB) / 显存峰值 (MB)
-  \item \textbf{移动端特有}: 功耗 (mW) / 热稳定性 (sustained FPS)
+  \item \textbf{Quality:} PSNR / SSIM / LPIPS (per frame).
+  \item \textbf{Temporal consistency:} Temporal LPIPS / flow warping
+        error.
+  \item \textbf{Speed:} FPS (decode + render) / training time
+        (minutes).
+  \item \textbf{Storage:} model size (MB) / peak VRAM (MB).
+  \item \textbf{Mobile-specific:} power (mW) / thermal stability
+        (sustained FPS).
 \end{itemize}
 
 \bigskip
-\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S F]
+\noindent\textbf{Index of paper notes backing this section}:
+\texttt{INDEX.md} \S F.

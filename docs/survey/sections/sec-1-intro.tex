@@ -1,28 +1,63 @@
 %% sec-1-intro.tex -- Introduction
 
 \section{Introduction}
+\label{sec:intro}
 
-动态场景的实时神经渲染是计算机图形学近年来的核心研究方向之一。3D Gaussian
-Splatting (3DGS)~\cite{kerbl20233dgs} 自 2023 年提出以来,凭借显式点云表示 + 可微分
-光栅化,在桌面 GPU 上实现了 1080p 实时辐射场渲染。然而,将其扩展到动态场景
-(4DGS) 时面临三个核心挑战: (1) 时间维度参数化方式选择; (2) 动静态内容分离的
-存储开销; (3) 移动端 GPU 的算力 / 带宽 / 显存三重约束。
+Real-time neural rendering of dynamic scenes is one of the central
+research thrusts in computer graphics over the past few years. Since
+its introduction in 2023, 3D Gaussian Splatting (3DGS)~\cite{kerbl20233dgs}
+has demonstrated that an explicit point-cloud representation combined
+with differentiable rasterization can deliver 1080p real-time radiance
+field rendering on desktop GPUs. Extending 3DGS to dynamic scenes
+(4DGS), however, raises three core challenges: (\emph{i})~the choice of
+temporal parameterization; (\emph{ii})~the storage cost of separating
+dynamic and static content; and (\emph{iii})~the compute, bandwidth,
+and memory budget of mobile GPUs.
 
-本综述聚焦 \emph{移动端实时 4DGS},系统性梳理 2023--2026 H1 的 50+ 篇代表性工作,
-回答以下问题:
+This survey focuses on \emph{real-time 4DGS on mobile devices} and
+systematizes more than 50 representative works published between 2023
+and the first half of 2026. We organize the field around the following
+guiding questions:
 \begin{itemize}
-  \item 4DGS 表示路线有哪些?各自权衡如何?
-  \item 训练阶段 (pruning / quantization / temporal redundancy) 如何压缩?
-  \item 渲染阶段 (光栅化 / ray tracing / mesh extraction) 怎样加速?
-  \item Snapdragon / Adreno 当前瓶颈在哪?未来路径是什么?
+  \item What 4DGS representation routes exist, and what are their
+        trade-offs?
+  \item How can the training stage (pruning, quantization, temporal
+        redundancy) be compressed?
+  \item How can the rendering stage (rasterization, ray tracing, mesh
+        extraction) be accelerated?
+  \item What are the current bottlenecks of Snapdragon / Adreno, and
+        what are the most promising paths forward?
 \end{itemize}
 
-\noindent\textbf{与项目 README 的关系}: 本综述与项目主文档
-\texttt{README.md} 互补——前者侧重学术调研纵深,后者侧重 Snapdragon 8 Gen 4 /
-Adreno 830 + Vulkan 1.3 的工程落地路径。综述面向研究者,README 面向工程师。
+\noindent\textbf{Relationship to the project README.} This survey
+complements \texttt{README.md}---the survey emphasizes academic depth
+across the research landscape, while the README documents the
+engineering path toward a production-ready mobile 4DGS renderer on
+Snapdragon 8 Gen 4 / Adreno 830 + Vulkan 1.3. The survey targets
+researchers; the README targets engineers.
 
 \bigskip
 \begin{itemize}
-\item \textbf{2025-youn-success-gs}~\cite{youn2025successgs}: 3DGS / 4DGS 实用化的最大瓶颈 = 存储开销(百万级 Gaussians) + 计算开销(per-Gaussian motion inference)...
+\item \textbf{2025-youn-success-gs}~\cite{youn2025successgs}: The two
+      largest practical bottlenecks of 3DGS / 4DGS are storage cost
+      (millions of Gaussians) and per-Gaussian motion inference
+      overhead.
 \end{itemize}
-\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S A]
+\noindent\textbf{Index of paper notes backing this section}:
+\texttt{INDEX.md} \S A.
+
+\bigskip
+\noindent\textbf{Research-question roadmap.} The four guiding questions
+are answered in the following sections:
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Question} & \textbf{Answered in} \\
+\midrule
+Q1: 4DGS representation routes and trade-offs? & \S\ref{sec:representation} \\
+Q2: Training-time compression routes? & \S\ref{sec:training} \\
+Q3: Rendering-time acceleration routes? & \S\ref{sec:rendering} \\
+Q4: Mobile deployment + future directions? & \S\ref{sec:mobile}, \S\ref{sec:datasets}, \S\ref{sec:discussion} \\
+\bottomrule
+\end{tabular}
+\end{center}

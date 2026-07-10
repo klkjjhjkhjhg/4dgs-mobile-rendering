@@ -1,27 +1,109 @@
 %% sec-8-discussion.tex -- Discussion & Future Directions
 
-\section{Discussion \& Future Directions}
+\section{Discussion and Future Directions}
+\label{sec:discussion}
 
-\subsection{未来 5 条方向}
+\subsection{Five Promising Directions}
 
 \begin{enumerate}
-  \item \textbf{Feed-forward 4DGS}: 消除 per-scene optimization,
-        L2D2-GS~\cite{song2026l2d2gs} 是开端,
-        后续可能出现 end-to-end "一段视频进, 4DGS 出" 的模型
-  \item \textbf{Hardware-Software Co-design}: Neo~\cite{oh2025neo} 的
-        Reuse-and-Update Sorting Accelerator 是开端,
-        移动端 GPU 可能引入专用 4DGS 计算单元
-  \item \textbf{4DGS Ray Tracing}: 4DGRT~\cite{liu20254dgrt} 路线,
-        高保真场景的最终路径, 但移动端 ray tracing 仍是开放问题
-  \item \textbf{Temporal Compression}: 动静态分离 + 残差编码 + 上下文编码
-        三件套可能收敛, 形成 4DGS 压缩标准
-  \item \textbf{Cross-Domain}: 4DGS + 物理模拟 (GaussianFluent)、
-        4DGS + SLAM、4DGS + 端侧大模型的多模态融合
+  \item \textbf{Feed-forward 4DGS.} Eliminate per-scene
+        optimisation. L2D2-GS~\cite{song2026l2d2gs} opens this path;
+        we expect end-to-end ``video in, 4DGS out'' models in the
+        near future.
+        \begin{itemize}
+        \item \textit{Missing piece:} an open, multi-view dynamic
+              dataset large enough to train a feed-forward 4DGS
+              backbone comparable in scale to Objaverse-XL.
+        \item \textit{What the next paper should look like:} a
+              transformer-based densifier that consumes monocular
+              video at 30~FPS and emits a 4DGS scene in one pass,
+              evaluated on DyCheck~\cite{gao2022dycheck}.
+        \item \textit{Project fit:} \checkmark{}~feed-forward maps
+              directly to Snapdragon~8~Gen~4 inference throughput.
+        \end{itemize}
+
+  \item \textbf{Hardware-software co-design.} Neo~\cite{oh2025neo}'s
+        Reuse-and-Update sorting accelerator hints at dedicated
+        4DGS compute units inside mobile GPUs.
+        \begin{itemize}
+        \item \textit{Missing piece:} a public 4DGS workload
+              characterisation (FLOPS, tile occupancy, register
+              pressure) on Adreno-class mobile GPUs.
+        \item \textit{What the next paper should look like:} a
+              tile-sort accelerator IP synthesised for a mobile
+              shader core, benchmarked against the
+              Vulkan~1.3 compute path.
+        \item \textit{Project fit:} \checkmark{}~the Adreno~830
+              shader ISA and Vulkan~1.3 compute-shader model are
+              the deployment substrate.
+        \end{itemize}
+
+  \item \textbf{4DGS ray tracing.} The 4DGRT~\cite{liu20254dgrt}
+        route is the long-term path to high fidelity, but mobile ray
+        tracing remains an open problem.
+        \begin{itemize}
+        \item \textit{Missing piece:} mobile RT cores are
+              bandwidth-starved for the per-Gaussian intersection
+              workload; no published 4DGS BVH layout.
+        \item \textit{What the next paper should look like:} a
+              two-level BVH that exploits Gaussian covariance
+              locality, evaluated against the rasteriser baseline
+              on Snapdragon~8~Gen~4.
+        \item \textit{Project fit:} \textbf{!}~mobile RT is not
+              on the immediate Snapdragon~8~Gen~4 / Vulkan~1.3
+              hot path; keep as a 2027+ watch item.
+        \end{itemize}
+
+  \item \textbf{Temporal compression.} Dynamic / static separation
+        + residual coding + contextual coding may converge into a
+        4DGS compression standard.
+        \begin{itemize}
+        \item \textit{Missing piece:} an MPEG-style codec profile
+              that standardises the dynamic / static split, the
+              residual format, and the rate-control interface.
+        \item \textit{What the next paper should look like:} a
+              reference encoder / decoder pair with bitstream
+              conformance tests, integrating
+              4DGS-CC~\cite{chen20254dgscc} and
+              P-4DGS~\cite{wang2025p4dgs}.
+        \item \textit{Project fit:} \checkmark{}~a codec standard
+              directly benefits our project's storage bottleneck.
+        \end{itemize}
+
+  \item \textbf{Cross-domain fusion.} 4DGS + physical simulation
+        (GaussianFluent), 4DGS + SLAM, and 4DGS + on-device large
+        multimodal models are all emerging fronts.
+        \begin{itemize}
+        \item \textit{Missing piece:} no end-to-end system paper
+              that closes the loop between 4DGS reconstruction,
+              physics simulation, and on-device LLM/VLM grounding.
+        \item \textit{What the next paper should look like:} a
+              demo of ``video in, simulator-in-the-loop 4DGS out''
+              running in real time on a mobile device.
+        \item \textit{Project fit:} \textbf{!}~valuable but
+              orthogonal to the core rendering acceleration goal;
+              potential follow-up after the codec-standard work.
+        \end{itemize}
 \end{enumerate}
 
-\subsection{与本项目的关系}
-本项目 README 锁定的 Snapdragon 8 Gen 4 + Vulkan 1.3 实时渲染路径,
-与上述 5 条方向高度交叉, 详见主文档 [01-/02-/03-]。
+\subsection{Contrarian View: Hardware--Software Co-Design Will Dominate}
+We expect \emph{hardware--software co-design} to matter more than
+algorithmic progress for mobile 4DGS over the next two years. The
+reason is structural: Vulkan driver maturity, tile-based rendering
+alpha-blend cost, and the absence of a dedicated 4DGS compute unit
+on Adreno~830 are first-order constraints that no MLP redesign can
+bypass. In other words, even a $10\times$ better densifier will
+still hit the same alpha-blend fillrate wall. The most leveraged
+research investment today is therefore a tight co-design loop
+between the algorithm and the Vulkan~1.3 / Adreno shader ISA,
+rather than yet another MLP variant.
+
+\subsection{Connection to This Project}
+The project \texttt{README.md} fixes the target on
+Snapdragon~8~Gen~4 + Vulkan~1.3 real-time rendering, which
+overlaps the five directions above. See \texttt{01-} / \texttt{02-}
+/ \texttt{03-} for the engineering roadmap.
 
 \bigskip
-\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md \S G]
+\noindent\textbf{Index of paper notes backing this section}:
+\texttt{INDEX.md} \S G.

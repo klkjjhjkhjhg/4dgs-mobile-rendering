@@ -1,37 +1,31 @@
-%% survey.tex -- 综述主文件（M1 骨架）
-%% 模板: acmart + sigconf 双栏 (替代 tog 官方, 版权干净)
-%% 编译: latexmk -pdf survey.tex
+%% survey.tex -- Survey main file (M1 skeleton, M2 filled, English revision)
+%% Template: acmart + sigconf two-column (clean copyright, no TOG official)
+%% Compile:  latexmk -pdf survey.tex   (or  latexmk -xelatex survey.tex)
 
 \documentclass[acmlarge,sigconf,nonacm,review=false,letterpaper]{acmart}
 
-%% 0. 全局包
+%% 0. Global packages
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{amsmath}
-%% amssymb 省略: acmart 已包含, 同时定义会冲突 \Bbbk
+%% amssymb omitted: acmart provides it; redefining \Bbbk clashes.
 
-%% 0a. 中文支持 (xelatex 编译, 字体自动 fallback:
-%%     Linux/GitHub Action 优先 Noto Sans CJK SC, Mac 优先 Hiragino Sans GB)
-\usepackage{xeCJK}
-\IfFontExistsTF{Noto Sans CJK SC}{%
-  \setCJKmainfont{Noto Sans CJK SC}%
-}{%
-  \IfFontExistsTF{Hiragino Sans GB}{%
-    \setCJKmainfont{Hiragino Sans GB}%
-  }{%
-    \setCJKmainfont{Noto Sans CJK SC}%  最后兜底 (CI 一定会装)
-  }%
-}
+%% 0a. NOTE: acmart English mode does not require xeCJK. We removed the
+%% CJK font block when migrating this draft to English. If a future
+%% revision needs Chinese text again, reintroduce \usepackage{xeCJK} +
+%% the Noto / Hiragino fallback chain that lived here in M1.
 
-% 0b. PDF 元数据 (避免 acmart 警告)
+%% 0b. PDF metadata (silences acmart warnings)
 \hypersetup{
   pdfauthor={Lianghao Zhang},
   pdftitle={Toward Real-Time Dynamic 4D Gaussian Splatting on Mobile GPUs: A Survey},
+  colorlinks=true,
+  citecolor=MidnightBlue,
 }
 
-%% 1. 文档元数据 (review=false 时非 ACM 元数据也要填)
+%% 1. Document metadata
 \title{Toward Real-Time Dynamic 4D Gaussian Splatting\\
   on Mobile GPUs: A Survey}
 \author{Lianghao Zhang}
@@ -41,22 +35,31 @@
   \country{China}}
 \email{lianghao@xiaomi.com}
 
-%% 2. 综述元信息
+%% 2. Short author tag for headers
 \renewcommand{\shortauthors}{Zhang}
 
 \begin{document}
 
-%% 3. 标题 + 摘要
+%% 3. Title + abstract
 \begin{abstract}
-本综述系统性整理 4D Gaussian Splatting (4DGS) 在移动端 GPU（Snapdragon 8 Gen 4
-/ Adreno 830 + Vulkan 1.3）实时渲染方向的最新进展，涵盖 4DGS 表示路线、训练加速、
-渲染加速、移动端部署四大主题,辅以数据集 / 评估指标 / 未来方向的系统讨论。
-本文与项目 README 互补——前者侧重工程落地路径,后者侧重学术调研纵深。
+We present a systematic survey of recent progress on real-time rendering
+of dynamic 4D Gaussian Splatting (4DGS) on mobile GPUs
+(Snapdragon 8 Gen 4 / Adreno 830 + Vulkan 1.3). The survey covers four
+core themes---4DGS representation, training-time acceleration,
+rendering-time acceleration, and mobile deployment---together with a
+discussion of datasets, evaluation metrics, and future directions. The
+paper complements the project \texttt{README.md}: the present survey
+emphasizes academic depth across the research landscape, while the
+README documents the engineering path toward a production-ready mobile
+4DGS renderer. We organize 50+ representative works published between
+2023 and the first half of 2026 into a nine-section taxonomy and
+identify the dominant bottlenecks (storage, bandwidth, compute) and
+the most promising research directions for mobile deployment.
 \end{abstract}
 
 \maketitle
 
-%% 4. 9 节骨架 (M1: 每节占位 1 段, M2 再回填 paper notes)
+%% 4. 9-section skeleton
 \input{sections/sec-1-intro}
 \input{sections/sec-2-background}
 \input{sections/sec-3-representation}
@@ -67,7 +70,7 @@
 \input{sections/sec-8-discussion}
 \input{sections/sec-9-conclusion}
 
-%% 5. 参考文献
+%% 5. References
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{survey}
 

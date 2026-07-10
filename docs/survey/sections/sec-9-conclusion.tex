@@ -1,15 +1,49 @@
 %% sec-9-conclusion.tex -- Conclusion
 
 \section{Conclusion}
+\label{sec:conclusion}
 
-本综述系统性整理了 2023--2026 H1 移动端实时 4DGS 方向的 50+ 篇代表性工作,
-覆盖表示 / 训练加速 / 渲染加速 / 移动端部署四大主题。当前 Snapdragon 8 Gen 4
-平台已能实现桌面级 3DGS 实时渲染, 但 4DGS 仍受限于显存带宽 / Vulkan 驱动成熟度
-/ 功耗墙三重约束。
+We have systematised more than 50 representative works on
+real-time dynamic 4DGS rendering on mobile GPUs published between
+2023 and the first half of 2026. The survey is organised around
+four themes: representation, training-time acceleration,
+rendering-time acceleration, and mobile deployment. Current
+Snapdragon~8~Gen~4 devices already achieve desktop-class real-time
+3DGS, but 4DGS remains limited by a triple bottleneck of memory
+bandwidth, Vulkan driver maturity, and the mobile power wall.
 
-后续研究方向包括 feed-forward 4DGS、硬件-软件协同设计、4DGS ray tracing、
-时序压缩标准、跨模态融合等。本综述与项目 README 互补, 前者侧重学术调研纵深,
-后者侧重工程落地路径。
+Promising future directions include feed-forward 4DGS,
+hardware--software co-design, 4DGS ray tracing, a temporal
+compression standard, and cross-modal fusion. We expect the
+emergence of a community-wide \emph{4DGS compression standard}---a
+codec profile that combines dynamic/static separation, residual
+coding, and rate--distortion optimisation; preliminary prototypes
+along this line include 4DGS-CC~\cite{chen20254dgscc} and the
+feed-forward densification policy of
+L2D2-GS~\cite{song2026l2d2gs}, both of which could anchor such a
+standard. This survey
+complements the project \texttt{README.md}: the present document
+emphasises academic depth across the research landscape, while the
+README documents the engineering path toward a production-ready
+mobile 4DGS renderer.
+
+\subsection{Limitations of This Survey}
+We acknowledge three known limitations of the present survey.
+First, in \textbf{scope}: we cover 2023 to the first half of
+2026; very early 4DGS works from 2022 (e.g.\ the original NeRF-t
+lineage) and any submission that appears after the cut-off are
+excluded. Second, in \textbf{methodology}: the survey is
+English-only and prioritises code-available or reproducible
+papers; non-English venues and theoretical-only submissions are
+underrepresented. Third, in \textbf{known gaps}: (i)~Faction~A
+(the earliest 4DGS canonical-space methods) receives less space
+than the newer feed-forward and compression factions;
+(ii)~feed-forward 4DGS is covered via L2D2-GS but the parallel
+diffusion-based generation literature is only sampled; and
+(iii)~cross-domain fusion papers (4DGS + SLAM,
+4DGS + simulation) are sparse and we surface them only
+in~\S\ref{sec:discussion}.
 
 \bigskip
-\noindent\textbf{本节对应 paper notes 索引}: [paper-notes/INDEX.md]
+\noindent\textbf{Index of paper notes backing this section}:
+\texttt{INDEX.md}.
