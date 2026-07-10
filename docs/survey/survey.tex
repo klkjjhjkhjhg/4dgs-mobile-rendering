@@ -12,10 +12,21 @@
 \usepackage{amsmath}
 %% amssymb omitted: acmart provides it; redefining \Bbbk clashes.
 
-%% 0a. NOTE: acmart English mode does not require xeCJK. We removed the
-%% CJK font block when migrating this draft to English. If a future
-%% revision needs Chinese text again, reintroduce \usepackage{xeCJK} +
-%% the Noto / Hiragino fallback chain that lived here in M1.
+%% 0a. CJK font fallback (xelatex path).
+%% Local macOS uses Hiragino Sans GB; CI uses Noto Sans CJK SC.
+%% Reintroduced because survey.bib carries Chinese author annotations
+%% (e.g. "Yu(余泽豪)") that the sub-agent G author-fill script
+%% emitted during the v3 EG-readiness pass.
+\usepackage{xeCJK}
+\IfFontExistsTF{Noto Sans CJK SC}{%
+  \setCJKmainfont{Noto Sans CJK SC}%
+}{%
+  \IfFontExistsTF{Hiragino Sans GB}{%
+    \setCJKmainfont{Hiragino Sans GB}%
+  }{%
+    \setCJKmainfont{Noto Sans CJK SC}%
+  }%
+}
 
 %% 0b. PDF metadata (silences acmart warnings)
 \hypersetup{
