@@ -8,7 +8,7 @@ We organise render-time acceleration into four directions.
 \subsection{Rasterisation Optimisation}
 Mobile-GS~\cite{du2026mobilegs} (Snapdragon~8~Gen~3, 127~FPS, Vulkan~2.0)
 and Flux-GS~\cite{du2026fluxgs} (Snapdragon~8~Gen~3, 147~FPS @
-2.1~MB indoor) define the current ceiling of mobile rasterisation;
+2.1~MB indoor) appear to define the current ceiling of mobile rasterisation;
 both come from the Mobile-GS group. The reported numbers were measured
 on Snapdragon~8~Gen~3 / Vulkan~2.0; we extrapolate to
 Snapdragon~8~Gen~4 / Vulkan~1.3 in~\S\ref{sec:mobile} below.
@@ -44,7 +44,7 @@ from~\cite{oh2025neo}'s Reuse-and-Update accelerator trends.
 \toprule
 \textbf{Method} & \textbf{SoC} & \textbf{Res.} & \textbf{FPS} & \textbf{Model size} & \textbf{Energy} & \textbf{Vulkan} \\
 \midrule
-Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Gen~3   & 1080p    & 127       & 2.1~MB         & --       & 2.0   \\
+Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Gen~3   & 1080p    & 127       & 4.6~MB         & --       & 2.0   \\
 Flux-GS~\cite{du2026fluxgs}           & Snap~8~Gen~3   & 1080p    & 147       & 2.1~MB (indoor) & --      & 2.0   \\
 Lumina~\cite{feng2025lumina}          & Mobile SoC     & 1080p    & --        & --              & $5.3\times$ less & -- \\
 GS-NFS~\cite{ghosh2026gsnfs}          & Jetson~Orin    & 1080p    & 25 (decode) & --            & --       & --    \\

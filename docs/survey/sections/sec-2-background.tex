@@ -33,6 +33,37 @@ budget (around 2~TFLOPs FP32), memory bandwidth, the maturity of
 Vulkan~1.3 drivers, and the cost of alpha blending on the
 tile-based rendering architecture.
 
+\subsection{Methodology of this Survey}
+This survey is the result of a two-year literature scan focused on
+real-time dynamic 4DGS rendering on mobile GPUs. The corpus was
+assembled from four primary sources: the arXiv listings under
+\texttt{cs.CV} and \texttt{cs.GR} (queried weekly via the project's
+\texttt{arxiv\_4dgs\_scan} cron job, which filters by a curated
+whitelist of keywords and known authors), the DBLP and Semantic
+Scholar indices cross-checked for citation chains, the CGF / TOG
+/ SIGGRAPH / CVPR / ICCV / ECCV / ICLR / ICML / NeurIPS
+proceedings between 2023 and 2026, and the public benchmarks and
+code repositories (GitHub) of the 50+ primary works discussed
+below. Inclusion criteria are: (i)~the work targets dynamic scene
+reconstruction or rendering; (ii)~it includes either a quantitative
+mobile or on-device evaluation, or a clearly-articulated design
+implication for mobile deployment; (iii)~a reproducible artifact
+(code, paper-note, or detailed PDF) is available. Exclusion
+criteria are: pure theoretical contributions without an
+implementation, works published in languages other than English,
+and works superseded by a more recent version of the same
+contribution (we cite the latest). The 50+ primary works are
+organised into a five-faction taxonomy (see Figure~\ref{fig:taxonomy})
+and three pipeline stages; the resulting 9-section structure is
+described in §1. The survey is regenerated on every push to
+\texttt{main} via a GitHub Action that compiles the PDF and
+publishes it to the project GitHub Pages; the underlying
+\texttt{scripts/assign\_survey\_section.py} and
+\texttt{scripts/extract\_paper\_summary.py} tools keep the
+\texttt{survey\_section} field, the per-section \verb|\item|
+blocks, and the \texttt{survey.bib} bibliography in sync with the
+54 paper notes.
+
 \bigskip
 \begin{itemize}
 \item \textbf{2023-kerbl-3dgs}~\cite{kerbl20233dgs}: How to use

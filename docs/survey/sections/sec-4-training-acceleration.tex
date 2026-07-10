@@ -14,14 +14,14 @@ SpeeDe3DGS (UMD) combines temporal pruning with motion compensation
 to reach a $13.71\times$ speed-up.
 
 \subsection{Compression and Quantization}
-4DGS-CC~\cite{chen20254dgscc} introduces a contextual-coding
+4DGS-CC~\cite{chen20254dgscc} appears to introduce a contextual-coding
 framework. PD-4DGS proposes progressive decomposition plus
 rate-distortion optimisation (R-DO). CAGS implements colour-adaptive
 dynamic / static layered streaming.
 
 \subsection{Feed-Forward, Training-Free Routes}
-L2D2-GS~\cite{song2026l2d2gs} takes the feed-forward route and
-eliminates per-scene optimisation entirely. Recent work from the
+L2D2-GS~\cite{song2026l2d2gs} appears to take the feed-forward route and
+suggests eliminating per-scene optimisation entirely. Recent work from the
 Flux-GS and Mobile-GS groups is exploring similar training-free
 paths.
 
@@ -52,6 +52,57 @@ section inherits from the mature static 3DGS acceleration literature
 These static-3DGS primitives (pruning, VQ, context-coding,
 feed-forward coding, scheduling) are the foundation that every
 4DGS compression route (Sec.~\ref{sec:mobile}) composes on top of.
+
+\subsection{Orthogonal and Adjacent Work}
+Several additional contributions shape the compression landscape
+without fitting cleanly into the three primary routes above; we
+list them here for completeness, ordered by contribution type.
+\begin{itemize}
+  \item \textbf{Progressive and provable pruning.}
+        \cite{chen2026refine} bridges the gap between
+        parameter-space heuristic pruning and render-aware pruning
+        for static 3DGS; \cite{mousa2026provablepruning} provides
+        the first provable approximation guarantees for 3DGS
+        sparsification, with implications for the dynamic
+        counterpart.
+  \item \textbf{Unified pruning frameworks.}
+        \cite{zhao2026acegs} and \cite{zhao2026mmgs} attack the
+        aggressive-pruning / detail-loss trade-off from two
+        angles: ACE-GS introduces a content-aware early-stopping
+        rule, and MMGS uses multi-view optimal-transport
+        aggregation to retain $10\times$ more detail at the same
+        pruning ratio.
+  \item \textbf{Compression and coding.}
+        \cite{zhang2026geta3dgs} unifies pruning, quantization, and
+        entropy coding under a single learnable scheduler;
+        \cite{li2024spacetimegaussians} extends the
+        ``Spacetime Gaussian'' concept to a per-Gaussian
+        time-trajectory representation that compresses the dynamic
+        parameter set.
+  \item \textbf{Polygonal and mesh-based representations.}
+        \cite{hong2026polymerge} and \cite{duan20244drotorgs}
+        take a different route: instead of compressing the
+        Gaussian set, they replace it with a polygonal or 4D-rotation
+        parameterisation that reduces the per-frame memory footprint
+        by an order of magnitude. These routes are evaluated in
+        \S\ref{sec:rendering} for their rendering-time cost.
+  \item \textbf{Long-term / short-term dynamic balance.}
+        \cite{liao2026sharptimegs} addresses the long-static /
+        short-dynamic imbalance in 4DGS optimisation by introducing
+        a sharpness-aware temporal regulariser.
+  \item \textbf{Hyper-representation and 6-DoF video.}
+        \cite{attal2023hyperreel} (HyperReel) pioneered
+        multi-view dynamic radiance fields with
+        ray-conditioned sample prediction; its 6-DoF video
+        compression ideas inform the 4DGS streaming work
+        discussed in \S\ref{sec:mobile}.
+  \item \textbf{Generative 4DGS inference.}
+        \cite{poirier2026gintergray} and
+        \cite{gong2026dict3dgs} explore post-training dictionary
+        learning for 3DGS compression; both have direct
+        implications for in-app 4DGS asset updates on resource-
+        constrained devices.
+\end{itemize}
 
 \bigskip
 \noindent\textbf{Index of paper notes backing this section}:

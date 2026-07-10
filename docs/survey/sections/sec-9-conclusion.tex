@@ -44,6 +44,27 @@ diffusion-based generation literature is only sampled; and
 4DGS + simulation) are sparse and we surface them only
 in~\S\ref{sec:discussion}.
 
+\subsection{Reproducibility and Open Science}
+This survey is reproducible from the project repository. The
+\texttt{survey.tex} source compiles with a single
+\texttt{latexmk -pdf survey.tex} invocation (or the
+\texttt{make} target in \texttt{docs/survey/Makefile}); the
+required \texttt{acmart} class ships with \texttt{texlive-full}.
+A GitHub Action at \texttt{.github/workflows/survey.yml}
+re-compiles and republishes the PDF on every push to
+\texttt{main}, with the compiled artifact attached to the run.
+The bibliography in \texttt{survey.bib} is regenerated from the
+54 paper notes in \texttt{docs/appendix/paper-notes/} via
+\texttt{scripts/assign\_survey\_section.py} (faction $\to$
+section mapping) and \texttt{scripts/extract\_paper\_summary.py}
+(per-section \verb|\item| blocks and bib entries). Every
+\texttt{\textbackslash cite} key in this PDF corresponds to a
+paper note in the repository, which records the source PDF page
+for every quantitative claim, the citation chain, and a
+faction-classified summary. The reader is invited to file issues
+on the project repository for missing papers, mis-categorised
+factions, or updated performance numbers.
+
 \bigskip
 \noindent\textbf{Index of paper notes backing this section}:
 \texttt{INDEX.md}.

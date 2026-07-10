@@ -61,3 +61,33 @@ Q4: Mobile deployment + future directions? & \S\ref{sec:mobile}, \S\ref{sec:data
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{figure}[t]
+\centering
+\small
+\begin{tabular}{p{0.18\linewidth}p{0.72\linewidth}}
+\toprule
+\textbf{Faction} & \textbf{Scope and representative work} \\
+\midrule
+\textbf{A. 4DGS representation} &
+Canonical + deformation (\cite{wu20244dgs}, \cite{yang2023deformable3dgs}); dynamic / static separation (\cite{yuan20254dgs1k}, \cite{zhang2024mega4dgsacceleration}); continuous-time (\cite{wang2026retimegs}); memory-efficient (\cite{shi2025sparse4dgs}, \cite{ren2026cubifygs}). \\
+\textbf{B. 4DGS training accel.} &
+Temporal pruning (\cite{lee2025omg4}, \cite{tu2025speede3dgs}); contextual / progressive coding (\cite{chen20254dgscc}, \cite{li2026pd4dgs}); streamable layered coding (\cite{yin2026cags}, \cite{zheng20254dgcpro}). \\
+\textbf{C. 3DGS rendering accel.} &
+Mobile rasterisation (\cite{du2026mobilegs}, \cite{du2026fluxgs}, \cite{huang2025seele}); ray tracing (\cite{liu20254dgrt}, \cite{ghosh2026gsnfs}); mesh / mobile neural rendering (\cite{feng2025lumina}); hardware acceleration (\cite{oh2025neo}). \\
+\textbf{D. Mobile + streaming} &
+Streaming codecs (\cite{li2026pd4dgs}, \cite{ke2025streamstgs}, \cite{veicht2026zipsplat}, \cite{yu2026codecsplat}); on-device decode (\cite{ghosh2026gsnfs}, \cite{shi2026evogs}); LoD (\cite{shi2026evogs}). \\
+\textbf{E. Static 3DGS / cross-disciplinary} &
+Compression primers (\cite{fan2023lightgaussian}, \cite{chen2024hacpp}, \cite{navaneet2023compact3d}); memory-efficient inference (\cite{liu2024efficientgs}, \cite{li2026vedal}); cross-domain (\cite{huang2026gaussianfluent}, \cite{feng2025lumina}). \\
+\bottomrule
+\end{tabular}
+\caption{Faction taxonomy used throughout this survey. Factions A--D
+represent the four primary dimensions of mobile 4DGS research; faction
+E collects orthogonal static-3DGS acceleration and cross-disciplinary
+work that informs the mobile 4DGS design space. The body of the survey
+organises works into 9 sections (\S2--\S9) following the
+``representation / training / rendering / deployment''
+pipeline-stage axis, with cross-references back to the appropriate
+faction where needed.}
+\label{fig:taxonomy}
+\end{figure}
