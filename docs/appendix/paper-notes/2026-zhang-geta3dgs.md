@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 现有 3DGS 压缩(HAC++ / FlexGaussian / LP-3DGS)把 **pruning / quantization / entropy coding 拆为 3 个独立阶段**,依赖手工调阈值(opacity threshold, fixed bit-width, SH truncation rules),**无法直接指定压缩率或质量预算**。**能否做一个端到端自动的"剪枝 + 量化"联合框架,只需指定 target compression rate 即可**?

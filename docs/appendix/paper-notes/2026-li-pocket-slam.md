@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS-SLAM 在大场景（KITTI / EuRoC）下**显存爆炸（10-40 GB）**——单卡 GPU 跑不动，**更别说 edge device**。**如何在不破坏 SLAM 跟踪精度的前提下，按渲染区域贡献度做 tile-level budget-aware pruning**？

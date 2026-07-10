@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 4DGS 用数百万 Gaussian 拟合动态,存储开销巨大(单 Gaussian + 时间属性 = 巨大 footprint)。**能否用 3 阶段 progressive 压缩(Sample → Prune → Merge)+ 属性压缩 + SVQ,既降 60% 体积又保持质量**?

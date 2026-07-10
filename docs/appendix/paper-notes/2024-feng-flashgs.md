@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 如何在 **CUDA 层面**让 3DGS 在 **mobile consumer GPU(笔记本/手机 GPU)** 上获得 **平均 4× 加速 + 内存下降**,且开源一个 Python + CUDA 的可集成库?

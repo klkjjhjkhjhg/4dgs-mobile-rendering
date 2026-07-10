@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS 训练后 SH 系数占 80%+ storage，**如何在不动现有 3DGS 模型的前提下，用 dictionary-learning + sparse codes 在 SH 上做 post-training compression，并同步利用稀疏性做 faster rendering**？

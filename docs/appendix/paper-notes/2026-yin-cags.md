@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 Volumetric Video(VV)streaming 现有 3DGS 方案存在 1) **LoD-based 质量下降明显**(density-based LoD 在 Gaussian 上不适用),2) **aggressive attribute compression 导致 color distortion**。**如何做"color-adaptive" 自适应 streaming,在 aggressive 量化下保持视觉质量**?

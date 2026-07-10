@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 Deformable 3DGS 及其动态扩展虽然质量 SOTA,**但 per-Gaussian neural inference 的 cost 让它们算不动**(MonoDyGauBench 文献里 DeformableGS 20 FPS,4DGS 63 FPS)。**如何既保住 neural motion field 的表达力,又把渲染速度拉到 non-neural baseline 水平?**

@@ -15,6 +15,7 @@
 - **1-hop 引用**: （v2 补全）
 - **评级**: ⭐⭐⭐（**升级 ⭐⭐ → ⭐⭐⭐** 鉴于 1) 小米合作 + 2) 解 🚩 + 3) Feedforward 4DGS 路径与 ZipSplat 同主线）
 
+- **survey_section**: 3
 ## 1. 一句话问题
 
 如何在 **动态城市街景（autonomous driving / large-scale world modeling）**中，**摆脱 per-scene optimization 的高开销**，用 **Feedforward 通用框架**（一次性推理即可重建动态 4D 场景）+ **自监督 densification policy**（基于 reconstruction gain 引导局部细化）达到**与 per-scene optimization 相当或更高的 PSNR**？

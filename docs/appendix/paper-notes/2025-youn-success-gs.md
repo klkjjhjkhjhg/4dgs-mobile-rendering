@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 1
 ## 一句话问题
 
 3DGS / 4DGS 实用化的最大瓶颈 = **存储开销(百万级 Gaussians) + 计算开销(per-Gaussian motion inference)**。**如何系统化分类现有 efficient 3DGS / 4DGS 方法,给研究者一张完整的 roadmap?**

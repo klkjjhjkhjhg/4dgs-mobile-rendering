@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 3DGS 通过 2D view-space gradients 做 densification，导致 **massive redundant primitives + 几何不一致性**。**如何用 global 几何分布匹配（Optimal Transport）将 3DGS 压缩到 10% primitives 同时保持 ∆PSNR ≥ 0**？

@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 如何在 **mobile GPU (Snap 8 Gen 3)** 上以 **3rd-order SH 等价视觉质量 + 更小 storage** 实时渲染 3DGS，**且训练时间从 Mobile-GS 的 86 min 缩短到 11 min 量级**？

@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 现有 3DGS pruning 方法用 **heuristic importance score**（快但次优）或 **synchronous batch update**（一致但慢），**如何在 closed-form variational 框架下，做到 prediction-error gating + 异步更新，且数学可证 retention-error 对应**？

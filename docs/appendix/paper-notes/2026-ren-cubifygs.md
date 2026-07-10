@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 现有 3DGS SLAM 在 **rigid object rearrangement**（家具移动 / 物体出现消失）场景下，**需要 erase-and-reconstruct 全场景**——**如何做到 object-level 资产复用 + 终身动态维护**？

@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 现有 3DGS 加速框架为追求快速收敛往往 **aggressive pruning primitives → 高频细节严重丢失**。**如何在保持 ultra-fast 训练速度（3-5 min）的同时，保留甚至超越原始 3DGS 的 PSNR**？

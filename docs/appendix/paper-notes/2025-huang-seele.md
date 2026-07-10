@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS 在 **mobile device** 上达不到 real-time —— 如何通过 **hybrid preprocessing + contribution-aware rasterization** 两件套做到 **2.6× 加速 + 32.3% 模型压缩**,且"**seamlessly integrated into existing 3DGS pipelines with minimal fine-tuning**"?

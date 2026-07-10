@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 3
 ## 一句话问题
 
 现有 4DGS 方法(Deformable-3DGS / 4DGS / 4DGS-1K 等)需要 **dense-frame video sequence** 才能高质量重建;**当输入帧稀疏** (e.g. iPhone 拍摄的低 FPS 视频)时,4DGS 重建质量急剧下降。**如何让 4DGS 在 sparse-frame 输入下保持质量**?

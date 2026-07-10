@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 现有 3DGS streaming 方法用 **discrete LOD layers**（每个 LOD 独立训练一个 splat set），**layer 之间 splat 冗余 65%+，且 layer transition 不平滑**。**如何在保持 layer-wise 渐进式传输的同时，让 layer 间有连续的质量过渡 + 大幅降低存储**？

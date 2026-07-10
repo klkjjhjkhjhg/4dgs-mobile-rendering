@@ -15,6 +15,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 5
 ## 1. 一句话问题
 
 3DGS ray tracing（3DGRT）当前**比 rasterization 慢一个数量级**（3DGRT 优化 9× 慢于 3DGS，PDF §1 直引），**关键瓶颈在 dense initialization (DI) 下 rasterization 慢但 ray tracing 快**这一反直觉观察 —— **能否设计 ray tracer 让 ray tracing 在 dense initialization 下达到近 rasterization 速度**？

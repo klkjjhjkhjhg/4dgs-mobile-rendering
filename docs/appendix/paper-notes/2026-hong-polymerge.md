@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 3DGS radiance field 适合 photorealistic 重建，但 **memory-heavy（hundreds of thousands to millions Gaussians，MB-GB 级）**，**远超 mobile platforms**（"mobile platforms typically on the order of kilobytes for small drones such as Crazyflies"）—— abstract 直引。**如何在保持 provable obstacle over-approximation 的前提下，把 3DGS 模型压缩到 drone on-board 内存容量，且支持实时 CBF safe planning**？

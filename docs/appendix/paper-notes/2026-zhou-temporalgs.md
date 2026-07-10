@@ -15,6 +15,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 5
 ## 1. 一句话问题
 
 如何在 **tile-based 3DGS 渲染管线**（**软件 rasterization 起点 + 可移植到硬件 rasterization**）中利用**相邻帧之间 Gaussian 重叠**这一时序先验，**无需任何 post-training / post-processing** 即获得**最高 1.48× 渲染加速**，并保持 competitive rendering quality？

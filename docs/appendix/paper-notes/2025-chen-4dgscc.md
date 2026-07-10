@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 4DGS 重建动态场景存储开销大(动态 deformation 4D neural voxels + canonical 3DGS)。**能否借鉴神经上下文编码(NCC,已在 NeRF / 3DGS 静态场景验证)到 4DGS 动态场景,实现 12× 压缩同时保持 SOTA 渲染质量**?

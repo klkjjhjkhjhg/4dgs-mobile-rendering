@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 如何在 **mobile GPU(尤其是 Snap 8 Gen 3)+ Vulkan 2.0** 上实现 **实时(snapdragon 至少 30+ FPS)3DGS 渲染**,**PSNR 27+,storage 5 MB 量级**?

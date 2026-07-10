@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS SLAM 系统**对所有 Gaussians 一视同仁（uniform density）**，**但机器人任务只关心场景中一部分**（e.g. "fetch the cup on the table"）—— 浪费算力。**如何在 task-conditioned 方式下分配 Gaussian 密度 + 多机器人 map 融合 + 4 Hz 实时**？

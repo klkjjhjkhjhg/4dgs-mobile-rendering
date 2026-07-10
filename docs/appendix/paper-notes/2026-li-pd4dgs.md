@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 4DGS 的"monolithic bitstream"是 streaming 的"all-or-nothing"瓶颈:典型 ~25 MB 单一 bitstream(15 MB 静态 + 1.5 MB 全局 deformation + 8 MB 局部 deformation)在 2 Mbps 移动网络下需要 **100 秒**等待。**如何把 4DGS 改为 progressive,使得"任何 prefix 都可渲染"且兼容 DASH/HLS adaptive-bitrate**?

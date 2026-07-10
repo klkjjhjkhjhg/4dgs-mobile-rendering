@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 现有 3DGS-based FVV 方案每帧 10 MB storage,**无法 real-time streaming**。**如何用视频编码思路(2D 图像 / 视频)压缩 4DGS,既降低每帧存储又支持 adaptive bitrate + 实时解码**?

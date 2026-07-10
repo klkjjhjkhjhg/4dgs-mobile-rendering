@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 Feed-forward 3DGS methods 的 inductive bias = **Gaussian 与 input pixel 一一对应**（"tied to input pixels"）—— **Gaussian 预算由 2D camera resolution 决定，而非 3D scene complexity**（"a flat wall and a richly textured object thus produce equally many Gaussians despite very different geometric needs"）。**如何 decouple Gaussian placement from pixel grid，在 fewer Gaussians 下实现更高 quality**？

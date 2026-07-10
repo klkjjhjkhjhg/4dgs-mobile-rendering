@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 FF3DGS 给定 sparse context views 在单次 forward pass 内重建 3D scene，但**生成后的 Gaussians 是 irregular representation，对压缩不友好**。**如何把 coding bottleneck 移到 feed-forward 内部（before 2D-to-3D Gaussian mapping），实现 kB-level scene bitstream + 可控 RD trade-off**？

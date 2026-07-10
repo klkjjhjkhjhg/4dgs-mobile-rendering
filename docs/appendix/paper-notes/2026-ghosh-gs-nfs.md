@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 4DGS 是 30+ FPS 动态场景渲染的 SOTA，**但 4DGS 编码 + 解码 + 流式传输的整条 pipeline 在 mobile GPU 上 = 0 公开工作**。**如何设计一个 GPU codec（基于 octree + RAHT）实现 4DGS bandwidth-adaptive streaming + 25 FPS mobile decode**？

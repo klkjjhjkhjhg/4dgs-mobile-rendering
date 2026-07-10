@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS 压缩通常需要 **per-scene optimization** (分钟级) —— 如何做到 **feedforward single-pass**(秒级),且 **>20× 压缩率** + 维持 PSNR?

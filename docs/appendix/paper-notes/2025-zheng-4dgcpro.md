@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 4DGS 的 **volumetric video** 流式传输面临:1) **无法单模型内调质量 / 码率** (网络带宽 + 设备差异大);2) **mobile device 上做不到实时解码 + 渲染**。**如何在单一 bitstream 中实现 progressive streaming,且在 mobile device 上做到实时解码 + 渲染**?

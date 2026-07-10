@@ -15,6 +15,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 4
 ## 一句话问题
 3DGS 的 per-splat 字节数(48 SH + 14 metadata = ~200 bytes/splat)过大,如何用 **Vector Quantization(VQ)** 大幅压缩同时保持 comparable 质量?
 

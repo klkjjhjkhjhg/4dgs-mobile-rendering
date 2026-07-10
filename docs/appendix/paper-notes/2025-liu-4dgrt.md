@@ -17,6 +17,8 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 5
+
 ## 一句话问题
 
 现有 4DGS 假设 **理想 pinhole 相机**,无法模拟真实相机的 **fisheye 畸变 + rolling shutter** 等物理效果 —— 如何在 **4DGS 框架内**加入 **physically-based ray tracing** 来生成可控的物理真实相机效果 4D 视频数据,且做到 **fastest rendering speed**?

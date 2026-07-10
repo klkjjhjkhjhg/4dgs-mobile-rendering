@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 6
 ## 一句话问题
 
 4DGS 的"deformation field + canonical space"框架有大量 spatial / temporal 冗余,且对 storage 极不友好(典型 4DGS 100+ MB / scene)。**能否借鉴视频编码的 intra-/inter-frame prediction + CABAC 上下文熵编码,把 4DGS 压到 ~1 MB 同时保留 SOTA 质量**?

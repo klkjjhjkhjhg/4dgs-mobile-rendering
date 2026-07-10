@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 现有 3DGS pruning 方法面临 **"parameter-space heuristic（快但粗）"vs "render-aware（精但慢）"** 的两难：**如何在完全 bypass 前向渲染 passes 的前提下，达到 render-aware pruning 的 perceptual accuracy**？

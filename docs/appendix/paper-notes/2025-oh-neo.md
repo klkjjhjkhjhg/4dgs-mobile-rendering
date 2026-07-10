@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS on-device AR/VR 渲染的瓶颈是 **sorting 阶段**(高 memory bandwidth demand)。**如何利用相邻帧 Gaussian 顺序的时序冗余,做 reuse-and-update 排序,避免每帧重新 sort**?

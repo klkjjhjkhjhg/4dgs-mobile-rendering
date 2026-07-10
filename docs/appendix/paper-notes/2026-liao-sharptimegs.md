@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 4
 ## 一句话问题
 
 4DGS 现有方法难以平衡"长时静态区域"与"短时动态区域"在 representation + optimization 两方面。**如何用一个 unified 4DGS 框架,通过 lifespan parameter 自动调节静态 / 动态区域,既保持 long-term stability 又不妥协 dynamic fidelity**?

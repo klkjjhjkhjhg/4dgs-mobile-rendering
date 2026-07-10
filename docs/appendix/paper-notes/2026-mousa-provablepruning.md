@@ -15,6 +15,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 4
 ## 1. 一句话问题
 
 3DGS 场景中**几百万个 Gaussian** 在 resource-limited hardware 上无法直接部署，**现有启发式剪枝方法**提供**非可证明的近似保证** + **强依赖 cost 高的 post-pruning finetune** 恢复质量；能否**首次构造带可证明 multiplicative guarantee 的 3DGS coreset** —— **resolution-dependent**，为 prescribed rendering resolution（如 representative views / grids of rays）提供**基于 sensitivity 的 importance score**？

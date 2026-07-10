@@ -17,6 +17,7 @@
 - **1-hop 引用**: （v2 补全，见 §11 1-hop 关系图）
 - **评级**: ⭐⭐
 
+- **survey_section**: 5
 ## 一句话问题
 
 3DGS 在 mobile SoC 上实时性不够(传统 GPU 算 color integration + sorting 太重)。**如何用硬件-算法 co-design 同时解决"Sorting 重"和"Rasterization 颜色积分重"两个 bottleneck,质量损失 < 0.2 dB?**
