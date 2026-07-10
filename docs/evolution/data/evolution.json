@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "4DGS / 3DGS Mobile Rendering 演进图",
-    "total_nodes": 50,
+    "total_nodes": 54,
     "factions": {
       "A": {
         "name": "4DGS 表示",
@@ -510,6 +510,42 @@
       "arxiv": "2605.19304",
       "refs": 0,
       "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-mousa-provablepruning",
+      "label": "Provable Pruning: 3DGS Coresets",
+      "year": 2607.02721,
+      "faction": "C",
+      "arxiv": "2607.02721",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-poirier-ginter-gray",
+      "label": "GRay: 3DGS Ray Tracing",
+      "year": 2606.30869,
+      "faction": "C",
+      "arxiv": "2606.30869",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-song-l2d2-gs",
+      "label": "L2D2-GS: Feedforward 4DGS",
+      "year": 2606.29374,
+      "faction": "A",
+      "arxiv": "2606.29374",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2026-zhou-temporalgs",
+      "label": "TemporalGS: Training-Free",
+      "year": 2607.0339,
+      "faction": "C",
+      "arxiv": "2607.03390",
+      "refs": 0,
+      "rating": "⭐⭐"
     }
   ],
   "edges": [
@@ -751,6 +787,46 @@
     {
       "from": "2026-gong-dict-3dgs",
       "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-mousa-provablepruning",
+      "to": "2023-kerbl-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-mousa-provablepruning",
+      "to": "2024-yu-mip-splatting",
+      "type": "direct"
+    },
+    {
+      "from": "2026-poirier-ginter-gray",
+      "to": "2023-kerbl-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-poirier-ginter-gray",
+      "to": "2025-liu-4dgrt",
+      "type": "direct"
+    },
+    {
+      "from": "2026-song-l2d2-gs",
+      "to": "2024-wu-4dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-song-l2d2-gs",
+      "to": "2023-yang-deformable-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-zhou-temporalgs",
+      "to": "2023-kerbl-3dgs",
+      "type": "direct"
+    },
+    {
+      "from": "2026-zhou-temporalgs",
+      "to": "2023-fan-lightgaussian",
       "type": "direct"
     }
   ]
