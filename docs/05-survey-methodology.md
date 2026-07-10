@@ -49,7 +49,7 @@
 
 Lumina 30 references 验证（2026-07-08）：
 - Lumina 是 Cross-disciplinary 工作（arxiv 2506.05682，体系结构跨方向）
-- 30 references → 7 核心 3DGS/4DGS 相关 → 7 全部已在 49 篇 INDEX
+- 30 references → 7 核心 3DGS/4DGS 相关 → 7 全部已在 54 篇 INDEX
 - **0 新增** = 白名单收得齐
 
 ---
@@ -163,10 +163,10 @@ Apple, Microsoft, Adobe Research
 | Lumina 总 references | 30 |
 | 不相关（医学 / 自动驾驶 / SLAM / 任务规划 / 行人预测 等）| 23 |
 | 核心相关（3DGS / 4DGS / 移动渲染 / 加速） | **7** |
-| 已在 49 篇 INDEX | **7**（100% 命中）|
+| 已在 54 篇 INDEX | **7**（100% 命中）|
 | 新增 | **0** |
 
-**结论**：49 篇 INDEX 调研密度被验证 = **真覆盖核心引用圈，不是关键词瞎扫**。
+**结论**：54 篇 INDEX 调研密度被验证 = **真覆盖核心引用圈，不是关键词瞎扫**。
 
 ### 3.6 与 4 cron 的衔接
 
@@ -244,7 +244,7 @@ Apple, Microsoft, Adobe Research
 - **不照搬 paper 全文**——精炼到能复述
 - **数字必标 PDF 页码**（3 道保险 #1）
 - **每段引文标来源**：`[abstract 直引]` / `[基于 X 论文]` / `[推测]` / `[未在公开材料找到,需 PDF 核验]` / `[调研不足,需进一步实验]`
-- **不重写 49 篇 note 正文**——只加 §0.5 + §11（件套 3 范围）
+- **不重写 54 篇 note 正文**——只加 §0.5 + §11（件套 3 范围）
 
 ### 4.6 INDEX.md 同步
 
@@ -284,7 +284,7 @@ Apple, Microsoft, Adobe Research
 
 ### 5.4 应用 3：演进图（件套 2）
 
-- 49 篇 → 演进图（3D + 2D fallback）
+- 54 篇 → 演进图（3D + 2D fallback）
 - X = 时间 / Y = 派系 / Z = 引用密度
 - 4 转折点 = T1 3DGS / T2 4DGS / T3 4DGS-1K / T4 Lumina
 - 详见 `docs/evolution/README.md`（件套 2 完成时建）
@@ -338,7 +338,7 @@ Apple, Microsoft, Adobe Research
 - 30 总 → 23 不相关 → **7 核心相关** → **7 100% 已在 INDEX** → **0 新增**
 
 **3 个启示**：
-1. **白名单收得齐**——49 篇覆盖了高质量工作的核心引用圈
+1. **白名单收得齐**——54 篇覆盖了高质量工作的核心引用圈
 2. **1-hop 规则有效**——Lumina 是 Cross-disciplinary 标杆，它的 references 圈层被 100% 覆盖 = 其他工作大概率也覆盖
 3. **调研不是关键词瞎扫**——质量密度验证通过
 
@@ -355,7 +355,7 @@ Apple, Microsoft, Adobe Research
 ## 10. 引用一览
 
 - **`venues.md`**（仓库根目录）—— 白名单主文件
-- **`docs/appendix/paper-notes/INDEX.md`** —— 49 篇 paper note 索引
+- **`docs/appendix/paper-notes/INDEX.md`** —— 54 篇 paper note 索引
 - **`README.md`** —— §1 论据表 + §2 派系 SOTA 排名
 - **`docs/00-goal.md` ~ `docs/04-trends-2026H1.md`** —— 调研正文 4 docs
 - **`docs/mission/mission.md`** —— 4 件套 + 4 cron 完整 mission

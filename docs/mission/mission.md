@@ -13,14 +13,14 @@
 **项目**：`~/Codes/4dgs-mobile-rendering` — 3DGS / 4DGS / 移动端渲染技术调研。
 
 **现状**（截至 2026-07-08）：
-- 49 篇 paper notes in `docs/appendix/paper-notes/`
+- 54 篇 paper notes in `docs/appendix/paper-notes/`
 - 1 个 INDEX.md（按派系 A/B/C/D/E 分组）
 - 1 个 venues.md（Tier 1/2/3 + Pre-print 栏 + 1-hop 引用规则）[本轮新建]
 - 4 个 docs（00-goal / 01-precision / 02-accel / 03-roadmap / 04-trends）
 - 1 个 README.md（§1 论据表 + §2 派系 SOTA 排名）
 - 已验证：Lumina 30 references 中 7 条核心 3DGS/4DGS 引用 **100% 已收录**
 
-**核心洞察**：49 篇质量密度高 = 调研不是关键词瞎扫 = 真覆盖了核心引用圈。
+**核心洞察**：54 篇质量密度高 = 调研不是关键词瞎扫 = 真覆盖了核心引用圈。
 
 ---
 
@@ -59,7 +59,7 @@
 **步骤 4：写 9 区块 paper note + INDEX 派系分类**
 - 9 区块模板：基本信息 / 摘要 / 派系 / 方法 / 实验 / 数字 / 评估 / 引用 / Insight
 - 派系 A/B/C/D/E（已在 INDEX.md 顶部定义）
-- 49 篇 note 文件命名 `<year>-<author>-<keyword>.md`
+- 54 篇 note 文件命名 `<year>-<author>-<keyword>.md`
 
 **步骤 5：应用**
 - 写进 README.md §1 论据表
@@ -69,7 +69,7 @@
 ### 2.3 必须包含的案例
 **Lumina 30 references 验证**：
 - 30 总 → 23 不相关 → 7 核心相关（3DGS / 4DGS / 移动渲染 / 加速）
-- 7 核心相关全部已在 49 篇 INDEX
+- 7 核心相关全部已在 54 篇 INDEX
 - **0 新增** = 调研齐全度验证
 
 ### 2.4 完成定义
@@ -96,19 +96,19 @@
 ```
 docs/evolution/
 ├── index.html              # Three.js 渲染主入口
-├── data/evolution.json     # 49 节点 + 引用边
+├── data/evolution.json     # 54 节点 + 引用边
 ├── styles.css              # 节点 / 边 / UI 样式
 ├── README.md               # 部署说明（GitHub Pages + 本地预览）
 └── (无 js 文件：Three.js 通过 CDN)
 
-scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
+scripts_refs/evolution_gen.py  # 扫 54 篇 note 自动生成 evolution.json
 ```
 
 ### 3.4 演进图形式（排布 C）
 
 - **X 轴 = 时间**（2023.7 → 2026.7 横向）
 - **Y 轴 = 派系**（A 4DGS 表示 / B 4DGS 加速 / C 3DGS 加速 / D 移动端，4 层 Y 平面）
-- **Z 轴 = 引用密度**（节点向外凸起高度 = 该 paper 在 49 篇 INDEX 中被多少 paper 引用）
+- **Z 轴 = 引用密度**（节点向外凸起高度 = 该 paper 在 54 篇 INDEX 中被多少 paper 引用）
 - **节点**：球体
   - 大小 = 引用数
   - 颜色 = 派系（4 色：红 / 蓝 / 绿 / 黄）
@@ -134,16 +134,16 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 - CDN 失败自动 fallback 到 2D
 
 ### 3.7 节点数据 v1 来源
-- 手写 49 节点（题目 / 时间 / 派系 / 引用数 / arxiv-id）
+- 手写 54 节点（题目 / 时间 / 派系 / 引用数 / arxiv-id）
 - 手写 ~30 条关键引用边
-- `evolution_gen.py` v1 **只生成节点列表**（扫 49 篇 note 文件名 + 解析元数据），v2 补全边
+- `evolution_gen.py` v1 **只生成节点列表**（扫 54 篇 note 文件名 + 解析元数据），v2 补全边
 
 ### 3.8 完成定义
 - `docs/evolution/index.html` 在浏览器能跑
-- 显示 49 节点 + 引用边 + 4 转折点面
+- 显示 54 节点 + 引用边 + 4 转折点面
 - 2D fallback 按钮可用
 - 鼠标 hover / 点击交互完整
-- `evolution.json` 含 49 节点
+- `evolution.json` 含 54 节点
 - `evolution_gen.py` v1 可跑通（生成节点列表）
 
 ---
@@ -151,7 +151,7 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 ## 4. 第 3 件套：9 区块 → 11 区块模板升级
 
 ### 4.1 目标
-升级 9 区块模板，新增 2 个区块，**49 篇 note 批量升级**（机械化），**5 篇示范**做 §11 1-hop 关系图。
+升级 9 区块模板，新增 2 个区块，**54 篇 note 批量升级**（机械化），**5 篇示范**做 §11 1-hop 关系图。
 
 ### 4.2 新增 §0.5 元数据块（基本信息后插入）
 
@@ -179,9 +179,9 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 ### 11.2 被引用的后续工作 (upstream) [v1 可选]
 ```
 
-### 4.4 49 篇 note 升级范围
+### 4.4 54 篇 note 升级范围
 
-- **每篇**加 §0.5 元数据（机械化，扫 49 篇 note + 解析 + 写）
+- **每篇**加 §0.5 元数据（机械化，扫 54 篇 note + 解析 + 写）
 - **§11 1-hop 关系图**：v1 **5 篇示范**
   - 3DGS（2023-kerbl-blur-3dgs 或 4DGS 原论文）
   - 4DGS（2024-wu-4dgs）
@@ -191,9 +191,9 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 - 5 篇示范用 Semantic Scholar 拉 references，标 1-hop 关系
 
 ### 4.5 完成定义
-- 49 篇 paper notes 全部含 §0.5 元数据
+- 54 篇 paper notes 全部含 §0.5 元数据
 - 5 篇示范含 §11 1-hop 关系图
-- 不破坏 49 篇 note 已有正文
+- 不破坏 54 篇 note 已有正文
 
 ---
 
@@ -215,7 +215,7 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
   1. 拉 arxiv listing/cs.CV + listing/cs.GR
   2. 关键词过滤："3D Gaussian Splatting" / "4D Gaussian Splatting" / "Mobile Gaussian" / "Real-time Splatting" / "Differentiable Rendering"
   3. Tier 1/2 实验室作者白名单（VITA / Zhejiang U / NTU / PKU / HKUST / Snap Research / NVIDIA / Apple / Meta / Google 等）
-  4. 跟 49 篇 INDEX 查重
+  4. 跟 54 篇 INDEX 查重
   5. 命中 → **写 9 区块 paper note**（激进全自动）
   6. **delegate_task 子 agent 复核**（B 中复核：数字 / 引用 / 结论）
   7. 冲突项标 🚩 + 写入 `~/Codes/4dgs-mobile-rendering/cron/arxiv-YYYY-MM-DD-争议项.md`
@@ -299,7 +299,7 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 ## 6. 通用约束
 
 - **不改 README.md 论据表 / 不改 4 个 docs 正文**——v3 调研结论，**不在本轮改**
-- **不重写 49 篇 note 正文**——只加 §0.5 + §11
+- **不重写 54 篇 note 正文**——只加 §0.5 + §11
 - **4 件套按 1 → 2 → 3 → 4 顺序做**，每件套完成后 git commit
 - **歧义按合理默认走**，**不打断用户**——除非真正不可调和的决策
 - **所有 cron 输出发 Telegram 通知**到 Home channel（不静默）
@@ -309,10 +309,10 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 ## 7. 完成定义（总）
 
 - ✅ `docs/05-survey-methodology.md` 存在，5 步法完整，含 Lumina 验证案例
-- ✅ `docs/evolution/index.html` 在浏览器能跑，显示 49 节点 + 引用边 + 2D fallback
+- ✅ `docs/evolution/index.html` 在浏览器能跑，显示 54 节点 + 引用边 + 2D fallback
 - ✅ `docs/evolution/data/evolution.json` 存在
 - ✅ `scripts_refs/evolution_gen.py` v1 可跑通
-- ✅ 49 篇 paper notes 全部含 §0.5 元数据
+- ✅ 54 篇 paper notes 全部含 §0.5 元数据
 - ✅ 5 篇示范（3DGS / 4DGS / Mobile-GS / Lumina / Flux-GS）含 §11 1-hop 关系图
 - ✅ 4 个 cron jobs 全部建好 + dry run 1 次通过
 - ✅ 所有改动 git commit
@@ -322,7 +322,7 @@ scripts_refs/evolution_gen.py  # 扫 49 篇 note 自动生成 evolution.json
 ## 8. 不做
 
 - ❌ 不做激进全自动的"全 9 区块 LLM 写"——4-9 区块仍人工（**本轮激进全自动 = 4 个 cron 触发时**）
-- ❌ 不重写 49 篇 note 正文
+- ❌ 不重写 54 篇 note 正文
 - ❌ 不改 README.md / 4 个 docs
 - ❌ 不做 GitHub Pages 实际发布（README 说明即可）
 - ❌ 不做 mobile 端深度优化（移动端 2D fallback 即可）
