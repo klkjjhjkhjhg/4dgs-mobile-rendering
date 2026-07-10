@@ -12,9 +12,24 @@
 \usepackage{amsmath}
 %% amssymb 省略: acmart 已包含, 同时定义会冲突 \Bbbk
 
-%% 0a. 中文支持 (xelatex 编译, Mac TeX Live 默认含 HiraginoSansGB / STSong)
+%% 0a. 中文支持 (xelatex 编译, 字体自动 fallback:
+%%     Linux/GitHub Action 优先 Noto Sans CJK SC, Mac 优先 Hiragino Sans GB)
 \usepackage{xeCJK}
-\setCJKmainfont{Hiragino Sans GB}  % Mac 默认中文字体, fallback 到系统其他 CJK 字体
+\IfFontExistsTF{Noto Sans CJK SC}{%
+  \setCJKmainfont{Noto Sans CJK SC}%
+}{%
+  \IfFontExistsTF{Hiragino Sans GB}{%
+    \setCJKmainfont{Hiragino Sans GB}%
+  }{%
+    \setCJKmainfont{Noto Sans CJK SC}%  最后兜底 (CI 一定会装)
+  }%
+}
+
+% 0b. PDF 元数据 (避免 acmart 警告)
+\hypersetup{
+  pdfauthor={Lianghao Zhang},
+  pdftitle={Toward Real-Time Dynamic 4D Gaussian Splatting on Mobile GPUs: A Survey},
+}
 
 %% 1. 文档元数据 (review=false 时非 ACM 元数据也要填)
 \title{Toward Real-Time Dynamic 4D Gaussian Splatting\\

@@ -1,0 +1,96 @@
+# Survey LaTeX 自动编译 (M3)
+#
+# 触发:
+#   - push to main, paths = docs/survey/**
+#   - daily cron 09:00 UTC (= 北京时间 17:00)
+#   - 手动 (workflow_dispatch)
+#
+# 流程:
+#   1. 装 TeX Live (完整 + xeCJK 字体)
+#   2. 跑 make (xelatex + bibtex + latexmk)
+#   3. 上传 survey.pdf 为 artifact
+#   4. commit survey.pdf 回仓库 (bot 账号, [skip ci] 避免循环)
+#
+# 验证 (M3 验收):
+#   - push 一次 docs/survey/ 改动 → 看到 Action 跑通 → PDF 出现在 artifact
+#   - workflow_dispatch 手动跑一次 → 同样 PASS
+#   - 第二次 push 不改 .tex → 应 commit 跳过 (PDF 无 diff)
+
+name: Build Survey PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/survey/**'
+      - '.github/workflows/survey.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'  # 每天 UTC 09:00 (北京时间 17:00)
+
+concurrency:
+  group: survey-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    permissions:
+      contents: write  # 允许 push PDF 回 main
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live + CJK 字体
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            texlive-full \
+            texlive-lang-chinese \
+            texlive-xetex \
+            texlive-latex-extra \
+            fonts-noto-cjk \
+            latexmk
+
+      - name: Verify TeX Live + 字体
+        run: |
+          echo "=== latexmk ===" && latexmk --version | head -1
+          echo "=== xelatex ===" && xelatex --version | head -1
+          echo "=== Noto CJK ===" && fc-list | grep -i "noto sans cjk sc" | head -2
+
+      - name: Build PDF
+        working-directory: docs/survey
+        run: |
+          make clean
+          make
+          echo "=== PDF 状态 ===" && ls -la survey.pdf
+          file survey.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: survey-pdf-${{ github.sha }}
+          path: docs/survey/survey.pdf
+          retention-days: 30
+
+      - name: Commit PDF back to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 检查 PDF 是否有变化
+          if git diff --quiet docs/survey/survey.pdf; then
+            echo "=== PDF 无变化, 跳过 commit ==="
+          else
+            git add docs/survey/survey.pdf
+            git commit -m "ci(survey): 重新编译 survey.pdf [skip ci]
+
+            来源: ${{ github.workflow }} / ${{ github.event_name }}
+            commit: ${GITHUB_SHA::7}
+            actor: ${{ github.actor }}"
+            git push
+            echo "=== PDF 已更新并 push ==="
+          fi
