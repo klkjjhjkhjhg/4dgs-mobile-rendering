@@ -105,6 +105,7 @@
     svg: null,
     gLinks: null,
     gNodes: null,
+    clusterLabelsLayer: null,
     factionCenters: {},
     width: 0,
     height: 0,
@@ -617,6 +618,136 @@
     document.getElementById('search-pie-label').innerHTML = legend;
   }
 
+  /* ===== 派系 hull 计算 + 平滑曲线生成 =====
+     思路:
+       1) 收集当前派系"可见"节点 (考虑时间轴 + 派系筛选 + 搜索)
+       2) 对每节点构造 padded point (半径 + padding 像素)
+       3) d3.polygonHull 求凸包
+       4) Catmull-Rom-like 平滑: 对凸包每个顶点用前后两点做切线，
+          生成二次贝塞尔曲线连接，得到闭合平滑曲线
+       5) 返回 path 'd' 字符串 (含 halo + bg 两版 padding)
+  */
+  function paddedHullPoints(nodes, padding) {
+    if (!nodes || nodes.length === 0) return [];
+    // 单节点: 退化为一个圆周 16 点近似
+    if (nodes.length === 1) {
+      const n = nodes[0];
+      const r = (n.__padR || 14) + padding;
+      const pts = [];
+      for (let k = 0; k < 16; k++) {
+        const a = (k / 16) * Math.PI * 2;
+        pts.push([n.x + Math.cos(a) * r, n.y + Math.sin(a) * r]);
+      }
+      return pts;
+    }
+    // 多节点: 把每个节点当 16 点离散圆采样 (更密 → hull 后曲线感更强)
+    const all = [];
+    nodes.forEach(n => {
+      const r = (n.__padR || 14) + padding;
+      const cx = n.x, cy = n.y;
+      for (let k = 0; k < 16; k++) {
+        const a = (k / 16) * Math.PI * 2;
+        all.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]);
+      }
+    });
+    return all;
+  }
+
+  // 平滑闭合贝塞尔 (Catmull-Rom -> Bezier 转换)
+  function smoothClosedPath(points) {
+    if (!points || points.length === 0) return '';
+    if (points.length < 3) {
+      return points.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ' Z';
+    }
+    // d3 原生 curveCardinalClosed: 在闭合曲线上自动取前后点生成 Cardinal/Catmull-Rom 样条，
+    // 比手写 C 控制点更稳; tension 越接近 1 越圆，越接近 0 越直.
+    const lineGen = d3.line()
+      .x(d => d[0])
+      .y(d => d[1])
+      .curve(d3.curveCardinalClosed.tension(0.95));
+    return lineGen(points);
+  }
+
+  // 给派系算 hull path (考虑时间轴 / 派系开关 / 搜索筛选)
+  function computeFactionHull(factionKey) {
+    if (!state.data) return { bg: '', halo: '', top: null, count: 0 };
+    const t = state.currentTime || state.timeMax;
+    const visibleNodes = state.data.nodes.filter(n => {
+      if (n.faction !== factionKey) return false;
+      if (!state.factionEnabled[factionKey]) return false;
+      if (state.currentTime > 0 && n._year > t) return false;
+      if (state.searchTerm) {
+        if (!matchesSearch(n)) return false;
+      }
+      return true;
+    });
+    if (visibleNodes.length === 0) return { bg: '', halo: '', top: null, count: 0 };
+    visibleNodes.forEach(n => {
+      n.__padR = 8 + (n.rating && n.rating.includes('⭐⭐⭐') ? 3 : 0);
+    });
+    // padding 调小：bg 8 / halo 14 —— 避免 hull 太大互相重叠
+    const haloPts = d3.polygonHull(paddedHullPoints(visibleNodes, 14));
+    const bgPts = d3.polygonHull(paddedHullPoints(visibleNodes, 8));
+    // 对 hull 顶点二次加密: 每两个相邻点之间插 (SUBDIV-1) 个等分点 → 让 Cardinal 闭合曲线明显圆滑
+    const SUBDIV = 4;
+    const densify = (pts) => {
+      if (!pts || pts.length < 3) return pts || [];
+      const out = [];
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        const b = pts[(i + 1) % pts.length];
+        for (let k = 0; k < SUBDIV; k++) {
+          const f = k / SUBDIV;
+          out.push([a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f]);
+        }
+      }
+      return out;
+    };
+    const denseBg = densify(bgPts);
+    const denseHalo = densify(haloPts);
+    let topY = Infinity, topX = 0;
+    if (bgPts && bgPts.length) {
+      bgPts.forEach(p => { if (p[1] < topY) { topY = p[1]; topX = p[0]; } });
+    }
+    return {
+      bg: smoothClosedPath(denseBg),
+      halo: smoothClosedPath(denseHalo),
+      top: { x: topX, y: topY },
+      count: visibleNodes.length,
+    };
+  }
+
+  // 刷新所有派系 hull (tick 中调用)
+  function refreshFactionHulls() {
+    if (!state.svg) return;
+    const factionKeys = Object.keys(state.data.meta.factions);
+    const topClamp = 40;   // 标签顶部不能高于 viewport 顶部 40px
+    const botClamp = state.height - 40; // 不能低于 viewport 底部 40px
+    const leftClamp = 410; // x 不能太靠边（避开左侧信息卡约 320px + labelGroup anchor middle 100px）
+    const rightClamp = state.width - 100;
+    factionKeys.forEach(key => {
+      const h = computeFactionHull(key);
+      // halo / bg: 直接 .attr('d', ...) 每帧重算
+      state.svg.selectAll('.cluster-halo.cluster-' + key).attr('d', h.halo);
+      state.svg.selectAll('.cluster-bg.cluster-' + key).attr('d', h.bg);
+      // 徽章位置: 贴 hull 顶部上方 12px, 并 clamp 到 viewport 内
+      const top = h.top;
+      if (top && h.count > 0) {
+        const clampedY = Math.max(topClamp, Math.min(botClamp, top.y - 16));
+        const clampedX = Math.max(leftClamp, Math.min(rightClamp, top.x));
+        state.svg.selectAll('.cluster-badge.cluster-' + key)
+          .attr('x', clampedX - 90)
+          .attr('y', clampedY - 18);
+        state.svg.selectAll('.cluster-label-group.cluster-' + key)
+          .attr('transform', `translate(${clampedX}, ${clampedY})`);
+      } else {
+        // 不可见时给个离屏位置
+        state.svg.selectAll('.cluster-badge.cluster-' + key).attr('x', -9999).attr('y', -9999);
+        state.svg.selectAll('.cluster-label-group.cluster-' + key).attr('transform', 'translate(-9999,-9999)');
+      }
+    });
+  }
+
   /* ===== 力导向图：派系聚类布局 ===== */
   function setupGraph() {
     const container = document.getElementById('app');
@@ -629,10 +760,13 @@
 
     svg.selectAll('*').remove();
 
-    // 派系 cluster 背景
+    // 派系 cluster 背景 (改为可变换的闭合平滑曲线)
     const clusterGroup = svg.append('g').attr('class', 'clusters');
+    // 独立的 labels layer — 在 nodes/links 之后 append, 保证标签永远在最上层不被节点遮挡
+    state.clusterLabelsLayer = svg.append('g').attr('class', 'cluster-labels');
     const factionKeys = Object.keys(state.data.meta.factions);
-    const radius = Math.min(state.width, state.height) * 0.32;
+    // 派系中心放在五角星顶点，半径加大避免重叠（0.30 → 0.42）
+    const radius = Math.min(state.width, state.height) * 0.42;
     factionKeys.forEach((key, i) => {
       const fac = state.data.meta.factions[key];
       const angle = (i / factionKeys.length) * Math.PI * 2 - Math.PI / 2;
@@ -640,30 +774,32 @@
       const cy = state.height / 2 + Math.sin(angle) * radius;
       state.factionCenters[key] = { x: cx, y: cy };
       const nodeCount = state.data.nodes.filter(n => n.faction === key).length;
-      const clusterR = 60 + nodeCount * 7;
       const de = state.deadEnd && state.deadEnd[key];
       const isDead = de && de.isDead;
 
-      clusterGroup.append('circle')
-        .attr('cx', cx).attr('cy', cy).attr('r', clusterR + 6)
-        .attr('fill', 'none').attr('stroke', fac.color).attr('stroke-opacity', 0.18).attr('stroke-width', 8)
+      // halo: hull 的描边轮廓 (padding +6)
+      clusterGroup.append('path')
+        .attr('d', '')
+        .attr('fill', 'none').attr('stroke', fac.color).attr('stroke-opacity', 0.12).attr('stroke-width', 5)
         .attr('class', 'cluster-halo cluster-' + key);
-      clusterGroup.append('circle')
-        .attr('cx', cx).attr('cy', cy).attr('r', clusterR)
-        .attr('fill', fac.color).attr('fill-opacity', 0.10)
-        .attr('stroke', fac.color).attr('stroke-opacity', isDead ? 0.45 : 0.85).attr('stroke-width', isDead ? 1.8 : 2.5)
+      // bg: hull 填充 + 描边（透明度调低避免重叠区颜色叠加过重）
+      clusterGroup.append('path')
+        .attr('d', '')
+        .attr('fill', fac.color).attr('fill-opacity', 0.05)
+        .attr('stroke', fac.color).attr('stroke-opacity', isDead ? 0.45 : 0.75).attr('stroke-width', isDead ? 1.8 : 2.0)
         .attr('class', 'cluster-bg cluster-' + key + (isDead ? ' cluster-dead' : ''));
-      clusterGroup.append('rect')
-        .attr('x', cx - 90).attr('y', cy - clusterR - 32)
+      // 派系徽章背景条 (位置由 hull 顶部动态决定，初始放中心) — 提到 labelsLayer 避免被节点遮挡
+      state.clusterLabelsLayer.append('rect')
+        .attr('x', cx - 90).attr('y', cy - 100)
         .attr('width', 180).attr('height', 22).attr('rx', 11)
         .attr('fill', '#1e1e2e').attr('fill-opacity', 0.78)
         .attr('stroke', fac.color).attr('stroke-opacity', 0.55).attr('stroke-width', 1.5)
         .attr('class', 'cluster-badge cluster-' + key)
         .attr('pointer-events', 'none');
-      // 派系标签 + 静态沉默徽标 (B5 Dead End Watch)
-      const labelGroup = clusterGroup.append('g')
+      // 派系标签 + dead-end 徽标 (位置由 hull 顶部动态决定) — 放进独立 layer 后面会提到 nodes 之上
+      const labelGroup = state.clusterLabelsLayer.append('g')
         .attr('class', 'cluster-label-group cluster-' + key)
-        .attr('transform', `translate(${cx}, ${cy - clusterR - 14})`);
+        .attr('transform', `translate(${cx}, ${cy - 82})`);
       labelGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('fill', fac.color).attr('font-size', '18').attr('font-weight', '800')
@@ -687,12 +823,15 @@
 
     const linksForSim = state.data.edges.map(e => ({ source: e.from, target: e.to, type: e.type }));
     const simulation = d3.forceSimulation(state.data.nodes)
-      .force('link', d3.forceLink(linksForSim).id(d => d.id).distance(60).strength(0.5))
-      .force('charge', d3.forceManyBody().strength(-180))
-      .force('collision', d3.forceCollide().radius(28))
-      .force('factionX', d3.forceX().x(d => state.factionCenters[d.faction]?.x || state.width / 2).strength(0.25))
-      .force('factionY', d3.forceY().y(d => state.factionCenters[d.faction]?.y || state.height / 2).strength(0.25))
-      .force('center', d3.forceCenter(state.width / 2, state.height / 2).strength(0.02));
+      .force('link', d3.forceLink(linksForSim).id(d => d.id).distance(50).strength(0.3))
+      // charge 加强：-450 → -550，节点相互排斥避免堆叠
+      .force('charge', d3.forceManyBody().strength(-550))
+      // collision 加大：45 → 50，给节点更大安全距离
+      .force('collision', d3.forceCollide().radius(50))
+      // 派系强引力：1.2 → 1.6，让节点真正按派系分开、避免跨派系乱飞
+      .force('factionX', d3.forceX().x(d => state.factionCenters[d.faction]?.x || state.width / 2).strength(1.6))
+      .force('factionY', d3.forceY().y(d => state.factionCenters[d.faction]?.y || state.height / 2).strength(1.6))
+      .force('center', d3.forceCenter(state.width / 2, state.height / 2).strength(0.003));
 
     state.simulation = simulation;
 
@@ -765,6 +904,8 @@
         .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
         .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
       nodeG.attr('transform', d => `translate(${d.x},${d.y})`);
+      // 每帧重算派系 hull path (避免每帧都重算太多)
+      refreshFactionHulls();
     });
 
     const zoom = d3.zoom()
@@ -853,15 +994,17 @@
       if (!s || !t) return 0;
       return (s.faction === factionKey && t.faction === factionKey) ? 0.85 : 0.05;
     });
+    // 用 d3 transition 平滑切换 (300ms)
     Object.keys(state.factionCenters).forEach(key => {
       const isActive = key === factionKey;
-      state.svg.selectAll('.cluster-bg.cluster-' + key)
+      const tr = d3.transition().duration(300);
+      state.svg.selectAll('.cluster-bg.cluster-' + key).transition(tr)
         .style('opacity', isActive ? 1 : 0.22)
         .attr('stroke-width', isActive ? 3.5 : 2.5)
         .attr('stroke-opacity', isActive ? 1 : 0.4);
-      state.svg.selectAll('.cluster-label.cluster-' + key).style('opacity', isActive ? 1 : 0.25);
-      state.svg.selectAll('.cluster-badge.cluster-' + key).style('opacity', isActive ? 1 : 0.25);
-      state.svg.selectAll('.cluster-halo.cluster-' + key).style('opacity', isActive ? 1 : 0.0);
+      state.svg.selectAll('.cluster-label.cluster-' + key).transition(tr).style('opacity', isActive ? 1 : 0.25);
+      state.svg.selectAll('.cluster-badge.cluster-' + key).transition(tr).style('opacity', isActive ? 1 : 0.25);
+      state.svg.selectAll('.cluster-halo.cluster-' + key).transition(tr).style('opacity', isActive ? 0 : 1.0);
     });
   }
 
@@ -869,11 +1012,15 @@
     if (!state.gNodes) return;
     state.gNodes.selectAll('g.node').style('opacity', 1);
     state.gLinks.selectAll('line').style('opacity', null);
+    const tr = d3.transition().duration(300);
     Object.keys(state.factionCenters).forEach(key => {
-      state.svg.selectAll('.cluster-bg.cluster-' + key).style('opacity', 1).attr('stroke-width', 2.5).attr('stroke-opacity', 0.85);
-      state.svg.selectAll('.cluster-label.cluster-' + key).style('opacity', 1);
-      state.svg.selectAll('.cluster-badge.cluster-' + key).style('opacity', 1);
-      state.svg.selectAll('.cluster-halo.cluster-' + key).style('opacity', 1);
+      state.svg.selectAll('.cluster-bg.cluster-' + key).transition(tr)
+        .style('opacity', 1)
+        .attr('stroke-width', 2.5)
+        .attr('stroke-opacity', 0.85);
+      state.svg.selectAll('.cluster-label.cluster-' + key).transition(tr).style('opacity', 1);
+      state.svg.selectAll('.cluster-badge.cluster-' + key).transition(tr).style('opacity', 1);
+      state.svg.selectAll('.cluster-halo.cluster-' + key).transition(tr).style('opacity', 1);
     });
     // 恢复时间轴/搜索对 opacity 的覆盖
     if (state.searchTerm) applySearchFilter();
@@ -911,10 +1058,16 @@
         if (!sourceNode || !targetNode) return 'none';
         return state.factionEnabled[sourceNode.faction] && state.factionEnabled[targetNode.faction] ? null : 'none';
       });
+    // 修复: 用 selectAll + filter 选所有 cluster-X 相关元素 (bg/halo/badge/label-group)
     Object.keys(state.factionCenters).forEach(key => {
-      const clusterEl = state.svg.select('.cluster-' + key);
-      if (clusterEl) clusterEl.style('display', state.factionEnabled[key] ? null : 'none');
+      const visible = state.factionEnabled[key];
+      const sel = state.svg.selectAll(
+        `.cluster-bg.cluster-${key}, .cluster-halo.cluster-${key}, .cluster-badge.cluster-${key}, .cluster-label-group.cluster-${key}`
+      );
+      sel.style('display', visible ? null : 'none');
     });
+    // 派系开关变了 hull 必刷新 (visible 集合变化)
+    if (state.svg) refreshFactionHulls();
   }
 
   /* ===== 启动 ===== */

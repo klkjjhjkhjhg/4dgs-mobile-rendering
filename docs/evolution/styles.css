@@ -410,16 +410,19 @@ html, body {
 
 /* 派系 cluster 背景 — 过渡让 hover 高亮更顺滑 */
 .cluster-bg {
-  transition: r 0.6s ease-out, stroke-width 0.2s ease, stroke-opacity 0.2s ease, opacity 0.2s ease;
+  transition: d 0.4s ease-out, stroke-width 0.2s ease, stroke-opacity 0.2s ease, opacity 0.3s ease;
 }
 .cluster-halo {
-  transition: opacity 0.25s ease;
+  transition: d 0.4s ease-out, opacity 0.3s ease;
 }
 .cluster-label {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 .cluster-badge {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease, x 0.4s ease-out, y 0.4s ease-out;
+}
+.cluster-label-group {
+  transition: transform 0.4s ease-out;
 }
 
 /* ===== A1 时间轴播放 HUD (左下) ===== */
