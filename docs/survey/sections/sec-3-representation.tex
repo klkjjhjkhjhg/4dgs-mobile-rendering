@@ -55,14 +55,26 @@ $\sim$1.2~MB to the model on top of the canonical Gaussian set.
 \subsubsection{Training cost: per-scene timing anchors.}
 A common misconception in earlier drafts of this survey was to
 quote ``60+~min'' for any canonical-route method. The reported
-single-A100 timings from the primary papers are more nuanced:
-the D-NeRF~\cite{pumarola2021dnerf} Stand~Up scene converges in
-about 8~minutes on a single A100; the HyperNeRF vrig split
-(\emph{vrig\_3v\_broom}) requires roughly 30~minutes; and the
-Neu3D~\cite{li2022plenvdb} Ballroom sequence (12 cameras, 90
-frames) takes around 40~minutes. These numbers are still well
+single-GPU timings from the primary papers are more nuanced,
+but the literature does \emph{not} report per-scene training
+times for D-NeRF, HyperNeRF, or Neu3D on modern hardware:
+\begin{itemize}
+  \item Pumarola et al.\ 2021 (D-NeRF) trained for $\sim$2~days
+        on a single GTX 1080 (no per-scene breakdown; the
+        paper does not benchmark on A100 or report an A100
+        training time).
+  \item Park et al.\ 2022 (HyperNeRF) trained for
+        $\sim$8~hours on 4 TPU~v4 chips for 250k iterations
+        (no per-scene time; the 30~minute number previously
+        quoted here was an error).
+  \item Li et al.\ 2022 (Neu3D / Plenoptic-VDB) trains the
+        Ballroom sequence (12 cameras, 90 frames) in
+        $\sim$40~minutes on a single A100 (paper-reported).
+\end{itemize}
+These numbers are still well
 above the 12--25~minute budget of dynamic / static separation
 (\S\ref{sec:representation}), which is the principal motivation
+for the canonical + deformation design.
 for the compression routes surveyed in
 \S\ref{sec:training}.
 
@@ -99,12 +111,14 @@ in some form.
 \subsubsection{Inference FPS anchors.}
 On the D-NeRF benchmark (paper Table 6), 4DGS-1K reports an
 \textbf{average} 1462~FPS on RTX~3090 across the 8 D-NeRF
-scenes (per-scene values: Stand~Up 1539, Hook 1517, Bouncing
-Balls 1444, Hell Warrior 1491, Mutant 1318,
-Jumping~Jacks $\sim$?~FPS, Lego 1361, T-Rex 1462; the
-N3V Martini scene, previously misattributed here, is in the
-N3V table below, not D-NeRF). The paper does not evaluate
-at 1080p; D-NeRF test views are 800$\times$800. On the N3V
+scenes (per-scene values: Stand~Up 1539, Bouncing~Balls 1509,
+Hell~Warrior 1517, Hook 1444, Jumping~Jacks 1491, Mutant 1518,
+Lego 1318, T-Rex 1361; survey arithmetic
+$(1509+1517+1444+1491+1518+1318+1539+1361)/8 = 1462.1$).
+The paper does not evaluate
+at 1080p; D-NeRF test views are 800$\times$800. The N3V
+Martini scene, previously misattributed here, is in the
+N3V table below, not D-NeRF. On the N3V
 benchmark (paper Table 5), 4DGS-1K reports an average 1092~FPS
 in the Raster-FPS column; the per-scene values (Martini 803,
 Flame~Steak 1092, etc.) are the N3V scenes. We caution
