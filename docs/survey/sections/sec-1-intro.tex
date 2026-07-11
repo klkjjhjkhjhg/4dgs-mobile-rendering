@@ -20,12 +20,14 @@ threads. \emph{NeRF and its descendants} (2020--2022) demonstrated
 that an MLP could represent a 3D radiance field with high
 quality, but the volumetric rendering loop was too slow for
 real-time use. \emph{Instant-NGP and the hash-grid family}
-(2022) reduced the per-sample cost by 2--3 orders of magnitude
-via a multi-resolution hash encoding, but were still
-constrained to $\sim$10--15~FPS at 1080p on a desktop GPU (M\"uller et al. 2022, Instant-NGP). \emph{3D Gaussian
+(2022) reduced the per-sample cost via a multi-resolution
+hash encoding (M\"uller et al. 2022 reports ``tens of
+milliseconds'' per frame at 1920$\times$1080 on a desktop GPU;
+training converges in seconds, vs.\ hours for the original
+NeRF). \emph{3D Gaussian
 Splatting} (2023) broke this barrier by replacing the MLP
 with an explicit Gaussian set and a differentiable rasteriser,
-reaching $\sim$30~FPS at 1080p on a desktop GPU (Kerbl et al. 2023, A6000, Mip-NeRF 360; subsequent follow-ups reach 60--100+~FPS via culling and CUDA-specific optimisations). The 4DGS
+reaching $\geq$30~FPS at 1080p on a desktop GPU (Kerbl et al. 2023, RTX A6000 / RTX 3090, Mip-NeRF 360; subsequent follow-ups reach 60--100+~FPS via culling and CUDA-specific optimisations). The 4DGS
 literature (2023--) is the next step in this line: it lifts
 the 3DGS speed advantage to dynamic scenes, at the cost of a
 4--5$\times$ parameter explosion that motivates the
