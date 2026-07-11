@@ -70,12 +70,24 @@ cross-paper comparison points.
         monocular-dynamic 4DGS evaluation. Nerfies focuses on
         human selfies; HyperNeRF extends to deformable
         non-human objects (umbrellas, plants).
-  \item \textbf{NVIDIA Dynamic Scenes} (a
-        $\sim$12-scene handheld capture used by
-        \cite{wu20244dgs, yuan20254dgs1k}): smaller
-        ($\sim$50~GB) than DyCheck, and limited to outdoor
-        urban content, but the most widely cited
-        monocular benchmark in the canonical 4DGS route.
+  \item \textbf{N3V / Neural 3D Video}~\cite{li2022plenvdb} (Google,
+        also commonly called the NVIDIA Dynamic Scenes
+        benchmark): a 6-scene multi-view dynamic capture
+        using 15--18 synchronised static cameras in indoor
+        kitchen / living-room environments (flame salmon,
+        cook spinach, cut roasted beef, flame steak, etc.),
+        used by 4DGS papers that need dense temporal
+        supervision. The raw capture is roughly
+        $\sim$10~GB on disk (smaller than DyCheck's
+        $\sim$28~GB), and the content is predominantly
+        indoor rather than outdoor urban — the
+        "outdoor" qualifier sometimes quoted in
+        earlier-draft surveys refers to scenes visible
+        \emph{through} windows, not the captured content
+        itself. The total dataset size is not
+        reported in either Wu~2024 or Yuan~2025; the
+        $\sim$50~GB figure previously cited here is
+        unsourced.
 \end{itemize}
 
 \subsection{Evaluation Metrics}
@@ -163,8 +175,16 @@ papers, with a one-line interpretation of what they measure.
 \begin{itemize}
   \item \textbf{Power draw} (mW): the sustained power draw
         of the mobile SoC during 4DGS decoding + rendering.
-        The Adreno~830 at 30~FPS sustained draws
-        $\sim$2.5~W; at 60~FPS burst $\sim$4.5~W.
+        Estimates for the Adreno~830 span 2--3~W sustained
+        and 5--7~W peak across published mobile reviews and
+        the Lumina hardware study (Feng et al.\ 2025,
+        ISCA; Lumina's headline number is the
+        $4.5\times$ speedup over the Jetson Xavier Volta
+        baseline, not a wattage of 4.5~W). A 30~FPS / 60~FPS
+        operating point therefore maps to roughly
+        $\sim$2.5~W sustained / $\sim$4.5~W burst, but
+        survey readers should treat these as engineering
+        estimates rather than measured numbers.
   \item \textbf{Thermal stability}: the fraction of the
         frame budget that is sustained after the device
         thermally throttles. The Adreno~830 sustains
