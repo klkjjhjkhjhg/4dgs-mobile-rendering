@@ -168,13 +168,16 @@ texture / buffer arrays, which is the data structure on which the
 mobile 4DGS asset cache is built.
 
 \subsubsection{Adreno 830 architecture and the tile-based pipeline.}
-The Adreno~830 (Snapdragon~8~Elite, Qualcomm H1~2026) integrates
+The Adreno~830 (Snapdragon~8~Elite, launched 2024-10-22) integrates
 six unified shader cores clocked at up to 1.25~GHz
 (standard profile; the Samsung-exclusive boost profile reaches
 $\sim$1.35~GHz), with a 12~MB shared L2 cache and
 an effective DRAM bandwidth of about 77~GB/s over LPDDR5X
-(per Qualcomm Snapdragon~8~Elite specifications; the 51~GB/s
-figure sometimes quoted in earlier drafts corresponds to a
+(per Qualcomm Snapdragon~8~Elite LPDDR5X-4800 dual-channel
+specification; this is the theoretical system memory ceiling
+that the Adreno 830 GPU core can address, not a per-GPU
+bandwidth that Qualcomm publishes separately for the Adreno
+slice).
 lower-speed LPDDR5X configuration). Crucially, the Adreno
 follows a tile-based deferred-rendering (TBDR) architecture:
 the screen is split into
