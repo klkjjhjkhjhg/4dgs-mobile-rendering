@@ -96,14 +96,20 @@ time the model produces a 4DGS scene in $<$1~second. This is
 three orders of magnitude faster than per-scene optimisation.
 
 \subsubsection{Inference cost on Snapdragon~8~Gen~4.}
-The L2D2-GS feed-forward transformer has $\sim$120~M parameters
-and runs at $\sim$30~FPS on an Adreno~830 (measured in the
-Mobile-GS~\cite{du2026mobilegs} surrogate). The transformer
-dominates the inference budget ($\sim$25~ms per frame), leaving
-only $\sim$8~ms for the rasterisation pass. L2D2-GS is therefore
-\emph{compute-bound} rather than bandwidth-bound, which is the
-opposite of the canonical / dyn-stat separation routes. The
-training data requirement is also a constraint: L2D2-GS requires
+L2D2-GS~\cite{song2026l2d2gs} is a Sparse 3D U-Net +
+scoring MLP, not a generic transformer; the paper does not
+report a network-parameter count, and it does not benchmark
+on mobile (the only hardware referenced is A100 / H20 GPUs,
+with scene-reconstruction times of 39--98~s, not
+millisecond-per-frame FPS). Any Adreno~830 FPS figure quoted
+in this section is an inference, not a measurement; the
+canonical mobile-surrogate numbers in the comparison table
+below come from Mobile-GS~\cite{du2026mobilegs} (127~FPS on
+Snapdragon~8~Gen~3, paper Table~1) and Flux-GS
+(137--151~FPS on Snapdragon~8~Gen~3, paper Table~1, indoor
+147~FPS / 2.1~MB and outdoor 132~FPS / 4.6~MB), not from
+L2D2-GS itself. The training data requirement is also a
+constraint: L2D2-GS requires
 $\sim$50k multi-view dynamic clips with COLMAP-quality poses,
 whereas 3DGS only requires COLMAP. This data bottleneck is the
 main reason L2D2-GS has not yet seen widespread adoption.
@@ -159,7 +165,7 @@ normalised to the D-NeRF Stand~Up scene; PSNR in dB.}
 \textbf{Train time} & \textbf{Code} & \textbf{Venue} & \textbf{Year} \\
 \midrule
 HAC++~\cite{chen2024hacpp}        & 6.6~MB  & 30.80 & 35~min  & yes & ECCV~2024      & 2024 \\
-LightGaussian~\cite{fan2023lightgaussian} & 24~MB & 30.32 & 25~min & yes & NeurIPS~2024 Spotlight & 2024 \\
+LightGaussian~\cite{fan2023lightgaussian} & 21--45~MB (T\&T / Mip-NeRF360 avg.) & 27.13--31.40 & unreported (paper reports iteration count, not wall time) & yes & NeurIPS~2024 Spotlight & 2024 \\
 Compact3D~\cite{navaneet2023compact3d}    & 24~MB & 30.30 & 45~min & yes & ECCV~2024      & 2024 \\
 4DGS-CC~\cite{chen20254dgscc}    & 0.8~MB  & 30.10 & 18~min  & yes & CVPR~2025      & 2025 \\
 FCGS~\cite{chen2024fcgs}          & 3.2~MB  & 30.50 & 12~min  & yes & CVPR~2024      & 2024 \\
