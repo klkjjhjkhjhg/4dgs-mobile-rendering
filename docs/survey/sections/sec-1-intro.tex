@@ -29,9 +29,12 @@ Splatting} (2023) broke this barrier by replacing the MLP
 with an explicit Gaussian set and a differentiable rasteriser,
 reaching $\geq$30~FPS at 1080p on a desktop GPU (Kerbl et al. 2023, RTX A6000 / RTX 3090, Mip-NeRF 360; subsequent follow-ups reach 60--100+~FPS via culling and CUDA-specific optimisations). The 4DGS
 literature (2023--) is the next step in this line: it lifts
-the 3DGS speed advantage to dynamic scenes, at the cost of a
-4--5$\times$ parameter explosion that motivates the
-compression, streaming, and mobile-optimisation routes
+the 3DGS speed advantage to dynamic scenes, but inherits a
+per-Gaussian deformation-field overhead (the canonical-set +
+MLP-deformation design avoids the linear-in-time blow-up of
+naive per-frame stacking; storage overhead is roughly
+1.2--1.8$\times$ per Wu et al.\ 2024 Tables~1--2) that motivates
+the compression, streaming, and mobile-optimisation routes
 surveyed in \S\ref{sec:training}--\S\ref{sec:mobile}.
 
 \paragraph{The 4DGS timeline (2023--H1 2026).}

@@ -44,9 +44,12 @@ gradient-based densification. Compared to NeRF-style volume
 rendering, which draws $N = 100$--$800$ samples along each ray
 through a 5D position-and-direction MLP, 3DGS evaluates exactly
 one $\alpha$-blend per contributing Gaussian; on a desktop GPU
-this yields a 50--$100\times$ speed-up at 1080p, which is the
-empirical foundation of the entire 4DGS research programme
-discussed in this survey.
+this yields a $\sim$65--$80\times$ training-time speed-up and
+a $\geq$1000$\times$ rendering-FPS speed-up at 1080p
+(Kerbl et al.\ 2023, Table~1, Mip-NeRF~360: 3DGS 35--45~min
+training / 134--154~FPS vs Mip-NeRF 48~h / 0.06--0.14~FPS),
+which is the empirical foundation of the entire 4DGS research
+programme discussed in this survey.
 
 \subsubsection{Mathematical formulation.}
 The 2D screen-space covariance follows the EWA splatting
@@ -144,9 +147,12 @@ Continuous-time & $\sim$1.5$\times$ static + $t$-embed & 20--45~min & free frame
 
 \subsection{Mobile GPU Foundations}
 Mobile GPUs such as the Adreno 830 are constrained by: compute
-budget (around 2~TFLOPs FP32), memory bandwidth, the maturity of
-Vulkan~1.3 drivers, and the cost of alpha blending on the
-tile-based rendering architecture.
+budget ($\sim$2.5--3~TFLOPs FP32, back-of-envelope from 1536 ALUs
+at $\sim$1.1~GHz; Qualcomm does not publish an official FP32
+figure, and earlier-draft numbers of 2~TFLOPs actually match the
+prior-gen Adreno 750 in Snapdragon~8~Gen~3), memory bandwidth,
+the maturity of Vulkan~1.3 drivers, and the cost of alpha
+blending on the tile-based rendering architecture.
 
 \subsubsection{Vulkan 1.3 mobile features.}
 Vulkan~1.3 (released 25~January~2022, ratified for Android in
@@ -172,7 +178,7 @@ The Adreno~830 (Snapdragon~8~Elite, launched 2024-10-22) integrates
 six unified shader cores clocked at up to 1.25~GHz
 (standard profile; the Samsung-exclusive boost profile reaches
 $\sim$1.35~GHz), with a 12~MB shared L2 cache and
-an effective DRAM bandwidth of about 77~GB/s over LPDDR5X
+a peak system DRAM bandwidth of about 77~GB/s over LPDDR5X
 (per Qualcomm Snapdragon~8~Elite LPDDR5X-4800 dual-channel
 specification; this is the theoretical system memory ceiling
 that the Adreno 830 GPU core can address, not a per-GPU
