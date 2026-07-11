@@ -10,8 +10,10 @@ a mature Vulkan~1.3 driver. Representative deployed 4DGS works
 include:
 \begin{itemize}
   \item Mobile-GS~\cite{du2026mobilegs} and Flux-GS~\cite{du2026fluxgs}:
-        real-time desktop 3DGS rasterisation at 127--147~FPS on
-        Snapdragon~8~Gen~3; the 4D extension is still exploratory but
+        real-time desktop 3DGS rasterisation; Mobile-GS reports
+        $\sim$60~FPS on Snapdragon~8~Elite and Flux-GS reports
+        137--151~FPS on desktop (no mobile FPS published).
+        The 4D extension is still exploratory but
         the rasteriser kernel and tile-sort logic transfer directly.
   \item Lumina~\cite{feng2025lumina} (ISCA~2025, SJTU + Rochester):
         a mobile neural-rendering benchmark and pipeline that
@@ -135,7 +137,7 @@ burst 60~FPS power draw is about 4.5~W; and the throttled
 30~FPS power draw is about 1.8~W (the lower power draw is a
 consequence of the GPU clock being dialled back). For a
 production mobile 4DGS app, the practical target is therefore
-\emph{30~FPS sustained} on a Snapdragon~8~Gen~4 device, with
+\emph{30~FPS sustained} on a Snapdragon~8~Elite device, with
 60~FPS as a benchmark peak rather than a steady-state
 expectation. The project README adopts this 30~FPS sustained
 target, and the survey's quantitative anchors in
@@ -143,7 +145,7 @@ target, and the survey's quantitative anchors in
 
 \subsection{Project Direction}
 The companion \texttt{README.md} of this project fixes the target as
-\emph{real-time dynamic 4DGS on Snapdragon~8~Gen~4 / Adreno~830 +
+\emph{real-time dynamic 4DGS on Snapdragon~8~Elite / Adreno~830 +
 Vulkan~1.3}; see \texttt{01-} / \texttt{02-} / \texttt{03-} for the
 engineering plan.
 

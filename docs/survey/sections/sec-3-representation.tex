@@ -18,10 +18,10 @@ contrasts representative works and their trade-offs.
 \toprule
 \textbf{Category} & \textbf{Rep.\ work} & \textbf{Year} & \textbf{Venue} & \textbf{PSNR / FPS} & \textbf{Storage / Note} \\
 \midrule
-Canonical + Def.       & 4DGS~\cite{wu20244dgs} / Deformable-3DGS~\cite{yang2023deformable3dgs} & 2023--24 & CVPR~2024 & $\sim$30~dB & MLP inference; 60+~min training \\
-Dyn. / Stat. sep.      & 4DGS-1K~\cite{yuan20254dgs1k} / MEGA~\cite{zhang2024mega4dgsacceleration} & 2024--25 & CVPR~2025 / ICLR~2025 & \textbf{1000+~FPS} & \textbf{$\sim$2\% of 3DGS storage (D-NeRF)} \\
+Canonical + Def.       & 4DGS~\cite{wu20244dgs} / Deformable-3DGS~\cite{yang2023deformable3dgs} & 2023--24 & CVPR~2024 & $\sim$30~dB & MLP inference; 8--40~min training (per-scene) \\
+Dyn. / Stat. sep.      & 4DGS-1K~\cite{yuan20254dgs1k} / MEGA~\cite{zhang2024mega4dgsacceleration} & 2024--25 & CVPR~2025 / ICCV~2025 & \textbf{1000+~FPS} & \textbf{$\sim$2\% of 3DGS storage (D-NeRF)} \\
 Continuous-time        & RetimeGS~\cite{wang2026retimegs} & 2026 & CVPR~2026 Oral & \textbf{free framerate} & Continuous interp.\;no aliasing \\
-Feed-forward           & L2D2-GS~\cite{song2026l2d2gs} & 2026 & arXiv           & \textbf{Feedforward; no mobile FPS reported} & No per-scene opt.\;data-bound \\
+Feed-forward           & L2D2-GS~\cite{song2026l2d2gs} & 2026 & ECCV~2026     & \textbf{Feedforward; no mobile FPS reported} & No per-scene opt.\;data-bound \\
 Memory-efficient       & Sparse4DGS / CubifyGS~\cite{ren2026cubifygs} & 2025--26 & arXiv & $\sim$25~FPS Jetson Orin & VRAM-friendly; chunked \\
 \midrule
 \multicolumn{6}{l}{\emph{Quantitative anchors (additions, see \S\ref{sec:mobile} for details):}} \\
@@ -185,7 +185,7 @@ models the per-Gaussian time trajectory rather than collapsing
 it into a deformation field or a residual.
 
 \subsubsection{Li 2024 Spacetime Gaussians.}
-Spacetime Gaussians~\cite{li2024spacetimegaussians} (CVPR~2024)
+Spacetime Gaussians~\cite{li2024spacetimegaussians} (ACCV~2024)
 associates each Gaussian with a piecewise-linear time
 trajectory, parameterised by a sparse set of keyframes and a
 linear interpolation rule. The bitstream stores only the
@@ -193,7 +193,7 @@ keyframes (typically 5--10 per Gaussian over a 10-second clip),
 which compresses the dynamic parameter set by $\sim$10$\times$
 with no measurable quality loss.
 
-\subsubsection{4D-RotorGS.}
+\subsubsection{4D-RotorGS (ICLR~2025).}
 4D-RotorGS~\cite{duan20244drotorgs} replaces the SE(3) rotation
 of every Gaussian with a 4D rotation parameterised as a
 rotation in 4D space projected back to 3D. The extra dimension
