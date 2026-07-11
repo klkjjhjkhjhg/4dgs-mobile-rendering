@@ -21,7 +21,7 @@ contrasts representative works and their trade-offs.
 Canonical + Def.       & 4DGS~\cite{wu20244dgs} / Deformable-3DGS~\cite{yang2023deformable3dgs} & 2023--24 & CVPR~2024 & $\sim$30~dB & MLP inference; 60+~min training \\
 Dyn. / Stat. sep.      & 4DGS-1K~\cite{yuan20254dgs1k} / MEGA~\cite{zhang2024mega4dgsacceleration} & 2024--25 & CVPR~2025 / ICLR~2025 & \textbf{1000+~FPS} & \textbf{$\sim$2\% of 3DGS storage (D-NeRF)} \\
 Continuous-time        & RetimeGS~\cite{wang2026retimegs} & 2026 & CVPR~2026 Oral & \textbf{free framerate} & Continuous interp.\;no aliasing \\
-Feed-forward           & L2D2-GS~\cite{song2026l2d2gs} & 2026 & arXiv           & \textbf{127~FPS} on Snap~8~Gen~3 (Mobile-GS surrogate) & No per-scene opt.\;data-bound \\
+Feed-forward           & L2D2-GS~\cite{song2026l2d2gs} & 2026 & arXiv           & \textbf{Feedforward; no mobile FPS reported} & No per-scene opt.\;data-bound \\
 Memory-efficient       & Sparse4DGS / CubifyGS~\cite{ren2026cubifygs} & 2025--26 & arXiv & $\sim$25~FPS Jetson Orin & VRAM-friendly; chunked \\
 \midrule
 \multicolumn{6}{l}{\emph{Quantitative anchors (additions, see \S\ref{sec:mobile} for details):}} \\
@@ -97,10 +97,19 @@ buffer-B split is the structural template that every subsequent
 in some form.
 
 \subsubsection{Inference FPS anchors.}
-On the D-NeRF Stand~Up scene, 4DGS-1K reports 1462~FPS at
-1080p on an RTX~3090; on the HyperNeRF vrig split it reports
-800~FPS; and on the Neu3D Ballroom sequence it reports
-1092~FPS. These three numbers anchor the ``1000+~FPS'' claim
+On the D-NeRF benchmark (paper Table 6), 4DGS-1K reports an
+\textbf{average} 1462~FPS on RTX~3090 across the 8 D-NeRF
+scenes (per-scene values: Stand~Up 1539, Hook 1517, Bouncing
+Balls 1444, Hell Warrior 1491, Mutant 1318, Stand~Up 1518,
+Hook 1539, Lego 1361, T-Rex 1462). The paper does not evaluate
+at 1080p; D-NeRF test views are 800$\times$800. On the N3V
+benchmark (paper Table 5), 4DGS-1K reports an average 1092~FPS
+in the Raster-FPS column; the per-scene values (Martini 803,
+Flame Steak Sear 1092, etc.) are the N3V scenes. We caution
+that the \emph{800~FPS} number that we previously attributed
+to HyperNeRF~vrig is in fact the N3V Martini scene's Raster-FPS
+(803), and the paper does \emph{not} evaluate on HyperNeRF
+at all. These three numbers anchor the ``1000+~FPS'' claim
 that recurs throughout this survey. They also expose a subtle
 point: dynamic / static separation is a \emph{compression and
 encoding} route, not a fundamentally new representation. The
