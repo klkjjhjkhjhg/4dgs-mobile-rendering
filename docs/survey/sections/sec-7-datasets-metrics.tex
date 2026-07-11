@@ -164,11 +164,25 @@ papers, with a one-line interpretation of what they measure.
         <1~MB figure sometimes quoted in earlier drafts
         corresponds to a different rate point not reported
         in the paper).
-  \item \textbf{Peak VRAM} (MB): the peak memory during
-        training. Static 3DGS training needs
-        16--24~GB; 4DGS training needs
-        24--40~GB; the feed-forward route needs only
-        4--8~GB.
+  \item \textbf{Peak VRAM} (GB): the peak memory during
+        training. \emph{Static 3DGS} training on the
+        Mip-NeRF~360 scenes can exceed 20~GB on the
+        unoptimised prototype (Kerbl~2023, page~11,
+        "peak GPU memory consumption can exceed 20~GB");
+        16--24~GB is a community-synthesis number
+        corresponding to consumer 24~GB GPUs.
+        \emph{Canonical 4DGS} training on a single
+        RTX~3090 needs $\sim$10--20~GB depending on scene
+        (Wu~2024). \emph{4DGS-1K} (Yuan~2025) reports
+        10.54~GB training VRAM and 1.62~GB rendering
+        VRAM on N3V (paper Sec.~7.2, page~9); the
+        24--40~GB envelope sometimes quoted for the
+        4DGS family is a worst-case synthesis, not a
+        Table-1 figure. The \emph{feed-forward} route
+        (L2D2-GS, Mobile-GS) targets 4--8~GB but the
+        concrete paper-reported numbers vary widely
+        (L2D2-GS uses 8$\times$H20 for training,
+        Mobile-GS does not publish VRAM).
 \end{itemize}
 
 \paragraph{Mobile-specific.}
