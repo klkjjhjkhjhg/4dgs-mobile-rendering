@@ -4,7 +4,7 @@
 \label{sec:mobile}
 
 \subsection{Current State of the Art}
-The Snapdragon~8~Gen~4 + Adreno~830 is among the strongest mobile
+The Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') + Adreno~830 is among the strongest mobile
 SoCs in H1~2026, delivering around 2~TFLOPs of FP32 throughput and
 a mature Vulkan~1.3 driver. Representative deployed 4DGS works
 include:
@@ -24,7 +24,7 @@ include:
   \item AirGS~\cite{wang2025airgs} (ACM SIGGRAPH~2025): real-time
         4D Gaussian streaming for free-viewpoint video, with
         GPU-friendly inter-frame delta encoding.
-  \item PD-4DGS~\cite{li2026pd4dgs}: progressive decomposition of
+  \item PD-4DGS~\cite{li2026pd4dgs}\footnote{\textbf{Naming caveat.} P-4DGS (Wang et al., USTC, CVPR~2025, $\sim$90$\times$ compression via motion-prediction residuals, see~\texttt{wang2025p4dgs}) and PD-4DGS (Li et al., Qilu Univ.~of~Tech., arXiv~2026, 3--5-layer progressive decomposition, see~\texttt{li2026pd4dgs}) are two \emph{complementary} codecs from \emph{different} groups, not the same work. The names differ by a single letter and are easily confused; we explicitly disambiguate here because both appear in \S\ref{sec:training} and both are part of the codec-standardisation roadmap in \S\ref{sec:discussion}.}: progressive decomposition of
         4DGS for bandwidth-adaptive streaming, fits a typical
         5G uplink budget by transmitting only the dynamic residual.
   \item StreamSTGS~\cite{ke2025streamstgs} (CVPR~2025): streaming
@@ -135,7 +135,7 @@ burst 60~FPS power draw is about 4.5~W; and the throttled
 30~FPS power draw is about 1.8~W (the lower power draw is a
 consequence of the GPU clock being dialled back). For a
 production mobile 4DGS app, the practical target is therefore
-\emph{30~FPS sustained} on a Snapdragon~8~Gen~4 device, with
+\emph{30~FPS sustained} on a Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') device, with
 60~FPS as a benchmark peak rather than a steady-state
 expectation. The project README adopts this 30~FPS sustained
 target, and the survey's quantitative anchors in
@@ -143,8 +143,8 @@ target, and the survey's quantitative anchors in
 
 \subsection{Project Direction}
 The companion \texttt{README.md} of this project fixes the target as
-\emph{real-time dynamic 4DGS on Snapdragon~8~Gen~4 / Adreno~830 +
-Vulkan~1.3}; see \texttt{01-} / \texttt{02-} / \texttt{03-} for the
+\emph{real-time dynamic 4DGS on Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') / Adreno~830 +
+Vulkan~1.3 (with dynamic-rendering / push-descriptor / subgroup extensions)}; see \texttt{01-} / \texttt{02-} / \texttt{03-} for the
 engineering plan.
 
 \subsubsection{Academic / engineering split.}

@@ -6,12 +6,12 @@
 We organise render-time acceleration into four directions.
 
 \subsection{Rasterisation Optimisation}
-Mobile-GS~\cite{du2026mobilegs} (Snapdragon~8~Gen~3, 127~FPS, Vulkan~2.0)
+Mobile-GS~\cite{du2026mobilegs} (Snapdragon~8~Gen~3, 127~FPS, Vulkan~1.3 (with dynamic-rendering / push-descriptor / subgroup extensions)\footnote{``Vulkan~2.0'' is the Mobile-GS authors' informal shorthand for the Vulkan~1.3 profile combined with the dynamic-rendering, push-descriptor, and subgroup extensions used in their implementation. As of 2026-07 no Vulkan~2.0 profile has been released; the current stable profile is Vulkan~1.4 (2024-12-03).})
 and Flux-GS~\cite{du2026fluxgs} (Snapdragon~8~Gen~3, 147~FPS @
 2.1~MB indoor) appear to define the current ceiling of mobile rasterisation;
 both come from the Mobile-GS group. The reported numbers were measured
-on Snapdragon~8~Gen~3 / Vulkan~2.0; we extrapolate to
-Snapdragon~8~Gen~4 / Vulkan~1.3 in~\S\ref{sec:mobile} below.
+on Snapdragon~8~Gen~3 / Vulkan~1.3 (with dynamic-rendering / push-descriptor / subgroup extensions); we extrapolate to
+Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') / Vulkan~1.3 (with dynamic-rendering / push-descriptor / subgroup extensions) in~\S\ref{sec:mobile} below.
 
 \subsubsection{Mobile-GS tile-based pipeline.}
 Mobile-GS~\cite{du2026mobilegs} ports the 3DGS rasteriser to a
@@ -39,7 +39,7 @@ lookup table cuts the per-Gaussian parameter count from 59 to
 with Mobile-GS's tile-based pipeline, Flux-GS reaches 147~FPS
 on the Indoor scene at 2.1~MB model size on a Snapdragon~8~Gen~3.
 The visual-equivalence claim is the basis for the
-``1.7~MB'' Snap~8~Gen~4 Indoor target we adopt in
+``1.7~MB'' Snap~8~Elite (SM8750, formerly leaked as '8~Gen~4') Indoor target we adopt in
 \S\ref{sec:mobile}.
 
 \subsubsection{Sort cost analysis on Adreno 830.}
@@ -163,12 +163,21 @@ the decision to go either way depending on whether the MPEG / Khronos
 Table~\ref{tab:mobile} consolidates the on-device measurement
 numbers reported across the surveyed mobile and edge-GPU works.
 Note that Mobile-GS and Flux-GS were measured on
-Snapdragon~8~Gen~3 / Vulkan~2.0; the project target is
-Snapdragon~8~Gen~4 / Vulkan~1.3, which we extrapolate
+Snapdragon~8~Gen~3 / Vulkan~1.3 (with dynamic-rendering / push-descriptor / subgroup extensions); the project target is
+Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') / Vulkan~1.3 (with dynamic-rendering / push-descriptor / subgroup extensions), which we extrapolate
 from~\cite{oh2025neo}'s Reuse-and-Update accelerator trends.
 \begin{table*}[t]
   \centering
-\caption{Mobile / edge-GPU deployment comparison across the surveyed works. ``--'' = not reported.}
+\caption{Mobile / edge-GPU deployment comparison across the surveyed
+4DGS / 3DGS rendering works. ``--'' = not reported.
+Pocket-SLAM~\cite{li2026pocketslam} is excluded from this table
+because it is a 3DGS+SLAM hybrid (desktop GPU baseline, $\sim$3.6
+FPS per paper-note), not a standalone Gaussian-Splatting renderer;
+it is discussed separately in \S\ref{sec:mobile} as a related-but-
+orthogonal direction. Hardware specs and FPS numbers below come
+from the source paper-note or abstract; ``abstract claim'' marks
+rows where the paper only reports a qualitative / headline number
+without a measured value.}
 \label{tab:mobile}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
@@ -176,17 +185,24 @@ from~\cite{oh2025neo}'s Reuse-and-Update accelerator trends.
 \toprule
 \textbf{Method} & \textbf{SoC} & \textbf{Res.} & \textbf{FPS} & \textbf{Model size} & \textbf{Energy} & \textbf{Vulkan} \\
 \midrule
-Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Gen~3   & 1080p    & 127       & 4.6~MB         & --       & 2.0   \\
-Flux-GS~\cite{du2026fluxgs}           & Snap~8~Gen~3   & 1080p    & 147       & 2.1~MB (indoor) & --      & 2.0   \\
+Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Gen~3   & 1080p    & 127       & 4.6~MB         & --       & 1.3   \\
+Flux-GS~\cite{du2026fluxgs}           & Snap~8~Gen~3   & 1080p    & 147       & 2.1~MB (indoor) & --      & 1.3   \\
 Lumina~\cite{feng2025lumina}          & Mobile SoC     & 1080p    & --        & --              & $5.3\times$ less & -- \\
 GS-NFS~\cite{ghosh2026gsnfs}          & Jetson~Orin    & 1080p    & 25 (decode) & --            & --       & --    \\
-Neo~\cite{oh2025neo}                  & Mobile FPGA    & 1080p    & realtime    & --            & --       & --    \\
-GaussLite~\cite{thomas2026gausslite}  & Snap-class edge & 720p     & realtime    & --            & --       & --    \\
-Pocket-SLAM~\cite{li2026pocketslam}   & Snap-class     & 540p     & 30          & <50~MB        & --       & --    \\
-TemporalGS~\cite{zhou2026temporalgs}  & desktop GPU    & 1080p    & speed-up    & plug-in       & --       & --    \\
+Neo~\cite{oh2025neo}                  & ASAP 7nm ASIC  & QHD 2560$\times$1440 & 99.3 (abstract) & --    & --       & --    \\
+GaussLite~\cite{thomas2026gausslite}  & Snap-class edge & 720p    & 4~Hz (abstract claim) & --  & --       & --    \\
+TemporalGS~\cite{zhou2026temporalgs}  & desktop GPU (unspec.) & 1080p & plug-in speed-up (paper-note: Kitchen +87~FPS, Residence +155~FPS) & -- & -- & -- \\
 \bottomrule
   \end{tabular}
 \end{table*}
+
+\paragraph{Pocket-SLAM note.}
+Pocket-SLAM~\cite{li2026pocketslam} is a 3DGS+SLAM hybrid system;
+its paper reports $\sim$3.6~FPS at 540p on a desktop GPU baseline,
+not on a Snapdragon mobile device. It is therefore not directly
+comparable with the on-device 4DGS renderers above. We mention
+it here for completeness as a representative ``3DGS in the SLAM
+loop'' direction (see \S\ref{sec:mobile}).
 
 \bigskip
 \noindent\textbf{Index of paper notes backing this section}:

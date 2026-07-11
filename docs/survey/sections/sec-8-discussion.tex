@@ -19,7 +19,7 @@
               video at 30~FPS and emits a 4DGS scene in one pass,
               evaluated on DyCheck~\cite{gao2022dycheck}.
         \item \textit{Project fit:} \checkmark{}~feed-forward maps
-              directly to Snapdragon~8~Gen~4 inference throughput.
+              directly to Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') inference throughput.
         \item \textit{Quantitative target:} by 2027~H1, a feed-forward
               4DGS backbone that reconstructs a 10-second DyCheck clip
               in $<$30~s on a single Adreno~830, matching the
@@ -58,9 +58,9 @@
         \item \textit{What the next paper should look like:} a
               two-level BVH that exploits Gaussian covariance
               locality, evaluated against the rasteriser baseline
-              on Snapdragon~8~Gen~4.
+              on Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4').
         \item \textit{Project fit:} \textbf{!}~mobile RT is not
-              on the immediate Snapdragon~8~Gen~4 / Vulkan~1.3
+              on the immediate Snapdragon~8~Elite (SM8750, formerly leaked as '8~Gen~4') / Vulkan~1.3
               hot path; keep as a 2027+ watch item.
         \item \textit{Quantitative target:} by 2028, a BVH-based
               4DGS ray tracer that reaches 15~FPS @ 720p on
@@ -79,7 +79,7 @@
               reference encoder / decoder pair with bitstream
               conformance tests, integrating
               4DGS-CC~\cite{chen20254dgscc} and
-              P-4DGS~\cite{wang2025p4dgs}.
+              P-4DGS~\cite{wang2025p4dgs}\footnote{\textbf{P-4DGS vs PD-4DGS.} P-4DGS (Wang et al., USTC, CVPR~2025, $\sim$90$\times$ compression via motion-prediction residuals, see~\texttt{wang2025p4dgs}) and PD-4DGS (Li et al., Qilu Univ.~of~Tech., arXiv~2026, 3--5-layer progressive decomposition, see~\texttt{li2026pd4dgs}) are two \emph{distinct} codecs from \emph{different} research groups. They are listed as separate building blocks in the standardisation discussion below. The single-letter difference makes them easy to confuse; we treat them as two independent codecs throughout this survey.}.
         \item \textit{Project fit:} \checkmark{}~a codec standard
               directly benefits our project's storage bottleneck.
         \item \textit{Quantitative target:} a reference codec that
@@ -148,8 +148,11 @@
               dynamic / static split, the residual format, and
               the rate--control interface. The
               4DGS-CC~\cite{chen20254dgscc} + P-4DGS~\cite{wang2025p4dgs}
-              + PD-4DGS trio are the de-facto building
-              blocks.
+              + PD-4DGS~\cite{li2026pd4dgs} trio are three
+              \emph{de-facto} building blocks (P-4DGS handles
+              motion-prediction residuals; PD-4DGS handles
+              hierarchical bandwidth adaptation; the two address
+              different axes and could in principle be composed).
         \item \textit{What the next paper should look like:} a
               reference encoder / decoder pair with bitstream
               conformance tests, distributed as an open-source

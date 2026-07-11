@@ -135,7 +135,7 @@ static separation, continuous-time).}
 \textbf{Train time} & \textbf{Inference FPS} &
 \textbf{Typical storage} \\
 \midrule
-Canonical + Def. & $\sim$2$\times$ static & 8--40~min/scene & 30--60 & 50--200~MB \\
+|Canonical + Def. & $\sim$2$\times$ static & 8--40~min/scene & 30--82 & 50--200~MB \\
 Dyn./Stat.\ sep. & 1$\times$ (shared) + $\epsilon$ & 12--25~min & 800--1500 & $\sim$2--10~MB \\
 Continuous-time & $\sim$1.5$\times$ static + $t$-embed & 20--45~min & free framerate & 30--80~MB \\
 \bottomrule
@@ -149,7 +149,7 @@ Vulkan~1.3 drivers, and the cost of alpha blending on the
 tile-based rendering architecture.
 
 \subsubsection{Vulkan 1.3 mobile features.}
-Vulkan~1.3 (released February 2022, ratified for Android in
+Vulkan~1.3 (released January 25, 2022, Khronos official; ratified for Android in
 late 2023) is the first Vulkan profile that ships with consistent
 support across the Adreno, Mali, and Xclipse mobile GPUs. Three
 sub-features matter most for 4DGS. \emph{Subgroup operations}
@@ -168,10 +168,7 @@ texture / buffer arrays, which is the data structure on which the
 mobile 4DGS asset cache is built.
 
 \subsubsection{Adreno 830 architecture and the tile-based pipeline.}
-The Adreno~830 (Snapdragon~8~Gen~4) integrates six unified shader
-cores clocked at up to 1.1~GHz, with a 1~MB shared L2 cache and
-an effective DRAM bandwidth of about 51~GB/s (Qualcomm H1~2026
-specification). Crucially, the Adreno follows a tile-based
+The Adreno~830 (Snapdragon~8~Elite, SM8750, formerly leaked as '8~Gen~4') [leaked, not official] uses a sliced architecture with multiple shader cores operating at $\sim$1.0--1.25~GHz [leaked, not official] (leaked engineering-sample benchmarks, Revegnus 2024-08; not Qualcomm official spec), and an estimated DRAM bandwidth of $\sim$51~GB/s [leaked, not official] (extrapolated from LPDDR5X-8533 4-channel configuration, leaked spec pending official Qualcomm confirmation). Crucially, the Adreno follows a tile-based
 deferred-rendering (TBDR) architecture: the screen is split into
 $4\!\times\!4$ bins of $64\!\times\!64$ tiles, Gaussians are
 binned by the geometry stage, and per-tile resolve passes composite
@@ -254,8 +251,8 @@ exclusively on \emph{dynamic} 4DGS rather than 3DGS;
 comparisons across the four mobile / edge-GPU works
 (\S\ref{sec:rendering}); and (3)~it is the first to combine
 academic depth with the engineering roadmap of a single
-mobile-SoC target (Snapdragon 8~Gen~4 / Adreno 830 /
-Vulkan 1.3). A second strand of related work is the
+mobile-SoC target (Snapdragon 8~Elite, SM8750, formerly leaked as '8~Gen~4' / Adreno 830 /
+Vulkan 1.3 (with dynamic-rendering / push-descriptor / subgroup extensions)). A second strand of related work is the
 EG~2005 STAR ``Image-based Representations for Accelerated
 Rendering of Complex Scenes'' by Jeschke et al., which
 established the ``acquisition / representation / rendering''
