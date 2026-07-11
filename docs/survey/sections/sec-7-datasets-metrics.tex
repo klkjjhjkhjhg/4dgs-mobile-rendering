@@ -100,7 +100,13 @@ papers, with a one-line interpretation of what they measure.
   \item \textbf{PSNR} (per-frame, dB): the standard
         signal-to-noise ratio; a $30$~dB number corresponds
         to a roughly $0.1$\% per-pixel error. 4DGS papers
-        report PSNR on D-NeRF (28--32~dB), DyCheck (28--31~dB),
+        report PSNR on D-NeRF ($\sim$31--34~dB mean for
+        leading methods, e.g.\ 4DGS 34.05~dB, V4D 33.72~dB,
+        FFDNeRF/TiNeuVox 32.67~dB; the $\sim$28--32~dB
+        range cited in earlier-draft surveys corresponds
+        to the older DynNeRF / HexPlane / KPlanes baseline
+        family, not 4DGS-class methods, and to per-scene
+        worst cases), DyCheck (28--31~dB),
         Plenoptic Video (28--30~dB), and CMU Panoptic
         (26--30~dB).
   \item \textbf{SSIM} (per-frame, 0--1): structural similarity
@@ -179,10 +185,18 @@ papers, with a one-line interpretation of what they measure.
         24--40~GB envelope sometimes quoted for the
         4DGS family is a worst-case synthesis, not a
         Table-1 figure. The \emph{feed-forward} route
-        (L2D2-GS, Mobile-GS) targets 4--8~GB but the
-        concrete paper-reported numbers vary widely
-        (L2D2-GS uses 8$\times$H20 for training,
-        Mobile-GS does not publish VRAM).
+        (L2D2-GS, Mobile-GS) is \emph{not} 4--8~GB on
+        training hardware: L2D2-GS~\cite{song2026l2d2gs}
+        trains on $8\times$H20 GPUs (96~GB HBM each,
+        $\sim$768~GB aggregate; per-GPU consumption not
+        separately reported), and competing feed-forward
+        DepthSplat at 1024$\times$1024 is reported by
+        L2D2-GS to exceed the memory capacity of an
+        A100 (80~GB). The "4--8~GB" figure is therefore
+        an order-of-magnitude underestimate, possibly
+        intended to refer to \emph{inference} memory
+        rather than training. Mobile-GS does not publish
+        a training VRAM.
 \end{itemize}
 
 \paragraph{Mobile-specific.}
