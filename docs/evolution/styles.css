@@ -451,11 +451,12 @@ html, body {
   background: rgba(69, 71, 90, 0.5);
   border: 1px solid rgba(108, 114, 134, 0.6);
   color: #cdd6f4;
-  padding: 5px 12px;
+  padding: 5px 14px;
   border-radius: 6px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;  /* 防止中文按钮文字换行 */
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .hud-btn:hover {

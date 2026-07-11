@@ -326,6 +326,8 @@
     const btn = document.getElementById('btn-fullscreen');
     if (!btn) return;
     btn.textContent = document.fullscreenElement ? '⛶ 退出全屏' : '⛶ 全屏';
+    // 全屏切换后 viewport 尺寸变化, 重新 fit 节点群 + 触发 resize listener
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
   }
 
   function togglePlay() {
@@ -806,9 +808,11 @@
     svg.selectAll('*').remove();
 
     // 派系 cluster 背景 (改为可变换的闭合平滑曲线)
-    const clusterGroup = svg.append('g').attr('class', 'clusters');
+    // 注: clusterGroup / clusterLabelsLayer 移到 containerG 内, 让 hull 跟 nodes 一起被 zoom 缩放
+    const containerG = svg.append('g').attr('class', 'graph-content');
+    const clusterGroup = containerG.append('g').attr('class', 'clusters');
     // 独立的 labels layer — 在 nodes/links 之后 append, 保证标签永远在最上层不被节点遮挡
-    state.clusterLabelsLayer = svg.append('g').attr('class', 'cluster-labels');
+    state.clusterLabelsLayer = containerG.append('g').attr('class', 'cluster-labels');
     const factionKeys = Object.keys(state.data.meta.factions);
     // 派系中心放在五角星顶点，半径加大避免重叠（0.30 → 0.42）
     const radius = Math.min(state.width, state.height) * 0.42;
@@ -862,21 +866,34 @@
       }
     });
 
-    const containerG = svg.append('g').attr('class', 'graph-content');
+    // containerG 已在前面 line 809 声明 (装下 clusterGroup + clusterLabelsLayer + gLinks + gNodes)
     state.gLinks = containerG.append('g').attr('class', 'links');
     state.gNodes = containerG.append('g').attr('class', 'nodes');
 
+    // 节点初始位置: 放在各自派系中心附近 +/- 15px jitter, 避免 force 从 random 位置狂拉导致剧烈抖动
+    state.data.nodes.forEach(n => {
+      if (n.x != null && n.y != null) return;  // 已有位置 (例如重新初始化) 保留
+      const c = state.factionCenters[n.faction];
+      if (!c) return;
+      n.x = c.x + (Math.random() - 0.5) * 30;
+      n.y = c.y + (Math.random() - 0.5) * 30;
+    });
+
     const linksForSim = state.data.edges.map(e => ({ source: e.from, target: e.to, type: e.type }));
     const simulation = d3.forceSimulation(state.data.nodes)
+      .alpha(0.6)             // 默认 1.0 → 0.6: 节点初始动能更小, 加载时抖动更平缓
+      .alphaDecay(0.05)       // 默认 0.0228 → 0.05: 收敛更快 (~80 tick 内完成)
+      .alphaMin(0.005)        // 默认 0.001 → 0.005: 更早停止 simulation
+      .velocityDecay(0.5)     // 默认 0.4 → 0.5: 节点速度衰减更快, 减少抖动
       .force('link', d3.forceLink(linksForSim).id(d => d.id).distance(50).strength(0.3))
       // charge 加强：-450 → -550，节点相互排斥避免堆叠
       .force('charge', d3.forceManyBody().strength(-550))
       // collision 加大：45 → 50，给节点更大安全距离
       .force('collision', d3.forceCollide().radius(50))
-      // 派系强引力：1.2 → 1.6，让节点真正按派系分开、避免跨派系乱飞
-      .force('factionX', d3.forceX().x(d => state.factionCenters[d.faction]?.x || state.width / 2).strength(1.6))
-      .force('factionY', d3.forceY().y(d => state.factionCenters[d.faction]?.y || state.height / 2).strength(1.6))
-      .force('center', d3.forceCenter(state.width / 2, state.height / 2).strength(0.003));
+      // 派系引力：1.6 → 0.5 (软聚类), 避免节点被强引力反复抖动
+      .force('factionX', d3.forceX().x(d => state.factionCenters[d.faction]?.x || state.width / 2).strength(0.5))
+      .force('factionY', d3.forceY().y(d => state.factionCenters[d.faction]?.y || state.height / 2).strength(0.5))
+      .force('center', d3.forceCenter(state.width / 2, state.height / 2).strength(0.05));  // 0.003 → 0.05, 加强向中心聚拢
 
     state.simulation = simulation;
 
@@ -955,7 +972,20 @@
 
     const zoom = d3.zoom()
       .scaleExtent([0.3, 2.5])
-      .on('zoom', (event) => { containerG.attr('transform', event.transform); });
+      .on('start.zoom', () => {
+        // 缩放开始: 冻结 force simulation, 防止节点位置持续变化导致 hull 错位
+        if (state._setZoomActive) state._setZoomActive(true);
+        if (state.simulation) state.simulation.alphaTarget(0).alpha(0);
+      })
+      .on('zoom', (event) => {
+        containerG.attr('transform', event.transform);
+      })
+      .on('end.zoom', () => {
+        // 缩放结束: 重画 hull + 恢复 force (低 alpha 重启, 让节点稳定下来)
+        if (typeof refreshFactionHulls === 'function') refreshFactionHulls();
+        if (state.simulation) state.simulation.alpha(0.1).restart().alphaTarget(0);
+        if (state._setZoomActive) state._setZoomActive(false);
+      });
     svg.call(zoom);
 
     window.addEventListener('resize', () => {
@@ -965,7 +995,13 @@
       fitToViewport();
     });
     // 节点群 force 收敛后自动 fit 一次（fitToViewport 定义在 state 之后, 此处引用全局）
-    simulation.on('end', fitToViewport);
+    // zoom 期间冻结 force 会立即触发 'end', 此时不能 fit (会覆盖用户的 zoom transform)
+    let zoomActive = false;
+    simulation.on('end', () => { if (!zoomActive) fitToViewport(); });
+
+    // 暴露给 zoom handler 用: zoom 开始/结束时设标志
+    state._zoomActive = () => zoomActive;
+    state._setZoomActive = (v) => { zoomActive = v; };
 
     // 应用初始时间轴状态 (state.currentTime 已在 init 中初始化)
     applyTimeFilter();
