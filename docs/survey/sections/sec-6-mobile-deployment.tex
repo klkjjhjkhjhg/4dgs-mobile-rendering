@@ -138,21 +138,23 @@ the legacy push-constant path for the per-draw uniform and use
 push descriptors only for the per-scene asset table.
 
 \subsubsection{Thermal throttling: sustained 30 FPS vs.\ burst 60 FPS.}
-A practical Adreno~830 device delivers $\sim$60~FPS in
-\emph{burst} mode for roughly 30~seconds at room temperature
-before thermal throttling kicks in and frame-time settles to
-$\sim$33~ms (30~FPS). The steady-state
-\emph{pre-throttle} 30~FPS power draw is about 2.5~W; the
-burst 60~FPS power draw is about 4.5~W; and the
-\emph{post-throttle} 30~FPS power draw is about 1.8~W
-(the lower power draw is a
-consequence of the GPU clock being dialled back). For a
-production mobile 4DGS app, the practical target is therefore
-\emph{30~FPS sustained} on a Snapdragon~8~Elite device, with
-60~FPS as a benchmark peak rather than a steady-state
-expectation. The project README adopts this 30~FPS sustained
-target, and the survey's quantitative anchors in
-\S\ref{sec:rendering} are interpreted under this regime.
+The thermal envelope of an Adreno~830 device under a 4DGS
+workload is well-studied in the mobile-GPU literature but
+not pinned to a single primary source: a 60~FPS burst
+for $\sim$30~s at room temperature before thermal
+throttling forces the frame-time to settle to $\sim$33~ms
+(30~FPS) is a typical device-class behaviour, but the
+exact $\sim$2.5~W (pre-throttle) / $\sim$4.5~W (burst) /
+$\sim$1.8~W (post-throttle) figures cited in earlier-draft
+surveys are engineering estimates rather than measured
+numbers, and they should be read as illustrative rather
+than authoritative. For a production mobile 4DGS app, the
+practical target is therefore \emph{30~FPS sustained} on a
+Snapdragon~8~Elite device, with 60~FPS as a benchmark peak
+rather than a steady-state expectation. The project
+README adopts this 30~FPS sustained target, and the
+survey's quantitative anchors in \S\ref{sec:rendering}
+are interpreted under this regime.
 
 \subsection{Project Direction}
 The companion \texttt{README.md} of this project fixes the target as
