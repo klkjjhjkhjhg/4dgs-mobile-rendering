@@ -171,8 +171,10 @@ the decision to go either way depending on whether the MPEG / Khronos
 Table~\ref{tab:mobile} consolidates the on-device measurement
 numbers reported across the surveyed mobile and edge-GPU works.
 Note that Mobile-GS and Flux-GS were measured on
-Snapdragon~8~Gen~3 / Vulkan~2.0; the project target is
-Snapdragon~8~Gen~4 / Vulkan~1.3, which we extrapolate
+Snapdragon~8~Gen~3 / Vulkan~1.3 (the paper's ``Vulkan 2.0'' is
+informal shorthand for Vulkan~1.3 plus dynamic-rendering /
+push-descriptor / subgroup extensions); the project target is
+Snapdragon~8~Elite / Vulkan~1.3, which we extrapolate
 from~\cite{oh2025neo}'s Reuse-and-Update accelerator trends.
 \begin{table*}[t]
   \centering
@@ -184,7 +186,7 @@ from~\cite{oh2025neo}'s Reuse-and-Update accelerator trends.
 \toprule
 \textbf{Method} & \textbf{SoC} & \textbf{Res.} & \textbf{FPS} & \textbf{Model size} & \textbf{Energy} & \textbf{Vulkan} \\
 \midrule
-Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Elite   & 1080p    & 127       & 4.6~MB         & --       & 1.3   \\
+Mobile-GS~\cite{du2026mobilegs}       & Snap~8~Gen~3   & 1080p    & 127       & 4.6~MB         & --       & 1.3   \\
 Flux-GS~\cite{du2026fluxgs}           & Snap~8~Gen~3   & 1080p    & 132--147       & 2.1~MB (indoor) / 4.6~MB (outdoor) & --      & 1.3   \\
 Lumina~\cite{feng2025lumina}          & Mobile SoC     & 1080p    & --        & --              & $5.3\times$ less & -- \\
 GS-NFS~\cite{ghosh2026gsnfs}          & Jetson~Orin    & 1080p    & 25 (decode) & --            & --       & --    \\
