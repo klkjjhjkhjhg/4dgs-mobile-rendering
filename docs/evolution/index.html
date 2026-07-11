@@ -32,6 +32,7 @@
       <div class="hud-row">
         <button id="btn-play" class="hud-btn primary">▶ Play</button>
         <button id="btn-reset" class="hud-btn">⏮ 重置</button>
+        <button id="btn-fullscreen" class="hud-btn" title="全屏显示 (F11)">⛶ 全屏</button>
         <span id="time-display" class="time-display">—.—</span>
         <span id="time-counter" class="time-counter">0 / 0 节点 · 0 / 0 边</span>
       </div>
@@ -281,6 +282,24 @@
       applyTimeFilter();
       updateTimeDisplay(state.timeMin);
     });
+    document.getElementById('btn-fullscreen').addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', updateFullscreenBtn);
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn('Fullscreen request failed:', err.message);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  function updateFullscreenBtn() {
+    const btn = document.getElementById('btn-fullscreen');
+    if (!btn) return;
+    btn.textContent = document.fullscreenElement ? '⛶ 退出全屏' : '⛶ 全屏';
   }
 
   function togglePlay() {
