@@ -11,8 +11,9 @@ include:
 \begin{itemize}
   \item Mobile-GS~\cite{du2026mobilegs} and Flux-GS~\cite{du2026fluxgs}:
         real-time desktop 3DGS rasterisation; Mobile-GS reports
-        $\sim$60~FPS on Snapdragon~8~Elite and Flux-GS reports
-        137--151~FPS on desktop (no mobile FPS published).
+        127~FPS on Snapdragon~8~Gen~3 (paper Table 1) and
+        Flux-GS reports 137--151~FPS on desktop
+        (no mobile FPS published for Flux-GS).
         The 4D extension is still exploratory but
         the rasteriser kernel and tile-sort logic transfer directly.
   \item Lumina~\cite{feng2025lumina} (ISCA~2025, SJTU + Rochester):
@@ -132,12 +133,14 @@ the legacy push-constant path for the per-draw uniform and use
 push descriptors only for the per-scene asset table.
 
 \subsubsection{Thermal throttling: sustained 30 FPS vs.\ burst 60 FPS.}
-A practical Adreno~830 device sustains $\sim$60~FPS for
-roughly 30~seconds at room temperature before thermal
-throttling kicks in and frame-time settles to $\sim$33~ms
-(30~FPS). The sustained 30~FPS power draw is about 2.5~W; the
-burst 60~FPS power draw is about 4.5~W; and the throttled
-30~FPS power draw is about 1.8~W (the lower power draw is a
+A practical Adreno~830 device delivers $\sim$60~FPS in
+\emph{burst} mode for roughly 30~seconds at room temperature
+before thermal throttling kicks in and frame-time settles to
+$\sim$33~ms (30~FPS). The steady-state
+\emph{pre-throttle} 30~FPS power draw is about 2.5~W; the
+burst 60~FPS power draw is about 4.5~W; and the
+\emph{post-throttle} 30~FPS power draw is about 1.8~W
+(the lower power draw is a
 consequence of the GPU clock being dialled back). For a
 production mobile 4DGS app, the practical target is therefore
 \emph{30~FPS sustained} on a Snapdragon~8~Elite device, with
