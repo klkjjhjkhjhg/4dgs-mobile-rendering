@@ -33,6 +33,7 @@
         <button id="btn-play" class="hud-btn primary">▶ Play</button>
         <button id="btn-reset" class="hud-btn">⏮ 重置</button>
         <button id="btn-fullscreen" class="hud-btn" title="全屏显示 (F11)">⛶ 全屏</button>
+        <button id="btn-fit" class="hud-btn" title="把节点群缩放到铺满视口">⊡ 适配</button>
         <span id="time-display" class="time-display">—.—</span>
         <span id="time-counter" class="time-counter">0 / 0 节点 · 0 / 0 边</span>
       </div>
@@ -126,6 +127,28 @@
   window.__errs = state.__errs;
   window.addEventListener('error', e => { state.__errs.push(String(e.message || e)); });
   window.addEventListener('unhandledrejection', e => { state.__errs.push(String(e.reason || e)); });
+
+  /* ===== 适配视口：把节点群缩放到 viewport 大小 ===== */
+  function fitToViewport() {
+    if (!state.data || !state.data.nodes) return;
+    const nodes = state.data.nodes.filter(n => n.x != null && n.y != null);
+    if (nodes.length === 0) return;
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    nodes.forEach(n => {
+      if (n.x < minX) minX = n.x;
+      if (n.x > maxX) maxX = n.x;
+      if (n.y < minY) minY = n.y;
+      if (n.y > maxY) maxY = n.y;
+    });
+    const pad = 40;
+    const w = (maxX - minX) + pad * 2;
+    const h = (maxY - minY) + pad * 2;
+    const k = Math.min(state.width / w, state.height / h);  // 允许放大 (k > 1)
+    const tx = (state.width - k * (minX + maxX)) / 2;
+    const ty = (state.height - k * (minY + maxY)) / 2;
+    // containerG 在 setupGraph 里定义, 此处用 d3 直接取
+    d3.select('#canvas-graph g.graph-content').attr('transform', `translate(${tx},${ty}) scale(${k})`);
+  }
 
   /* ===== 年份标准化 =====
      输入 "year" 字段两种形态:
@@ -283,6 +306,9 @@
       updateTimeDisplay(state.timeMin);
     });
     document.getElementById('btn-fullscreen').addEventListener('click', toggleFullscreen);
+    document.getElementById('btn-fit').addEventListener('click', () => {
+      fitToViewport();
+    });
     document.addEventListener('fullscreenchange', updateFullscreenBtn);
   }
 
@@ -936,7 +962,10 @@
       state.width = window.innerWidth;
       state.height = window.innerHeight;
       svg.attr('width', state.width).attr('height', state.height);
+      fitToViewport();
     });
+    // 节点群 force 收敛后自动 fit 一次（fitToViewport 定义在 state 之后, 此处引用全局）
+    simulation.on('end', fitToViewport);
 
     // 应用初始时间轴状态 (state.currentTime 已在 init 中初始化)
     applyTimeFilter();
