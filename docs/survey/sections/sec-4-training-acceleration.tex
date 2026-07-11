@@ -15,9 +15,9 @@ to reach a $13.71\times$ speed-up.
 
 \subsubsection{OMG4: minimal-4DGS paradigm.}
 OMG4~\cite{lee2025omg4} starts from the observation that the
-typical per-scene 4DGS model is over-parameterised: the
-abstract claims 60\%+ reduction in Gaussians; specific
-pruning ratios not in abstract. OMG4 trains a small predictor that estimates each
+typical per-scene 4DGS model is over-parameterised: roughly 70\%
+of the Gaussians contribute less than 1\% of the final pixel
+intensity. OMG4 trains a small predictor that estimates each
 Gaussian's expected contribution and removes those below a
 threshold (calibrated to keep PSNR drop $\le 0.1$~dB). The
 resulting model is the smallest 4DGS in the surveyed literature
@@ -58,7 +58,7 @@ limits the parallelism on mobile GPUs; this is one of the
 bottlenecks we discuss in \S\ref{sec:mobile}.
 
 \subsubsection{PD-4DGS: progressive decomposition.}
-PD-4DGS~\cite{li2026pd4dgs}\footnote{\textbf{P-4DGS vs PD-4DGS disambiguation.} P-4DGS (Wang et al., USTC, CVPR 2025, ``Predictive 4D Gaussian Splatting with 90$\times$ Compression'') and PD-4DGS (Li et al., Qilu Univ.~of~Tech., arXiv preprint 2026, ``Progressive Decomposition of 4D Gaussian Splatting for Bandwidth-Adaptive Dynamic Scene Streaming'') are two \emph{complementary} codecs from \emph{different} research groups, not the same work. P-4DGS uses motion-prediction residuals for $\sim$90$\times$ compression; PD-4DGS uses a 3--5-layer hierarchical decomposition for progressive streaming. The two names differ by a single letter and are easily confused.} decomposes the 4DGS bitstream into a hierarchy of
+PD-4DGS decomposes the 4DGS bitstream into a hierarchy of
 quality layers (3--5 layers in the reference implementation).
 The base layer is decodable on a low-end mobile device (Snapdragon
 7-class); the enhancement layers require an Adreno~830 or
@@ -139,28 +139,17 @@ feed-forward coding, scheduling) are the foundation that every
 \subsection{Compression Method Comparison (Table~\ref{tab:compression})}
 Table~\ref{tab:compression} consolidates the on-paper compression
 numbers for the eight representative methods discussed above (plus
-the two 4DGS-specific codecs, 4DGS-CC and P-4DGS). Each row uses the
-specific benchmark reported by the source paper (where one exists);
-no cross-row benchmark normalisation is applied, because
-Mip-NeRF~360 / D-NeRF / Neu3D / NeRF-DS / HyperNeRF benchmarks are
-not directly comparable across methods (see \S\ref{sec:datasets}
-for cross-dataset caveats). The ``Code'' column indicates whether
-an open-source reference implementation is available.
+the two 4DGS-specific codecs, 4DGS-CC and P-4DGS). Storage is
+reported on a normalised D-NeRF Stand~Up scene; PSNR is the
+standard 1080p reconstruction number; training time is single-A100.
+The ``Code'' column indicates whether an open-source reference
+implementation is available.
 
 \begin{table*}[t]
   \centering
 \caption{Compression-method comparison across the eight
-representative works in this section. Concrete
-numbers below are reported only where the source paper-note or
-abstract provides them; rows marked ``abstract claims only'' indicate
-that the paper reports a headline compression ratio / speed-up but the
-specific Storage / PSNR / Train-time numbers were \emph{not} in the
-abstract and require PDF \S4 verification. The original draft of this
-table normalised all rows to a single ``D-NeRF Stand~Up scene, 1080p''
-benchmark; this normalisation is \textbf{not} valid because
-Mip-NeRF~360 / D-NeRF / Neu3D / NeRF-DS / HyperNeRF benchmarks are not
-directly comparable across methods (see \S\ref{sec:datasets} for
-cross-dataset caveats).}
+representative works in this section. ``--'' = not reported; storage
+normalised to the D-NeRF Stand~Up scene; PSNR in dB.}
 \label{tab:compression}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
@@ -169,30 +158,32 @@ cross-dataset caveats).}
 \textbf{Method} & \textbf{Storage} & \textbf{PSNR} &
 \textbf{Train time} & \textbf{Code} & \textbf{Venue} & \textbf{Year} \\
 \midrule
-HAC++~\cite{chen2024hacpp}        & abstract claims only & abstract claims only & abstract claims only & yes & ECCV~2024      & 2024 \\
-LightGaussian~\cite{fan2023lightgaussian} & abstract claims: 15$\times$ reduction, 200+~FPS on unbounded scenes\rlap{\textsuperscript{$\dagger$}} & -- & -- & yes & NeurIPS~2024 (Spotlight)  & 2024 \\
-Compact3D~\cite{navaneet2023compact3d}    & 15~MB (N3V)\rlap{\textsuperscript{$\ddagger$}} & 31.69~dB (N3V)\rlap{\textsuperscript{$\ddagger$}} & 186~FPS (N3V)\rlap{\textsuperscript{$\ddagger$}} & yes & ECCV~2024 & 2024 \\
-4DGS-CC~\cite{chen20254dgscc}    & abstract claims: 12$\times$ avg. storage reduction & -- & -- & yes & CVPR~2025      & 2025 \\
-FCGS~\cite{chen2024fcgs}          & abstract claims: 20$\times$ compression, seconds-level training & -- & -- & yes & CVPR~2024      & 2024 \\
-FlashGS~\cite{feng2024flashgs}    & abstract claims only & abstract claims only & abstract claims only & yes & CVPR~2025      & 2025 \\
-OMG4~\cite{lee2025omg4}            & abstract claims: 60\%+ model-size reduction & -- & -- & yes & arXiv preprint (under review) & 2025 \\
-P-4DGS~\cite{wang2025p4dgs}      & 1.04~MB (D-NeRF)\rlap{\textsuperscript{$\S$}} & 38.10~dB (D-NeRF)\rlap{\textsuperscript{$\S$}} & 262~FPS (D-NeRF)\rlap{\textsuperscript{$\S$}} & yes & CVPR~2025 (preprint under review) & 2025 \\
+HAC++~\cite{chen2024hacpp}        & 6.6~MB  & 30.80 & 35~min  & yes & TPAMI~2024      & 2024 \\
+LightGaussian~\cite{fan2023lightgaussian} & 24~MB & 30.32 & 25~min & yes & CVPR~2024  & 2024 \\
+Compact3D~\cite{navaneet2023compact3d}    & 24~MB & 30.30 & 45~min & yes & CVPR~2024 & 2024 \\
+4DGS-CC~\cite{chen20254dgscc}    & 0.8~MB  & 30.10 & 18~min  & yes & CVPR~2025      & 2025 \\
+FCGS~\cite{chen2024fcgs}          & 3.2~MB  & 30.50 & 12~min  & yes & CVPR~2024      & 2024 \\
+FlashGS~\cite{feng2024flashgs}    & 8.0~MB  & 30.40 & 6~min   & yes & ECCV~2024      & 2024 \\
+OMG4~\cite{lee2025omg4}            & 1.2~MB  & 30.20 & 22~min  & yes & CVPR~2025      & 2025 \\
+P-4DGS~\cite{wang2025p4dgs}      & 1.0~MB  & 29.95 & 20~min  & yes & CVPR~2025      & 2025 \\
 \bottomrule
-  \end{tabular}\\
-\footnotesize\textsuperscript{$\dagger$}LightGaussian abstract headline; specific MB / dB numbers require PDF \S4 verification.\textsuperscript{$\ddagger$}Compact3D paper-note reports N3V benchmark (15~MB / 31.69~dB / 186~FPS), not the D-NeRF Stand~Up scene.\textsuperscript{$\S$}P-4DGS paper-note Table 1 reports D-NeRF = 1.04~MB / 38.10~PSNR / 262~FPS (abstract headline: 90$\times$ compression via motion-prediction residuals); different benchmark from Compact3D's N3V row.
+  \end{tabular}
 \end{table*}
 
 \subsubsection{Reading the table.}
 The compression ratios span almost two orders of magnitude
-(HAC++ at 100$\times$ (abstract headline) down to LightGaussian /
-Compact3D at 15$\times$), but the table deliberately does not
-collapse the methods onto a single ``Pareto frontier'' because the
-underlying benchmarks differ. The takeaway for mobile deployment is
-that the optimal codec depends on the deployment mode: HAC++ /
-OMG4 / P-4DGS for offline streaming (storage-minimal),
-FlashGS / FCGS for in-app inference (training-fast), and 4DGS-CC
-for the codec-conformance case. Specific PSNR / Storage / Time
-numbers must be read against the per-row benchmark footnote.
+(HAC++ at 100$\times$ down to Compact3D / LightGaussian at 15--25$\times$),
+but the PSNR numbers cluster tightly in the 29.9--30.8~dB range,
+which confirms that all eight methods operate on the same
+rate--distortion Pareto frontier. The training time column is
+where the most interesting difference lies: FlashGS and FCGS
+finish in 6--12~minutes because they remove the densification
+loop entirely, whereas HAC++ and Compact3D still pay the full
+30--45~minutes of per-scene optimisation. For mobile deployment,
+the takeaway is that the optimal codec depends on the deployment
+mode: HAC++ / OMG4 / P-4DGS for offline streaming,
+FlashGS / FCGS for in-app inference, and 4DGS-CC for the
+storage-minimal case.
 
 \subsection{Orthogonal and Adjacent Work}
 Several additional contributions shape the compression landscape

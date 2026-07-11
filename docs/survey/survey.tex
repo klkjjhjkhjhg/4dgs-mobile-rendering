@@ -33,14 +33,14 @@
 %% 0b. PDF metadata (silences acmart warnings)
 \hypersetup{
   pdfauthor={Lianghao Zhang},
-  pdftitle={Mobile Acceleration of 3D and 4D Gaussian Splatting: A Survey of Representation, Compression, Rendering and Deployment},
+  pdftitle={Toward Real-Time Dynamic 4D Gaussian Splatting on Mobile GPUs: A Survey},
   colorlinks=true,
   citecolor=MidnightBlue,
 }
 
 %% 1. Document metadata
-\title{Mobile Acceleration of 3D and 4D Gaussian Splatting\\
-  A Survey of Representation, Compression, Rendering and Deployment}
+\title{Toward Real-Time Dynamic 4D Gaussian Splatting\\
+  on Mobile GPUs: A Survey}
 \author{Lianghao Zhang}
 \affiliation{%
   \institution{Xiaomi Inc., Graphics Architecture Department}
@@ -57,11 +57,14 @@
 \begin{abstract}
 We present a systematic survey of recent progress on real-time rendering
 of dynamic 4D Gaussian Splatting (4DGS) on mobile GPUs
-(Snapdragon 8 Elite, SM8750, formerly leaked as '8 Gen 4' / Adreno 830 + Vulkan 1.3 (with dynamic-rendering / push-descriptor / subgroup extensions)). The survey covers four
+(Snapdragon 8 Gen 4 / Adreno 830 + Vulkan 1.3). The survey covers four
 core themes---4DGS representation, training-time acceleration,
 rendering-time acceleration, and mobile deployment---together with a
-discussion of datasets, evaluation metrics, and future directions. We
-organize 50+ representative works published between
+discussion of datasets, evaluation metrics, and future directions. The
+paper complements the project \texttt{README.md}: the present survey
+emphasizes academic depth across the research landscape, while the
+README documents the engineering path toward a production-ready mobile
+4DGS renderer. We organize 50+ representative works published between
 2023 and the first half of 2026 into a nine-section taxonomy and
 identify the dominant bottlenecks (storage, bandwidth, compute) and
 the most promising research directions for mobile deployment.
@@ -89,12 +92,14 @@ the most promising research directions for mobile deployment.
 \textbf{Lianghao Zhang} is a graphics architect at Xiaomi Inc.,
 Beijing, where he leads research on mobile real-time rendering and
 GPU driver engineering. His current focus is the design and
-prototyping of a Snapdragon 8 Elite (SM8750, formerly leaked as '8 Gen 4') / Adreno 830 + Vulkan 1.3 (with dynamic-rendering / push-descriptor / subgroup extensions)
+prototyping of a Snapdragon 8 Gen 4 / Adreno 830 + Vulkan 1.3
 renderer for dynamic 4D Gaussian Splatting. He holds a Master's
 degree in Computer Graphics from the Institute of Computing
 Technology, Chinese Academy of Sciences, and has previously
 contributed to Xiaomi's Vulkan driver, Mali toolchain integration,
-and several internal OpenGL ES 3.2 optimisations.
+and several internal OpenGL ES 3.2 optimisations. This survey is
+the academic counterpart to the project's engineering roadmap
+documented in the companion \texttt{README.md}.
 
 %% 7. Acknowledgements
 \section*{Acknowledgements}

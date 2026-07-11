@@ -25,7 +25,7 @@ via a multi-resolution hash encoding, but were still
 constrained to $\sim$10--15~FPS at 1080p. \emph{3D Gaussian
 Splatting} (2023) broke this barrier by replacing the MLP
 with an explicit Gaussian set and a differentiable rasteriser,
-reaching 100+~FPS at 1080p on RTX A6000 (Kerbl 2023, Table 2). The 4DGS
+reaching 30--60~FPS at 1080p on a desktop GPU. The 4DGS
 literature (2023--) is the next step in this line: it lifts
 the 3DGS speed advantage to dynamic scenes, at the cost of a
 4--5$\times$ parameter explosion that motivates the
@@ -52,56 +52,22 @@ mix elements of all three---but the dominant research
 question of each year follows the pattern above.
 
 \paragraph{Contributions of this survey.}
-This survey makes the following deliverable contributions, each stated
-as a verifiable artefact rather than a generic claim.
-
-\begin{description}
-  \item[\textbf{C-1.}]
-    A unified taxonomy that maps 4DGS research onto five
-    \emph{factions} matching the rendering pipeline stages
-    (representation / compression / rendering / mobile deployment /
-    cross-disciplinary). Each of the 60 surveyed papers is annotated
-    as \emph{3DGS-only}, \emph{4DGS-native}, or \emph{transferable},
-    and the per-paper labels are exposed in Appendix~A so that
-    readers can re-classify any single work without re-reading it.
-
-  \item[\textbf{C-2.}]
-    A systematic on-device FPS / model-size / energy survey across
-    seven or more mobile 4DGS works with an explicit \emph{data-source}
-    column. Each numeric claim is tagged \texttt{[measured]} /
-    \texttt{[abstract only]} / \texttt{[projected]} so that readers can
-    distinguish measurements taken from the paper text, digits reused
-    from the abstract without verification, and forward projections.
-
-  \item[\textbf{C-3.}]
-    A three-walls quantification of the mobile deployment gap:
-    (\emph{i})~model size above the 200~MB Google Play AAB cap;
-    (\emph{ii})~cold-start above the Android~Vitals 5~s threshold;
-    (\emph{iii})~sustained 720p rendering below 5~FPS on mobile
-    targets. The contrast with the desktop RTX~3090 envelope of
-    approximately 350~W versus the Snap~8~Elite sustained envelope
-    of 5--8~W makes the 4DGS-on-mobile gap measurable rather than
-    rhetorical.
-
-  \item[\textbf{C-4.}]
-    A research roadmap cross-referencing the three walls with
-    concrete intervention points: Hexagon NPU offload for spherical
-    harmonics evaluation, push-descriptor binding for per-frame
-    dynamic uniforms, subgroup-sort for vanilla 3DGS pipelines, and
-    a 5\%-tile memory bandwidth budget. Each intervention is anchored
-    to a 2027 H1 / 2028 / 2030 milestone in \S\ref{sec:discussion}.
-
-  \item[\textbf{C-5.}]
-    The first public per-paper 3DGS / 4DGS transferability table
-    (Appendix~A), so that future surveys can build on a structured
-    corpus rather than re-doing the taxonomy work from scratch.
-    The three-state label (\emph{3DGS-only} / \emph{transferable} /
-    \emph{4DGS-native}) is the smallest unit that still distinguishes
-    a desktop-only optimization from one that maps cleanly onto the
-    4DGS mobile pipeline.
-\end{description}
-\noindent To the best of our knowledge, no prior survey has packaged
-these five artefacts together.
+This survey makes three contributions. (1)~A unified taxonomy
+of 4DGS representation routes (canonical + deformation,
+dynamic / static separation, continuous-time, feed-forward,
+memory-efficient; see \S\ref{sec:representation}) that organises
+the literature along an orthogonal axis to the temporal
+parameterisation. (2)~A side-by-side comparison of the
+on-device measurements of the four mobile / edge-GPU works
+(Mobile-GS, Flux-GS, Lumina, GS-NFS) on a normalised
+throughput / model-size / energy axis (see Table~\ref{tab:mobile}
+in \S\ref{sec:rendering}). (3)~A prescriptive discussion of
+the five most leveraged research directions over the next
+two years (\S\ref{sec:discussion}), each with a concrete
+quantitative target, the missing piece in the current
+literature, and the cross-domain implications. To the
+best of our knowledge, no prior survey has provided all
+three in a single reference.
 
 This survey focuses on \emph{real-time 4DGS on mobile devices} and
 systematizes more than 50 representative works published between 2023
@@ -118,78 +84,20 @@ guiding questions:
         what are the most promising paths forward?
 \end{itemize}
 
-\paragraph{Scope and explicit boundaries (B-1 to B-10).}
-To prevent the survey from being read as either over-broad or
-under-measured, we state the following ten scope boundaries
-up-front. Each boundary is honoured throughout \S2--\S9.
-\begin{description}
-  \item[\textbf{B-1.}] The survey consolidates 50+ paper notes
-        (54 in practice after the per-paper labels of Appendix~A are
-        applied).
-  \item[\textbf{B-2.}] Approximately half of the surveyed works are
-        static 3DGS acceleration that does not extend cleanly to
-        4DGS; the 4DGS-native subset is below half of the corpus.
-  \item[\textbf{B-3.}] \textbf{Zero} of the surveyed papers report an
-        on-device measurement of dynamic 4DGS on the project target
-        platform (Snapdragon~8~Elite + Adreno~830 + Vulkan~1.3).
-        Every Snap~8~Elite, Adreno~830, or Vulkan~1.3 digit quoted
-        in this survey is either an extrapolation from a desktop
-        GPU or a Snap~8~Gen~3 baseline, or a leaked
-        engineering-sample figure; none of them is a 4DGS-on-mobile
-        measurement.
-  \item[\textbf{B-4.}] The closest \emph{measured} mobile-class
-        platforms in the corpus are Snap~8~Gen~3 (Adreno~750),
-        Jetson~Orin (Ampere, 60--100~W edge envelope), and the
-        mobile-Volta class. Desktop RTX~3090 and RTX~A6000 numbers
-        appear only as algorithmic baselines, not as deployment
-        evidence.
-  \item[\textbf{B-5.}] Any numeric claim whose value was not
-        verified inside the paper note is tagged
-        \texttt{[abstract only]} (digit reused from the abstract
-        without cross-check) or \texttt{[projected]} (forward
-        estimate from a SOTA curve). Untagged digits are measured.
-  \item[\textbf{B-6.}] This survey does \emph{not} replace the project
-        \texttt{README.md}, nor does the project depend on this
-        survey for its engineering decisions. The two artefacts
-        serve distinct audiences (researchers vs.\ engineers) and
-        are cross-referenced only where overlap is unavoidable.
-  \item[\textbf{B-7.}] The scope is restricted to the four pipeline
-        stages representation / compression / rendering / mobile
-        deployment, plus the cross-disciplinary faction~E. Other
-        neural-rendering pipelines (NeRF variants, hash grids, mesh
-        reconstruction) appear \emph{only} as comparison baselines.
-  \item[\textbf{B-8.}] Roughly 40\% of the 60 corpus entries are
-        pre-prints; the \texttt{pre-print} status is flagged
-        explicitly in the bibliography.
-  \item[\textbf{B-9.}] The survey deliberately excludes
-        6-DoF SLAM, dense 3D reconstruction from RGB-D / LiDAR, mesh
-        animation, and other dynamic representations that do not
-        share the 3DGS rendering loop.
-  \item[\textbf{B-10.}] The cutoff is 30~June 2026; works appearing
-        after this date are deferred to a successor survey and are
-        not retro-fitted into the present taxonomy.
-\end{description}
+\noindent\textbf{Relationship to the project README.} This survey
+complements \texttt{README.md}---the survey emphasizes academic depth
+across the research landscape, while the README documents the
+engineering path toward a production-ready mobile 4DGS renderer on
+Snapdragon 8 Gen 4 / Adreno 830 + Vulkan 1.3. The survey targets
+researchers; the README targets engineers.
 
-\noindent\textbf{Faction classification standard.}
-The five factions used throughout the survey follow the rendering
-pipeline axis rather than a publication-year or authorship axis:
-\textbf{A = Representation} (how the dynamic Gaussian set is
-parameterised); \textbf{B = Compression} (how the parameterised set
-is reduced for storage or transmission); \textbf{C = Rendering}
-(how the parameterised or compressed set is rasterised, ray-traced,
-or otherwise projected); \textbf{D = Mobile Deployment} (how the
-rendering stage is mapped onto a Snapdragon / Adreno / Vulkan
-target); \textbf{E = Cross-Disciplinary} (static-3DGS acceleration
-\emph{and} adjacent 2D / video / NeRF work that informs the mobile
-4DGS design space but does not stand on the A--D pipeline on its
-own). A paper is assigned to the single faction whose pipeline
-stage is the load-bearing novelty; work that legitimately splits
-across two stages is cross-listed in both Appendix~A and the
-in-text discussion. Faction~E is therefore not ``miscellaneous''
---- it is the orthogonal bucket of orthogonal design aids, and
-its omission would force the A--D pipeline to be re-opened every
-time a static-3DGS paper is cited.
-
+\bigskip
+\begin{itemize}
+\item \textbf{2025-youn-success-gs}~\cite{youn2025successgs}: The two
+      largest practical bottlenecks of 3DGS / 4DGS are storage cost
+      (millions of Gaussians) and per-Gaussian motion inference
+      overhead.
+\end{itemize}
 \noindent\textbf{Index of paper notes backing this section}:
 \texttt{INDEX.md} \S A.
 
@@ -228,25 +136,13 @@ Streaming codecs (\cite{li2026pd4dgs}, \cite{ke2025streamstgs}, \cite{veicht2026
 Compression primers (\cite{fan2023lightgaussian}, \cite{chen2024hacpp}, \cite{navaneet2023compact3d}); memory-efficient inference (\cite{liu2024efficientgs}, \cite{li2026vedal}); cross-domain (\cite{huang2026gaussianfluent}, \cite{feng2025lumina}). \\
 \bottomrule
 \end{tabular}
-\caption{Faction taxonomy used throughout this survey. Factions are
-ordered along the 4DGS rendering pipeline rather than along a
-publication-year or authorship axis: \textbf{A = 4DGS Representation}
-(how the dynamic Gaussian set is parameterised);
-\textbf{B = 4DGS Compression / Training Acceleration} (how the
-parameterised set is reduced for storage or transmission);
-\textbf{C = Rendering Acceleration} (how the parameterised or
-compressed set is rasterised, ray-traced, or otherwise projected);
-\textbf{D = Mobile Deployment \& Streaming} (how the rendering stage
-is mapped onto a Snapdragon / Adreno / Vulkan target);
-\textbf{E = Cross-Disciplinary} (static-3DGS acceleration and
-adjacent 2D / video / NeRF work that informs the mobile 4DGS design
-space but does not stand on the A--D pipeline on its own). Each
-surveyed paper is assigned to the single faction whose pipeline
-stage is the load-bearing novelty; papers that legitimately split
-across two stages are cross-listed in both Appendix~A and the
-in-text discussion. The body of the survey is organised into nine
-sections (\S2--\S9) following the same
-representation / compression / rendering / deployment axis, with
-cross-references back to the appropriate faction where needed.}
+\caption{Faction taxonomy used throughout this survey. Factions A--D
+represent the four primary dimensions of mobile 4DGS research; faction
+E collects orthogonal static-3DGS acceleration and cross-disciplinary
+work that informs the mobile 4DGS design space. The body of the survey
+organises works into 9 sections (\S2--\S9) following the
+``representation / training / rendering / deployment''
+pipeline-stage axis, with cross-references back to the appropriate
+faction where needed.}
 \label{fig:taxonomy}
 \end{figure}

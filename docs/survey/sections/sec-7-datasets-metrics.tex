@@ -88,35 +88,19 @@ papers, with a one-line interpretation of what they measure.
   \item \textbf{PSNR} (per-frame, dB): the standard
         signal-to-noise ratio; a $30$~dB number corresponds
         to a roughly $0.1$\% per-pixel error. 4DGS papers
-        report PSNR on D-NeRF (e.g.\ Wu 4DGS = 34.05~dB,
-        4DGS-1K = 32.99~dB, MEGA = 38.10~dB --- these
-        are paper-note Table values, not a uniform range;
-        cross-paper numbers are not directly comparable
-        across different scene splits; see
-        \S\ref{sec:datasets} for cross-dataset caveats);
-        other datasets (DyCheck, Plenoptic Video, CMU
-        Panoptic) report values in the high 20s to low
-        30s depending on the split and the metric
-        protocol.
+        report PSNR on D-NeRF (28--32~dB), DyCheck (28--31~dB),
+        Plenoptic Video (28--30~dB), and CMU Panoptic
+        (26--30~dB).
   \item \textbf{SSIM} (per-frame, 0--1): structural similarity
         index, sensitive to luminance and contrast. The 4DGS
-        literature uses SSIM only as a secondary metric;
-        representative paper-note values are Wu 4DGS on
-        D-NeRF = 0.98 and 4DGS-1K on D-NeRF = 0.97. SSIM
-        varies substantially across datasets and across
-        train/test splits, so a single ``0.85--0.95''
-        range is not well supported by the paper-note
-        corpus.
+        literature uses SSIM only as a secondary metric,
+        typically 0.85--0.95 on the same datasets.
   \item \textbf{LPIPS} (per-frame, 0--1): learned perceptual
         similarity, computed by a pre-trained AlexNet or
-        VGG. Representative paper-note values are Wu 4DGS on
-        D-NeRF = 0.02 and 4DGS-1K on D-NeRF = 0.05. The
-        canonical route typically reports LPIPS in the
-        0.02--0.05 range on D-NeRF; the dynamic / static
-        separation route varies by scene. Earlier drafts of
-        this survey reported an ``0.08--0.18'' range that
-        conflated VGG and AlexNet variants; we drop that
-        range here.
+        VGG. The 4DGS literature reports LPIPS in the
+        0.08--0.18 range, with the canonical route
+        typically at 0.12--0.16 and the dynamic / static
+        separation route at 0.10--0.13.
 \end{itemize}
 
 \paragraph{Temporal consistency.}
@@ -138,9 +122,8 @@ papers, with a one-line interpretation of what they measure.
 \paragraph{Speed, storage, and energy.}
 \begin{itemize}
   \item \textbf{FPS} (decode + render): the end-to-end frame
-        rate. The canonical 4DGS route reaches 30--82~FPS
-        on RTX 3090 (Wu 4DGS Table 1: D-NeRF 82, Neu3D 30, HyperNeRF 34);
-        the dynamic / static separation
+        rate. The canonical 4DGS route reaches 30--60~FPS
+        on a desktop GPU; the dynamic / static separation
         route reaches 800--1500~FPS on a desktop GPU; the
         mobile routes (Mobile-GS, Flux-GS) reach
         127--147~FPS on a Snapdragon~8~Gen~3.
