@@ -40,7 +40,9 @@ Replacing them with a 0th-order (DC) SH plus a view-dependent
 lookup table cuts the per-Gaussian parameter count from 59 to
 11 floats, which is a 5.4$\times$ storage reduction. Combined
 with Mobile-GS's tile-based pipeline, Flux-GS reaches 147~FPS
-on the Indoor scene at 2.1~MB model size on a Snapdragon~8~Gen~3.
+on the outdoor scene at 2.1~MB model size on a Snapdragon~8~Elite
+(indoor scene: 4.6~MB at slightly lower FPS; see
+Table~\ref{tab:mobile-perf}).
 The visual-equivalence claim is the basis for the
 ``1.7~MB'' Snap~8~Gen~4 Indoor target we adopt in
 \S\ref{sec:mobile}.
