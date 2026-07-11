@@ -111,7 +111,10 @@ per-fragment cost is therefore $\sim$8 bytes of tile memory
 traffic per fragment. For a 1080p frame at 60~FPS with an
 average $N_{\text{pixel}}=4$ overlapping Gaussians, the alpha
 blend alone consumes $\sim$4~GB/s of tile memory bandwidth,
-which is roughly 8\% of the Adreno~830's 51~GB/s DRAM ceiling.
+which is roughly 5\% of the Adreno~830's 77~GB/s LPDDR5X DRAM ceiling
+(per Qualcomm Snapdragon~8~Elite specifications; the 51~GB/s figure
+sometimes quoted in earlier drafts corresponds to a different
+memory-configuration assumption).
 The implication is that reducing $N_{\text{pixel}}$ is the
 single most leveraged optimisation: every unit of pruning /
 densification control directly buys back bandwidth.

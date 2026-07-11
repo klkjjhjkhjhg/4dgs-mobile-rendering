@@ -69,11 +69,13 @@ tracer that intersects each ray against the 4DGS Gaussian set
 using an analytic ellipsoid--ray intersection test. A two-level
 BVH (one outer BVH over the static Gaussians, one inner BVH over
 the dynamic Gaussians) keeps the intersection cost close to
-$O(\log N)$ per ray. The reported desktop numbers are 8--12~FPS
-at 1080p on an RTX~4090, which is roughly 50$\times$ slower
-than rasterisation. The trade-off is a 3--5~dB PSNR improvement
-on high-frequency specular content (shiny car bodies, glass
-cups), which is the content that rasterisers struggle with.
+$O(\log N)$ per ray. The reported desktop numbers are
+$0.2$--$3.4$~FPS at 1080p on an RTX~4090 (paper Table 1,
+median 1.2 FPS across 8 D-NeRF scenes), which is roughly
+50$\times$ slower than rasterisation. The trade-off is a
+3--5~dB PSNR improvement on high-frequency specular content
+(shiny car bodies, glass cups), which is the content that
+rasterisers struggle with.
 
 \subsubsection{GS-NFS: neural feature streaming.}
 GS-NFS~\cite{ghosh2026gsnfs} decouples geometry from appearance:
