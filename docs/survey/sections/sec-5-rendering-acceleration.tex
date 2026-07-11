@@ -29,9 +29,17 @@ the per-pixel alpha blend happens in tile memory rather than
 main memory. Third, the alpha-blend equation
 (Equation~\eqref{eq:alpha}) is reformulated as a 4-channel
 multiply-add that the Adreno~830 shader core can issue in a
-single instruction. Together these three changes reduce the
-fragment-shader cost from $\sim$30~ns / pixel (vanilla 3DGS on
-desktop) to $\sim$6~ns / pixel on the Snapdragon~8~Gen~3.
+single instruction. Together these three changes are claimed
+by Mobile-GS~\cite{du2026mobilegs} to reduce the
+fragment-shader cost; the precise per-pixel ns figures
+($\sim$30~ns / pixel on desktop, $\sim$6~ns / pixel on
+Snap~8~Gen~3) cited in earlier-draft surveys do not appear
+in the Mobile-GS paper or in the Lumina prior work, and
+should be treated as a rough order-of-magnitude estimate
+(typical mobile-GPU fragment shaders for 3DGS lie in the
+single-digit-to-low-tens of ns range; the actual Mobile-GS
+end-to-end speedup over vanilla 3DGS is
+$\sim$16$\times$ on desktop RTX~3090, not 5$\times$).
 
 \subsubsection{Flux-GS: 3rd-order SH visual equivalence.}
 Flux-GS~\cite{du2026fluxgs} observes that the 3rd-order SH
@@ -75,21 +83,32 @@ the dynamic Gaussians) keeps the intersection cost close to
 $O(\log N)$ per ray. The reported desktop numbers are
 $0.2$--$3.4$~FPS at 1080p on an RTX~4090 (paper Table 1,
 median 1.2 FPS across 8 D-NeRF scenes), which is roughly
-50$\times$ slower than rasterisation. The trade-off is a
-3--5~dB PSNR improvement on high-frequency specular content
-(shiny car bodies, glass cups), which is the content that
-rasterisers struggle with.
+50$\times$ slower than rasterisation on the same hardware.
+The exact "3--5~dB PSNR improvement on high-frequency
+specular content" claim does not appear in 4DGRT
+(Yang~2025) or in the 4D-GRT (Liu~2025, arxiv 2509.10759)
+ray-tracing paper (which addresses camera effects, not
+specular fidelity); the trade-off is real but the
+dB range is a survey-level estimate. The primary motivation
+for keeping rasterisation as the default 4DGS mobile
+backend is therefore compute cost, not absolute quality.
 
 \subsubsection{GS-NFS: neural feature streaming.}
 GS-NFS~\cite{ghosh2026gsnfs} decouples geometry from appearance:
 the geometry (positions, covariances, opacities) is sent as a
 low-rate stream, and the appearance (SH coefficients) is sent as
 a neural-feature latent code that is decoded on-device by a
-small CNN. The decoder runs at 25~FPS on a Jetson~Orin, with the
+small CNN. The decoder runs at 25~FPS on a Jetson~Orin
+(GS-NFS paper measurement; arxiv 2606.05650), with the
 neural-feature stream consuming $\sim$8~Mbps (a comfortable fit
-for 5G). On Adreno~830 the same decoder is projected at
-$\sim$18~FPS, which is below the 30~FPS mobile target but is
-already adequate for AR / pre-visualisation workflows.
+for 5G). The "~18~FPS on Adreno~830" projection quoted in
+earlier-draft surveys is an unsourced estimate — the
+GS-NFS paper benchmarks only Jetson~Orin, and Adreno~830
+(Snap~8~Elite, 2024) is a newer + higher-bandwidth target
+than Jetson~Orin (2018) so the directional extrapolation
+("<18~FPS") is not well grounded. We mark this as an
+engineering estimate pending a primary Adreno~830 GS-NFS
+benchmark.
 
 \subsubsection{Rasterizer vs.\ ray-tracer complementarity.}
 Rasterisation and ray tracing are complementary, not competing.
