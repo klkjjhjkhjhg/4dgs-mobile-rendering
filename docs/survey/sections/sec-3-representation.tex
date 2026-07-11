@@ -18,7 +18,7 @@ contrasts representative works and their trade-offs.
 \toprule
 \textbf{Category} & \textbf{Rep.\ work} & \textbf{Year} & \textbf{Venue} & \textbf{PSNR / FPS} & \textbf{Storage / Note} \\
 \midrule
-Canonical + Def.       & 4DGS~\cite{wu20244dgs} / Deformable-3DGS~\cite{yang2023deformable3dgs} & 2023--24 & CVPR~2024 & $\sim$30~dB & MLP inference; 8--40~min training (per-scene) \\
+Canonical + Def.       & 4DGS~\cite{wu20244dgs} / Deformable-3DGS~\cite{yang2023deformable3dgs} & 2023--24 & CVPR~2024 & $\sim$30--40~dB (D-NeRF synth.) & MLP inference; 2~MB MLP overhead; "on the order of minutes" training (paper) \\\\
 Dyn. / Stat. sep.      & 4DGS-1K~\cite{yuan20254dgs1k} / MEGA~\cite{zhang2024mega4dgsacceleration} & 2024--25 & CVPR~2025 / ICCV~2025 & \textbf{1000+~FPS} & \textbf{$\sim$2\% of 3DGS storage (D-NeRF)} \\
 Continuous-time        & RetimeGS~\cite{wang2026retimegs} & 2026 & CVPR~2026 Oral & \textbf{free framerate} & Continuous interp.\;no aliasing \\
 Feed-forward           & L2D2-GS~\cite{song2026l2d2gs} & 2026 & ECCV~2026     & \textbf{Feedforward; no mobile FPS reported} & No per-scene opt.\;data-bound \\
@@ -48,9 +48,11 @@ encoder is shared across all Gaussians in a scene (which is what
 makes the route tractable), and per-Gaussian adaptation is
 handled by a learnable feature vector stored alongside the
 covariance. In practice the deformation MLP weights roughly
-$3\!\times\!10^{5}$ parameters (measured on the
-D-NeRF~\cite{pumarola2021dnerf} Stand~Up scene), which adds
-$\sim$1.2~MB to the model on top of the canonical Gaussian set.
+$5\!-\!6\!\times\!10^{5}$ parameters (Yang et al.\ 2023, Section~B.1:
+"our additional storage compared to 3D Gaussians is only
+2~MB"), which adds $\sim$2~MB to the model on top of the
+canonical Gaussian set (the figure is scene-independent; the
+paper does not report per-scene byte counts).
 
 \subsubsection{Training cost: per-scene timing anchors.}
 A common misconception in earlier drafts of this survey was to
