@@ -123,10 +123,7 @@
 - **2025 H2**：6 篇
 - **2026 H1**：27 篇  ←  本批 3 (2026-07-09 cron) 加 4 篇 (mousa / poirier / song / zhou)
 ```
-
-**重点提示**: 25 H2 ~ 26 H1 = **强加速期**（29 / 49 = 59% 的论文集中这 12 月内）。**2026-07-08 专扫 CVPR 2026 Oral (ooonesevennn/CVPR_2026_Oral_Papers) 加 2 篇 4DGS-related Oral**。**ECCV 2026 接收名单尚未公开**（9 月会议，2026-07 仍无 accepted 名单数据）。
-
-**派系分布**（按本表分组）：
+- 合计 54 + 6 new = **60 篇**（v5.42 补全 60 bib entry: kerbl/pumarola/park-nerfies/park-hypernerf/simon/gao-dycheck）
 - A. 4DGS 表示（12 篇）  ←  本批 3 加 1 (song-l2d2-gs, 小米合作 ⭐⭐⭐)
 - B. 4DGS 加速 / 动静态分离（7 篇）
 - C. 渲染加速 / 移动端（14 篇）  ←  本批 3 加 2 (poirier-gray / zhou-temporalgs)
@@ -157,3 +154,15 @@ curl -sL --max-time 90 -o <arxiv-id>.pdf https://arxiv.org/pdf/<arxiv-id>
 ```
 
 如要给新加的 paper note 配 PDF，**用纯 arxiv id 命名**（如 `2603.11531.pdf`），不用易读名；**不要 commit**（已在 `.gitignore` 排除整个 `.pdfs/` 目录）。
+
+## G. 4DGS 前身 / 数据集 / 相关工作（6 篇）  ←  v5.42 补全 survey.bib 60 cite key
+
+| paper | arxiv id | year | 一句话 | 评 |
+|---|---|---|---|---|
+| [2023-kerbl-3dgs.md](2023-kerbl-3dgs.md) | 2308.04079 | 2023-08 | 3DGS 原论文, SIGGRAPH 2023 Best Paper (INRIA) | ⭐⭐⭐ |
+| [2023-navaneet-compact3d.md](2023-navaneet-compact3d.md) | 2311.18159 | 2023-11 | CompGS/Compact3D, residual VQ, 15× reduction + 200+ FPS (UMBC) | ⭐⭐ |
+| [2021-pumarola-dnerf.md](2021-pumarola-dnerf.md) | 2011.13961 | 2020-11 | D-NeRF, monocular dynamic NeRF (UB+ETH) | ⭐⭐ |
+| [2021-park-nerfies.md](2021-park-nerfies.md) | 2011.12948 | 2020-11 | Nerfies, deformable NeRF (Google+UW) | ⭐⭐ |
+| [2021-park-hypernerf.md](2021-park-hypernerf.md) | 2106.13228 | 2021-06 | HyperNeRF, topology-varying + vrig dataset (Google) | ⭐⭐ |
+| [2022-gao-dycheck.md](2022-gao-dycheck.md) | 2210.13445 | 2022-10 | DyCheck iPhone dataset, 5 scenes (UCB+FAIR+Google) | ⭐⭐ |
+| [2017-simon-handkeypoint.md](2017-simon-handkeypoint.md) | 1704.07809 | 2017-04 | Hand Keypoint Detection, multiview bootstrapping (CMU) | ⭐ |
