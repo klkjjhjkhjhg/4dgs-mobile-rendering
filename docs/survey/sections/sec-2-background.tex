@@ -147,10 +147,13 @@ Continuous-time & $\sim$1.5$\times$ static + $t$-embed & 20--45~min & free frame
 
 \subsection{Mobile GPU Foundations}
 Mobile GPUs such as the Adreno 830 are constrained by: compute
-budget ($\sim$2.5--3~TFLOPs FP32, back-of-envelope from 1536 ALUs
+budget ($\sim$1.7--2~TFLOPs FP32, back-of-envelope from 1536 ALUs
 at $\sim$1.1~GHz; Qualcomm does not publish an official FP32
 figure, and earlier-draft numbers of 2~TFLOPs actually match the
-prior-gen Adreno 750 in Snapdragon~8~Gen~3), memory bandwidth,
+prior-gen Adreno 750 in Snapdragon~8~Gen~3; the 2.5--3~TFLOPs
+range quoted in earlier-draft surveys post-v5.16 is the upper
+end of this back-of-envelope, with 1.7--2~TFLOPs being a
+slightly more conservative estimate), memory bandwidth,
 the maturity of Vulkan~1.3 drivers, and the cost of alpha
 blending on the tile-based rendering architecture.
 
