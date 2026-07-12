@@ -160,9 +160,15 @@ papers, with a one-line interpretation of what they measure.
         final model. The static 3DGS baseline is
         60--600~MB; the 4DGS-1K dynamic / static
         separation route compresses this to
-        $\sim$7--418~MB (Yuan 2025, paper Tables 1--3:
-        D-NeRF 7--16~MB, N3V 41--418~MB; the 2--10~MB
-        figure sometimes quoted in earlier drafts
+        $\sim$7--50~MB (D-NeRF aggregate) / $\sim$50--420~MB
+        (N3V aggregate) (Yuan 2025, paper Tables 1--3;
+        Ours-PP column: D-NeRF aggregate 7.23~MB with
+        per-scene range 3.56--16.11~MB, N3V aggregate 49.5~MB
+        with per-scene range 29.34--69.24~MB; earlier-draft
+        surveys conflated the D-NeRF average (7) with
+        N3V per-scene upper bound (418) producing a
+        misleading "7--418~MB" range; the
+        2--10~MB figure sometimes quoted in earlier drafts
         corresponded only to the D-NeRF subset); the
         4DGS-CC codec compresses further to 1.7--5.0~MB
         (Chen 2025, paper Tables~1--3: D-NeRF 1.7--1.9~MB,

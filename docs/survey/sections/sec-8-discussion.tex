@@ -180,7 +180,12 @@ The 4DGS literature has seen roughly 3$\times$ per-year gains in
 training speed (4DGS 30--60~min in 2023, OMG4 22~min in 2025,
 L2D2-GS $<$1~s in 2026 at inference) and 5--10$\times$ per-year
 gains in model size (vanilla 4DGS 60--200~MB in 2023,
-4DGS-1K $\sim$7--418~MB in 2025 (D-NeRF 7--16~MB, N3V 41--418~MB),
+4DGS-1K $\sim$7--50~MB (D-NeRF aggregate) / $\sim$50--420~MB
+(N3V aggregate) in 2025, with per-scene ranges
+D-NeRF 3.56--16.11~MB (Ours-PP) and N3V 29.34--69.24~MB
+(Ours-PP); the earlier-draft 7--16~MB D-NeRF + 41--418~MB
+N3V range conflated averages and per-scene upper bounds
+and has been corrected),
 4DGS-CC 1.7--5.0~MB in 2025). Both
 curves are flattening: the next 3$\times$ in either dimension
 will require a fundamentally new representation (e.g. generative
