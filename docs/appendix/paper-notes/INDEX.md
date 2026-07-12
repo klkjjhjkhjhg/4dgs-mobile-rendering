@@ -19,7 +19,7 @@
 | [2025-yuan-4dgs-1k.md](2025-yuan-4dgs-1k.md) | 2503.16422 | 2025-03 | **本项目直接对标**，STV 评分 + temporal mask（动静态分离的隐式版本） | ⭐⭐⭐ |
 | [2023-attal-hyperreel.md](2023-attal-hyperreel.md) | 2301.02238 | 2023-01 | HyperReel，关键帧 + 光流 warp（NeRF-style 4D） | ⭐⭐ |
 | [2024-zhang-mega-4dgs-acceleration.md](2024-zhang-mega-4dgs-acceleration.md) | 2410.13613 | 2024-10 | MEGA，buffer-A/B 残差编码（结构化分离） | ⭐⭐ |
-| [2024-duan-4drotorgs.md](2024-duan-4drotorgs.md) | 2402.03306 | 2024-02 | 4D-RotorGS，**canonical rotation**，D-NeRF 1257 FPS（动静态分离的另一变体） | ⭐ |
+| [2024-duan-4drotorgs.md](2024-duan-4drotorgs.md) | 2402.03307 | 2024-02 | 4D-RotorGS，**canonical rotation** (arxiv-id corrected from prior 2402.03306 which is a math paper by Perrotin)，D-NeRF 1257 FPS（动静态分离的另一变体） | ⭐ |
 | [2024-li-spacetime-gaussians.md](2024-li-spacetime-gaussians.md) | 2312.16812 | 2023-12 | Spacetime Gaussians，geometry-aware KNN 时空网格 | ⭐ |
 | [2025-shi-sparse4dgs.md](2025-shi-sparse4dgs.md) | 2511.07122 | 2025-11 | Sparse4DGS，稀疏化 + 4DGS 加速 | ⭐ |
 | [2025-liu-4dgrt.md](2025-liu-4dgrt.md) | 2509.10759 | 2025-09 | 4DGRT，4DGS Ray Tracing（NTU+Intel） | ⭐ |

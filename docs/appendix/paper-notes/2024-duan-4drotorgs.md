@@ -5,7 +5,7 @@
 ## 0.5 元数据
 
 - **venue**: CVPR 2024
-- **arxiv-id**: 2402.03306
+- **arxiv-id**: 2402.03307  (corrected from prior 2402.03306; arxiv 2402.03306 is a different paper by Pacôme Perrotin on k-parity; 4D-RotorGS is arXiv 2402.03307 by Yuanxing Duan, confirmed via arxiv abs page)
 - **s2-id**: （v2 用 Semantic Scholar API 补全）
 - **homepage**: https://wdfvvy.github.io/4DRotorGS.github.io/
 - **github**: https://github.com/weify627/4D-Rotor-Gaussians
@@ -20,7 +20,7 @@
 如何在保持 4DGS 高质量的前提下,把动态场景新视角合成的**推理 FPS**推到 **1000+**?
 
 ## 链接(均经 fetch + GitHub README 实测)
-- arxiv: <https://arxiv.org/abs/2402.03306>(v1 2024-02-05;SIGGRAPH 2024 录用)
+- arxiv: <https://arxiv.org/abs/2402.03307>(v1 2024-02-05;SIGGRAPH 2024 录用)
 - 项目页: <https://wdfvvy.github.io/4DRotorGS.github.io/>(GitHub README 直引)
 - GitHub: <https://github.com/weify627/4D-Rotor-Gaussians>(README 实测)
 - PDF:**未下** —— abstract 直引
@@ -93,6 +93,6 @@
 - 4DGS-1K Table 2 中的 4D-RotorGS 数据行已在本笔记 cross-check 完。
 
 ## 引用一览
-- <https://arxiv.org/abs/2402.03306>(abstract 实测)
+- <https://arxiv.org/abs/2402.03307>(abstract 实测)
 - <https://github.com/weify627/4D-Rotor-Gaussians>(README 实测)
 - `/Users/klkjjhjkhjhg/Codes/4dgs-mobile-rendering/docs/appendix/paper-notes/2025-yuan-4dgs-1k.md` Table 2(同源 cross-check)
