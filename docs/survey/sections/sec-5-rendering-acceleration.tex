@@ -124,8 +124,16 @@ specular fidelity.
 
 \subsection{Mesh Extraction and Mobile Neural Rendering}
 Lumina~\cite{feng2025lumina} (SJTU + Rochester) takes the mobile
-neural-rendering route and reports $4.5\times$ speed-up and
-$5.3\times$ energy-efficiency improvement.
+neural-rendering route. Earlier-draft surveys cited a
+$4.5\times$ speed-up and $5.3\times$ energy-efficiency
+improvement; the paper-notes 2025-feng-lumina summary
+attributes these to a Jetson Xavier Volta baseline, but
+direct verification against the Lumina abstract on
+arxiv 2506.05682 (in the citekey's paper-note) returned
+0 hits for the "4.5x speedup" or "5.3x energy" strings,
+so the specific multipliers should be treated as
+paper-note-derived engineering claims rather than
+direct paper measurement.
 
 \subsubsection{Lumina radiance caching.}
 Lumina~\cite{feng2025lumina} exploits a key observation about
