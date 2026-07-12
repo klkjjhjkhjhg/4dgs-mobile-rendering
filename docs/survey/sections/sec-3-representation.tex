@@ -162,11 +162,15 @@ methods (4DGS, Deformable-3DGS) is that the former operates in a
 \emph{continuous-time parameterisation} whereas the latter
 \emph{interpolates between discrete training frames}. In
 practice this means a 4DGS model trained on 30~FPS data still
-struggles at 60~FPS because the deformation MLP does not
+struggle at 60~FPS because the deformation MLP does not
 generalise to unseen timestamps, while RetimeGS extrapolates
-without retraining. The trade-off is an additional 15--20\% in
-parameters (the time encoder weights) and an extra 5--8 minutes
-of training time per scene.
+without retraining. The trade-off is an additional time encoder
+(the time-encoding MLP weights) on top of the canonical
+4DGS storage, and longer training time per scene
+(RetimeGS paper Table~7 reports $\sim$63~min on the
+DNA-Rendering dataset for 1M primitives, vs.\ the
+$\sim$30~min reported by 4DGS-1K for the same class
+of scenes).
 
 \subsection{Memory-Efficient Variants}
 Sparse4DGS, CubifyGS and related works reduce VRAM usage through
