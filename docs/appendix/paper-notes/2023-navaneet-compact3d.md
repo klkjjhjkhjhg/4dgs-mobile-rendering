@@ -5,7 +5,7 @@
 ## 0.5 元数据
 
 - **venue**: ECCV 2024
-- **arxiv-id**: 2312.08826
+- **arxiv-id**: 2311.18159  (corrected from prior 2312.08826; arxiv 2312.08826 is a different paper by Galindo-Gutierrez et al. on software testing; Compact3D / CompGS is arXiv 2311.18159, confirmed via UCDvision/compact3d GitHub repo and arxiv abs page)
 - **s2-id**: （v2 用 Semantic Scholar API 补全）
 - **homepage**: （无）
 - **github**: （无）
