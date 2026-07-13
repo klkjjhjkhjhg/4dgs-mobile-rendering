@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "4DGS / 3DGS Mobile Rendering 演进图",
-    "total_nodes": 54,
+    "total_nodes": 60,
     "factions": {
       "A": {
         "name": "4DGS 表示",
@@ -62,6 +62,51 @@
   },
   "nodes": [
     {
+      "id": "2017-simon-handkeypoint",
+      "label": "HANDKEYPOINT",
+      "year": 1704.07,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2021-park-hypernerf",
+      "label": "HYPERNERF",
+      "year": 2106.13,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2021-park-nerfies",
+      "label": "NERFIES",
+      "year": 2011.12,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2021-pumarola-dnerf",
+      "label": "DNERF",
+      "year": 2011.13,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2022-gao-dycheck",
+      "label": "DYCHECK",
+      "year": 2210.13,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2023-attal-hyperreel",
       "label": "HyperReel: High-Fidelity 6-DoF Video with Ray-Conditioned Sampling",
       "year": 2301.02,
@@ -84,16 +129,16 @@
       "label": "3DGS",
       "year": 2023.0,
       "faction": "C",
-      "arxiv": "2308.04079",
+      "arxiv": null,
       "refs": 0,
-      "rating": "⭐"
+      "rating": "⭐⭐⭐"
     },
     {
       "id": "2023-navaneet-compact3d",
       "label": "COMPACT3D",
       "year": 2023.0,
       "faction": "C",
-      "arxiv": "2312.08826",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐"
     },
@@ -129,7 +174,7 @@
       "label": "4DROTORGS",
       "year": 2024.0,
       "faction": "A",
-      "arxiv": "2402.03306",
+      "arxiv": "2402.03307",
       "refs": 0,
       "rating": "⭐"
     },
@@ -377,6 +422,15 @@
       "rating": "⭐"
     },
     {
+      "id": "2026-hu-mvfusion-gs",
+      "label": "MVFUSION-GS",
+      "year": 2607.01,
+      "faction": "A",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2026-huang-gaussianfluent",
       "label": "GaussianFluent: Gaussian Simulation for Dynamic Scenes with Mixed Materials",
       "year": 2601.09,
@@ -392,7 +446,7 @@
       "faction": "A",
       "arxiv": "2605.11427",
       "refs": 0,
-      "rating": "⭐"
+      "rating": "⭐⭐"
     },
     {
       "id": "2026-li-pocket-slam",
@@ -422,6 +476,24 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2026-mousa-provablepruning",
+      "label": "Provable Pruning for Efficient 3D Gaussian Splatting via Coresets",
+      "year": 2607.02,
+      "faction": "E",
+      "arxiv": "2607.02721",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-poirier-ginter-gray",
+      "label": "GRay: Ray Tracing 3D Gaussians Near the Speed of Splats",
+      "year": 2606.3,
+      "faction": "C",
+      "arxiv": "2606.30869",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2026-ren-cubifygs",
       "label": "CubifyGS: Object-Centric 3D Gaussian Splatting for Lifelong Dynamic Scene Maintenance",
       "year": 2606.28,
@@ -438,6 +510,15 @@
       "arxiv": "2606.07179",
       "refs": 0,
       "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-song-l2d2-gs",
+      "label": "L2D2-GS",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": "2606.29374",
+      "refs": 0,
+      "rating": "⭐⭐⭐"
     },
     {
       "id": "2026-thomas-gausslite",
@@ -464,7 +545,7 @@
       "faction": "A",
       "arxiv": "2603.13783",
       "refs": 0,
-      "rating": "⭐⭐"
+      "rating": "⭐⭐⭐"
     },
     {
       "id": "2026-yin-cags",
@@ -512,36 +593,9 @@
       "rating": "⭐⭐"
     },
     {
-      "id": "2026-mousa-provablepruning",
-      "label": "Provable Pruning: 3DGS Coresets",
-      "year": 2607.02721,
-      "faction": "C",
-      "arxiv": "2607.02721",
-      "refs": 0,
-      "rating": "⭐⭐"
-    },
-    {
-      "id": "2026-poirier-ginter-gray",
-      "label": "GRay: 3DGS Ray Tracing",
-      "year": 2606.30869,
-      "faction": "C",
-      "arxiv": "2606.30869",
-      "refs": 0,
-      "rating": "⭐⭐"
-    },
-    {
-      "id": "2026-song-l2d2-gs",
-      "label": "L2D2-GS: Feedforward 4DGS",
-      "year": 2606.29374,
-      "faction": "A",
-      "arxiv": "2606.29374",
-      "refs": 0,
-      "rating": "⭐⭐⭐"
-    },
-    {
       "id": "2026-zhou-temporalgs",
-      "label": "TemporalGS: Training-Free",
-      "year": 2607.0339,
+      "label": "TemporalGS: Training-Free Plug-and-Play Acceleration for 3D Gaussian Splatting Rendering via Temporal Priors",
+      "year": 2607.03,
       "faction": "C",
       "arxiv": "2607.03390",
       "refs": 0,

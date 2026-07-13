@@ -2,15 +2,16 @@
 
 > **本地 PDF stash**: `/.pdfs/`（仓库根目录，**不进 git**，见 `.gitignore`）
 > **命名约定**: 大部分用纯 arxiv id（`<arxiv-id>.pdf`），4 篇"早期下"的用易读命名（`4DGS-1K.pdf` / `wu-4dgs.pdf` 等）
-> **总计**: **54 篇 paper notes ↔ 54 个本地 PDF**（截至 2026-07-10，含 4 篇 2026-07-09 cron 扫描新增）
+> **总计**: **60 篇 paper notes ↔ 60 个本地 PDF**（截至 2026-07-13，含本批 1 篇 MVFusion-GS）
 > **标记**: ⭐⭐⭐ = 本项目直接对标 / ⭐⭐ = 高相关 / ⭐ = 参考
 > **本批扩展（25 H2 ~ 26 H1）**: 14 篇 — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv (3DGS 加速 / 压缩 / mobile / streaming 派系)
 > **本批触发**: 用户用 GitHub 链接 `https://github.com/xiaobiaodu/Flux-GS` 作为入口，扩到同期 13 篇相关工作
 > **本批 2（2026-07-08 ECCV/CVPR 专扫）**: 2 篇 CVPR 2026 Oral — `RetimeGS` (4DGS continuous-time, HKUST+Netflix) + `GaussianFluent` (3DGS 物理模拟, PKU+BIGAI)。**ECCV 2026 接收名单尚未公开（9 月会议，arXiv+web 搜索 4 来源无数据）**；CVPR 2026 Poster 全名单非常稀疏（amusi 3DGS 段仅 3 篇），本项目相关核心（Mobile-GS / Flux-GS / Flow4DGS-SLAM / RAP / FastGS / Topology-Aware）已在前批 commit 覆盖。
+> **本批 4（2026-07-13 arxiv 扫描）**: 1 篇 TIER 1 4DGS — `MVFusion-GS` (Tsinghua + UT Dallas + UESTC, 2026-07-02 arxiv)。**Motion-Variance Guided Refinement + MotionFormer Temporal Attention 双模块 plug-in DeGauss**，Neu3D +0.55 dB PSNR 同时 42% 动态 Gaussian 压缩。无 mobile 评测。22 篇新候选已分类 TIER 1/2/3（cron 预算只收 TIER 1）。
 
 ---
 
-## A. 4DGS 表示（高精度表示主线，9 篇）
+## A. 4DGS 表示（高精度表示主线，13 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -26,6 +27,7 @@
 | [2026-wang-retimegs.md](2026-wang-retimegs.md) | 2603.13783 | 2026-03 | **RetimeGS** (CVPR 2026 Oral, HKUST+Netflix)，4DGS continuous-time 表示，**消除 temporal aliasing + ghost-free frame interpolation** | ⭐⭐⭐ |
 | [2026-huang-gaussianfluent.md](2026-huang-gaussianfluent.md) | 2601.09265 | 2026-01 | **GaussianFluent** (CVPR 2026 Oral, PKU+BIGAI)，3DGS + MPM 物理模拟（elastic / fracture / slicing）+ 混合材质 | ⭐⭐ |
 | [2026-song-l2d2-gs.md](2026-song-l2d2-gs.md) | 2606.29374 | 2026-06 | **L2D2-GS** (小米+北大联合)，feedforward 4DGS 动态场景重建 + 自监督 densification policy（**对作者 heliangliang@xiaomi.com 有合作背景**） | ⭐⭐⭐ |
+| [2026-hu-mvfusion-gs.md](2026-hu-mvfusion-gs.md) | 2607.01578 | 2026-07 | **MVFusion-GS** (Tsinghua + UT Dallas + UESTC)，plug-in DeGauss with Motion-Variance guided refinement + MotionFormer Temporal Attention 双机制，Neu3D 32.07 dB (+0.55 vs DeGauss) + 42% 动态 Gaussian 压缩 (56,533 → 32,985) | ⭐⭐ |
 
 ---
 
@@ -123,14 +125,14 @@
 - **2025 H2**：6 篇
 - **2026 H1**：27 篇  ←  本批 3 (2026-07-09 cron) 加 4 篇 (mousa / poirier / song / zhou)
 ```
-- 合计 54 + 6 new = **60 篇**（v5.42 补全 60 bib entry: kerbl/pumarola/park-nerfies/park-hypernerf/simon/gao-dycheck）
-- A. 4DGS 表示（12 篇）  ←  本批 3 加 1 (song-l2d2-gs, 小米合作 ⭐⭐⭐)
+- 合计 54 + 6 + 1 = **61 篇** 已编 INDEX（v5.43 增 MVFusion-GS 后含 60 paper notes + INDEX.md = 61 .md）
+- A. 4DGS 表示（13 篇）  ←  本批 4 加 1 (hu-mvfusion-gs, plug-in DeGauss)
 - B. 4DGS 加速 / 动静态分离（7 篇）
 - C. 渲染加速 / 移动端（14 篇）  ←  本批 3 加 2 (poirier-gray / zhou-temporalgs)
 - D. 流式 streaming / 移动端落地（11 篇）  ←  本批 3 加 1 (mousa-provablepruning, 部署理论)
 - E. 3DGS 静态加速 / 通用（9 篇）  ←  补 3DGS 原论文 (2023-kerbl-3dgs) + navaneet 命名修正
 - F. Survey / Roadmap（1 篇）
-- **合计 54 篇**
+- **合计 61 篇**
 
 ---
 
