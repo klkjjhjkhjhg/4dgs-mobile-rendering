@@ -2,7 +2,7 @@
 
 > **本地 PDF stash**: `/.pdfs/`（仓库根目录，**不进 git**，见 `.gitignore`）
 > **命名约定**: 大部分用纯 arxiv id（`<arxiv-id>.pdf`），4 篇"早期下"的用易读命名（`4DGS-1K.pdf` / `wu-4dgs.pdf` 等）
-> **总计**: **60 篇 paper notes ↔ 60 个本地 PDF**（截至 2026-07-13，含本批 1 篇 MVFusion-GS）
+> **总计**: **59 篇 paper notes ↔ 59 个本地 PDF**（截至 2026-07-13，含本批 1 篇 MVFusion-GS，v5.44 删 2017-simon-handkeypoint 早于 3DGS 提出 2023-08, 不在调研范围）
 > **标记**: ⭐⭐⭐ = 本项目直接对标 / ⭐⭐ = 高相关 / ⭐ = 参考
 > **本批扩展（25 H2 ~ 26 H1）**: 14 篇 — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv (3DGS 加速 / 压缩 / mobile / streaming 派系)
 > **本批触发**: 用户用 GitHub 链接 `https://github.com/xiaobiaodu/Flux-GS` 作为入口，扩到同期 13 篇相关工作
@@ -157,7 +157,7 @@ curl -sL --max-time 90 -o <arxiv-id>.pdf https://arxiv.org/pdf/<arxiv-id>
 
 如要给新加的 paper note 配 PDF，**用纯 arxiv id 命名**（如 `2603.11531.pdf`），不用易读名；**不要 commit**（已在 `.gitignore` 排除整个 `.pdfs/` 目录）。
 
-## G. 4DGS 前身 / 数据集 / 相关工作（6 篇）  ←  v5.42 补全 survey.bib 60 cite key
+## G. 4DGS 前身 / 数据集 / 相关工作（6 篇）  ←  v5.42 补全 survey.bib cite key, v5.44 删 2017-simon-handkeypoint（17 年早于 3DGS 提出, 不属 4DGS 调研范围）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -167,4 +167,3 @@ curl -sL --max-time 90 -o <arxiv-id>.pdf https://arxiv.org/pdf/<arxiv-id>
 | [2021-park-nerfies.md](2021-park-nerfies.md) | 2011.12948 | 2020-11 | Nerfies, deformable NeRF (Google+UW) | ⭐⭐ |
 | [2021-park-hypernerf.md](2021-park-hypernerf.md) | 2106.13228 | 2021-06 | HyperNeRF, topology-varying + vrig dataset (Google) | ⭐⭐ |
 | [2022-gao-dycheck.md](2022-gao-dycheck.md) | 2210.13445 | 2022-10 | DyCheck iPhone dataset, 5 scenes (UCB+FAIR+Google) | ⭐⭐ |
-| [2017-simon-handkeypoint.md](2017-simon-handkeypoint.md) | 1704.07809 | 2017-04 | Hand Keypoint Detection, multiview bootstrapping (CMU) | ⭐ |

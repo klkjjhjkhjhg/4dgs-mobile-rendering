@@ -62,15 +62,6 @@
   },
   "nodes": [
     {
-      "id": "2017-simon-handkeypoint",
-      "label": "HANDKEYPOINT",
-      "year": 1704.07,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
       "id": "2021-park-hypernerf",
       "label": "HYPERNERF",
       "year": 2106.13,
@@ -883,5 +874,6 @@
       "to": "2023-fan-lightgaussian",
       "type": "direct"
     }
-  ]
+  ],
+  "links": []
 }
