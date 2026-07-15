@@ -913,7 +913,12 @@
       .on('mouseover', (e, d) => showTooltip(e, d))
       .on('mousemove', (e) => moveTooltip(e))
       .on('mouseout', () => hideTooltip())
-      .on('click', (e, d) => openModal(d));
+      .on('click', (e, d) => openModal(d))
+      .on('dblclick', (e, d) => {
+        // 双击解锁: 释放该节点的 fx/fy, 重新让 force 接管 (拖完节点变 "钉死" 状态, 想松开就用双击)
+        e.stopPropagation();
+        releaseNode(d);
+      });
 
     nodeG.filter(d => d.rating && d.rating.includes('⭐⭐⭐'))
       .append('circle').attr('r', 18).attr('fill', 'none')
@@ -981,9 +986,8 @@
         containerG.attr('transform', event.transform);
       })
       .on('end.zoom', () => {
-        // 缩放结束: 重画 hull + 恢复 force (低 alpha 重启, 让节点稳定下来)
+        // 缩放结束: 重画 hull, 不重启 simulation (zoom 是 view 变换, 节点位置不应被 force 重算)
         if (typeof refreshFactionHulls === 'function') refreshFactionHulls();
-        if (state.simulation) state.simulation.alpha(0.1).restart().alphaTarget(0);
         if (state._setZoomActive) state._setZoomActive(false);
       });
     svg.call(zoom);
@@ -995,9 +999,16 @@
       fitToViewport();
     });
     // 节点群 force 收敛后自动 fit 一次（fitToViewport 定义在 state 之后, 此处引用全局）
+    // 关键: 只在初次加载时跑一次。拖拽过程中 simulation 会再次 end, 不应触发 fit 覆盖用户操作。
     // zoom 期间冻结 force 会立即触发 'end', 此时不能 fit (会覆盖用户的 zoom transform)
     let zoomActive = false;
-    simulation.on('end', () => { if (!zoomActive) fitToViewport(); });
+    let initialFitDone = false;
+    simulation.on('end', () => {
+      if (zoomActive) return;
+      if (initialFitDone) return;     // 后续 simulation 'end' (拖动/缩放/筛选触发) 不再 fit
+      initialFitDone = true;
+      fitToViewport();
+    });
 
     // 暴露给 zoom handler 用: zoom 开始/结束时设标志
     state._zoomActive = () => zoomActive;
@@ -1018,8 +1029,13 @@
   }
   function dragEnded(event, d) {
     if (!event.active) state.simulation.alphaTarget(0);
+    // 保留 d.fx / d.fy: 节点拖到哪就停哪，不松手回弹
+    // 想解锁节点让其重新参与 force, 可双击该节点 (见下文 dblclick 监听)
+  }
+  function releaseNode(d) {
     d.fx = null;
     d.fy = null;
+    if (state.simulation) state.simulation.alpha(0.3).restart();
   }
 
   /* ===== Tooltip ===== */
