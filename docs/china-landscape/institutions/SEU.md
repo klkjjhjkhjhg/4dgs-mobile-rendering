@@ -3,8 +3,16 @@
 > **slug**: `SEU`  
 > **所在地**: Nanjing, Jiangsu  
 > **类型**: 高校  
-> **papers**: 2 篇 (paper-first 自动聚合)
-> **验证状态**: A+B 通过
+> **Papers**: 2 篇 (paper-first 自动聚合)
+> **合作价值**: **MEDIUM** — 2 papers + 有可联系入口
+
+## 代表老师
+
+- **姓名**: Ming Li（中文待补）
+- **职称**: Professor (待人工确认职称)
+- **个人主页**: https://mingli-ai.github.io/ (confidence: low)
+- **团队规模**: 未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)
+- **校友去向**: 未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)
 
 ## 代表作
 

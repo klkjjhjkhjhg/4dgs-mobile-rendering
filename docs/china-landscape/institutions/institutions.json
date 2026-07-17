@@ -135,7 +135,16 @@
    "2503.10286",
    "2312.17142"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Ziwei Liu",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://liuziwei7.github.io/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "7 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2312.17142",
@@ -146,7 +155,11 @@
    "https://arxiv.org/abs/2605.00177",
    "https://arxiv.org/abs/2411.15582"
   ],
-  "papers_count": 7
+  "papers_count": 7,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "high",
+  "co_op_rationale": "7 papers + PI homepage/DBLP 可联系"
  },
  {
   "name": "Tsinghua University",
@@ -272,7 +285,16 @@
    "2510.09997",
    "2603.11543"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Yebin Liu",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://www.au.tsinghua.edu.cn/en/info/1080/3314.htm",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "6 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2511.11175",
@@ -282,7 +304,11 @@
    "https://arxiv.org/abs/2604.04063",
    "https://arxiv.org/abs/2606.10656"
   ],
-  "papers_count": 6
+  "papers_count": 6,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "high",
+  "co_op_rationale": "6 papers + PI homepage/DBLP 可联系"
  },
  {
   "name": "Hong Kong University of Science and Technology",
@@ -401,7 +427,16 @@
    "2510.12174",
    "2602.06343"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Dan Xu",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "6 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2601.17835",
@@ -411,7 +446,11 @@
    "https://arxiv.org/abs/2410.13613",
    "https://arxiv.org/abs/2603.13783"
   ],
-  "papers_count": 6
+  "papers_count": 6,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "6 papers 但 PI 主页未直接命中 (需人工搜)"
  },
  {
   "name": "Shanghai Jiao Tong University",
@@ -518,7 +557,16 @@
    "2512.20943",
    "2503.13948"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Yu Feng",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "5 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2503.13948",
@@ -527,7 +575,11 @@
    "https://arxiv.org/abs/2505.08196",
    "https://arxiv.org/abs/2511.18755"
   ],
-  "papers_count": 5
+  "papers_count": 5,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "5 papers 但 PI 主页未直接命中 (需人工搜)"
  },
  {
   "name": "Chinese University of Hong Kong",
@@ -612,7 +664,16 @@
    "2401.16416",
    "2510.23087"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Hongliang Ren",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://www.labren.org/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "4 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2406.16073",
@@ -620,7 +681,11 @@
    "https://arxiv.org/abs/2605.16022",
    "https://arxiv.org/abs/2510.23087"
   ],
-  "papers_count": 4
+  "papers_count": 4,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "high",
+  "co_op_rationale": "4 papers + PI homepage/DBLP 可联系"
  },
  {
   "name": "Fudan University",
@@ -705,7 +770,16 @@
    "2605.14880",
    "2406.04251"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Li Zhang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://fudan-zvg.github.io/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "4 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2605.14880",
@@ -713,7 +787,11 @@
    "https://arxiv.org/abs/2406.04251",
    "https://arxiv.org/abs/2412.20720"
   ],
-  "papers_count": 4
+  "papers_count": 4,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "high",
+  "co_op_rationale": "4 papers + PI homepage/DBLP 可联系"
  },
  {
   "name": "The University of Hong Kong",
@@ -777,14 +855,27 @@
    "2510.01991",
    "2603.07552"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Hengshuang Zhao",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "3 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2603.07552",
    "https://arxiv.org/abs/2606.21753",
    "https://arxiv.org/abs/2510.01991"
   ],
-  "papers_count": 3
+  "papers_count": 3,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "3 papers 但 PI 主页未直接命中 (需人工搜)"
  },
  {
   "name": "Huazhong University of Science and Technology",
@@ -833,13 +924,26 @@
    "2310.08528",
    "2504.18318"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Xinggang Wang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://xinggangw.info/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2504.18318",
    "https://arxiv.org/abs/2310.08528"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "Zhejiang University",
@@ -884,13 +988,26 @@
    "2505.07539",
    "2605.23672"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Hujun Bao",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "http://www.cad.zju.edu.cn/home/bao/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "high",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2505.07539",
    "https://arxiv.org/abs/2605.23672"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "University of Science and Technology of China",
@@ -942,13 +1059,26 @@
    "2510.10030",
    "2604.18047"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Zhibo Chen",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://faculty.ustc.edu.cn/chenzhibo",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "high",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2604.18047",
    "https://arxiv.org/abs/2510.10030"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "Harbin Institute of Technology",
@@ -998,13 +1128,26 @@
    "2412.06424",
    "2508.02129"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Wangmeng Zuo",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "http://homepage.hit.edu.cn/wangmengzuo?lang=en",
+   "dblp_url": "https://dblp.uni-trier.de/pid/93/2671.html",
+   "scholar_url": null,
+   "confidence": "high",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2508.02129",
    "https://arxiv.org/abs/2412.06424"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "Sun Yat-sen University",
@@ -1053,13 +1196,26 @@
    "2603.00952",
    "2502.17860"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Jian-Fang Hu",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://cse.sysu.edu.cn/teacher/HuJianfang",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2502.17860",
    "https://arxiv.org/abs/2603.00952"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "Southeast University",
@@ -1102,13 +1258,26 @@
    "2605.22342",
    "2607.04761"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Ming Li",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://mingli-ai.github.io/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2607.04761",
    "https://arxiv.org/abs/2605.22342"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "Hangzhou Dianzi University",
@@ -1158,13 +1327,26 @@
    "2503.16710",
    "2511.07122"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Yanyan Li",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": "https://www.researchgate.net/scientific-contributions/Yanyan-Li-2082229610",
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2503.16710",
    "https://arxiv.org/abs/2511.07122"
   ],
-  "papers_count": 2
+  "papers_count": 2,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "medium",
+  "co_op_rationale": "2 papers + 有可联系入口"
  },
  {
   "name": "Hong Kong Polytechnic University",
@@ -1193,12 +1375,25 @@
   "paper_ids": [
    "2511.23044"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Penghui Ruan",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2511.23044"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "ShanghaiTech University",
@@ -1232,12 +1427,25 @@
   "paper_ids": [
    "2605.22020"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Laurent Kneip",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "https://mpl.sist.shanghaitech.edu.cn/",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2605.22020"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源 + 有主页 — 待扩"
  },
  {
   "name": "Nanjing University",
@@ -1265,12 +1473,25 @@
   "paper_ids": [
    "2504.06815"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Jian Yang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2504.06815"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Shenzhen University",
@@ -1296,12 +1517,25 @@
   "paper_ids": [
    "2503.06587"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Hui Huang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2503.06587"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Communication University of China",
@@ -1326,12 +1560,25 @@
   "paper_ids": [
    "2412.00333"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Yihao Luo",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": "https://www.researchgate.net/profile/Yihao-Luo-2",
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2412.00333"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源 + 有主页 — 待扩"
  },
  {
   "name": "Wuhan University",
@@ -1359,12 +1606,25 @@
   "paper_ids": [
    "2405.17872"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Yongchao Xu",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": "https://www.researchgate.net/scientific-contributions/Yongchao-Xu-2232150505",
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2405.17872"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源 + 有主页 — 待扩"
  },
  {
   "name": "Beijing Jiaotong University",
@@ -1392,12 +1652,25 @@
   "paper_ids": [
    "2604.01884"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Tao Wang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2604.01884"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "University of Science and Technology Beijing",
@@ -1427,12 +1700,25 @@
   "paper_ids": [
    "2508.12015"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Huimin Ma",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": "http://enscce.ustb.edu.cn/Teach/TeacherList/2020-06-03/51.html",
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "medium",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2508.12015"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源 + 有主页 — 待扩"
  },
  {
   "name": "Qilu University of Technology",
@@ -1463,12 +1749,25 @@
   "paper_ids": [
    "2605.11427"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Gang Li",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2605.11427"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Beihang University",
@@ -1497,12 +1796,25 @@
   "paper_ids": [
    "2504.18925"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Zicong Chen",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2504.18925"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Chinese Academy of Sciences — Institute of Computing Technology",
@@ -1530,12 +1842,25 @@
   "paper_ids": [
    "2511.14540"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Hao Tian",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2511.14540"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Chinese Academy of Sciences — Shenzhen Institute of Advanced Technology",
@@ -1565,12 +1890,25 @@
   "paper_ids": [
    "2510.27318"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Yongming Yang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2510.27318"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Xi'an Jiaotong-Liverpool University",
@@ -1597,12 +1935,25 @@
   "paper_ids": [
    "2411.01218"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Baoru Huang",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2411.01218"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  },
  {
   "name": "Nanjing University of Aeronautics and Astronautics",
@@ -1638,11 +1989,24 @@
   "paper_ids": [
    "2503.18052"
   ],
-  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "team_lead": {
+   "name_zh": "需人工补",
+   "name_en": "Bin Ren",
+   "title": "Professor (待人工确认职称)",
+   "homepage_url": null,
+   "dblp_url": null,
+   "scholar_url": null,
+   "confidence": "low",
+   "found_via": "phase1 web search"
+  },
   "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
   "sources": [
    "https://arxiv.org/abs/2503.18052"
   ],
-  "papers_count": 1
+  "papers_count": 1,
+  "team_size_estimate": "未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)",
+  "alumni_to_industry": "未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)",
+  "co_op_value": "low",
+  "co_op_rationale": "单源无 PI 主页 — 弱匹配"
  }
 ]

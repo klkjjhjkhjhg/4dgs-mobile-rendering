@@ -3,8 +3,15 @@
 > **slug**: `SJTU`  
 > **所在地**: Shanghai  
 > **类型**: 高校  
-> **papers**: 5 篇 (paper-first 自动聚合)
-> **验证状态**: A+B 通过
+> **Papers**: 5 篇 (paper-first 自动聚合)
+> **合作价值**: **MEDIUM** — 5 papers 但 PI 主页未直接命中 (需人工搜)
+
+## 代表老师
+
+- **姓名**: Yu Feng（中文待补）
+- **职称**: Professor (待人工确认职称)
+- **团队规模**: 未知 (subagent 抓 publications HTML 失败 / 主线 HTML JS-rendered)
+- **校友去向**: 未公开 (未抓到 alumni 数据 — 需后续 DBLP / 实验室主页核查)
 
 ## 代表作
 
