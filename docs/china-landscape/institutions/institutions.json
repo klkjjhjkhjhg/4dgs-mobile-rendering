@@ -1,0 +1,1648 @@
+[
+ {
+  "name": "Peking University",
+  "slug": "PKU",
+  "location": "Beijing",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "DreamGaussian4D: Generative 4D Gaussian Splatting",
+    "arxiv_id": "2312.17142",
+    "year": 2023,
+    "quarter": "2023Q4",
+    "authors_abs": [
+     "Jiawei Ren",
+     "Liang Pan",
+     "Jiaxiang Tang",
+     "Chi Zhang",
+     "Ang Cao",
+     "Gang Zeng",
+     "Ziwei Liu"
+    ],
+    "faction": "A",
+    "role": "NTU 主导；PKU (Ziwei Liu) 国内主通讯 (DreamGaussian4D)",
+    "url": "https://arxiv.org/abs/2312.17142"
+   },
+   {
+    "title": "4D Gaussian Splatting with Scale-aware Residual Field and Adaptive Optimization for Real-time Rendering of Temporally Complex Dynamic Scenes",
+    "arxiv_id": "2412.06299",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Jinbo Yan",
+     "Rui Peng",
+     "Luyang Tang",
+     "Ronggang Wang"
+    ],
+    "faction": "A",
+    "role": "PKU Shenzhen (4DGS scale-aware residual)",
+    "url": "https://arxiv.org/abs/2412.06299"
+   },
+   {
+    "title": "4D-Rotor Gaussian Splatting: Towards Efficient Novel View Synthesis for Dynamic Scenes",
+    "arxiv_id": "2402.03307",
+    "year": 2024,
+    "quarter": "2024Q1",
+    "authors_abs": [
+     "Yuanxing Duan",
+     "Fangyin Wei",
+     "Qiyu Dai",
+     "Yuhang He",
+     "Wenzheng Chen",
+     "Baoquan Chen"
+    ],
+    "faction": "A",
+    "role": "PKU + Princeton + SKL of General AI (4D-RotorGS)",
+    "url": "https://arxiv.org/abs/2402.03307"
+   },
+   {
+    "title": "EMD: Explicit Motion Modeling for High-Quality Street Gaussian Splatting",
+    "arxiv_id": "2411.15582",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Xiaobao Wei",
+     "Qingpo Wuwu",
+     "Zhongyu Zhao",
+     "Zhuangzhe Wu",
+     "Nan Huang",
+     "Ming Lu",
+     "Ningning MA",
+     "Shanghang Zhang"
+    ],
+    "faction": "C",
+    "role": "PKU + NIO + CAS (EMD street GS)",
+    "url": "https://arxiv.org/abs/2411.15582"
+   },
+   {
+    "title": "A Novel Benchmark and Dataset for Efficient 3D Gaussian Splatting with Gaussian Point Cloud Compression",
+    "arxiv_id": "2505.18197",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "Kangli Wang",
+     "Shihao Li",
+     "Qianxi Yi",
+     "Wei Gao"
+    ],
+    "faction": "C",
+    "role": "PKU Shenzhen + PCL (GausPCC compression)",
+    "url": "https://arxiv.org/abs/2505.18197"
+   },
+   {
+    "title": "VicaSplat: A Single Run is All You Need for 3D Gaussian Splatting and Camera Estimation from Unposed Video Frames",
+    "arxiv_id": "2503.10286",
+    "year": 2025,
+    "quarter": "2025Q1",
+    "authors_abs": [
+     "Zhiqi Li",
+     "Chengrui Dong",
+     "Yiming Chen",
+     "Zhangchi Huang",
+     "Peidong Liu"
+    ],
+    "faction": "C",
+    "role": "ZJU + Westlake (VicaSplat — first author dual-affil)",
+    "url": "https://arxiv.org/abs/2503.10286"
+   },
+   {
+    "title": "FieryGS: In-the-Wild Fire Synthesis with Physics-Integrated Gaussian Splatting",
+    "arxiv_id": "2605.00177",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Qianfan Shen",
+     "Ningxiao Tao",
+     "Qiyu Dai",
+     "Tianle Chen",
+     "Minghan Qin",
+     "Yongjie Zhang",
+     "Mengyu Chu",
+     "Wenzheng Chen",
+     "Baoquan Chen"
+    ],
+    "faction": "C",
+    "role": "PKU + ByteDance Seed (FieryGS)",
+    "url": "https://arxiv.org/abs/2605.00177"
+   }
+  ],
+  "paper_ids": [
+   "2412.06299",
+   "2402.03307",
+   "2505.18197",
+   "2605.00177",
+   "2411.15582",
+   "2503.10286",
+   "2312.17142"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "7 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2312.17142",
+   "https://arxiv.org/abs/2503.10286",
+   "https://arxiv.org/abs/2412.06299",
+   "https://arxiv.org/abs/2402.03307",
+   "https://arxiv.org/abs/2505.18197",
+   "https://arxiv.org/abs/2605.00177",
+   "https://arxiv.org/abs/2411.15582"
+  ],
+  "papers_count": 7
+ },
+ {
+  "name": "Tsinghua University",
+  "slug": "Tsinghua",
+  "location": "Beijing",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Dynamic Gaussian Scene Reconstruction from Unsynchronized Videos",
+    "arxiv_id": "2511.11175",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Zhixin Xu",
+     "Hengyu Zhou",
+     "Yuan Liu",
+     "Wenhan Xue",
+     "Hao Pan",
+     "Wenping Wang",
+     "Bin Wang"
+    ],
+    "faction": "A",
+    "role": "Tsinghua + HKUST (unsync dynamic GS)",
+    "url": "https://arxiv.org/abs/2511.11175"
+   },
+   {
+    "title": "Alias-free 4D Gaussian Splatting",
+    "arxiv_id": "2511.18367",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Zilong Chen",
+     "Huan-ang Gao",
+     "Delin Qu",
+     "Haohan Chi",
+     "Hao Tang",
+     "Kai Zhang",
+     "Hao Zhao"
+    ],
+    "faction": "A",
+    "role": "Tsinghua + AIR + BAAI + Fudan + PKU (Alias-free 4DGS)",
+    "url": "https://arxiv.org/abs/2511.18367"
+   },
+   {
+    "title": "CLoD-GS: Continuous Level-of-Detail via 3D Gaussian Splatting",
+    "arxiv_id": "2510.09997",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Zhigang Cheng",
+     "Mingchao Sun",
+     "Yu Liu",
+     "Zengye Ge",
+     "Luyang Tang",
+     "Mu Xu",
+     "Yangyan Li",
+     "Peng Pan"
+    ],
+    "faction": "C",
+    "role": "Tsinghua + Alibaba AMAP (CLoD-GS)",
+    "url": "https://arxiv.org/abs/2510.09997"
+   },
+   {
+    "title": "4C4D: 4 Camera 4D Gaussian Splatting",
+    "arxiv_id": "2604.04063",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Junsheng Zhou",
+     "Zhifan Yang",
+     "Liang Han",
+     "Wenyuan Zhang",
+     "Kanle Shi",
+     "Shenkun Xu",
+     "Yu-Shen Liu"
+    ],
+    "faction": "A",
+    "role": "Tsinghua Software School + Kuaishou (4C4D)",
+    "url": "https://arxiv.org/abs/2604.04063"
+   },
+   {
+    "title": "Envision4D: Envisioning Visual Futures via Feed-forward 4D Gaussian Splatting for Autonomous Driving",
+    "arxiv_id": "2606.10656",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Qi Song",
+     "Yifei He",
+     "Chi Zhang",
+     "Zheng Fu",
+     "Xuhe Zhao",
+     "Mengmeng Yang",
+     "Kun Jiang",
+     "Rui Huang",
+     "Diange Yang"
+    ],
+    "faction": "A",
+    "role": "Tsinghua + CUHK-SZ (Envision4D 自动驾驶)",
+    "url": "https://arxiv.org/abs/2606.10656"
+   },
+   {
+    "title": "Mango-GS: Enhancing Spatio-Temporal Consistency in Dynamic Scenes Reconstruction using Multi-Frame Node-Guided 4D Gaussian Splatting",
+    "arxiv_id": "2603.11543",
+    "year": 2026,
+    "quarter": "2026Q1",
+    "authors_abs": [
+     "Tingxuan Huang",
+     "Haowei Zhu",
+     "Jun-hai Yong",
+     "Hao Pan",
+     "Bin Wang"
+    ],
+    "faction": "A",
+    "role": "Tsinghua + BNRist (Mango-GS multi-frame node-guided)",
+    "url": "https://arxiv.org/abs/2603.11543"
+   }
+  ],
+  "paper_ids": [
+   "2604.04063",
+   "2511.11175",
+   "2606.10656",
+   "2511.18367",
+   "2510.09997",
+   "2603.11543"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "6 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2511.11175",
+   "https://arxiv.org/abs/2511.18367",
+   "https://arxiv.org/abs/2510.09997",
+   "https://arxiv.org/abs/2603.11543",
+   "https://arxiv.org/abs/2604.04063",
+   "https://arxiv.org/abs/2606.10656"
+  ],
+  "papers_count": 6
+ },
+ {
+  "name": "Hong Kong University of Science and Technology",
+  "slug": "HKUST",
+  "location": "Hong Kong",
+  "type": "高校（香港）",
+  "papers": [
+   {
+    "title": "MEGA: Memory-Efficient 4D Gaussian Splatting for Dynamic Scenes",
+    "arxiv_id": "2410.13613",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Xinjie Zhang",
+     "Zhening Liu",
+     "Yifan Zhang",
+     "Xingtong Ge",
+     "Dailan He",
+     "Tongda Xu",
+     "Yan Wang",
+     "Zehong Lin",
+     "Shuicheng Yan",
+     "Jun Zhang"
+    ],
+    "faction": "A",
+    "role": "HKUST + Skywork AI + CUHK + NUS + Tsinghua AIR (MEGA 4DGS)",
+    "url": "https://arxiv.org/abs/2410.13613"
+   },
+   {
+    "title": "Mono4DGS-HDR: High Dynamic Range 4D Gaussian Splatting from Alternating-exposure Monocular Videos",
+    "arxiv_id": "2510.18489",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Jinfeng Liu",
+     "Lingtong Kong",
+     "Mi Zhou",
+     "Jinwen Chen",
+     "Dan Xu"
+    ],
+    "faction": "A",
+    "role": "HKUST + vivo Mobile (Mono4DGS-HDR)",
+    "url": "https://arxiv.org/abs/2510.18489"
+   },
+   {
+    "title": "UniGS: Unified Geometry-Aware Gaussian Splatting for Multimodal Rendering",
+    "arxiv_id": "2510.12174",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Yusen Xie",
+     "Zhenmin Huang",
+     "Jianhao Jiao",
+     "Dimitrios Kanoulas",
+     "Jun Ma"
+    ],
+    "faction": "C",
+    "role": "HKUST(GZ) + HKUST + UCL (UniGS multimodal)",
+    "url": "https://arxiv.org/abs/2510.12174"
+   },
+   {
+    "title": "Geometry-Grounded Gaussian Splatting",
+    "arxiv_id": "2601.17835",
+    "year": 2026,
+    "quarter": "2026Q1",
+    "authors_abs": [
+     "Baowen Zhang",
+     "Chenxing Jiang",
+     "Heng Li",
+     "Shaojie Shen",
+     "Ping Tan"
+    ],
+    "faction": "C",
+    "role": "HKUST (Geometry-Grounded GS)",
+    "url": "https://arxiv.org/abs/2601.17835"
+   },
+   {
+    "title": "RetimeGS: Continuous-Time Reconstruction of 4D Gaussian Splatting",
+    "arxiv_id": "2603.13783",
+    "year": 2026,
+    "quarter": "2026Q1",
+    "authors_abs": [
+     "Xuezhen Wang",
+     "Li Ma",
+     "Yulin Shen",
+     "Zeyu Wang",
+     "Pedro V. Sander"
+    ],
+    "faction": "A",
+    "role": "HKUST + Netflix + HKUST(GZ) (RetimeGS)",
+    "url": "https://arxiv.org/abs/2603.13783"
+   },
+   {
+    "title": "Uncertainty-Aware 4D Gaussian Splatting for Monocular Occluded Human Rendering",
+    "arxiv_id": "2602.06343",
+    "year": 2026,
+    "quarter": "2026Q1",
+    "authors_abs": [
+     "Weiquan Wang",
+     "Feifei Shao",
+     "Lin Li",
+     "Zhen Wang",
+     "Jun Xiao",
+     "Long Chen"
+    ],
+    "faction": "A",
+    "role": "HKUST + Zhejiang Univ (Uncertainty-Aware 4DGS)",
+    "url": "https://arxiv.org/abs/2602.06343"
+   }
+  ],
+  "paper_ids": [
+   "2510.18489",
+   "2601.17835",
+   "2410.13613",
+   "2603.13783",
+   "2510.12174",
+   "2602.06343"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "6 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2601.17835",
+   "https://arxiv.org/abs/2510.12174",
+   "https://arxiv.org/abs/2602.06343",
+   "https://arxiv.org/abs/2510.18489",
+   "https://arxiv.org/abs/2410.13613",
+   "https://arxiv.org/abs/2603.13783"
+  ],
+  "papers_count": 6
+ },
+ {
+  "name": "Shanghai Jiao Tong University",
+  "slug": "SJTU",
+  "location": "Shanghai",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Splatonic: Architecture Support for 3D Gaussian Splatting SLAM via Sparse Processing",
+    "arxiv_id": "2511.18755",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Xiaotong Huang",
+     "He Zhu",
+     "Tianrui Ma",
+     "Yuxiang Xiong",
+     "Fangxin Liu",
+     "Zhezhi He",
+     "Yiming Gan",
+     "Zihan Liu",
+     "Jingwen Leng",
+     "Yu Feng",
+     "Minyi Guo"
+    ],
+    "faction": "C",
+    "role": "SJTU + 上海期智 + ICT CAS (Splatonic 架构)",
+    "url": "https://arxiv.org/abs/2511.18755"
+   },
+   {
+    "title": "Voyager: Real-Time Splatting City-Scale Gaussians on Resource-Constrained Devices",
+    "arxiv_id": "2506.02774",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "Zheng Liu",
+     "He Zhu",
+     "Xinyang Li",
+     "Yirun Wang",
+     "Yujiao Shi",
+     "Yiming Gan",
+     "Wei Li",
+     "Jingwen Leng",
+     "Minyi Guo",
+     "Yu Feng"
+    ],
+    "faction": "C",
+    "role": "SJTU + 上海期智 + ShanghaiTech + ICT CAS (Voyager mobile GS)",
+    "url": "https://arxiv.org/abs/2506.02774"
+   },
+   {
+    "title": "ADC-GS: Anchor-Driven Deformable and Compressed Gaussian Splatting for Dynamic Scene Reconstruction",
+    "arxiv_id": "2505.08196",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "He Huang",
+     "Qi Yang",
+     "Mufan Liu",
+     "Yiling Xu",
+     "Zhu Li"
+    ],
+    "faction": "A",
+    "role": "SJTU (ADC-GS compressed)",
+    "url": "https://arxiv.org/abs/2505.08196"
+   },
+   {
+    "title": "AirGS: Real-Time 4D Gaussian Streaming for Free-Viewpoint Video Experiences",
+    "arxiv_id": "2512.20943",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Zhe Wang",
+     "Jinghang Li",
+     "Yifei Zhu"
+    ],
+    "faction": "B",
+    "role": "SJTU Global College (AirGS streaming)",
+    "url": "https://arxiv.org/abs/2512.20943"
+   },
+   {
+    "title": "Light4GS: Lightweight Compact 4D Gaussian Splatting Generation via Context Model",
+    "arxiv_id": "2503.13948",
+    "year": 2025,
+    "quarter": "2025Q1",
+    "authors_abs": [
+     "Mufan Liu",
+     "Qi Yang",
+     "He Huang",
+     "Wenjie Huang",
+     "Zhenlong Yuan",
+     "Zhu Li",
+     "Yiling Xu"
+    ],
+    "faction": "A",
+    "role": "SJTU + UMKC (Light4GS context compression)",
+    "url": "https://arxiv.org/abs/2503.13948"
+   }
+  ],
+  "paper_ids": [
+   "2511.18755",
+   "2506.02774",
+   "2505.08196",
+   "2512.20943",
+   "2503.13948"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "5 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2503.13948",
+   "https://arxiv.org/abs/2512.20943",
+   "https://arxiv.org/abs/2506.02774",
+   "https://arxiv.org/abs/2505.08196",
+   "https://arxiv.org/abs/2511.18755"
+  ],
+  "papers_count": 5
+ },
+ {
+  "name": "Chinese University of Hong Kong",
+  "slug": "CUHK",
+  "location": "Hong Kong",
+  "type": "高校（香港）",
+  "papers": [
+   {
+    "title": "LGS: A Light-weight 4D Gaussian Splatting for Efficient Surgical Scene Reconstruction",
+    "arxiv_id": "2406.16073",
+    "year": 2024,
+    "quarter": "2024Q2",
+    "authors_abs": [
+     "Hengyu Liu",
+     "Yifan Liu",
+     "Chenxin Li",
+     "Wuyang Li",
+     "Yixuan Yuan"
+    ],
+    "faction": "A",
+    "role": "CUHK 香港 (LGS surgical 4DGS)",
+    "url": "https://arxiv.org/abs/2406.16073"
+   },
+   {
+    "title": "Endo-4DGS: Endoscopic Monocular Scene Reconstruction with 4D Gaussian Splatting",
+    "arxiv_id": "2401.16416",
+    "year": 2024,
+    "quarter": "2024Q1",
+    "authors_abs": [
+     "Yiming Huang",
+     "Beilei Cui",
+     "Long Bai",
+     "Ziqi Guo",
+     "Mengya Xu",
+     "Mobarakol Islam",
+     "Hongliang Ren"
+    ],
+    "faction": "A",
+    "role": "CUHK 香港 + WEISS UCL (Endo-4DGS)",
+    "url": "https://arxiv.org/abs/2401.16416"
+   },
+   {
+    "title": "EndoWave: Rational-Wavelet 4D Gaussian Splatting for Endoscopic Reconstruction",
+    "arxiv_id": "2510.23087",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Taoyu Wu",
+     "Yiyi Miao",
+     "Jiaxin Guo",
+     "Ziyan Chen",
+     "Sihang Zhao",
+     "Zhuoxiao Li",
+     "Zhe Tang",
+     "Baoru Huang",
+     "Limin Yu"
+    ],
+    "faction": "A",
+    "role": "CUHK + XJTLU + HKUST(GZ) + ZJUT (EndoWave)",
+    "url": "https://arxiv.org/abs/2510.23087"
+   },
+   {
+    "title": "EndoGSim: Physics-Aware 4D Dynamic Endoscopic Scene Simulations via MLLM-Guided Gaussian Splatting",
+    "arxiv_id": "2605.16022",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Changjing Liu",
+     "Yiming Huang",
+     "Long Bai",
+     "Beilei Cui",
+     "Hongliang Ren"
+    ],
+    "faction": "A",
+    "role": "CUHK 香港 + UCL (EndoGSim)",
+    "url": "https://arxiv.org/abs/2605.16022"
+   }
+  ],
+  "paper_ids": [
+   "2406.16073",
+   "2605.16022",
+   "2401.16416",
+   "2510.23087"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "4 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2406.16073",
+   "https://arxiv.org/abs/2401.16416",
+   "https://arxiv.org/abs/2605.16022",
+   "https://arxiv.org/abs/2510.23087"
+  ],
+  "papers_count": 4
+ },
+ {
+  "name": "Fudan University",
+  "slug": "Fudan",
+  "location": "Shanghai",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Real-time Photorealistic Dynamic Scene Representation and Rendering with 4D Gaussian Splatting",
+    "arxiv_id": "2310.10642",
+    "year": 2023,
+    "quarter": "2023Q4",
+    "authors_abs": [
+     "Zeyu Yang",
+     "Hongye Yang",
+     "Zijie Pan",
+     "Li Zhang"
+    ],
+    "faction": "A",
+    "role": "Fudan (Real-time Photorealistic 4DGS — 与 HUST 4DGS 同期)",
+    "url": "https://arxiv.org/abs/2310.10642"
+   },
+   {
+    "title": "4D Gaussian Splatting: Modeling Dynamic Scenes with Native 4D Primitives",
+    "arxiv_id": "2412.20720",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Zeyu Yang",
+     "Zijie Pan",
+     "Xiatian Zhu",
+     "Li Zhang",
+     "Jianfeng Feng",
+     "Yu-Gang Jiang",
+     "Philip H.S. Torr"
+    ],
+    "faction": "A",
+    "role": "Fudan + Surrey + Oxford (Native 4D Primitives)",
+    "url": "https://arxiv.org/abs/2412.20720"
+   },
+   {
+    "title": "Improving Gaussian Splatting with Localized Points Management",
+    "arxiv_id": "2406.04251",
+    "year": 2024,
+    "quarter": "2024Q2",
+    "authors_abs": [
+     "Haosen Yang",
+     "Chenhao Zhang",
+     "Wenqing Wang",
+     "Marco Volino",
+     "Adrian Hilton",
+     "Li Zhang",
+     "Xiatian Zhu"
+    ],
+    "faction": "C",
+    "role": "Fudan + Surrey (Localized Points Management)",
+    "url": "https://arxiv.org/abs/2406.04251"
+   },
+   {
+    "title": "Denoising-GS: Gaussian Splatting with Spatial-aware Denoising",
+    "arxiv_id": "2605.14880",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Qingyuan Zhou",
+     "Xinyi Liu",
+     "Weidong Yang",
+     "Ning Wang",
+     "Shuquan Ye",
+     "Ben Fei",
+     "Ying He",
+     "Wanli Ouyang"
+    ],
+    "faction": "C",
+    "role": "Fudan + 大连理工 + CUHK (Denoising-GS)",
+    "url": "https://arxiv.org/abs/2605.14880"
+   }
+  ],
+  "paper_ids": [
+   "2412.20720",
+   "2310.10642",
+   "2605.14880",
+   "2406.04251"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "4 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2605.14880",
+   "https://arxiv.org/abs/2310.10642",
+   "https://arxiv.org/abs/2406.04251",
+   "https://arxiv.org/abs/2412.20720"
+  ],
+  "papers_count": 4
+ },
+ {
+  "name": "The University of Hong Kong",
+  "slug": "HKU",
+  "location": "Hong Kong",
+  "type": "高校（香港）",
+  "papers": [
+   {
+    "title": "4DGS-Craft: Consistent and Interactive 4D Gaussian Splatting Editing",
+    "arxiv_id": "2510.01991",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Lei Liu",
+     "Can Wang",
+     "Zhenghao Chen",
+     "Dong Xu"
+    ],
+    "faction": "A",
+    "role": "HKU + Newcastle (4DGS-Craft editing)",
+    "url": "https://arxiv.org/abs/2510.01991"
+   },
+   {
+    "title": "Scene-Level Heterogeneous Physics Simulation with 3D Gaussian Splats",
+    "arxiv_id": "2606.21753",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Xiaoyang Liu",
+     "Shangzhe Wu",
+     "Kai Han"
+    ],
+    "faction": "C",
+    "role": "HKU + Cambridge (Physics sim GS)",
+    "url": "https://arxiv.org/abs/2606.21753"
+   },
+   {
+    "title": "ReconDrive: Fast Feed-Forward 4D Gaussian Splatting for Autonomous Driving Scene Reconstruction",
+    "arxiv_id": "2603.07552",
+    "year": 2026,
+    "quarter": "2026Q1",
+    "authors_abs": [
+     "Haibao Yu",
+     "Kuntao Xiao",
+     "Jiahang Wang",
+     "Ruiyang Hao",
+     "Yuxin Huang",
+     "Guoran Hu",
+     "Haifang Qin",
+     "Bowen Jing",
+     "Yuntian Bo",
+     "Ping Luo"
+    ],
+    "faction": "A",
+    "role": "HKU + Tuojing Intelligence + KCL + Sydney + MBZUAI (ReconDrive)",
+    "url": "https://arxiv.org/abs/2603.07552"
+   }
+  ],
+  "paper_ids": [
+   "2606.21753",
+   "2510.01991",
+   "2603.07552"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "3 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2603.07552",
+   "https://arxiv.org/abs/2606.21753",
+   "https://arxiv.org/abs/2510.01991"
+  ],
+  "papers_count": 3
+ },
+ {
+  "name": "Huazhong University of Science and Technology",
+  "slug": "HUST",
+  "location": "Wuhan, Hubei",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "4D Gaussian Splatting for Real-Time Dynamic Scene Rendering",
+    "arxiv_id": "2310.08528",
+    "year": 2023,
+    "quarter": "2023Q4",
+    "authors_abs": [
+     "Guanjun Wu",
+     "Taoran Yi",
+     "Jiemin Fang",
+     "Lingxi Xie",
+     "Xiaopeng Zhang",
+     "Wei Wei",
+     "Wenyu Liu",
+     "Qi Tian",
+     "Xinggang Wang"
+    ],
+    "faction": "A",
+    "role": "HUST School of CS + Huawei 联合通讯 (4DGS 原论文)",
+    "url": "https://arxiv.org/abs/2310.08528"
+   },
+   {
+    "title": "STP4D: Spatio-Temporal-Prompt Consistent Modeling for Text-to-4D Gaussian Splatting",
+    "arxiv_id": "2504.18318",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "Yunze Deng",
+     "Haijun Xiong",
+     "Bin Feng",
+     "Xinggang Wang",
+     "Wenyu Liu"
+    ],
+    "faction": "A",
+    "role": "HUST School of EIC (STP4D text-to-4D)",
+    "url": "https://arxiv.org/abs/2504.18318"
+   }
+  ],
+  "paper_ids": [
+   "2310.08528",
+   "2504.18318"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2504.18318",
+   "https://arxiv.org/abs/2310.08528"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "Zhejiang University",
+  "slug": "ZJU",
+  "location": "Hangzhou, Zhejiang",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "GIFStream: 4D Gaussian-based Immersive Video with Feature Stream",
+    "arxiv_id": "2505.07539",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "Hao Li",
+     "Sicheng Li",
+     "Xiang Gao",
+     "Abudouaihati Batuer",
+     "Lu Yu",
+     "Yiyi Liao"
+    ],
+    "faction": "B",
+    "role": "ZJU (GIFStream 4DGS)",
+    "url": "https://arxiv.org/abs/2505.07539"
+   },
+   {
+    "title": "RiGS: Rigid-aware 4D Gaussian Splatting from a Single Monocular Video",
+    "arxiv_id": "2605.23672",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Chenyu Wu",
+     "Wanhua Li",
+     "Zhu-Tian Chen",
+     "Hanspeter Pfister"
+    ],
+    "faction": "A",
+    "role": "ZJU + Harvard + NTU + UMN (RiGS)",
+    "url": "https://arxiv.org/abs/2605.23672"
+   }
+  ],
+  "paper_ids": [
+   "2505.07539",
+   "2605.23672"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2505.07539",
+   "https://arxiv.org/abs/2605.23672"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "University of Science and Technology of China",
+  "slug": "USTC",
+  "location": "Hefei, Anhui",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "P-4DGS: Predictive 4D Gaussian Splatting with 90$\\times$ Compression",
+    "arxiv_id": "2510.10030",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Henan Wang",
+     "Hanxin Zhu",
+     "Xinliang Gong",
+     "Tianyu He",
+     "Xin Li",
+     "Zhibo Chen"
+    ],
+    "faction": "B",
+    "role": "USTC (P-4DGS 90× compression)",
+    "url": "https://arxiv.org/abs/2510.10030"
+   },
+   {
+    "title": "GS-STVSR: Ultra-Efficient Continuous Spatio-Temporal Video Super-Resolution via 2D Gaussian Splatting",
+    "arxiv_id": "2604.18047",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Mingyu Shi",
+     "Xin Di",
+     "Long Peng",
+     "Boxiang Cao",
+     "Anran Wu",
+     "Zhanfeng Feng",
+     "Jiaming Guo",
+     "Renjing Pei",
+     "Xueyang Fu",
+     "Yang Cao",
+     "Zhengjun Zha"
+    ],
+    "faction": "A",
+    "role": "USTC + Huawei Noah (GS-STVSR)",
+    "url": "https://arxiv.org/abs/2604.18047"
+   }
+  ],
+  "paper_ids": [
+   "2510.10030",
+   "2604.18047"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2604.18047",
+   "https://arxiv.org/abs/2510.10030"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "Harbin Institute of Technology",
+  "slug": "HIT",
+  "location": "Harbin, Heilongjiang",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Deblur4DGS: 4D Gaussian Splatting from Blurry Monocular Video",
+    "arxiv_id": "2412.06424",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Renlong Wu",
+     "Zhilu Zhang",
+     "Mingyang Chen",
+     "Zifei Yan",
+     "Wangmeng Zuo"
+    ],
+    "faction": "A",
+    "role": "HIT (Deblur4DGS)",
+    "url": "https://arxiv.org/abs/2412.06424"
+   },
+   {
+    "title": "VDEGaussian: Video Diffusion Enhanced 4D Gaussian Splatting for Dynamic Urban Scenes Modeling",
+    "arxiv_id": "2508.02129",
+    "year": 2025,
+    "quarter": "2025Q3",
+    "authors_abs": [
+     "Yuru Xiao",
+     "Zihan Lin",
+     "Chao Lu",
+     "Deming Zhai",
+     "Kui Jiang",
+     "Wenbo Zhao",
+     "Wei Zhang",
+     "Junjun Jiang",
+     "Huanran Wang",
+     "Xianming Liu"
+    ],
+    "faction": "A",
+    "role": "HIT + Mach Drive (VDEGaussian)",
+    "url": "https://arxiv.org/abs/2508.02129"
+   }
+  ],
+  "paper_ids": [
+   "2412.06424",
+   "2508.02129"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2508.02129",
+   "https://arxiv.org/abs/2412.06424"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "Sun Yat-sen University",
+  "slug": "SYSU",
+  "location": "Guangzhou, Guangdong",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "UniGS: Unified Language-Image-3D Pretraining with Gaussian Splatting",
+    "arxiv_id": "2502.17860",
+    "year": 2025,
+    "quarter": "2025Q1",
+    "authors_abs": [
+     "Haoyuan Li",
+     "Yanpeng Zhou",
+     "Tao Tang",
+     "Jifei Song",
+     "Yihan Zeng",
+     "Michael Kampffmeyer",
+     "Hang Xu",
+     "Xiaodan Liang"
+    ],
+    "faction": "C",
+    "role": "SYSU 深圳 + 华为诺亚 (UniGS language-image-3D)",
+    "url": "https://arxiv.org/abs/2502.17860"
+   },
+   {
+    "title": "Decoupling Motion and Geometry in 4D Gaussian Splatting",
+    "arxiv_id": "2603.00952",
+    "year": 2026,
+    "quarter": "2026Q1",
+    "authors_abs": [
+     "Yi Zhang",
+     "Yulei Kang",
+     "Jiangxin Sun",
+     "Beihao Xia",
+     "Jisheng Dang",
+     "Jian-Fang Hu"
+    ],
+    "faction": "A",
+    "role": "SYSU + Trento + HUST + 兰大 (Decoupling motion/geometry)",
+    "url": "https://arxiv.org/abs/2603.00952"
+   }
+  ],
+  "paper_ids": [
+   "2603.00952",
+   "2502.17860"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2502.17860",
+   "https://arxiv.org/abs/2603.00952"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "Southeast University",
+  "slug": "SEU",
+  "location": "Nanjing, Jiangsu",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "4D-GSW: Kinematic-Aware Spatio-Temporal Consistent Watermarking for 4D Gaussian Splatting",
+    "arxiv_id": "2605.22342",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Sifan Zhou",
+     "Hang Zhang",
+     "Yuhang Wang",
+     "Ming Li"
+    ],
+    "faction": "A",
+    "role": "SEU + Guangdong Lab AI + UCAS (4D-GSW watermark)",
+    "url": "https://arxiv.org/abs/2605.22342"
+   },
+   {
+    "title": "DeGenseGS: Geometrically and Semantically Decoupled Surgical Scene Understanding in 4D Gaussian Splatting",
+    "arxiv_id": "2607.04761",
+    "year": 2026,
+    "quarter": "2026Q3",
+    "authors_abs": [
+     "Yimo Wang",
+     "Bin Kang",
+     "Shuojue Yang",
+     "Yueming Jin"
+    ],
+    "faction": "A",
+    "role": "SEU + 南京邮电 + NUS (DeGenseGS surgical)",
+    "url": "https://arxiv.org/abs/2607.04761"
+   }
+  ],
+  "paper_ids": [
+   "2605.22342",
+   "2607.04761"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2607.04761",
+   "https://arxiv.org/abs/2605.22342"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "Hangzhou Dianzi University",
+  "slug": "HDU",
+  "location": "Hangzhou, Zhejiang",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "4D Gaussian Splatting SLAM",
+    "arxiv_id": "2503.16710",
+    "year": 2025,
+    "quarter": "2025Q1",
+    "authors_abs": [
+     "Yanyan Li",
+     "Youxu Fang",
+     "Zunjie Zhu",
+     "Kunyi Li",
+     "Yong Ding",
+     "Federico Tombari"
+    ],
+    "faction": "A",
+    "role": "HDU + ZJU + TUM + Google (4DGS-SLAM)",
+    "url": "https://arxiv.org/abs/2503.16710"
+   },
+   {
+    "title": "Sparse4DGS: 4D Gaussian Splatting for Sparse-Frame Dynamic Scene Reconstruction",
+    "arxiv_id": "2511.07122",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Changyue Shi",
+     "Chuxiao Yang",
+     "Xinyuan Hu",
+     "Minghao Chen",
+     "Wenwen Pan",
+     "Yan Yang",
+     "Jiajun Ding",
+     "Zhou Yu",
+     "Jun Yu"
+    ],
+    "faction": "A",
+    "role": "HDU + PKU + HIT (Sparse4DGS)",
+    "url": "https://arxiv.org/abs/2511.07122"
+   }
+  ],
+  "paper_ids": [
+   "2503.16710",
+   "2511.07122"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "2 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2503.16710",
+   "https://arxiv.org/abs/2511.07122"
+  ],
+  "papers_count": 2
+ },
+ {
+  "name": "Hong Kong Polytechnic University",
+  "slug": "PolyU",
+  "location": "Hong Kong",
+  "type": "高校（香港）",
+  "papers": [
+   {
+    "title": "Geometry-Consistent 4D Gaussian Splatting for Sparse-Input Dynamic View Synthesis",
+    "arxiv_id": "2511.23044",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Yiwei Li",
+     "Jiannong Cao",
+     "Penghui Ruan",
+     "Divya Saxena",
+     "Songye Zhu",
+     "Yinfeng Cao"
+    ],
+    "faction": "A",
+    "role": "PolyU + SUSTech (Geometry-Consistent 4DGS)",
+    "url": "https://arxiv.org/abs/2511.23044"
+   }
+  ],
+  "paper_ids": [
+   "2511.23044"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2511.23044"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "ShanghaiTech University",
+  "slug": "ShanghaiTech",
+  "location": "Shanghai",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "ForeSplat: Optimization-Aware Foresight for Feed-Forward 3D Gaussian Splatting",
+    "arxiv_id": "2605.22020",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Yuke Li",
+     "Weihang Liu",
+     "Cheng Zhang",
+     "Yuefeng Zhang",
+     "Jiadi Cui",
+     "Zixuan Wang",
+     "Junran Ding",
+     "Haoyu Wu",
+     "Yujiao Shi",
+     "Jingyi Yu",
+     "Xin Lou"
+    ],
+    "faction": "C",
+    "role": "ShanghaiTech + GGU Tech (ForeSplat)",
+    "url": "https://arxiv.org/abs/2605.22020"
+   }
+  ],
+  "paper_ids": [
+   "2605.22020"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2605.22020"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Nanjing University",
+  "slug": "NJU",
+  "location": "Nanjing, Jiangsu",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "SVG-IR: Spatially-Varying Gaussian Splatting for Inverse Rendering",
+    "arxiv_id": "2504.06815",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "Hanxiao Sun",
+     "YuPeng Gao",
+     "Jin Xie",
+     "Jian Yang",
+     "Beibei Wang"
+    ],
+    "faction": "E",
+    "role": "NJU + Nankai (SVG-IR)",
+    "url": "https://arxiv.org/abs/2504.06815"
+   }
+  ],
+  "paper_ids": [
+   "2504.06815"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2504.06815"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Shenzhen University",
+  "slug": "SZU",
+  "location": "Shenzhen, Guangdong",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Introducing Unbiased Depth into 2D Gaussian Splatting for High-accuracy Surface Reconstruction",
+    "arxiv_id": "2503.06587",
+    "year": 2025,
+    "quarter": "2025Q1",
+    "authors_abs": [
+     "Yixin Yang",
+     "Yang Zhou",
+     "Hui Huang"
+    ],
+    "faction": "C",
+    "role": "SZU (Unbiased Depth 2DGS — Pacific Graphics 2025)",
+    "url": "https://arxiv.org/abs/2503.06587"
+   }
+  ],
+  "paper_ids": [
+   "2503.06587"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2503.06587"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Communication University of China",
+  "slug": "CUC",
+  "location": "Beijing",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Gaussians on their Way: Wasserstein-Constrained 4D Gaussian Splatting with State-Space Modeling",
+    "arxiv_id": "2412.00333",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Junli Deng",
+     "Yihao Luo"
+    ],
+    "faction": "A",
+    "role": "CUC + Imperial College (Wasserstein 4DGS)",
+    "url": "https://arxiv.org/abs/2412.00333"
+   }
+  ],
+  "paper_ids": [
+   "2412.00333"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2412.00333"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Wuhan University",
+  "slug": "WHU",
+  "location": "Wuhan, Hubei",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "HFGS: 4D Gaussian Splatting with Emphasis on Spatial and Temporal High-Frequency Components for Endoscopic Scene Reconstruction",
+    "arxiv_id": "2405.17872",
+    "year": 2024,
+    "quarter": "2024Q2",
+    "authors_abs": [
+     "Haoyu Zhao",
+     "Xingyue Zhao",
+     "Lingting Zhu",
+     "Weixi Zheng",
+     "Yongchao Xu"
+    ],
+    "faction": "A",
+    "role": "WHU + XJTU + HKU (HFGS surgical 4DGS)",
+    "url": "https://arxiv.org/abs/2405.17872"
+   }
+  ],
+  "paper_ids": [
+   "2405.17872"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2405.17872"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Beijing Jiaotong University",
+  "slug": "BJTU",
+  "location": "Beijing",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "GS^2: Graph-based Spatial Distribution Optimization for Compact 3D Gaussian Splatting",
+    "arxiv_id": "2604.01884",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Xianben Yang",
+     "Tao Wang",
+     "Yuxuan Li",
+     "Yi Jin",
+     "Haibin Ling"
+    ],
+    "faction": "C",
+    "role": "BJTU + Westlake (GS^2 spatial distribution)",
+    "url": "https://arxiv.org/abs/2604.01884"
+   }
+  ],
+  "paper_ids": [
+   "2604.01884"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2604.01884"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "University of Science and Technology Beijing",
+  "slug": "USTB",
+  "location": "Beijing",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "InstDrive: Instance-Aware 3D Gaussian Splatting for Driving Scenes",
+    "arxiv_id": "2508.12015",
+    "year": 2025,
+    "quarter": "2025Q3",
+    "authors_abs": [
+     "Hongyuan Liu",
+     "Haochen Yu",
+     "Bochao Zou",
+     "Jianfei Jiang",
+     "Qiankun Liu",
+     "Jiansheng Chen",
+     "Huimin Ma"
+    ],
+    "faction": "C",
+    "role": "USTB (InstDrive autonomous driving GS)",
+    "url": "https://arxiv.org/abs/2508.12015"
+   }
+  ],
+  "paper_ids": [
+   "2508.12015"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2508.12015"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Qilu University of Technology",
+  "slug": "QLU",
+  "location": "Jinan, Shandong",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "PD-4DGS:Progressive Decomposition of 4D Gaussian Splatting for Bandwidth-Adaptive Dynamic Scene Streaming",
+    "arxiv_id": "2605.11427",
+    "year": 2026,
+    "quarter": "2026Q2",
+    "authors_abs": [
+     "Jiachen Li",
+     "Guangzhi Han",
+     "Jin Wan",
+     "Delong Han",
+     "Yuan Gao",
+     "Min Li",
+     "Mingle Zhou",
+     "Gang Li"
+    ],
+    "faction": "B",
+    "role": "齐鲁工业大学 (PD-4DGS bandwidth streaming)",
+    "url": "https://arxiv.org/abs/2605.11427"
+   }
+  ],
+  "paper_ids": [
+   "2605.11427"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2605.11427"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Beihang University",
+  "slug": "Beihang",
+  "location": "Beijing",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "4DGS-CC: A Contextual Coding Framework for 4D Gaussian Splatting Data Compression",
+    "arxiv_id": "2504.18925",
+    "year": 2025,
+    "quarter": "2025Q2",
+    "authors_abs": [
+     "Zicong Chen",
+     "Zhenghao Chen",
+     "Wei Jiang",
+     "Wei Wang",
+     "Lei Liu",
+     "Dong Xu"
+    ],
+    "faction": "B",
+    "role": "BUAA + HKU + Newcastle + Futurewei (4DGS-CC compression)",
+    "url": "https://arxiv.org/abs/2504.18925"
+   }
+  ],
+  "paper_ids": [
+   "2504.18925"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2504.18925"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Chinese Academy of Sciences — Institute of Computing Technology",
+  "slug": "ICT-CAS",
+  "location": "Beijing",
+  "type": "高校（中科院）",
+  "papers": [
+   {
+    "title": "Interaction-Aware 4D Gaussian Splatting for Dynamic Hand-Object Interaction Reconstruction",
+    "arxiv_id": "2511.14540",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Hao Tian",
+     "Chenyangguang Zhang",
+     "Rui Liu",
+     "Wen Shen",
+     "Xiaolin Qin"
+    ],
+    "faction": "A",
+    "role": "ICT CAS + 中石油 + 清华 + 中央民族 + UCAS (hand-object 4DGS)",
+    "url": "https://arxiv.org/abs/2511.14540"
+   }
+  ],
+  "paper_ids": [
+   "2511.14540"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2511.14540"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Chinese Academy of Sciences — Shenzhen Institute of Advanced Technology",
+  "slug": "SIAT-CAS",
+  "location": "Shenzhen, Guangdong",
+  "type": "高校（中科院）",
+  "papers": [
+   {
+    "title": "SAGS: Self-Adaptive Alias-Free Gaussian Splatting for Dynamic Surgical Endoscopic Reconstruction",
+    "arxiv_id": "2510.27318",
+    "year": 2025,
+    "quarter": "2025Q4",
+    "authors_abs": [
+     "Wenfeng Huang",
+     "Xiangyun Liao",
+     "Yinling Qian",
+     "Hao Liu",
+     "Yongming Yang",
+     "Wenjing Jia",
+     "Qiong Wang"
+    ],
+    "faction": "A",
+    "role": "SIAT CAS + 沈阳自动化 CAS + UTS (SAGS surgical GS)",
+    "url": "https://arxiv.org/abs/2510.27318"
+   }
+  ],
+  "paper_ids": [
+   "2510.27318"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2510.27318"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Xi'an Jiaotong-Liverpool University",
+  "slug": "XJTLU",
+  "location": "Suzhou, Jiangsu",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "Real-Time Spatio-Temporal Reconstruction of Dynamic Endoscopic Scenes with 4D Gaussian Splatting",
+    "arxiv_id": "2411.01218",
+    "year": 2024,
+    "quarter": "2024Q4",
+    "authors_abs": [
+     "Fengze Li",
+     "Jishuai He",
+     "Jieming Ma",
+     "Zhijing Wu"
+    ],
+    "faction": "A",
+    "role": "XJTLU + Liverpool + Cambridge (Real-Time Spatio-Temporal Endoscopic)",
+    "url": "https://arxiv.org/abs/2411.01218"
+   }
+  ],
+  "paper_ids": [
+   "2411.01218"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2411.01218"
+  ],
+  "papers_count": 1
+ },
+ {
+  "name": "Nanjing University of Aeronautics and Astronautics",
+  "slug": "NUAA",
+  "location": "Nanjing, Jiangsu",
+  "type": "高校",
+  "papers": [
+   {
+    "title": "SceneSplat: Gaussian Splatting-based Scene Understanding with Vision-Language Pretraining",
+    "arxiv_id": "2503.18052",
+    "year": 2025,
+    "quarter": "2025Q1",
+    "authors_abs": [
+     "Yue Li",
+     "Qi Ma",
+     "Runyi Yang",
+     "Huapeng Li",
+     "Mengjiao Ma",
+     "Bin Ren",
+     "Nikola Popovic",
+     "Nicu Sebe",
+     "Ender Konukoglu",
+     "Theo Gevers",
+     "Luc Van Gool",
+     "Martin R. Oswald",
+     "Danda Pani Paudel"
+    ],
+    "faction": "C",
+    "role": "NUAA + ETH Zurich + INSAIT + Amsterdam (SceneSplat scene understanding)",
+    "url": "https://arxiv.org/abs/2503.18052"
+   }
+  ],
+  "paper_ids": [
+   "2503.18052"
+  ],
+  "team_lead": "见各 paper role 字段（通讯作者需 paper-first 验证）",
+  "trend": "1 papers (2024-2026)；本 entry 是 paper-first 自动聚合，trend 由 paper role 字段汇总",
+  "sources": [
+   "https://arxiv.org/abs/2503.18052"
+  ],
+  "papers_count": 1
+ }
+]
