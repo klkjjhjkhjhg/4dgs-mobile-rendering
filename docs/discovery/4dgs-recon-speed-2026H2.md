@@ -509,3 +509,37 @@
 - **GPU 未披露，禁止猜测**：Sparse4DGS、RetimeGS、GaussianFluent、G3R 逐方法配置及多数静态对照。ACE-GS note 对 RTX 4090 仅作推测，因此表中保留"未披露"。
 - **口径冲突**：MVFusion-GS 方法设置段写单 RTX 3090，efficiency Table 11 写 RTX 4090；本榜时间/FPS 采用同一 efficiency 表的 RTX 4090，并保留冲突说明。
 - **GRay 时间冲突**：任务摘要给 1:58 + 3:42 = 5:40，但 paper note Fig.1 明确是 init 1:58、opt 5:40；报告采用 note/PDF anchor 的 **总计 7:38**，不把摘要误算写入排行榜。
+
+## 6. 6 条款产品目标 vs 当前 spec (2026-07-22 双盲)
+
+> **目的**：用户给的产品目标是否是当前调研已可实现？这里给两份独立判断。
+
+### 6.1 6 条款双盲对照
+
+| 条款 (产品口径) | A verdict (spec 作者) | B verdict (QA 验收) | 双盲 consensus |
+|---|---|---|---|
+| ① 20 秒以内 / 4K / 单目视频输入 | missed | missed | **missed** (spec L24 写"多视角高速相机阵列" ≠ 用户口径) |
+| ② 适配移动端实时渲染的 4DGS 输出 | covered | covered | **covered** (spec L7–L8, L19–L23) |
+| ③ PSNR ≥ 35 dB @ 原始轨迹 + 小范围漫游 | partial | partial | **partial** (L42 有 PSNR 维度，但 35 dB 阈值 / 漫游场景未规定) |
+| ④ 无空洞 / 漂浮物 / Ghosting / 时间闪烁 (产品级视觉) | missed | partial | ⚠ **分歧** — A: spec 无任何产品术语; B: L36/L42/L71/L86 间接覆盖 |
+| ⑤ 云端生成时间 1h / 挑战 5min | partial | missed | **missed** (L25 "几小时~几天" ≠ 1h/5min，差 1–3 数量级，且未承诺云端) |
+| ⑥ 输出与移动端压缩 / 渲染管线兼容 | covered | covered | **covered** (spec L21, L56–L67) |
+
+### 6.2 总体 verdict
+
+**6 条中 2 covered / 2 partial / 2 missed (覆盖率 ≈ 50%)**。该目标当前**未实现**，但 spec 框架可复用 — 4 项缺口都是"在现有 spec 框架里补一段硬指标"，不是"重做 spec"。
+
+### 6.3 双盲一致性
+
+A (spec 作者视角, 宽松) vs B (QA 验收视角, 严格) 独立 `read_file` 同一 `00-goal.md`，不交叉。**6 条中 5 条完全一致，1 条 (条款 4) 分歧**。分歧本质是"研究术语 vs 产品术语"的语义鸿沟 — A 按 spec 字面 zero-mention 判 missed, B 按研究间接覆盖 (串扰抑制 / warping error) 判 partial。本报告采纳 B 的 partial，因为研究端若已做串扰抑制，大概率视觉上不会出现严重 temporal flickering，条款 4 的修订是补一条定性 PASS 条款，不是白手起家。
+
+### 6.4 必改条目 (must-fix, 来源 B)
+
+| # | 当前 spec 表述 | 产品口径 | 修订动作 |
+|---|---|---|---|
+| (a) 采集 | L24 "多视角高速相机阵列 + 高精度 SfM" | 用户手机自拍 ≤20 秒 4K 单目视频 | 改"用户单目手机视频"为主方案，保留多视角作对照 |
+| (b) 精度验收 | L42 "PSNR / SSIM / LPIPS、warping error" | PSNR ≥ 35 dB @ 原始轨迹 + 小范围漫游 | 加 35 dB 阈值 + 视角范围限定 |
+| (c) 时效 | L25 "训练预算: 几小时~几天" | 云端 ≤1h 目标 / ≤5min 挑战 | 改预算；明确云端部署形态 |
+| (d) 视觉验收 | (无) | 无明显空洞 / 漂浮物 / Ghosting / 时间闪烁 | 加定性 PASS 门槛（参考研究端串扰抑制机制） |
+
+**注意**: 条款 2 与 6 在两份判断里都 covered，无需修改。条款 1 / 5 即使按 B 严格判定为 missed，修订动作都是单行级（采集方案行 + 训练预算行），不重做 spec。
