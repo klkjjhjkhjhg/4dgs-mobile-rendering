@@ -7,6 +7,164 @@
 
 ---
 
+## 0.0 原理导读 — 这个网站怎么做到"web 实时 4DGS"的？(给非技术读者 + 技术读者)
+
+> **阅读时间**: 非技术读者 3 分钟, 技术读者 5 分钟. 不影响后面章节.
+> **本节作用**: 用一个直觉比喻 + 三道数学公式, 抓住整套方案的"为什么能那么快". 后面 §1–§5 是 phase 3 真实资源 / 源码级证据, 跟本节呼应.
+
+### TL;DR for everyone
+
+把"4D 高斯泼溅 (4D Gaussian Splatting)"想成 **"一百万颗细沙, 在每个视频帧从空中撒下, 然后让你从任何角度看这颗沙堆"**. 传统 web 渲染 = **每一帧重新算每颗沙该放哪 = 慢**. 这个网站的做法 = **撒沙顺序 + 沙堆形状 + 时间演化全都提前算好, 浏览器只负责"按顺序摆沙 + 转一下沙堆角度" = 快**.
+
+下面分 3 段拆开讲: (1) 为什么"排序"是瓶颈, (2) 服务器预处理, (3) 浏览器运行.
+
+### 第一步 — 为什么"高斯泼溅"在浏览器里慢？
+
+每帧要做的两件事:
+
+1. **排序 (sort)**: 高斯按"从摄像机看进去的深度"排好顺序, 远处先画, 近处后画. 一百万颗, 每帧重排 = GPU 算力烧光 (中端 Adreno 上可能要 30 ms, 只能 30 帧).
+2. **投影 (project)**: 每颗高斯算它在屏幕上的坐标 + 形状 (椭圆形), 用 GPU 顶点 shader 算.
+
+传统路径:
+
+```
+每帧:
+  CPU 算 sort order  --10 ms-->  GPU 投影  --5 ms-->  显示
+                                            总 15 ms = 60 fps 勉强
+```
+
+4DV 的观察: **如果 sort 只算一次, 然后用 GPU 缓存 sort 结果, 排序就不进入每帧成本**. 这是后面"预处理"的入口.
+
+### 第二步 — 4DV 服务器预处理 (一次性, 不是每次播放都跑)
+
+服务器拿到的输入 = 已经训完的 4DGS 模型 (一颗颗 3D 高斯 + 它们的 4D 形变参数). 输出 = 一个 `4dm.json` + 7 个 PLY 文件 + 5 张纹理 (每张双缓冲).
+
+**预处理 4 个关键操作**:
+
+#### (A) 切段 (segmentation)
+
+不像视频切成 1 帧 1 帧, 4DV 把 34 秒的 4D 模型切成 **7 段 × 5 秒一段** (最后一段 4 秒). 这样:
+
+- 用户拖动时间轴 → 只需切换到对应段的 GPU 资源, 不重新加载
+- 服务器侧每段单独导出, 服务端文件系统友好
+
+#### (B) 静态排序 (pre-sort) — 加速核心
+
+对每段选**一个参考相机视角** (典型: 段中点时间 + 默认观察角度), 然后跑一次标准 sort:
+
+$$
+\text{sort\_order}_i = \text{rank}\left(z_i\right), \quad \text{其中 } z_i = \text{camera} \cdot \text{splat}_i^{\text{pos}}
+$$
+
+**关键**: 把这个 `sort_order` **写进 PLY 文件的 vertex 顺序本身** (而不是另开一张索引表). 浏览器拿到 PLY 时:
+
+```
+PLY data 序列 = [render_splat_5, render_splat_2, render_splat_1, render_splat_7, ...]
+                          ↑ 已经按深度排好, 直接按序画即可
+```
+
+#### (C) 形变烘培 (deformation baking)
+
+4DGS 的灵魂是"形变随时间". 一颗 splat 在 segment 内 (5 秒) 会动, 不能让浏览器自己算. 4DV 把每段 5 秒**采样 5–10 个时间点**, 对每颗 splat 算当前位置 + 旋转 + 尺寸:
+
+$$
+T(t) = (1-\alpha)\,A_t + \alpha\,B_t, \quad \alpha = \frac{t - t_{\text{start}}}{5}
+$$
+
+$A_t, B_t \in \mathbb{R}^{3 \times 3}$ 是相邻 keyframe 烘到 5 张纹理 (RGBA32F) 里的 SE(3) 变换矩阵.
+
+浏览器拿到这 5 张纹理 → vertex shader 直接 `mix(A, B, alpha)`. 服务器已经帮浏览器算好了每个 keyframe 的形变目标, 浏览器只做 lerp.
+
+#### (D) 跨段交叉淡入 (cross-fade)
+
+相邻段之间存**两套完整纹理** (后缀 `1` = 上一段, `2` = 当前段):
+
+```
+shader 阶段:
+  if (load_back_window_done):
+    gl_FragColor = mix(color_1, color_2, blend_alpha)
+```
+
+服务器侧 **预烘 transition 路径**, 浏览器只需算 lerp 权重.
+
+### 第三步 — 浏览器运行 (实时拖拽 = 0 网络 0 sort)
+
+页面加载时:
+
+```
+fetch(4dm.json)  -- 1 KB -->  解析 timeline
+fetch(02.c.ply) -- 10 MB -->  WASM 解码
+                       ↓
+                 上传 5 张 × 双缓冲 = 12 张纹理到 GPU
+                       ↓
+                 进入 ready 状态
+```
+
+用户播放 / 拖时间轴 / 拖鼠标:
+
+```
+输入 (mouse / seek bar)
+    ↓
+PlayCanvas 改 OrbitCamera.matrix_view  (CPU 工作, <1 ms)
+    ↓
+下一帧 render:
+  shader.bind({
+    matrix_view: 新值,
+    matrix_projection: 内参,
+    splatColor, transformA, transformB, ...: 已上传纹理
+  })
+  drawArraysInstanced(vertexCount=686000)
+    ↓
+  GPU vertex stage:
+    for each splat (1 个 = 1 个 pixel of splatColor texture):
+      pos = mix(transformA[uv], transformB[uv], alpha)
+      pos_view = matrix_view * pos
+      gl_Position = matrix_projection * pos_view
+  GPU fragment stage: 直接输出 splatColor 值
+    ↓
+  显示
+```
+
+**这套流水线的耗时**:
+
+- CPU: 相机矩阵更新 <1 ms
+- GPU vertex stage: 686k 次 `mat4 × vec3` + 1 次 4×4 lerp ≈ 3–5 ms (中端 Adreno)
+- GPU fragment stage: 固定 alpha blend ≈ 1 ms
+
+**总计: 每帧 ≈ 5 ms GPU 工作, 0 CPU 工作, 0 网络请求.**
+
+而传统路径的 10 ms sort 哪里去了? **在服务器一次性预处理时算完了**. 浏览器 0 sort.
+
+### 直觉总图
+
+```
+                  服务器 (一次性, 几小时训练 + 几秒 sort)
+                ┌────────────────────────────────────────────┐
+                │  4DGS 模型
+                │       ↓ 切段 (5s × 7)
+                │  ↓ 预 sort (按参考相机深度)
+                │  ↓ 烘 5 张纹理 / 段 (color + A/B/R/Motion/Lifecycle)
+                │  ↓ 打包 4dm.json + 7 PLY
+                └────────────────┬───────────────────────────┘
+                                 ↓ 一次下载 (70 MB, 30 天 cache)
+                ╔═══════════════════════════════════════════════╗
+                ║  浏览器 (实时, 拖拽 = 0 fetch)                ║
+                ║  ┌──────────────┐    ┌──────────────────────┐║
+                ║  │ 5 textures   │◀──┤ vertex shader mix    │║
+                ║  │ (双缓冲 ×2)  │    │   pos ← A·α + B·(1-α)│║
+                ║  └──────────────┘    └──────────────────────┘║
+                ║       ↑                                          ║
+                ║  (用户拖鼠标 = 改 matrix_view, CPU < 1ms)       ║
+                ╚═══════════════════════════════════════════════╝
+```
+
+### 一句话原理总收尾
+
+> **把"每一帧重算的高成本操作" (sort + 关键帧形变) 全部挪到"一次性离线预处理", 浏览器只做"加载烘好的资产 + 用 GPU 顶点 shader 把它们按相机角度重新投影到屏幕"**. 拖拽实时 = 因为相机矩阵只改一个 mat4, vertex shader 重投影 ≈ 5 ms.
+
+---
+---
+
 ## 0. 单页 TL;DR
 
 - **渲染管**: PlayCanvas 自家 `gsplat` 材质 + 自定义 chunked-binary PLY + GPU 顶点级 4D 形变
