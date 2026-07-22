@@ -53,8 +53,10 @@
 对每段选**一个参考相机视角** (典型: 段中点时间 + 默认观察角度), 然后跑一次标准 sort:
 
 $$
-\text{sort\_order}_i = \text{rank}\left(z_i\right), \quad \text{其中 } z_i = \text{camera} \cdot \text{splat}_i^{\text{pos}}
+p_i = P_{\mathrm{cam}} \cdot s_i
 $$
+
+其中 $P_{\mathrm{cam}}$ = 参考相机投影矩阵 (3x3), $s_i$ = splat $i$ 的 3D 位置. 把每个 $p_i$ 在 z 轴上的分量按从大到小排序, 排序结果直接写进 PLY 文件的 vertex 顺序 -- 这就是 "pre-sort" 的全部.
 
 **关键**: 把这个 `sort_order` **写进 PLY 文件的 vertex 顺序本身** (而不是另开一张索引表). 浏览器拿到 PLY 时:
 
