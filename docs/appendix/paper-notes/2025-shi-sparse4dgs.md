@@ -6,7 +6,7 @@
 
 ## 0.5 元数据
 
-- **venue**: arxiv pre-print (2025-11)
+- **venue**: AAAI 2026 (arxiv comments 直引,2026-07-30 venue 升级)
 - **arxiv-id**: 2511.07122
 - **s2-id**: （v2 用 Semantic Scholar API 补全）
 - **homepage**: https://changyueshi.github.io/Sparse4DGS/

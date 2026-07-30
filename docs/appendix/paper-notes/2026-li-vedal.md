@@ -6,7 +6,7 @@
 
 ## 0.5 元数据
 
-- **venue**: arxiv pre-print (2026-04)
+- **venue**: CGI 2026 (arxiv comments 直引,2026-07-30 venue 升级)
 - **arxiv-id**: 2606.02346
 - **s2-id**: （v2 用 Semantic Scholar API 补全）
 - **homepage**: （无）

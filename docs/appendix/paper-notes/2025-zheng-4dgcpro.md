@@ -6,7 +6,7 @@
 
 ## 0.5 元数据
 
-- **venue**: arxiv pre-print (2025-01)
+- **venue**: NeurIPS 2025 (arxiv comments 直引,2026-07-30 venue 升级)
 - **arxiv-id**: 2509.17513
 - **s2-id**: （v2 用 Semantic Scholar API 补全）
 - **homepage**: https://mediax-sjtu.github.io/4DGCPro
