@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "4DGS / 3DGS Mobile Rendering 演进图",
-    "total_nodes": 60,
+    "total_nodes": 176,
     "factions": {
       "A": {
         "name": "4DGS 表示",
@@ -224,6 +224,96 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2025-a-iummer-ulti-uidance",
+      "label": "IUMMER-ULTI-UIDANCE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-a-o-ense-",
+      "label": "O-ENSE-",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-a-platalk-",
+      "label": "PLATALK-",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-b-tealthttack-obust-oisoning",
+      "label": "TEALTHTTACK-OBUST-OISONING",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-c-aight-plats-patially",
+      "label": "AIGHT-PLATS-PATIALLY",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-c-eam360-eamless-eal",
+      "label": "EAM360-EAMLESS-EAL",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-c-elf-nsembling-ew",
+      "label": "ELF-NSEMBLING-EW",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-c-esson-plats-eacher",
+      "label": "ESSON-PLATS-EACHER",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-c-obustplat-ecoupling-ensifi",
+      "label": "OBUSTPLAT-ECOUPLING-ENSIFI",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-c-ong--ong",
+      "label": "ONG--ONG",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
       "id": "2025-chen-4dgscc",
       "label": "4DGSCC",
       "year": 2025.0,
@@ -242,11 +332,146 @@
       "rating": "⭐⭐⭐"
     },
     {
+      "id": "2025-g-ixture-xperts-uided",
+      "label": "IXTURE-XPERTS-UIDED",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-g-mbodiedplat-ersonalized-ea",
+      "label": "MBODIEDPLAT-ERSONALIZED-EA",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-ae-elightable-utdoor",
+      "label": "AE-ELIGHTABLE-UTDOOR",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-econ-eneralizable-urface",
+      "label": "ECON-ENERALIZABLE-URFACE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-hysplat-hysics-imulation",
+      "label": "HYSPLAT-HYSICS-IMULATION",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-ideoplat-irect-cene",
+      "label": "IDEOPLAT-IRECT-CENE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-obust-asked-art",
+      "label": "OBUST-ASKED-ART",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-ogplat-obust-enerative",
+      "label": "OGPLAT-OBUST-ENERATIVE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-h-plats-bservation-ompleten",
+      "label": "PLATS-BSERVATION-OMPLETEN",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
       "id": "2025-huang-seele",
       "label": "SeeLe: A Unified Acceleration Framework for Real-Time Gaussian Splatting",
       "year": 2503.05,
       "faction": "E",
       "arxiv": "2503.05168",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-j--earning-ree",
+      "label": "-EARNING-REE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-j-nsideut-ntegrated-",
+      "label": "NSIDEUT-NTEGRATED-",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-j-onstrained-ptimization-ppro",
+      "label": "ONSTRAINED-PTIMIZATION-PPRO",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-j-reeplatter-ose-free",
+      "label": "REEPLATTER-OSE-FREE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-k-enerative-enerating-cenes",
+      "label": "ENERATIVE-ENERATING-CENES",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-k-eoplatting-owards-eometry",
+      "label": "EOPLATTING-OWARDS-EOMETRY",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐"
     },
@@ -258,6 +483,24 @@
       "arxiv": "2511.06046",
       "refs": 0,
       "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-l---ontrastive",
+      "label": "--ONTRASTIVE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-l-aussianpdate-ontinual-pdat",
+      "label": "AUSSIANPDATE-ONTINUAL-PDAT",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
     },
     {
       "id": "2025-lee-omg4",
@@ -287,6 +530,51 @@
       "rating": "⭐"
     },
     {
+      "id": "2025-m--ierarchical-rban",
+      "label": "-IERARCHICAL-RBAN",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-m-ccidental-ccidental-amera",
+      "label": "CCIDENTAL-CCIDENTAL-AMERA",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-m-nterdit-nteractive-ditin",
+      "label": "NTERDIT-NTERACTIVE-DITIN",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-m-olue-uthentic-ideo",
+      "label": "OLUE-UTHENTIC-IDEO",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-m-oteplat-ough-oting",
+      "label": "OTEPLAT-OUGH-OTING",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
       "id": "2025-oh-neo",
       "label": "Neo: Real-Time On-Device 3D Gaussian Splatting with Reuse-and-Update Sorting Acceleration",
       "year": 2511.12,
@@ -294,6 +582,105 @@
       "arxiv": "2511.12930",
       "refs": 0,
       "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2025-p-adarplat-adar-igh",
+      "label": "ADARPLAT-ADAR-IGH",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-q--elightable-parse",
+      "label": "-ELIGHTABLE-PARSE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-q--utual-boosted",
+      "label": "-UTUAL-BOOSTED",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s--nifying-ision",
+      "label": "-NIFYING-ISION",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-a-econstructing-imulating",
+      "label": "A-ECONSTRUCTING-IMULATING",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-e-aluable-ssistant",
+      "label": "E-ALUABLE-SSISTANT",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-eovatar-daptive-eometrical",
+      "label": "EOVATAR-DAPTIVE-EOMETRICAL",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-ontra-odebook-ondensed",
+      "label": "ONTRA-ODEBOOK-ONDENSED",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-plrt-rticulation-stimation",
+      "label": "PLRT-RTICULATION-STIMATION",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-ptimized-eature-lanes",
+      "label": "PTIMIZED-EATURE-LANES",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-s-tochasticplats-tochastic-a",
+      "label": "TOCHASTICPLATS-TOCHASTIC-A",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
     },
     {
       "id": "2025-shi-sparse4dgs",
@@ -305,6 +692,24 @@
       "rating": "⭐"
     },
     {
+      "id": "2025-t---tructure",
+      "label": "--TRUCTURE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-t-riven-ulti-obust",
+      "label": "RIVEN-ULTI-OBUST",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
       "id": "2025-tu-speede3dgs",
       "label": "SPEEDE3DGS",
       "year": 2025.0,
@@ -312,6 +717,33 @@
       "arxiv": "2506.07917",
       "refs": 0,
       "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-w-aussiancc-ully-elf",
+      "label": "AUSSIANCC-ULLY-ELF",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-w-iberated-ndependent-f",
+      "label": "IBERATED-NDEPENDENT-F",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-w-plat-ontext-ware",
+      "label": "PLAT-ONTEXT-WARE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
     },
     {
       "id": "2025-wang-airgs",
@@ -328,6 +760,123 @@
       "year": 2025.0,
       "faction": "A",
       "arxiv": "2510.10030",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-x--xplicit-otion",
+      "label": "-XPLICIT-OTION",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-x-azeaussian-igh-idelity",
+      "label": "AZEAUSSIAN-IGH-IDELITY",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-x-ile-wise-mage",
+      "label": "ILE-WISE-MAGE",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-x-utocc-utomatic-pen",
+      "label": "UTOCC-UTOMATIC-PEN",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y---ree",
+      "label": "--REE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y--eal-ime",
+      "label": "-EAL-IME",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-",
+      "label": "",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-elf-alibrating-arge",
+      "label": "ELF-ALIBRATING-ARGE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-ol-olarimetric-eflective",
+      "label": "OL-OLARIMETRIC-EFLECTIVE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-patialplat-emantic-parse",
+      "label": "PATIALPLAT-EMANTIC-PARSE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-tream-nline-eneralizable",
+      "label": "TREAM-NLINE-ENERALIZABLE",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-u-ulti-aseline",
+      "label": "U-ULTI-ASELINE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-y-une-our-tyle",
+      "label": "UNE-OUR-TYLE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐"
     },
@@ -350,6 +899,60 @@
       "rating": "⭐⭐⭐"
     },
     {
+      "id": "2025-z-2aussian-nchor-raph",
+      "label": "2AUSSIAN-NCHOR-RAPH",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-z-3-rbitrary-rtistic",
+      "label": "3-RBITRARY-RTISTIC",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-z-nstant-aussianmage-enerali",
+      "label": "NSTANT-AUSSIANMAGE-ENERALI",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-z-uadratic-igh-uality",
+      "label": "UADRATIC-IGH-UALITY",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-z-urve-ware-arametric",
+      "label": "URVE-WARE-ARAMETRIC",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-z-zier-ynamic-rban",
+      "label": "ZIER-YNAMIC-RBAN",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
       "id": "2025-zheng-4dgcpro",
       "label": "4DGCPRO",
       "year": 2025.0,
@@ -357,6 +960,456 @@
       "arxiv": "2509.17513",
       "refs": 0,
       "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-03765",
+      "label": "2607-03765",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-03819",
+      "label": "2607-03819",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-03872",
+      "label": "2607-03872",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-04127",
+      "label": "2607-04127",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-04144",
+      "label": "2607-04144",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-04761",
+      "label": "2607-04761",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-05347",
+      "label": "2607-05347",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-05522",
+      "label": "2607-05522",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-05598",
+      "label": "2607-05598",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-07452",
+      "label": "2607-07452",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-08250",
+      "label": "2607-08250",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-08808",
+      "label": "2607-08808",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-09260",
+      "label": "2607-09260",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-10050",
+      "label": "2607-10050",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-10912",
+      "label": "2607-10912",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-10995",
+      "label": "2607-10995",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-11184",
+      "label": "2607-11184",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-12362",
+      "label": "2607-12362",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-12641",
+      "label": "2607-12641",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-12656",
+      "label": "2607-12656",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-12785",
+      "label": "2607-12785",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-13682",
+      "label": "2607-13682",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-14481",
+      "label": "2607-14481",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-14513",
+      "label": "2607-14513",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-14990",
+      "label": "2607-14990",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-15536",
+      "label": "2607-15536",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-15542",
+      "label": "2607-15542",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-16624",
+      "label": "2607-16624",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-16838",
+      "label": "2607-16838",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-17773",
+      "label": "2607-17773",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-17803",
+      "label": "2607-17803",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-17965",
+      "label": "2607-17965",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-18067",
+      "label": "2607-18067",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-18466",
+      "label": "2607-18466",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-18801",
+      "label": "2607-18801",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-19777",
+      "label": "2607-19777",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-20325",
+      "label": "2607-20325",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-20417",
+      "label": "2607-20417",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-21099",
+      "label": "2607-21099",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-21448",
+      "label": "2607-21448",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-22780",
+      "label": "2607-22780",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-22890",
+      "label": "2607-22890",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-22956",
+      "label": "2607-22956",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-24403",
+      "label": "2607-24403",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-25569",
+      "label": "2607-25569",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-25971",
+      "label": "2607-25971",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-26525",
+      "label": "2607-26525",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-26578",
+      "label": "2607-26578",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-26595",
+      "label": "2607-26595",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2026-arxiv-2607-26889",
+      "label": "2607-26889",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
     },
     {
       "id": "2026-chen-refine",
@@ -874,6 +1927,5 @@
       "to": "2023-fan-lightgaussian",
       "type": "direct"
     }
-  ],
-  "links": []
+  ]
 }
