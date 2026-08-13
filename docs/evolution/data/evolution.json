@@ -224,8 +224,8 @@
       "rating": "⭐⭐"
     },
     {
-      "id": "2025-a-iummer-ulti-uidance",
-      "label": "IUMMER-ULTI-UIDANCE",
+      "id": "2025-amicantonio-moegs",
+      "label": "MOEGS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -233,8 +233,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-a-o-ense-",
-      "label": "O-ENSE-",
+      "id": "2025-bai-gare",
+      "label": "GARE",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -242,71 +242,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-a-platalk-",
-      "label": "PLATALK-",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-b-tealthttack-obust-oisoning",
-      "label": "TEALTHTTACK-OBUST-OISONING",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-c-aight-plats-patially",
-      "label": "AIGHT-PLATS-PATIALLY",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-c-eam360-eamless-eal",
-      "label": "EAM360-EAMLESS-EAL",
-      "year": 2025.0,
-      "faction": "C",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-c-elf-nsembling-ew",
-      "label": "ELF-NSEMBLING-EW",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-c-esson-plats-eacher",
-      "label": "ESSON-PLATS-EACHER",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-c-obustplat-ecoupling-ensifi",
-      "label": "OBUSTPLAT-ECOUPLING-ENSIFI",
-      "year": 2025.0,
-      "faction": "B",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-c-ong--ong",
-      "label": "ONG--ONG",
+      "id": "2025-bolduc-gaslight",
+      "label": "GASLIGHT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -323,6 +260,69 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2025-chhablani-embodiedsplat",
+      "label": "EMBODIEDSPLAT",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-conti-tof-splatting",
+      "label": "TOF-SPLATTING",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-de-la-gorce-volume",
+      "label": "LA-GORCE-VOLUME",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-deng-self-calibrating-gs",
+      "label": "SELF-CALIBRATING-GS",
+      "year": 2502.09,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-durvasula-contrags",
+      "label": "CONTRAGS",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-fang-a3gs",
+      "label": "A3GS",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-fang-nerf-assistant",
+      "label": "NERF-ASSISTANT",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
       "id": "2025-feng-lumina",
       "label": "Lumina: Real-Time Mobile Neural Rendering by Exploiting Computational Redundancy",
       "year": 2506.05,
@@ -332,8 +332,26 @@
       "rating": "⭐⭐⭐"
     },
     {
-      "id": "2025-g-ixture-xperts-uided",
-      "label": "IXTURE-XPERTS-UIDED",
+      "id": "2025-fu-robustsplat",
+      "label": "ROBUSTSPLAT",
+      "year": 2025.0,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-gan-gaussianocc",
+      "label": "GAUSSIANOCC",
+      "year": 2408.11,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-gao-curve-aware-gs",
+      "label": "CURVE-AWARE-GS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -341,17 +359,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-g-mbodiedplat-ersonalized-ea",
-      "label": "MBODIEDPLAT-ERSONALIZED-EA",
-      "year": 2025.0,
-      "faction": "D",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-h-ae-elightable-utdoor",
-      "label": "AE-ELIGHTABLE-UTDOOR",
+      "id": "2025-go-videorfsplat",
+      "label": "VIDEORFSPLAT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -359,8 +368,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-h-econ-eneralizable-urface",
-      "label": "ECON-ENERALIZABLE-URFACE",
+      "id": "2025-han-polgs",
+      "label": "POLGS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -368,44 +377,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-h-hysplat-hysics-imulation",
-      "label": "HYSPLAT-HYSICS-IMULATION",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-h-ideoplat-irect-cene",
-      "label": "IDEOPLAT-IRECT-CENE",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-h-obust-asked-art",
-      "label": "OBUST-ASKED-ART",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-h-ogplat-obust-enerative",
-      "label": "OGPLAT-OBUST-ENERATIVE",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-h-plats-bservation-ompleten",
-      "label": "PLATS-BSERVATION-OMPLETEN",
+      "id": "2025-hu-midsummer",
+      "label": "MIDSUMMER",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -422,8 +395,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-j--earning-ree",
-      "label": "-EARNING-REE",
+      "id": "2025-jiang-votesplat",
+      "label": "VOTESPLAT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -431,8 +404,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-j-nsideut-ntegrated-",
-      "label": "NSIDEUT-NTEGRATED-",
+      "id": "2025-jiao-clip-gs",
+      "label": "CLIP-GS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -440,36 +413,9 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-j-onstrained-ptimization-ppro",
-      "label": "ONSTRAINED-PTIMIZATION-PPRO",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-j-reeplatter-ose-free",
-      "label": "REEPLATTER-OSE-FREE",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-k-enerative-enerating-cenes",
-      "label": "ENERATIVE-ENERATING-CENES",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-k-eoplatting-owards-eometry",
-      "label": "EOPLATTING-OWARDS-EOMETRY",
-      "year": 2025.0,
+      "id": "2025-ke-stealthattack",
+      "label": "STEALTHATTACK",
+      "year": 2510.02,
       "faction": "E",
       "arxiv": null,
       "refs": 0,
@@ -485,8 +431,17 @@
       "rating": "⭐⭐"
     },
     {
-      "id": "2025-l---ontrastive",
-      "label": "--ONTRASTIVE",
+      "id": "2025-kheradmand-stochasticsplats",
+      "label": "STOCHASTICSPLATS",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-kim-robustpartedit",
+      "label": "ROBUSTPARTEDIT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -494,8 +449,35 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-l-aussianpdate-ontinual-pdat",
-      "label": "AUSSIANPDATE-ONTINUAL-PDAT",
+      "id": "2025-kong-rogsplat",
+      "label": "ROGSPLAT",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-kung-radarsplat",
+      "label": "RADARSPLAT",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-lee-featplane-compress",
+      "label": "FEATPLANE-COMPRESS",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-lee-insideout",
+      "label": "INSIDEOUT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -512,11 +494,47 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2025-li-4dgs-slam",
+      "label": "4DGS-SLAM",
+      "year": 2025.0,
+      "faction": "A",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2025-li-gifstream",
       "label": "GIFStream: 4D Gaussian-based Immersive Video with Feature Stream",
       "year": 2505.07,
       "faction": "D",
       "arxiv": "2505.07539",
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-li-streamgs",
+      "label": "STREAMGS",
+      "year": 2025.0,
+      "faction": "D",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-lin-splart",
+      "label": "SPLART",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-ling-ocsplats",
+      "label": "OCSPLATS",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐"
     },
@@ -530,8 +548,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-m--ierarchical-rban",
-      "label": "-IERARCHICAL-RBAN",
+      "id": "2025-lou-advcamouflage",
+      "label": "ADVCAMOUFLAGE",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -539,8 +557,35 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-m-ccidental-ccidental-amera",
-      "label": "CCIDENTAL-CCIDENTAL-AMERA",
+      "id": "2025-lou-mugs",
+      "label": "MUGS",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-ma-beziergs",
+      "label": "BEZIERGS",
+      "year": 2506.22,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-ma-mags",
+      "label": "MAGS",
+      "year": 2406.01,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-mao-accidentalgs",
+      "label": "ACCIDENTALGS",
       "year": 2025.0,
       "faction": "B",
       "arxiv": null,
@@ -548,26 +593,17 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-m-nterdit-nteractive-ditin",
-      "label": "NTERDIT-NTERACTIVE-DITIN",
-      "year": 2025.0,
+      "id": "2025-marrie-ludvig",
+      "label": "LUDVIG",
+      "year": 2410.14,
       "faction": "E",
       "arxiv": null,
       "refs": 0,
       "rating": "⭐"
     },
     {
-      "id": "2025-m-olue-uthentic-ideo",
-      "label": "OLUE-UTHENTIC-IDEO",
-      "year": 2025.0,
-      "faction": "D",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-m-oteplat-ough-oting",
-      "label": "OTEPLAT-OUGH-OTING",
+      "id": "2025-moon-geoavatar",
+      "label": "GEOAVATAR",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -584,8 +620,8 @@
       "rating": "⭐⭐⭐"
     },
     {
-      "id": "2025-p-adarplat-adar-igh",
-      "label": "ADARPLAT-ADAR-IGH",
+      "id": "2025-pan-liberated-gs",
+      "label": "LIBERATED-GS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -593,8 +629,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-q--elightable-parse",
-      "label": "-ELIGHTABLE-PARSE",
+      "id": "2025-peng-constrained-opt",
+      "label": "CONSTRAINED-OPT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -602,8 +638,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-q--utual-boosted",
-      "label": "-UTUAL-BOOSTED",
+      "id": "2025-peng-lesson-splats",
+      "label": "LESSON-SPLATS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -611,8 +647,17 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-s--nifying-ision",
-      "label": "-NIFYING-ISION",
+      "id": "2025-roh-catsplat",
+      "label": "CATSPLAT",
+      "year": 2412.12,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-schwarz-generative-gs",
+      "label": "GENERATIVE-GS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -620,64 +665,10 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-s-a-econstructing-imulating",
-      "label": "A-ECONSTRUCTING-IMULATING",
-      "year": 2025.0,
-      "faction": "B",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-s-e-aluable-ssistant",
-      "label": "E-ALUABLE-SSISTANT",
+      "id": "2025-sheng-spatialsplat",
+      "label": "SPATIALSPLAT",
       "year": 2025.0,
       "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-s-eovatar-daptive-eometrical",
-      "label": "EOVATAR-DAPTIVE-EOMETRICAL",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-s-ontra-odebook-ondensed",
-      "label": "ONTRA-ODEBOOK-ONDENSED",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-s-plrt-rticulation-stimation",
-      "label": "PLRT-RTICULATION-STIMATION",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-s-ptimized-eature-lanes",
-      "label": "PTIMIZED-EATURE-LANES",
-      "year": 2025.0,
-      "faction": "C",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-s-tochasticplats-tochastic-a",
-      "label": "TOCHASTICPLATS-TOCHASTIC-A",
-      "year": 2025.0,
-      "faction": "C",
       "arxiv": null,
       "refs": 0,
       "rating": "⭐"
@@ -692,8 +683,17 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-t---tructure",
-      "label": "--TRUCTURE",
+      "id": "2025-shin-seam360gs",
+      "label": "SEAM360GS",
+      "year": 2025.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-su-hug",
+      "label": "HUG",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -701,8 +701,17 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-t-riven-ulti-obust",
-      "label": "RIVEN-ULTI-OBUST",
+      "id": "2025-thai-splattalk",
+      "label": "SPLATTALK",
+      "year": 2503.06,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-tian-ccl-lgs",
+      "label": "CCL-LGS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -719,28 +728,10 @@
       "rating": "⭐⭐"
     },
     {
-      "id": "2025-w-aussiancc-ully-elf",
-      "label": "AUSSIANCC-ULLY-ELF",
+      "id": "2025-wang-ag2gaussian",
+      "label": "AG2GAUSSIAN",
       "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-w-iberated-ndependent-f",
-      "label": "IBERATED-NDEPENDENT-F",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-w-plat-ontext-ware",
-      "label": "PLAT-ONTEXT-WARE",
-      "year": 2025.0,
-      "faction": "E",
+      "faction": "C",
       "arxiv": null,
       "refs": 0,
       "rating": "⭐"
@@ -764,8 +755,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-x--xplicit-otion",
-      "label": "-XPLICIT-OTION",
+      "id": "2025-wei-emd",
+      "label": "EMD",
       "year": 2025.0,
       "faction": "B",
       "arxiv": null,
@@ -773,8 +764,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-x-azeaussian-igh-idelity",
-      "label": "AZEAUSSIAN-IGH-IDELITY",
+      "id": "2025-wei-gazegaussian",
+      "label": "GAZEGAUSSIAN",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -782,17 +773,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-x-ile-wise-mage",
-      "label": "ILE-WISE-MAGE",
-      "year": 2025.0,
-      "faction": "C",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-x-utocc-utomatic-pen",
-      "label": "UTOCC-UTOMATIC-PEN",
+      "id": "2025-wei-pcr-gs",
+      "label": "PCR-GS",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -800,8 +782,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-y---ree",
-      "label": "--REE",
+      "id": "2025-wen-intergsedit",
+      "label": "INTERGSEDIT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -809,8 +791,17 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-y--eal-ime",
-      "label": "-EAL-IME",
+      "id": "2025-wen-segs-slam",
+      "label": "SEGS-SLAM",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-xie-gs-livm",
+      "label": "GS-LIVM",
       "year": 2025.0,
       "faction": "D",
       "arxiv": null,
@@ -818,17 +809,17 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-y-",
-      "label": "",
-      "year": 2025.0,
-      "faction": "A",
+      "id": "2025-xu-freesplatter",
+      "label": "FREESPLATTER",
+      "year": 2412.09,
+      "faction": "E",
       "arxiv": null,
       "refs": 0,
       "rating": "⭐"
     },
     {
-      "id": "2025-y-elf-alibrating-arge",
-      "label": "ELF-ALIBRATING-ARGE",
+      "id": "2025-yang-gsrecon",
+      "label": "GSRECON",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -836,44 +827,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-y-ol-olarimetric-eflective",
-      "label": "OL-OLARIMETRIC-EFLECTIVE",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-y-patialplat-emantic-parse",
-      "label": "PATIALPLAT-EMANTIC-PARSE",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-y-tream-nline-eneralizable",
-      "label": "TREAM-NLINE-ENERALIZABLE",
-      "year": 2025.0,
-      "faction": "D",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-y-u-ulti-aseline",
-      "label": "U-ULTI-ASELINE",
-      "year": 2025.0,
-      "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-y-une-our-tyle",
-      "label": "UNE-OUR-TYLE",
+      "id": "2025-ye-geosplatting",
+      "label": "GEOSPLATTING",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -899,8 +854,44 @@
       "rating": "⭐⭐⭐"
     },
     {
-      "id": "2025-z-2aussian-nchor-raph",
-      "label": "2AUSSIAN-NCHOR-RAPH",
+      "id": "2025-zeng-gaussianupdate",
+      "label": "GAUSSIANUPDATE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-zeng-instant-gaussianimage",
+      "label": "INSTANT-GAUSSIANIMAGE",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-zhang-quadratic-gs",
+      "label": "QUADRATIC-GS",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-zhang-su-rgs",
+      "label": "SU-RGS",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-zhang-tilewise",
+      "label": "TILEWISE",
       "year": 2025.0,
       "faction": "C",
       "arxiv": null,
@@ -908,17 +899,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-z-3-rbitrary-rtistic",
-      "label": "3-RBITRARY-RTISTIC",
-      "year": 2025.0,
-      "faction": "C",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-z-nstant-aussianmage-enerali",
-      "label": "NSTANT-AUSSIANMAGE-ENERALI",
+      "id": "2025-zhao-physsplat",
+      "label": "PHYSSPLAT",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -926,8 +908,8 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-z-uadratic-igh-uality",
-      "label": "UADRATIC-IGH-UALITY",
+      "id": "2025-zhao-self-ensembling",
+      "label": "SELF-ENSEMBLING",
       "year": 2025.0,
       "faction": "E",
       "arxiv": null,
@@ -935,19 +917,10 @@
       "rating": "⭐"
     },
     {
-      "id": "2025-z-urve-ware-arametric",
-      "label": "URVE-WARE-ARAMETRIC",
+      "id": "2025-zhao-tune-your-style",
+      "label": "TUNE-YOUR-STYLE",
       "year": 2025.0,
       "faction": "E",
-      "arxiv": null,
-      "refs": 0,
-      "rating": "⭐"
-    },
-    {
-      "id": "2025-z-zier-ynamic-rban",
-      "label": "ZIER-YNAMIC-RBAN",
-      "year": 2025.0,
-      "faction": "B",
       "arxiv": null,
       "refs": 0,
       "rating": "⭐"
@@ -960,6 +933,33 @@
       "arxiv": "2509.17513",
       "refs": 0,
       "rating": "⭐⭐"
+    },
+    {
+      "id": "2025-zhou-autoocc",
+      "label": "AUTOOCC",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-zhou-mgsr",
+      "label": "MGSR",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
+    },
+    {
+      "id": "2025-ziwen-long-lrm",
+      "label": "LONG-LRM",
+      "year": 2025.0,
+      "faction": "E",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐"
     },
     {
       "id": "2026-arxiv-2604-04063-4c4d",
@@ -1468,11 +1468,11 @@
     {
       "id": "2026-hong-polymerge",
       "label": "PolyMerge: Compressing 3D Gaussian Splats with Polytope Coverings for Provably Safe Resource-Constrained Navigation",
-      "year": 2026.0,
-      "faction": "C",
+      "year": 2606.16,
+      "faction": "E",
       "arxiv": "2606.16232",
       "refs": 0,
-      "rating": "⭐"
+      "rating": "⭐⭐"
     },
     {
       "id": "2026-hu-mvfusion-gs",

@@ -8,7 +8,7 @@
 
 1. **方法论 5 步法** → `docs/05-survey-methodology.md`
 2. **3D 演进图前端**（Three.js） → `docs/evolution/`
-3. **9 → 11 区块模板升级** + 185 篇 note 加 §0.5 + 5 篇示范 §11
+3. **9 → 11 区块模板升级** + 186 篇 note 加 §0.5 + 5 篇示范 §11
 4. **4 个 cron 论文扫描机制**（激进全自动 + 子 agent 复核）→ 加进 `~/.hermes/profiles/main/cron/jobs.json`
 
 ## 现状

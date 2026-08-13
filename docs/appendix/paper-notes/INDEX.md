@@ -2,7 +2,7 @@
 
 > **本地 PDF stash**: `/.pdfs/`（仓库根目录，**不进 git**，见 `.gitignore`）
 > **命名约定**: 大部分用纯 arxiv id（`<arxiv-id>.pdf`），4 篇"早期下"的用易读命名（`4DGS-1K.pdf` / `wu-4dgs.pdf` 等）
-> **总计**: **185 篇 paper notes ↔ 185 个本地 PDF**（截至 2026-08-10，含本批 arxiv 50 + ICCV 2025 67 = 117 新增，all 模式手动 sync 触发）
+> **总计**: **186 篇 paper notes ↔ 186 个本地 PDF**（截至 2026-08-13，含本批 arxiv 50 + ICCV 2025 67 = 117 新增 + 1 篇 4DGS-SLAM 补缺，all 模式手动 sync 触发）
 > **标记**: ⭐⭐⭐ = 本项目直接对标 / ⭐⭐ = 高相关 / ⭐ = 参考
 > **本批扩展（25 H2 ~ 26 H1）**: 14 篇 — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv (3DGS 加速 / 压缩 / mobile / streaming 派系)
 > **本批触发**: 用户用 GitHub 链接 `https://github.com/xiaobiaodu/Flux-GS` 作为入口，扩到同期 13 篇相关工作
@@ -11,7 +11,7 @@
 
 ---
 
-## A. 4DGS 表示（高精度表示主线，19 篇）
+## A. 4DGS 表示（高精度表示主线，20 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@
 ---
 
 
-| [2025-y-.md](2025-y-.md) | (待补) | 2025-10 | 4D Gaussian Splatting SLAM | ⭐ |
+| [2025-li-4dgs-slam.md](2025-li-4dgs-slam.md) | (待补, ICV 2025) | 2025-10 | **4DGS-SLAM** (Yanyan Li 等, 杭电+TUM+浙大+Google)，RGB-D 4DGS 跟踪+建图，sparse control points + MLP + 2D optical flow rendering 监督；TUM PSNR 22.46 (vs SplaTAM 19.40), ATE 1.8 cm (vs SOTA 3DGS-SLAM 15.8) | ⭐⭐ |
 | [2026-arxiv-2607-04761.md](2026-arxiv-2607-04761.md) | 2607.04761 | 2026-07 | DeGenseGS: Geometrically and Semantically Decoupled Surgical Scene Understanding in 4D Gau | ⭐ |
 | [2026-arxiv-2607-12362.md](2026-arxiv-2607-12362.md) | 2607.12362 | 2026-07 | Implicit 4D Gaussian Splatting for Fast Motion with Large Inter-Frame Displacements | ⭐ |
 ## B. 4DGS 加速 / 动静态分离（25-26 主线之三，18 篇）
@@ -55,11 +55,11 @@
 ---
 
 
-| [2025-c-obustplat-ecoupling-ensifi.md](2025-c-obustplat-ecoupling-ensifi.md) | (待补) | 2025-10 | RobustSplat: Decoupling Densification and Dynamics for Transient-Free 3DGS | ⭐ |
-| [2025-m-ccidental-ccidental-amera.md](2025-m-ccidental-ccidental-amera.md) | (待补) | 2025-10 | AccidentalGS: 3D Gaussian Splatting from Accidental Camera Motion | ⭐ |
-| [2025-s-a-econstructing-imulating.md](2025-s-a-econstructing-imulating.md) | (待补) | 2025-10 | MaGS: Reconstructing and Simulating Dynamic 3D Objects with Mesh-adsorbed Gaussian Splatti | ⭐ |
-| [2025-x--xplicit-otion.md](2025-x--xplicit-otion.md) | (待补) | 2025-10 | EMD: Explicit Motion Modeling for High-Quality Street Gaussian Splatting | ⭐ |
-| [2025-z-zier-ynamic-rban.md](2025-z-zier-ynamic-rban.md) | (待补) | 2025-10 | BézierGS: Dynamic Urban Scene Reconstruction with Bézier Curve Gaussian Splatting | ⭐ |
+| [2025-fu-robustsplat.md](2025-fu-robustsplat.md) | (待补) | 2025-10 | RobustSplat: Decoupling Densification and Dynamics for Transient-Free 3DGS | ⭐ |
+| [2025-mao-accidentalgs.md](2025-mao-accidentalgs.md) | (待补) | 2025-10 | AccidentalGS: 3D Gaussian Splatting from Accidental Camera Motion | ⭐ |
+| [2025-ma-mags.md](2025-ma-mags.md) | 2406.01593 | 2025-10 | MaGS: Reconstructing and Simulating Dynamic 3D Objects with Mesh-adsorbed Gaussian Splatti | ⭐ |
+| [2025-wei-emd.md](2025-wei-emd.md) | (待补) | 2025-10 | EMD: Explicit Motion Modeling for High-Quality Street Gaussian Splatting | ⭐ |
+| [2025-ma-beziergs.md](2025-ma-beziergs.md) | 2506.22099 | 2025-10 | BézierGS: Dynamic Urban Scene Reconstruction with Bézier Curve Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-08250.md](2026-arxiv-2607-08250.md) | 2607.08250 | 2026-07 | On the Design of Mixture-of-Experts for Dynamic Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-14990.md](2026-arxiv-2607-14990.md) | 2607.14990 | 2026-07 | JADE-GS: Joint Alternating Deblurring Guided by Events in 3D Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-21099.md](2026-arxiv-2607-21099.md) | 2607.21099 | 2026-07 | Construction and Dynamic Update of Channel Gain Maps via 3D Gaussian Splatting | ⭐ |
@@ -89,9 +89,9 @@
 ---
 
 
-| [2025-s-ptimized-eature-lanes.md](2025-s-ptimized-eature-lanes.md) | (待补) | 2025-10 | Compression of 3D Gaussian Splatting with Optimized Feature Planes and Standard Video Code | ⭐ |
-| [2025-s-tochasticplats-tochastic-a.md](2025-s-tochasticplats-tochastic-a.md) | (待补) | 2025-10 | StochasticSplats: Stochastic Rasterization for Sorting-Free 3D Gaussian Splatting | ⭐ |
-| [2025-x-ile-wise-mage.md](2025-x-ile-wise-mage.md) | (待补) | 2025-10 | Tile-wise vs. Image-wise: Random-Tile Loss and Training Paradigm for Gaussian Splatting | ⭐ |
+| [2025-lee-featplane-compress.md](2025-lee-featplane-compress.md) | (待补) | 2025-10 | Compression of 3D Gaussian Splatting with Optimized Feature Planes and Standard Video Code | ⭐ |
+| [2025-kheradmand-stochasticsplats.md](2025-kheradmand-stochasticsplats.md) | (待补) | 2025-10 | StochasticSplats: Stochastic Rasterization for Sorting-Free 3D Gaussian Splatting | ⭐ |
+| [2025-zhang-tilewise.md](2025-zhang-tilewise.md) | (待补) | 2025-10 | Tile-wise vs. Image-wise: Random-Tile Loss and Training Paradigm for Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-03765.md](2026-arxiv-2607-03765.md) | 2607.03765 | 2026-07 | Sparse-View Surface Reconstruction using Gaussian Splatting through High-Confidence Depth  | ⭐ |
 | [2026-arxiv-2607-04127.md](2026-arxiv-2607-04127.md) | 2607.04127 | 2026-07 | Real-Time LiDAR Gaussian Splatting SLAM | ⭐ |
 | [2026-arxiv-2607-04144.md](2026-arxiv-2607-04144.md) | 2607.04144 | 2026-07 | Semantic-Guided Progressive Object Removal with Gaussian Splatting | ⭐ |
@@ -128,10 +128,10 @@
 ---
 
 
-| [2025-g-mbodiedplat-ersonalized-ea.md](2025-g-mbodiedplat-ersonalized-ea.md) | (待补) | 2025-10 | EmbodiedSplat: Personalized Real-to-Sim-to-Real Navigation with Gaussian Splats from a Mob | ⭐ |
-| [2025-m-olue-uthentic-ideo.md](2025-m-olue-uthentic-ideo.md) | (待补) | 2025-10 | VoluMe – Authentic 3D Video Calls from Live Gaussian Splat Prediction | ⭐ |
-| [2025-y--eal-ime.md](2025-y--eal-ime.md) | (待补) | 2025-10 | GS-LIVM: Real-Time Photo-Realistic LiDAR-Inertial-Visual Mapping with Gaussian Splatting | ⭐ |
-| [2025-y-tream-nline-eneralizable.md](2025-y-tream-nline-eneralizable.md) | (待补) | 2025-10 | StreamGS: Online Generalizable Gaussian Splatting Reconstruction for Unposed Image Streams | ⭐ |
+| [2025-chhablani-embodiedsplat.md](2025-chhablani-embodiedsplat.md) | (待补) | 2025-10 | EmbodiedSplat: Personalized Real-to-Sim-to-Real Navigation with Gaussian Splats from a Mob | ⭐ |
+| [2025-de-la-gorce-volume.md](2025-de-la-gorce-volume.md) | (待补) | 2025-10 | VoluMe – Authentic 3D Video Calls from Live Gaussian Splat Prediction | ⭐ |
+| [2025-xie-gs-livm.md](2025-xie-gs-livm.md) | (待补) | 2025-10 | GS-LIVM: Real-Time Photo-Realistic LiDAR-Inertial-Visual Mapping with Gaussian Splatting | ⭐ |
+| [2025-li-streamgs.md](2025-li-streamgs.md) | (待补) | 2025-10 | StreamGS: Online Generalizable Gaussian Splatting Reconstruction for Unposed Image Streams | ⭐ |
 | [2026-arxiv-2607-03872.md](2026-arxiv-2607-03872.md) | 2607.03872 | 2026-07 | SharpSplat: Edge-Regularized 3D Gaussian Splatting for High Fidelity Urban Building Recons | ⭐ |
 | [2026-arxiv-2607-09260.md](2026-arxiv-2607-09260.md) | 2607.09260 | 2026-07 | AnythingReality: Robust Online Gaussian Splatting SLAM for Open-Vocabulary VR Scene Explor | ⭐ |
 | [2026-arxiv-2607-11184.md](2026-arxiv-2607-11184.md) | 2607.11184 | 2026-07 | GeoGS-SLAM: Online Monocular Reconstruction Using Gaussian Splatting with Geometric Priors | ⭐ |
@@ -157,7 +157,7 @@
 | [2026-zhao-ace-gs.md](2026-zhao-ace-gs.md) | 2606.21244 | 2026-06 | **ACE-GS** (单作者)，momentum consistency + statistical sensitivity，**4.5× 训练加速 + 745 FPS** | ⭐⭐ |
 | [2026-zhao-mmgs.md](2026-zhao-mmgs.md) | 2605.19304 | 2026-05 | **MMGS** (CQU)，multi-view ranking + optimal transport，**10× comp, 10× 训练加速** | ⭐⭐ |
 | [2026-mousa-provablepruning.md](2026-mousa-provablepruning.md) | 2607.02721 | 2026-07 | **Provable Pruning** (Univ. of Haifa)，**首个 3DGS 可证明 coreset theorem**，resolution-dependent importance score（理论意义大于工程加速比） | ⭐⭐ |
-| [2026-hong-ploymerge.md](2026-hong-polymerge.md) | 2606.16232 | 2026-06 | **PolyMerge** (UC Berkeley)，polytope coverings + Crazyflie drone on-board CBF | ⭐⭐ |
+| [2026-hong-polymerge.md](2026-hong-polymerge.md) | 2606.16232 | 2026-06 | **PolyMerge** (UC Berkeley)，polytope coverings + Crazyflie drone on-board CBF | ⭐⭐ |
 
 > *注：PolyMerge 文件路径为 `2026-hong-polymerge.md`（修正拼写，之前为 `ploymerge`）*
 
@@ -227,60 +227,60 @@ curl -sL --max-time 90 -o <arxiv-id>.pdf https://arxiv.org/pdf/<arxiv-id>
 | [2021-park-hypernerf.md](2021-park-hypernerf.md) | 2106.13228 | 2021-06 | HyperNeRF, topology-varying + vrig dataset (Google) | ⭐⭐ |
 | [2022-gao-dycheck.md](2022-gao-dycheck.md) | 2210.13445 | 2022-10 | DyCheck iPhone dataset, 5 scenes (UCB+FAIR+Google) | ⭐⭐ |
 
-| [2025-a-iummer-ulti-uidance.md](2025-a-iummer-ulti-uidance.md) | (待补) | 2025-10 | MiDSummer: Multi-Guidance Diffusion for Controllable Zero-Shot Immersive Gaussian Splattin | ⭐ |
-| [2025-a-o-ense-.md](2025-a-o-ense-.md) | (待补) | 2025-10 | ToF-Splatting: Dense SLAM using Sparse Time-of-Flight Depth and Multi-Frame Integration | ⭐ |
-| [2025-a-platalk-.md](2025-a-platalk-.md) | (待补) | 2025-10 | SplatTalk: 3D VQA with Gaussian Splatting | ⭐ |
-| [2025-b-tealthttack-obust-oisoning.md](2025-b-tealthttack-obust-oisoning.md) | (待补) | 2025-10 | StealthAttack: Robust 3D Gaussian Splatting Poisoning via Density-Guided Illusions | ⭐ |
-| [2025-c-aight-plats-patially.md](2025-c-aight-plats-patially.md) | (待补) | 2025-10 | GaSLight: Gaussian Splats for Spatially-Varying Lighting in HDR | ⭐ |
-| [2025-c-eam360-eamless-eal.md](2025-c-eam360-eamless-eal.md) | (待补) | 2025-10 | Seam360GS: Seamless 360° Gaussian Splatting from Real-World Omnidirectional Images | ⭐ |
-| [2025-c-elf-nsembling-ew.md](2025-c-elf-nsembling-ew.md) | (待补) | 2025-10 | Self-Ensembling Gaussian Splatting for Few-Shot Novel View Synthesis | ⭐ |
-| [2025-c-esson-plats-eacher.md](2025-c-esson-plats-eacher.md) | (待补) | 2025-10 | A Lesson in Splats: Teacher-Guided Diffusion for 3D Gaussian Splats Generation with 2D Sup | ⭐ |
-| [2025-c-ong--ong.md](2025-c-ong--ong.md) | (待补) | 2025-10 | Long-LRM: Long-sequence Large Reconstruction Model for Wide-coverage Gaussian Splats | ⭐ |
-| [2025-g-ixture-xperts-uided.md](2025-g-ixture-xperts-uided.md) | (待补) | 2025-10 | Mixture of Experts Guided by Gaussian Splatters Matters: A new Approach to Weakly-Supervis | ⭐ |
-| [2025-h-ae-elightable-utdoor.md](2025-h-ae-elightable-utdoor.md) | (待补) | 2025-10 | GaRe: Relightable 3D Gaussian Splatting for Outdoor Scenes from Unconstrained Photo Collec | ⭐ |
-| [2025-h-econ-eneralizable-urface.md](2025-h-econ-eneralizable-urface.md) | (待补) | 2025-10 | GSRecon: Efficient Generalizable Gaussian Splatting for Surface Reconstruction from Sparse | ⭐ |
-| [2025-h-hysplat-hysics-imulation.md](2025-h-hysplat-hysics-imulation.md) | (待补) | 2025-10 | PhysSplat: Efficient Physics Simulation for 3D Scenes via MLLM-Guided Gaussian Splatting | ⭐ |
-| [2025-h-ideoplat-irect-cene.md](2025-h-ideoplat-irect-cene.md) | (待补) | 2025-10 | VideoRFSplat: Direct Scene-Level Text-to-3D Gaussian Splatting Generation with Flexible Po | ⭐ |
-| [2025-h-obust-asked-art.md](2025-h-obust-asked-art.md) | (待补) | 2025-10 | Robust 3D-Masked Part-level Editing in 3D Gaussian Splatting with Regularized Score Distil | ⭐ |
-| [2025-h-ogplat-obust-enerative.md](2025-h-ogplat-obust-enerative.md) | (待补) | 2025-10 | RogSplat: Robust Gaussian Splatting via Generative Priors | ⭐ |
-| [2025-h-plats-bservation-ompleten.md](2025-h-plats-bservation-ompleten.md) | (待补) | 2025-10 | OCSplats: Observation Completeness Quantification and Label Noise Separation in 3DGS | ⭐ |
-| [2025-j--earning-ree.md](2025-j--earning-ree.md) | (待补) | 2025-10 | LUDVIG: Learning-Free Uplifting of 2D Visual Features to Gaussian Splatting Scenes | ⭐ |
-| [2025-j-nsideut-ntegrated-.md](2025-j-nsideut-ntegrated-.md) | (待补) | 2025-10 | InsideOut: Integrated RGB-Radiative Gaussian Splatting for Comprehensive 3D Object Represe | ⭐ |
-| [2025-j-onstrained-ptimization-ppro.md](2025-j-onstrained-ptimization-ppro.md) | (待补) | 2025-10 | A Constrained Optimization Approach for Gaussian Splatting from Coarsely-posed Images and  | ⭐ |
-| [2025-j-reeplatter-ose-free.md](2025-j-reeplatter-ose-free.md) | (待补) | 2025-10 | FreeSplatter: Pose-free Gaussian Splatting for Sparse-view 3D Reconstruction | ⭐ |
-| [2025-k-enerative-enerating-cenes.md](2025-k-enerative-enerating-cenes.md) | (待补) | 2025-10 | Generative Gaussian Splatting: Generating 3D Scenes with Video Diffusion Priors | ⭐ |
-| [2025-k-eoplatting-owards-eometry.md](2025-k-eoplatting-owards-eometry.md) | (待补) | 2025-10 | GeoSplatting: Towards Geometry Guided Gaussian Splatting for Physically-based Inverse Rend | ⭐ |
-| [2025-l---ontrastive.md](2025-l---ontrastive.md) | (待补) | 2025-10 | CCL-LGS: Contrastive Codebook Learning for 3D Language Gaussian Splatting | ⭐ |
-| [2025-l-aussianpdate-ontinual-pdat.md](2025-l-aussianpdate-ontinual-pdat.md) | (待补) | 2025-10 | GaussianUpdate: Continual 3D Gaussian Splatting Update for Changing Environments | ⭐ |
-| [2025-m--ierarchical-rban.md](2025-m--ierarchical-rban.md) | (待补) | 2025-10 | HUG: Hierarchical Urban Gaussian Splatting with Block-Based Reconstruction for Large-Scale | ⭐ |
-| [2025-m-nterdit-nteractive-ditin.md](2025-m-nterdit-nteractive-ditin.md) | (待补) | 2025-10 | InterGSEdit: Interactive 3D Gaussian Splatting Editing with 3D Geometry-Consistent Attenti | ⭐ |
-| [2025-m-oteplat-ough-oting.md](2025-m-oteplat-ough-oting.md) | (待补) | 2025-10 | VoteSplat: Hough Voting Gaussian Splatting for 3D Scene Understanding | ⭐ |
-| [2025-p-adarplat-adar-igh.md](2025-p-adarplat-adar-igh.md) | (待补) | 2025-10 | RadarSplat: Radar Gaussian Splatting for High-Fidelity Data Synthesis and 3D Reconstructio | ⭐ |
-| [2025-q--elightable-parse.md](2025-q--elightable-parse.md) | (待补) | 2025-10 | SU-RGS: Relightable 3D Gaussian Splatting from Sparse Views under Unconstrained Illuminati | ⭐ |
-| [2025-q--utual-boosted.md](2025-q--utual-boosted.md) | (待补) | 2025-10 | MGSR: 2D/3D Mutual-boosted Gaussian Splatting for High-fidelity Surface Reconstruction und | ⭐ |
-| [2025-s--nifying-ision.md](2025-s--nifying-ision.md) | (待补) | 2025-10 | CLIP-GS: Unifying Vision-Language Representation with 3D Gaussian Splatting | ⭐ |
-| [2025-s-e-aluable-ssistant.md](2025-s-e-aluable-ssistant.md) | (待补) | 2025-10 | NeRF Is a Valuable Assistant for 3D Gaussian Splatting | ⭐ |
-| [2025-s-eovatar-daptive-eometrical.md](2025-s-eovatar-daptive-eometrical.md) | (待补) | 2025-10 | GeoAvatar: Adaptive Geometrical Gaussian Splatting for 3D Head Avatar | ⭐ |
-| [2025-s-ontra-odebook-ondensed.md](2025-s-ontra-odebook-ondensed.md) | (待补) | 2025-10 | ContraGS: Codebook-Condensed and Trainable Gaussian Splatting for Fast, Memory-Efficient R | ⭐ |
-| [2025-s-plrt-rticulation-stimation.md](2025-s-plrt-rticulation-stimation.md) | (待补) | 2025-10 | SplArt: Articulation Estimation and Part-Level Reconstruction with 3D Gaussian Splatting | ⭐ |
-| [2025-t---tructure.md](2025-t---tructure.md) | (待补) | 2025-10 | SEGS-SLAM: Structure-enhanced 3D Gaussian Splatting SLAM with Appearance Embedding | ⭐ |
-| [2025-t-riven-ulti-obust.md](2025-t-riven-ulti-obust.md) | (待补) | 2025-10 | 3D Gaussian Splatting Driven Multi-View Robust Physical Adversarial Camouflage Generation | ⭐ |
-| [2025-w-aussiancc-ully-elf.md](2025-w-aussiancc-ully-elf.md) | (待补) | 2025-10 | GaussianOcc: Fully Self-supervised and Efficient 3D Occupancy Estimation with Gaussian Spl | ⭐ |
-| [2025-w-iberated-ndependent-f.md](2025-w-iberated-ndependent-f.md) | (待补) | 2025-10 | Liberated-GS: 3D Gaussian Splatting Independent from SfM Point Clouds | ⭐ |
-| [2025-w-plat-ontext-ware.md](2025-w-plat-ontext-ware.md) | (待补) | 2025-10 | CATSplat: Context-Aware Transformer with Spatial Guidance for Generalizable 3D Gaussian Sp | ⭐ |
-| [2025-x-azeaussian-igh-idelity.md](2025-x-azeaussian-igh-idelity.md) | (待补) | 2025-10 | GazeGaussian: High-Fidelity Gaze Redirection with 3D Gaussian Splatting | ⭐ |
-| [2025-x-utocc-utomatic-pen.md](2025-x-utocc-utomatic-pen.md) | (待补) | 2025-10 | AutoOcc: Automatic Open-Ended Semantic Occupancy Annotation via Vision-Language Guided Gau | ⭐ |
-| [2025-y---ree.md](2025-y---ree.md) | (待补) | 2025-10 | PCR-GS: COLMAP-Free 3D Gaussian Splatting via Pose Co-Regularizations | ⭐ |
-| [2025-y-elf-alibrating-arge.md](2025-y-elf-alibrating-arge.md) | (待补) | 2025-10 | Self-Calibrating Gaussian Splatting for Large Field-of-View Reconstruction | ⭐ |
-| [2025-y-ol-olarimetric-eflective.md](2025-y-ol-olarimetric-eflective.md) | (待补) | 2025-10 | PolGS: Polarimetric Gaussian Splatting for Fast Reflective Surface Reconstruction | ⭐ |
-| [2025-y-patialplat-emantic-parse.md](2025-y-patialplat-emantic-parse.md) | (待补) | 2025-10 | SpatialSplat: Efficient Semantic 3D from Sparse Unposed Images | ⭐ |
-| [2025-y-u-ulti-aseline.md](2025-y-u-ulti-aseline.md) | (待补) | 2025-10 | MuGS: Multi-Baseline Generalizable Gaussian Splatting Reconstruction | ⭐ |
-| [2025-y-une-our-tyle.md](2025-y-une-our-tyle.md) | (待补) | 2025-10 | Tune-Your-Style: Intensity-tunable 3D Style Transfer with Gaussian Splatting | ⭐ |
-| [2025-z-2aussian-nchor-raph.md](2025-z-2aussian-nchor-raph.md) | (待补) | 2025-10 | AG2aussian: Anchor-Graph Structured Gaussian Splatting for Instance-Level 3D Scene Underst | ⭐ |
-| [2025-z-3-rbitrary-rtistic.md](2025-z-3-rbitrary-rtistic.md) | (待补) | 2025-10 | A3GS: Arbitrary Artistic Style into Arbitrary 3D Gaussian Splatting | ⭐ |
-| [2025-z-nstant-aussianmage-enerali.md](2025-z-nstant-aussianmage-enerali.md) | (待补) | 2025-10 | Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gauss | ⭐ |
-| [2025-z-uadratic-igh-uality.md](2025-z-uadratic-igh-uality.md) | (待补) | 2025-10 | Quadratic Gaussian Splatting: High Quality Surface Reconstruction with Second-order Geomet | ⭐ |
-| [2025-z-urve-ware-arametric.md](2025-z-urve-ware-arametric.md) | (待补) | 2025-10 | Curve-Aware Gaussian Splatting for 3D Parametric Curve Reconstruction | ⭐ |
+| [2025-hu-midsummer.md](2025-hu-midsummer.md) | (待补) | 2025-10 | MiDSummer: Multi-Guidance Diffusion for Controllable Zero-Shot Immersive Gaussian Splattin | ⭐ |
+| [2025-conti-tof-splatting.md](2025-conti-tof-splatting.md) | (待补) | 2025-10 | ToF-Splatting: Dense SLAM using Sparse Time-of-Flight Depth and Multi-Frame Integration | ⭐ |
+| [2025-thai-splattalk.md](2025-thai-splattalk.md) | 2503.06271 | 2025-10 | SplatTalk: 3D VQA with Gaussian Splatting | ⭐ |
+| [2025-ke-stealthattack.md](2025-ke-stealthattack.md) | 2510.02314 | 2025-10 | StealthAttack: Robust 3D Gaussian Splatting Poisoning via Density-Guided Illusions | ⭐ |
+| [2025-bolduc-gaslight.md](2025-bolduc-gaslight.md) | (待补) | 2025-10 | GaSLight: Gaussian Splats for Spatially-Varying Lighting in HDR | ⭐ |
+| [2025-shin-seam360gs.md](2025-shin-seam360gs.md) | (待补) | 2025-10 | Seam360GS: Seamless 360° Gaussian Splatting from Real-World Omnidirectional Images | ⭐ |
+| [2025-zhao-self-ensembling.md](2025-zhao-self-ensembling.md) | (待补) | 2025-10 | Self-Ensembling Gaussian Splatting for Few-Shot Novel View Synthesis | ⭐ |
+| [2025-peng-lesson-splats.md](2025-peng-lesson-splats.md) | (待补) | 2025-10 | A Lesson in Splats: Teacher-Guided Diffusion for 3D Gaussian Splats Generation with 2D Sup | ⭐ |
+| [2025-ziwen-long-lrm.md](2025-ziwen-long-lrm.md) | (待补) | 2025-10 | Long-LRM: Long-sequence Large Reconstruction Model for Wide-coverage Gaussian Splats | ⭐ |
+| [2025-amicantonio-moegs.md](2025-amicantonio-moegs.md) | (待补) | 2025-10 | Mixture of Experts Guided by Gaussian Splatters Matters: A new Approach to Weakly-Supervis | ⭐ |
+| [2025-bai-gare.md](2025-bai-gare.md) | (待补) | 2025-10 | GaRe: Relightable 3D Gaussian Splatting for Outdoor Scenes from Unconstrained Photo Collec | ⭐ |
+| [2025-yang-gsrecon.md](2025-yang-gsrecon.md) | (待补) | 2025-10 | GSRecon: Efficient Generalizable Gaussian Splatting for Surface Reconstruction from Sparse | ⭐ |
+| [2025-zhao-physsplat.md](2025-zhao-physsplat.md) | (待补) | 2025-10 | PhysSplat: Efficient Physics Simulation for 3D Scenes via MLLM-Guided Gaussian Splatting | ⭐ |
+| [2025-go-videorfsplat.md](2025-go-videorfsplat.md) | (待补) | 2025-10 | VideoRFSplat: Direct Scene-Level Text-to-3D Gaussian Splatting Generation with Flexible Po | ⭐ |
+| [2025-kim-robustpartedit.md](2025-kim-robustpartedit.md) | (待补) | 2025-10 | Robust 3D-Masked Part-level Editing in 3D Gaussian Splatting with Regularized Score Distil | ⭐ |
+| [2025-kong-rogsplat.md](2025-kong-rogsplat.md) | (待补) | 2025-10 | RogSplat: Robust Gaussian Splatting via Generative Priors | ⭐ |
+| [2025-ling-ocsplats.md](2025-ling-ocsplats.md) | (待补) | 2025-10 | OCSplats: Observation Completeness Quantification and Label Noise Separation in 3DGS | ⭐ |
+| [2025-marrie-ludvig.md](2025-marrie-ludvig.md) | 2410.14462 | 2025-10 | LUDVIG: Learning-Free Uplifting of 2D Visual Features to Gaussian Splatting Scenes | ⭐ |
+| [2025-lee-insideout.md](2025-lee-insideout.md) | (待补) | 2025-10 | InsideOut: Integrated RGB-Radiative Gaussian Splatting for Comprehensive 3D Object Represe | ⭐ |
+| [2025-peng-constrained-opt.md](2025-peng-constrained-opt.md) | (待补) | 2025-10 | A Constrained Optimization Approach for Gaussian Splatting from Coarsely-posed Images and  | ⭐ |
+| [2025-xu-freesplatter.md](2025-xu-freesplatter.md) | 2412.09573 | 2025-10 | FreeSplatter: Pose-free Gaussian Splatting for Sparse-view 3D Reconstruction | ⭐ |
+| [2025-schwarz-generative-gs.md](2025-schwarz-generative-gs.md) | (待补) | 2025-10 | Generative Gaussian Splatting: Generating 3D Scenes with Video Diffusion Priors | ⭐ |
+| [2025-ye-geosplatting.md](2025-ye-geosplatting.md) | (待补) | 2025-10 | GeoSplatting: Towards Geometry Guided Gaussian Splatting for Physically-based Inverse Rend | ⭐ |
+| [2025-tian-ccl-lgs.md](2025-tian-ccl-lgs.md) | (待补) | 2025-10 | CCL-LGS: Contrastive Codebook Learning for 3D Language Gaussian Splatting | ⭐ |
+| [2025-zeng-gaussianupdate.md](2025-zeng-gaussianupdate.md) | (待补) | 2025-10 | GaussianUpdate: Continual 3D Gaussian Splatting Update for Changing Environments | ⭐ |
+| [2025-su-hug.md](2025-su-hug.md) | (待补) | 2025-10 | HUG: Hierarchical Urban Gaussian Splatting with Block-Based Reconstruction for Large-Scale | ⭐ |
+| [2025-wen-intergsedit.md](2025-wen-intergsedit.md) | (待补) | 2025-10 | InterGSEdit: Interactive 3D Gaussian Splatting Editing with 3D Geometry-Consistent Attenti | ⭐ |
+| [2025-jiang-votesplat.md](2025-jiang-votesplat.md) | (待补) | 2025-10 | VoteSplat: Hough Voting Gaussian Splatting for 3D Scene Understanding | ⭐ |
+| [2025-kung-radarsplat.md](2025-kung-radarsplat.md) | (待补) | 2025-10 | RadarSplat: Radar Gaussian Splatting for High-Fidelity Data Synthesis and 3D Reconstructio | ⭐ |
+| [2025-zhang-su-rgs.md](2025-zhang-su-rgs.md) | (待补) | 2025-10 | SU-RGS: Relightable 3D Gaussian Splatting from Sparse Views under Unconstrained Illuminati | ⭐ |
+| [2025-zhou-mgsr.md](2025-zhou-mgsr.md) | (待补) | 2025-10 | MGSR: 2D/3D Mutual-boosted Gaussian Splatting for High-fidelity Surface Reconstruction und | ⭐ |
+| [2025-jiao-clip-gs.md](2025-jiao-clip-gs.md) | (待补) | 2025-10 | CLIP-GS: Unifying Vision-Language Representation with 3D Gaussian Splatting | ⭐ |
+| [2025-fang-nerf-assistant.md](2025-fang-nerf-assistant.md) | (待补) | 2025-10 | NeRF Is a Valuable Assistant for 3D Gaussian Splatting | ⭐ |
+| [2025-moon-geoavatar.md](2025-moon-geoavatar.md) | (待补) | 2025-10 | GeoAvatar: Adaptive Geometrical Gaussian Splatting for 3D Head Avatar | ⭐ |
+| [2025-durvasula-contrags.md](2025-durvasula-contrags.md) | (待补) | 2025-10 | ContraGS: Codebook-Condensed and Trainable Gaussian Splatting for Fast, Memory-Efficient R | ⭐ |
+| [2025-lin-splart.md](2025-lin-splart.md) | (待补) | 2025-10 | SplArt: Articulation Estimation and Part-Level Reconstruction with 3D Gaussian Splatting | ⭐ |
+| [2025-wen-segs-slam.md](2025-wen-segs-slam.md) | (待补) | 2025-10 | SEGS-SLAM: Structure-enhanced 3D Gaussian Splatting SLAM with Appearance Embedding | ⭐ |
+| [2025-lou-advcamouflage.md](2025-lou-advcamouflage.md) | (待补) | 2025-10 | 3D Gaussian Splatting Driven Multi-View Robust Physical Adversarial Camouflage Generation | ⭐ |
+| [2025-gan-gaussianocc.md](2025-gan-gaussianocc.md) | 2408.11447 | 2025-10 | GaussianOcc: Fully Self-supervised and Efficient 3D Occupancy Estimation with Gaussian Spl | ⭐ |
+| [2025-pan-liberated-gs.md](2025-pan-liberated-gs.md) | (待补) | 2025-10 | Liberated-GS: 3D Gaussian Splatting Independent from SfM Point Clouds | ⭐ |
+| [2025-roh-catsplat.md](2025-roh-catsplat.md) | 2412.12906v2 | 2025-10 | CATSplat: Context-Aware Transformer with Spatial Guidance for Generalizable 3D Gaussian Sp | ⭐ |
+| [2025-wei-gazegaussian.md](2025-wei-gazegaussian.md) | (待补) | 2025-10 | GazeGaussian: High-Fidelity Gaze Redirection with 3D Gaussian Splatting | ⭐ |
+| [2025-zhou-autoocc.md](2025-zhou-autoocc.md) | (待补) | 2025-10 | AutoOcc: Automatic Open-Ended Semantic Occupancy Annotation via Vision-Language Guided Gau | ⭐ |
+| [2025-wei-pcr-gs.md](2025-wei-pcr-gs.md) | (待补) | 2025-10 | PCR-GS: COLMAP-Free 3D Gaussian Splatting via Pose Co-Regularizations | ⭐ |
+| [2025-deng-self-calibrating-gs.md](2025-deng-self-calibrating-gs.md) | 2502.09563 | 2025-10 | Self-Calibrating Gaussian Splatting for Large Field-of-View Reconstruction | ⭐ |
+| [2025-han-polgs.md](2025-han-polgs.md) | (待补) | 2025-10 | PolGS: Polarimetric Gaussian Splatting for Fast Reflective Surface Reconstruction | ⭐ |
+| [2025-sheng-spatialsplat.md](2025-sheng-spatialsplat.md) | (待补) | 2025-10 | SpatialSplat: Efficient Semantic 3D from Sparse Unposed Images | ⭐ |
+| [2025-lou-mugs.md](2025-lou-mugs.md) | (待补) | 2025-10 | MuGS: Multi-Baseline Generalizable Gaussian Splatting Reconstruction | ⭐ |
+| [2025-zhao-tune-your-style.md](2025-zhao-tune-your-style.md) | (待补) | 2025-10 | Tune-Your-Style: Intensity-tunable 3D Style Transfer with Gaussian Splatting | ⭐ |
+| [2025-wang-ag2gaussian.md](2025-wang-ag2gaussian.md) | (待补) | 2025-10 | AG2aussian: Anchor-Graph Structured Gaussian Splatting for Instance-Level 3D Scene Underst | ⭐ |
+| [2025-fang-a3gs.md](2025-fang-a3gs.md) | (待补) | 2025-10 | A3GS: Arbitrary Artistic Style into Arbitrary 3D Gaussian Splatting | ⭐ |
+| [2025-zeng-instant-gaussianimage.md](2025-zeng-instant-gaussianimage.md) | (待补) | 2025-10 | Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gauss | ⭐ |
+| [2025-zhang-quadratic-gs.md](2025-zhang-quadratic-gs.md) | (待补) | 2025-10 | Quadratic Gaussian Splatting: High Quality Surface Reconstruction with Second-order Geomet | ⭐ |
+| [2025-gao-curve-aware-gs.md](2025-gao-curve-aware-gs.md) | (待补) | 2025-10 | Curve-Aware Gaussian Splatting for 3D Parametric Curve Reconstruction | ⭐ |
 | [2026-arxiv-2607-03819.md](2026-arxiv-2607-03819.md) | 2607.03819 | 2026-07 | CGGS: Consistency-Augmented Geometric Gaussian Splatting for Ego-Centric 3D Scene Generati | ⭐ |
 | [2026-arxiv-2607-05347.md](2026-arxiv-2607-05347.md) | 2607.05347 | 2026-07 | WildSplat: Feedforward Gaussian Splatting from Unposed In-the-Wild Images | ⭐ |
 | [2026-arxiv-2607-05598.md](2026-arxiv-2607-05598.md) | 2607.05598 | 2026-07 | SSA-3DGS: Unsupervised Removal of Screen-Space Artifacts for 3D Gaussian Splatting | ⭐ |
