@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "4DGS / 3DGS Mobile Rendering 演进图",
-    "total_nodes": 176,
+    "total_nodes": 185,
     "factions": {
       "A": {
         "name": "4DGS 表示",
@@ -962,6 +962,15 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2026-arxiv-2604-04063-4c4d",
+      "label": "2604-04063-4C4D",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2026-arxiv-2607-03765",
       "label": "2607-03765",
       "year": 2026.0,
@@ -1484,6 +1493,24 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2026-jiao-mapo",
+      "label": "MAPO",
+      "year": 2508.19,
+      "faction": "B",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-kim-gp-4dgs",
+      "label": "GP-4DGS",
+      "year": 2026.0,
+      "faction": "A",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2026-li-pd4dgs",
       "label": "PD4DGS",
       "year": 2026.0,
@@ -1507,6 +1534,15 @@
       "year": 2606.02,
       "faction": "E",
       "arxiv": "2606.02346",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-liang-clipgstream",
+      "label": "CLIPGSTREAM",
+      "year": 2604.13,
+      "faction": "D",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐⭐"
     },
@@ -1574,11 +1610,29 @@
       "rating": "⭐⭐"
     },
     {
+      "id": "2026-tran-pointsplat",
+      "label": "POINTSPLAT",
+      "year": 2604.09,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
       "id": "2026-veicht-zipsplat",
       "label": "ZipSplat: Fewer Gaussians, Better Splats",
       "year": 2606.05,
       "faction": "D",
       "arxiv": "2606.05102",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-wang-filtergs",
+      "label": "FILTERGS",
+      "year": 2603.23,
+      "faction": "C",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐⭐"
     },
@@ -1590,6 +1644,15 @@
       "arxiv": "2603.13783",
       "refs": 0,
       "rating": "⭐⭐⭐"
+    },
+    {
+      "id": "2026-xu-layered-4drotor",
+      "label": "LAYERED-4DROTOR",
+      "year": 2026.0,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐"
     },
     {
       "id": "2026-yin-cags",
@@ -1608,6 +1671,15 @@
       "arxiv": "2605.25563",
       "refs": 0,
       "rating": "⭐"
+    },
+    {
+      "id": "2026-zhang-cat-gs",
+      "label": "CAT-GS",
+      "year": 2607.17,
+      "faction": "C",
+      "arxiv": null,
+      "refs": 0,
+      "rating": "⭐⭐⭐"
     },
     {
       "id": "2026-zhang-geta3dgs",
@@ -1633,6 +1705,15 @@
       "year": 2605.19,
       "faction": "E",
       "arxiv": "2605.19304",
+      "refs": 0,
+      "rating": "⭐⭐"
+    },
+    {
+      "id": "2026-zhou-motionscale",
+      "label": "MOTIONSCALE",
+      "year": 2603.29,
+      "faction": "A",
+      "arxiv": null,
       "refs": 0,
       "rating": "⭐⭐"
     },

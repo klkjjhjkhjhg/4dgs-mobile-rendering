@@ -2,7 +2,7 @@
 
 > **本地 PDF stash**: `/.pdfs/`（仓库根目录，**不进 git**，见 `.gitignore`）
 > **命名约定**: 大部分用纯 arxiv id（`<arxiv-id>.pdf`），4 篇"早期下"的用易读命名（`4DGS-1K.pdf` / `wu-4dgs.pdf` 等）
-> **总计**: **176 篇 paper notes ↔ 176 个本地 PDF**（截至 2026-07-30，含本批 arxiv 50 + ICCV 2025 67 = 117 新增，all 模式手动 sync 触发）
+> **总计**: **185 篇 paper notes ↔ 185 个本地 PDF**（截至 2026-08-10，含本批 arxiv 50 + ICCV 2025 67 = 117 新增，all 模式手动 sync 触发）
 > **标记**: ⭐⭐⭐ = 本项目直接对标 / ⭐⭐ = 高相关 / ⭐ = 参考
 > **本批扩展（25 H2 ~ 26 H1）**: 14 篇 — `Flux-GS` (ECCV 2026) + 13 篇 2026 H1 arxiv (3DGS 加速 / 压缩 / mobile / streaming 派系)
 > **本批触发**: 用户用 GitHub 链接 `https://github.com/xiaobiaodu/Flux-GS` 作为入口，扩到同期 13 篇相关工作
@@ -11,7 +11,7 @@
 
 ---
 
-## A. 4DGS 表示（高精度表示主线，16 篇）
+## A. 4DGS 表示（高精度表示主线，19 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -28,6 +28,9 @@
 | [2026-huang-gaussianfluent.md](2026-huang-gaussianfluent.md) | 2601.09265 | 2026-01 | **GaussianFluent** (CVPR 2026 Oral, PKU+BIGAI)，3DGS + MPM 物理模拟（elastic / fracture / slicing）+ 混合材质 | ⭐⭐ |
 | [2026-song-l2d2-gs.md](2026-song-l2d2-gs.md) | 2606.29374 | 2026-06 | **L2D2-GS** (小米+北大联合)，feedforward 4DGS 动态场景重建 + 自监督 densification policy（**对作者 heliangliang@xiaomi.com 有合作背景**） | ⭐⭐⭐ |
 | [2026-hu-mvfusion-gs.md](2026-hu-mvfusion-gs.md) | 2607.01578 | 2026-07 | **MVFusion-GS** (Tsinghua + UT Dallas + UESTC)，plug-in DeGauss with Motion-Variance guided refinement + MotionFormer Temporal Attention 双机制，Neu3D 32.07 dB (+0.55 vs DeGauss) + 42% 动态 Gaussian 压缩 (56,533 → 32,985) | ⭐⭐ |
+| [2026-kim-gp-4dgs.md](2026-kim-gp-4dgs.md) | 2604.02915 | 2026-04 | **GP-4DGS** (Seoul National Univ + Wisconsin-Madison)，Variational Gaussian Processes (Matérn×periodic composite kernel) + Chronos inducing points + GP-GS dual optimization，DyCheck Challenging mPSNR 15.02 (+0.46 vs SoM) | ⭐⭐ |
+| [2026-zhou-motionscale.md](2026-zhou-motionscale.md) | 2603.29296 | 2026-03 | **MotionScale** (NUS)，cluster-centric motion field (K cluster 共享 SE(3) + B basis 局部精修) + progressive optimization + shadow Gaussians，DyCheck NVS PSNR 17.98 (+1.26 vs SoM)；**未报 FPS/训练时间/Gaussian count** | ⭐⭐ |
+| [2026-arxiv-2604-04063-4c4d.md](2026-arxiv-2604-04063-4c4d.md) | 2604.04063 | 2026-04 | **4C4D** (作者未在 PDF 披露)，4 Camera 4DGS + Neural Decaying Function (NDF) MLP per-Gaussian decay，**4 相机稀疏视角 (vs 现有 18-21)**，Neural3DV PSNR 20.60→22.29 (+1.69 dB)，LPIPS -40% | ⭐⭐ |
 
 ---
 
@@ -35,7 +38,7 @@
 | [2025-y-.md](2025-y-.md) | (待补) | 2025-10 | 4D Gaussian Splatting SLAM | ⭐ |
 | [2026-arxiv-2607-04761.md](2026-arxiv-2607-04761.md) | 2607.04761 | 2026-07 | DeGenseGS: Geometrically and Semantically Decoupled Surgical Scene Understanding in 4D Gau | ⭐ |
 | [2026-arxiv-2607-12362.md](2026-arxiv-2607-12362.md) | 2607.12362 | 2026-07 | Implicit 4D Gaussian Splatting for Fast Motion with Large Inter-Frame Displacements | ⭐ |
-## B. 4DGS 加速 / 动静态分离（25-26 主线之三，16 篇）
+## B. 4DGS 加速 / 动静态分离（25-26 主线之三，18 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -46,6 +49,8 @@
 | [2025-chen-4dgscc.md](2025-chen-4dgscc.md) | 2504.18925 | 2025-04 | **4DGS-CC**，contextual coding framework | ⭐⭐ |
 | [2026-li-pd4dgs.md](2026-li-pd4dgs.md) | 2605.11427 | 2026-05 | **PD-4DGS**，progressive decomposition + R-DO（TMC 一致性） | ⭐⭐ |
 | [2026-ren-cubifygs.md](2026-ren-cubifygs.md) | 2606.28720 | 2026-06 | **CubifyGS**，object-level asset + rigid rearrangement lifelong dynamic scene（**>40× faster than WildGS-SLAM**） | ⭐ |
+| [2026-jiao-mapo.md](2026-jiao-mapo.md) | 2508.19786 | 2025-08 | **MAPo** (Zhejiang U + Sun Yat-Sen U Shenzhen)，dynamic score 递归 temporal partitioning of high-dynamic 3DGS (复制 deformation sub-network) + static baking for low-dynamic + cross-frame consistency loss，N3DV PSNR 31.33 (+0.54 vs E-D3DGS) | ⭐⭐ |
+| [2026-xu-layered-4drotor.md](2026-xu-layered-4drotor.md) | (CVPR 2026, 无 arxiv) | 2026-06 | **Layered 4D-Rotor GS** (PKU + Galbot)，**Factorized Covariance Quantization (FCQ)** + Layered Compression + Residual Codebook Quantization (RCQ)，N3DV 180.7 MB → 8.8 MB (**20.5×**)，SelfCap 1194 FPS @ 41.8 MB | ⭐⭐ |
 
 ---
 
@@ -59,7 +64,7 @@
 | [2026-arxiv-2607-14990.md](2026-arxiv-2607-14990.md) | 2607.14990 | 2026-07 | JADE-GS: Joint Alternating Deblurring Guided by Events in 3D Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-21099.md](2026-arxiv-2607-21099.md) | 2607.21099 | 2026-07 | Construction and Dynamic Update of Channel Gain Maps via 3D Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-21448.md](2026-arxiv-2607-21448.md) | 2607.21448 | 2026-07 | GrainGS: Gradient-Decoupled Gaussian Splatting for Efficient Dynamic Novel View Synthesis | ⭐ |
-## C. 渲染加速（pipeline 级，含 3DGS + 4DGS，31 篇）
+## C. 渲染加速（pipeline 级，含 3DGS + 4DGS，34 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -76,6 +81,9 @@
 | [2024-chen-fcgs.md](2024-chen-fcgs.md) | 2410.08017 | 2024-10 | FCGS，Monash U（频率压缩） | ⭐ |
 | [2024-chen-hacpp.md](2024-chen-hacpp.md) | 2501.12255 | 2025-01 | HAC++，ECCV 2024（hierarchical anchor compression） | ⭐ |
 | [2026-poirier-ginter-gray.md](2026-poirier-ginter-gray.md) | 2606.30869 | 2026-06 | **GRay** (ACM CGIT 2026, U. Laval + Inria)，3DGS ray tracing **4× vs 3DGRT, 248 FPS**（桌面 RTX 唯一平台） | ⭐⭐ |
+| [2026-zhang-cat-gs.md](2026-zhang-cat-gs.md) | 2607.17842 | 2026-07 | **CaT-GS** (SJTU + UIUC)，speculative multi-frame pre-processing + inter-frame caching (frustum + sort) + load-aware tile-level task splitting，**up to 10× over vanilla 3DGS** on RTX 5090，UAV-2 23.2→202.5 FPS；自建 UAV City Dataset 5 个大场景 | ⭐⭐⭐ |
+| [2026-wang-filtergs.md](2026-wang-filtergs.md) | 2603.23891 | 2026-03 | **FilterGS** (Beijing Inst Tech)，Traversal-Free Parallel Filtering (R&L + Ancestor Filter, depth-decoupled) + GTC-driven adaptive shrinking，**~300 FPS avg on 6 large-scale scenes** (MatrixCity/UrbanScene)；RTX 4090 only | ⭐⭐ |
+| [2026-tran-pointsplat.md](2026-tran-pointsplat.md) | 2604.09903 | 2026-04 | **PointSplat** (GMU, CVPR 2026 3DMV Workshop)，geometry-driven (z-score of opacity × volume) pruning + Dual-Branch Encoder (geom/apperance 分离) + Point Transformer V3 refine，**10% sparse 23.46 PSNR ScanNet++** | ⭐⭐ |
 | [2026-zhou-temporalgs.md](2026-zhou-temporalgs.md) | 2607.03390 | 2026-07 | **TemporalGS** (McGill + Waterloo + Toronto)，**首个 training-free plug-and-play** 3DGS 加速，**up to 1.48×**，作者未来工作明示"develop a 4DGS counterpart" | ⭐⭐ |
 
 ---
@@ -100,7 +108,7 @@
 | [2026-arxiv-2607-24403.md](2026-arxiv-2607-24403.md) | 2607.24403 | 2026-07 | GenSplatCodec: Feed-Forward Gaussian Splatting Compression via One-Step Diffusion | ⭐ |
 | [2026-arxiv-2607-26525.md](2026-arxiv-2607-26525.md) | 2607.26525 | 2026-07 | AtlasLC: Fast Codec-Ready Compression of Object-Centric 3D Gaussian Splatting | ⭐ |
 | [2026-arxiv-2607-26578.md](2026-arxiv-2607-26578.md) | 2607.26578 | 2026-07 | 3DGBGS: 3D Granular Ball Gaussian Splatting for Compact Novel View Synthesis | ⭐ |
-## D. 流式 streaming / 移动端落地（11 篇）
+## D. 流式 streaming / 移动端落地（12 篇）
 
 | paper | arxiv id | year | 一句话 | 评 |
 |---|---|---|---|---|
@@ -108,6 +116,7 @@
 | [2025-wang-airgs.md](2025-wang-airgs.md) | 2512.20943 | 2025-12 | **AirGS**，4DGS streaming + ILP pruning（**6× 训练加速** + 50% transmission） | ⭐⭐ |
 | [2025-zheng-4dgcpro.md](2025-zheng-4dgcpro.md) | 2509.17513 | 2025-09 | **4DGCPro**，4DGS mobile streaming（abstract 级） | ⭐⭐ |
 | [2026-li-pd4dgs.md](2026-li-pd4dgs.md) | 2605.11427 | 2026-05 | **PD-4DGS**（同时见派系 B），**iPhone 2 Mbps 移动网络 1.7s 启动**，progressive decomposition + R-DO | ⭐⭐ |
+| [2026-liang-clipgstream.md](2026-liang-clipgstream.md) | 2604.13746 | 2026-04 | **ClipGStream** (作者单位 PDF 未明确)，Clip-Stream 4DGS (frozen base + clip-by-clip STF increments) for **任意长度 4DGS 流式重建**，N3DV 98 MB @ 300 frames；扩展 GS-NFS 思路 | ⭐⭐ |
 | [2025-ke-streamstgs.md](2025-ke-streamstgs.md) | 2511.06046 | 2025-11 | **StreamSTGS**，streaming spatial-temporal grids（real-time FVV） | ⭐⭐ |
 | [2026-shi-evogs.md](2026-shi-evogs.md) | 2606.07179 | 2026-06 | **EvoGS**，continuous-layered Evolution Tree，**2.4× payload↓, 5.5× VRAM↓, redundancy 65%→25%** | ⭐⭐ |
 | [2026-veicht-zipsplat.md](2026-veicht-zipsplat.md) | 2606.05102 | 2026-06 | **ZipSplat** (ETH/Microsoft)，feed-forward 3DGS，**6× fewer Gaussians** + token-based scene | ⭐⭐ |
@@ -166,7 +175,7 @@
 ## 总数与对照组
 
 ```
-- **54 篇 paper notes ↔ 54 个本地 PDF**（一一对应，无遗漏）
+- **185 篇 paper notes ↔ 185 个本地 PDF**（一一对应，无遗漏）
 - **约 790 MB 总计**（`.pdfs/`，截至 2026-07-08）
 - **2023**：4 篇
 - **2024 H1**：5 篇

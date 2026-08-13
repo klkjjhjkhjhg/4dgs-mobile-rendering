@@ -1,6 +1,6 @@
 # 演进图（Evolution Graph）
 
-> **目的**：把 54 篇 paper notes 的"时间 × 派系 × 引用"3 维关系**可视化**，**d3 force-directed 2D**（早期 v1 试过 Three.js 3D，commit `db6e572` / `16f3e2a` 因 GitHub Pages ES module 不稳定回退到 r147 UMD；之后 commit `12966ff` 进一步简化为 2D 力导向布局）。
+> **目的**：把 185 篇 paper notes 的"时间 × 派系 × 引用"3 维关系**可视化**，**d3 force-directed 2D**（早期 v1 试过 Three.js 3D，commit `db6e572` / `16f3e2a` 因 GitHub Pages ES module 不稳定回退到 r147 UMD；之后 commit `12966ff` 进一步简化为 2D 力导向布局）。
 
 ---
 
@@ -33,7 +33,7 @@
 docs/evolution/
 ├── index.html              # d3 force-directed 主入口 (45.9KB)
 ├── styles.css              # 样式
-├── data/evolution.json     # 54 节点 + 56 边 (19.7KB, total_nodes=54)
+├── data/evolution.json     # 185 节点 + 56 边 (auto-gen)
 └── README.md               # 本文件
 
 cron_scripts/evolution_gen.py  # 自动生成 evolution.json (从 INDEX.md 解析)

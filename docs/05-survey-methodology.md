@@ -49,7 +49,7 @@
 
 Lumina 30 references 验证（2026-07-08）：
 - Lumina 是 Cross-disciplinary 工作（arxiv 2506.05682，体系结构跨方向）
-- 30 references → 7 核心 3DGS/4DGS 相关 → 7 全部已在 54 篇 INDEX
+- 30 references → 7 核心 3DGS/4DGS 相关 → 7 全部已在 INDEX（截至 2026-07 时共 54 篇，现已扩到 185 篇）
 - **0 新增** = 白名单收得齐
 
 ---

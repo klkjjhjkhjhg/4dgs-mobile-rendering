@@ -13,7 +13,7 @@
 **项目**：`~/Codes/4dgs-mobile-rendering` — 3DGS / 4DGS / 移动端渲染技术调研。
 
 **现状**（截至 2026-07-08）：
-- 54 篇 paper notes in `docs/appendix/paper-notes/`
+- 185 篇 paper notes in `docs/appendix/paper-notes/`
 - 1 个 INDEX.md（按派系 A/B/C/D/E 分组）
 - 1 个 venues.md（Tier 1/2/3 + Pre-print 栏 + 1-hop 引用规则）[本轮新建]
 - 4 个 docs（00-goal / 01-precision / 02-accel / 03-roadmap / 04-trends）
@@ -191,7 +191,7 @@ scripts_refs/evolution_gen.py  # 扫 54 篇 note 自动生成 evolution.json
 - 5 篇示范用 Semantic Scholar 拉 references，标 1-hop 关系
 
 ### 4.5 完成定义
-- 54 篇 paper notes 全部含 §0.5 元数据
+- 185 篇 paper notes 全部含 §0.5 元数据
 - 5 篇示范含 §11 1-hop 关系图
 - 不破坏 54 篇 note 已有正文
 
@@ -312,7 +312,7 @@ scripts_refs/evolution_gen.py  # 扫 54 篇 note 自动生成 evolution.json
 - ✅ `docs/evolution/index.html` 在浏览器能跑，显示 54 节点 + 引用边 + 2D fallback
 - ✅ `docs/evolution/data/evolution.json` 存在
 - ✅ `scripts_refs/evolution_gen.py` v1 可跑通
-- ✅ 54 篇 paper notes 全部含 §0.5 元数据
+- ✅ 185 篇 paper notes 全部含 §0.5 元数据
 - ✅ 5 篇示范（3DGS / 4DGS / Mobile-GS / Lumina / Flux-GS）含 §11 1-hop 关系图
 - ✅ 4 个 cron jobs 全部建好 + dry run 1 次通过
 - ✅ 所有改动 git commit
