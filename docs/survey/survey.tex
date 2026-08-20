@@ -10,8 +10,7 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{amsmath}
-%% acmart already loads xcolor; tikz inherits. (v5.46: removed
-%% explicit \usepackage[table]{xcolor} to avoid Option clash.)
+%% acmart already loads xcolor; tikz inherits.
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,shapes,calc,fit,backgrounds,shadows}
 %% amssymb omitted: acmart provides it; redefining \Bbbk clashes.
@@ -55,12 +54,6 @@
 %% 2. Short author tag for headers
 \renewcommand{\shortauthors}{Zhang}
 
-%% 5 figures now live inline in their target sections (sec-1/sec-3/
-%% sec-5/sec-6) as sec-fig-N-*.tex fragments. v5.46 fix: previously
-%% sec-figures.tex was \input{} in the preamble, which caused 5
-%% float-too-large warnings and 5 "possible image without description"
-%% complaints because the figures were rendered before \begin{document}.
-
 \begin{document}
 
 %% 3. Title + abstract
@@ -71,11 +64,9 @@ of dynamic 4D Gaussian Splatting (4DGS) on mobile GPUs
 core themes---4DGS representation, training-time acceleration,
 rendering-time acceleration, and mobile deployment---together with a
 discussion of datasets, evaluation metrics, and future directions.
-The survey is the academic counterpart of a separate
-engineering roadmap (the authors' production-track 4DGS
-renderer); it emphasises breadth across the research
-landscape rather than the engineering decisions of any one
-project. We organise 180+ representative works published
+The survey emphasises breadth across the research landscape
+and is not tied to the engineering decisions of any single
+mobile-4DGS project. We organise 180+ representative works published
 between 2023 and the first half of 2026 into a nine-section
 taxonomy and identify the dominant bottlenecks (storage,
 bandwidth, compute) and the most promising research
@@ -109,9 +100,9 @@ renderer for dynamic 4D Gaussian Splatting. He holds a Master's
 degree in Computer Graphics from the Institute of Computing
 Technology, Chinese Academy of Sciences, and has previously
 contributed to Xiaomi's Vulkan driver, Mali toolchain integration,
-and several internal OpenGL ES 3.2 optimisations. This survey is the academic counterpart of the
-authors' production-track 4DGS renderer; the engineering
-roadmap is documented separately and is not included here.
+and several internal OpenGL ES 3.2 optimisations. His broader research interests include Vulkan driver
+engineering, mobile tile-based rendering optimisation, and
+the design of 4DGS-friendly shader ISA extensions.
 
 %% 7. Acknowledgements
 \section*{Acknowledgements}
