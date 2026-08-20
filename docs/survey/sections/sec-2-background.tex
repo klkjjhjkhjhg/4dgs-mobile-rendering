@@ -222,6 +222,40 @@ updated note into \texttt{survey.bib} and the per-section
 5-step scan are inherited from the project's
 \texttt{INDEX.md}~\S A and replicated in every section footer.
 
+The corpus of 180+ works is partitioned into a five-faction
+taxonomy (A = 4DGS representation, B = 4DGS acceleration /
+dynamic-static separation, C = rendering acceleration,
+D = streaming / mobile, E = cross-domain / quality). The
+following table maps each faction to the survey section
+where it is most prominent; the cross-section coverage is
+intentional because several papers contribute to multiple
+factions.
+
+\begin{table}[h]
+\centering
+\caption{Faction-to-section mapping. Faction $\to$ survey section. Some papers in INDEX.md are tagged with multiple factions; the table lists the primary section for each.}
+\label{tab:faction-map}
+\footnotesize
+\begin{tabular}{llll}
+\toprule
+\textbf{Faction} & \textbf{Description} & \textbf{Primary section} & \textbf{Item count} \\
+\midrule
+\textbf{A} & 4DGS representation (canonical + deformation field, deformable 3DGS, GP-4DGS, etc.) & \S\ref{sec:representation} (\S3) & 18 \\
+\textbf{B} & 4DGS acceleration / dynamic-static separation (4DGS-1K, SharpTimeGS, MEGA, etc.) & \S\ref{sec:training} (\S4) + \S\ref{sec:rendering} (\S5) & 12 \\
+\textbf{C} & Rendering acceleration (pipeline-level incl.\ 3DGS + 4DGS; Mobile-GS, Flux-GS, Lumina, etc.) & \S\ref{sec:rendering} (\S5) & 79 \\
+\textbf{D} & Streaming / mobile deployment (4DGS-CC, P-4DGS, GS-NFS, AirGS, Neo, etc.) & \S\ref{sec:mobile} (\S6) & 12 \\
+\textbf{E} & Cross-domain / quality (datasets, metrics, generative, SLAM, fusion) & \S\ref{sec:datasets} (\S7) + \S\ref{sec:discussion} (\S8) & 64 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Where a paper contributes to multiple factions, the survey
+section that treats the contribution in most depth is given
+in the table; the second-most-relevant section is noted
+inline in the paper note. The faction-to-section mapping is
+visualised in Figure~\ref{fig:taxonomy} (a tabular
+five-faction tree).
+
 \subsection{Methodology of this Survey}
 This survey is the result of a two-year literature scan focused on
 real-time dynamic 4DGS rendering on mobile GPUs. The corpus was
