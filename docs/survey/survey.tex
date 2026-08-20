@@ -70,14 +70,16 @@ of dynamic 4D Gaussian Splatting (4DGS) on mobile GPUs
 (Snapdragon 8 Elite / Adreno 830 + Vulkan 1.3). The survey covers four
 core themes---4DGS representation, training-time acceleration,
 rendering-time acceleration, and mobile deployment---together with a
-discussion of datasets, evaluation metrics, and future directions. The
-paper complements the project \texttt{README.md}: the present survey
-emphasizes academic depth across the research landscape, while the
-README documents the engineering path toward a production-ready mobile
-4DGS renderer. We organize 180+ representative works published between
-2023 and the first half of 2026 into a nine-section taxonomy and
-identify the dominant bottlenecks (storage, bandwidth, compute) and
-the most promising research directions for mobile deployment.
+discussion of datasets, evaluation metrics, and future directions.
+The survey is the academic counterpart of a separate
+engineering roadmap (the authors' production-track 4DGS
+renderer); it emphasises breadth across the research
+landscape rather than the engineering decisions of any one
+project. We organise 180+ representative works published
+between 2023 and the first half of 2026 into a nine-section
+taxonomy and identify the dominant bottlenecks (storage,
+bandwidth, compute) and the most promising research
+directions for mobile deployment.
 \end{abstract}
 
 \maketitle
@@ -107,17 +109,15 @@ renderer for dynamic 4D Gaussian Splatting. He holds a Master's
 degree in Computer Graphics from the Institute of Computing
 Technology, Chinese Academy of Sciences, and has previously
 contributed to Xiaomi's Vulkan driver, Mali toolchain integration,
-and several internal OpenGL ES 3.2 optimisations. This survey is
-the academic counterpart to the project's engineering roadmap
-documented in the companion \texttt{README.md}.
+and several internal OpenGL ES 3.2 optimisations. This survey is the academic counterpart of the
+authors' production-track 4DGS renderer; the engineering
+roadmap is documented separately and is not included here.
 
 %% 7. Acknowledgements
 \section*{Acknowledgements}
-The author thanks the 4DGS Mobile Rendering project's
-\texttt{cron\_scripts/} maintainers and the two anonymous peer
-reviewers (Sub-agent D, graphics-researcher lens; Sub-agent E,
-academic-writing lens) whose detailed feedback shaped the v2 and
-v3 revisions. This survey used LLM assistance for grammar
+The author thanks two anonymous peer reviewers
+(graphics-researcher lens; academic-writing lens) whose
+detailed feedback shaped the v2 and v3 revisions. This survey used LLM assistance for grammar
 polishing, reference cross-checking, and bib reformatting. All
 factual claims, quantitative numbers, and methodological
 interpretations were independently verified by the author against

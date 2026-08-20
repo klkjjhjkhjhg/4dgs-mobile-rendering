@@ -221,11 +221,14 @@ research investment today is therefore a tight co-design loop
 between the algorithm and the Vulkan~1.3 / Adreno shader ISA,
 rather than yet another MLP variant.
 
-\subsection{Connection to This Project}
-The project \texttt{README.md} fixes the target on
-Snapdragon~8~Elite + Vulkan~1.3 real-time rendering, which
-overlaps the five directions above. See \texttt{01-} / \texttt{02-}
-/ \texttt{03-} for the engineering roadmap.
+\subsection{Broader Outlook}
+The five directions above are not project-specific; they
+generalise to any mobile-SoC target that combines a
+tile-based deferred rasteriser with a Vulkan~1.3+ driver
+(Qualcomm Snapdragon 7/8 series, MediaTek Dimensity 9000+,
+Samsung Exynos 2400, etc.). The hardware-software co-design
+thesis is a community-wide observation, not a project-local
+position.
 
 \subsubsection{Additional related work surveyed for completeness.}
 The survey's primary bibliography covers the 60 most-cited works
@@ -248,5 +251,5 @@ robustness}
 (StealthAttack~\cite{ke2025stealthattack}).
 
 \bigskip
-\noindent\textbf{Index of paper notes backing this section}:
-\texttt{INDEX.md} \S G.
+\noindent\textbf{Section reading notes}:
+\S\ref{sec:conclusion} (cluster G).
