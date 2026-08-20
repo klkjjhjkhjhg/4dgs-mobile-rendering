@@ -175,6 +175,57 @@ benchmark). Readers interested in the \emph{what} should start
 with the survey; readers interested in the \emph{how} should
 start with the README.
 
+\subsubsection{Top-3 paper notes to read in order before M0.}
+Before committing to a specific implementation, a 4DGS-on-mobile
+engineer should read three paper notes in this order. Each
+note links to the relevant primary source (open-source repo
+or PDF) and to the upstream paper-note in
+\texttt{docs/appendix/paper-notes/}.
+
+\begin{enumerate}
+  \item \textbf{Wu et al.\ 2024 \emph{4D Gaussian Splatting for
+        Real-Time Dynamic Scene Rendering}}~\cite{wu20244dgs}
+        (\S\ref{sec:representation}, paper note
+        \href{../appendix/paper-notes/2024-wu-4dgs.md}{\texttt{2024-wu-4dgs.md}}).
+        The original 4DGS paper with the canonical + deformation
+        field formulation. Read this first because every later
+        4DGS paper (4DGS-1K, L2D2-GS, MVFusion-GS, etc.) is
+        either an extension or a critique of this design.
+        Key takeaways for mobile: the canonical map is
+        static-rendering-friendly, the deformation field is
+        per-frame-cheap, and the per-Gaussian MLPs are the
+        primary mobile-deployment bottleneck.
+  \item \textbf{Yuan et al.\ 2025 \emph{1000+ FPS 4D Gaussian
+        Splatting for Dynamic Scene Rendering}}~\cite{yuan20254dgs1k}
+        (\S\ref{sec:representation}, paper note
+        \href{../appendix/paper-notes/2025-yuan-4dgs-1k.md}{\texttt{2025-yuan-4dgs-1k.md}}).
+        The dynamic / static separation route that achieves
+        1000+ FPS on a desktop GPU. The paper note contains the
+        exact per-scene D-NeRF / N3V model size and a
+        per-scene FPS breakdown that informs the storage budget
+        for any mobile port. Read this second because the
+        dynamic / static separation is the single biggest
+        lever for mobile memory (the static part can be
+        cached + tile-culled aggressively).
+  \item \textbf{Du et al.\ 2026 \emph{Flux-GS: Monte Carlo
+        Energy Aggregation for Mobile 3D Gaussian
+        Splatting}}~\cite{du2026fluxgs} (\S\ref{sec:rendering},
+        paper note
+        \href{../appendix/paper-notes/2026-du-flux-gs.md}{\texttt{2026-du-flux-gs.md}}).
+        The mobile-native route that reaches 147~FPS indoor /
+        132~FPS outdoor on a Snapdragon~8~Gen~3 with a
+        2.1~MB / 4.6~MB model. Read this third because it
+        directly establishes the on-device measurement
+        floor (Snap~8~Gen~3, Vulkan~1.3) that the project
+        targets.
+\end{enumerate}
+
+These three notes are also the recommended starting point for
+the 4DGS-SIGGRAPH reviewer's onboarding path: Wu~2024 sets
+context, Yuan~2025 establishes the performance target,
+Du~2026 establishes the deployment substrate. The remaining
+$\sim$180 paper notes are scaffolding around this triad.
+
 \subsubsection{Roadmap summary.}
 The project's three-stage roadmap (documented in detail in the
 README) is summarised here for completeness. \emph{Stage~1}
