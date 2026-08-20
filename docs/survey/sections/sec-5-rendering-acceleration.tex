@@ -142,9 +142,14 @@ identical across nearby pixels in a tile, because the SH
 evaluation at a given Gaussian is purely a function of the view
 direction. Lumina caches the per-Gaussian colour evaluations
 across a 4$\times$4 pixel block, reducing the number of SH
-evaluations by 16$\times$. Combined with the tile-based shading
-of Mobile-GS, this delivers $4.5\times$ speed-up and
-$5.3\times$ energy efficiency on a mobile SoC.
+evaluations by 16$\times$. Combined with the tile-based shading of Mobile-GS, the Lumina
+radiance cache is projected to deliver mobile-class speed-up
+and energy efficiency improvements; the specific multipliers
+($4.5\times$ speed-up and $5.3\times$ energy efficiency)
+reported in paper-note-derived summaries have not been
+independently verified against the Lumina abstract (see
+caveat in the preceding subsection and the
+$\dagger$-marked row in Table~\ref{tab:mobile}).
 
 \subsubsection{Two bottlenecks on mobile SoC.}
 The Lumina paper identifies two structural bottlenecks of

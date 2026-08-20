@@ -21,7 +21,7 @@ that an MLP could represent a 3D radiance field with high
 quality, but the volumetric rendering loop was too slow for
 real-time use. \emph{Instant-NGP and the hash-grid family}
 (2022) reduced the per-sample cost via a multi-resolution
-hash encoding (M\"uller et al. 2022 reports ``tens of
+hash encoding (M\"uller et al.~\cite{muller2022instantngp} 2022 reports ``tens of
 milliseconds'' per frame at 1920$\times$1080 on a desktop GPU;
 training converges in seconds, vs.\ hours for the original
 NeRF). \emph{3D Gaussian
