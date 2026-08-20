@@ -94,43 +94,32 @@
               Adreno~830.
         \end{itemize}
 
-  \item \textbf{Cross-domain fusion.} 4DGS + physical simulation
-        (GaussianFluent~\cite{huang2026gaussianfluent}), 4DGS + SLAM,
-        and 4DGS + on-device large multimodal models are all
-        emerging fronts.
-        \begin{itemize}
-        \item \textit{Missing piece:} no end-to-end system paper
-              that closes the loop between 4DGS reconstruction,
-              physics simulation, and on-device LLM/VLM grounding.
-        \item \textit{What the next paper should look like:} a
-              demo of ``video in, simulator-in-the-loop 4DGS out''
-              running in real time on a mobile device.
-        \item \textit{Project fit:} \textbf{!}~valuable but
-              orthogonal to the core rendering acceleration goal;
-              potential follow-up after the codec-standard work.
-        \item \textit{Quantitative target:} a cross-domain demo
-              that combines 4DGS reconstruction with a
-              fracture-aware simulation and renders the result at
-              $\ge 10$~FPS on a mobile device.
-        \end{itemize}
-
-  \item \textbf{Generative 4DGS.} The L2D2-GS feed-forward route
+  \item \textbf{Generative 4DGS + cross-domain fusion.} The
+        L2D2-GS~\cite{song2026l2d2gs} feed-forward route
         (\S\ref{sec:training}) generalises to a wider class of
         generative 4DGS models. The natural extension is
         text-to-4DGS (analogous to DreamFusion's text-to-3D path)
         and image-to-4DGS (single-image dynamic scene
-        reconstruction).
+        reconstruction). Cross-domain fusion closes the loop
+        between 4DGS reconstruction and adjacent modalities
+        (GaussianFluent~\cite{huang2026gaussianfluent} for
+        physical simulation, 4DGS-SLAM for tracking, and
+        on-device large multimodal models for grounding).
         \begin{itemize}
         \item \textit{Missing piece:} a public, large-scale
               text-paired dynamic video corpus (comparable in
               scale to Objaverse-XL or LAION-5B for static
-              3D generation).
+              3D generation) and an end-to-end system paper
+              that closes the loop between 4DGS reconstruction,
+              physics simulation, and on-device LLM/VLM grounding.
         \item \textit{What the next paper should look like:} a
               diffusion-based 4DGS generator that consumes a
               text prompt + a single static 3DGS seed and
               outputs a 4DGS scene in $<$10~seconds on an
               Adreno~830, evaluated on a held-out subset of
-              DyCheck prompts.
+              DyCheck prompts; OR a ``video in,
+              simulator-in-the-loop 4DGS out'' demo running in
+              real time on a mobile device.
         \item \textit{Project fit:} \textbf{!}~exciting but
               currently compute-bound; a Snapdragon~8~Elite
               target is plausible only after the mobile
@@ -139,7 +128,10 @@
               text-to-4DGS system that produces a 10-second
               dynamic clip on a single Adreno~830 in
               $<$30~seconds, with LPIPS $\le 0.20$ against the
-              ground-truth clip.
+              ground-truth clip; OR a cross-domain demo that
+              combines 4DGS reconstruction with a
+              fracture-aware simulation and renders the result
+              at $\ge 10$~FPS on a mobile device.
         \end{itemize}
 
   \item \textbf{4DGS standardisation.} The 4DGS community
@@ -189,7 +181,7 @@ and has been corrected),
 4DGS-CC 1.7--5.0~MB in 2025). Both
 curves are flattening: the next 3$\times$ in either dimension
 will require a fundamentally new representation (e.g. generative
-4DGS, see \S8.6 above), not an incremental tweak of the existing
+4DGS, see \S8.5 above), not an incremental tweak of the existing
 one.
 
 \paragraph{Second, the hardware headroom is large and quantifiable.}
