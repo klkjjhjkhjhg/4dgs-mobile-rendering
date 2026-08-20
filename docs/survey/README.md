@@ -9,8 +9,8 @@
 
 - 9 节结构（Introduction / Background / Representation / Training Accel / Rendering Accel / Mobile Deployment / Datasets / Discussion / Conclusion）
 - acmart + sigconf 双栏模板，xelatex 路径 + xeCJK font fallback (Noto CJK / Hiragino Sans GB)
-- 186 条 bib（180 篇 paper notes + 6 篇 cross-disciplinary，由 `scripts/generate_bib.py` 自动生成）
-- 54 篇 paper notes 全部已注入 `survey_section:` 字段（`scripts/assign_survey_section.py` 跑过）
+- 188 条 bib（180 篇 paper notes + 6 篇 cross-disciplinary，由 `scripts/generate_bib.py` 自动生成）
+- 185 篇 paper notes 全部已注入 `survey_section:` 字段（`scripts/assign_survey_section.py` 跑过）
 - `survey.pdf` 编译通过（237KB / 15 页 / 0 error，xelatex 3-pass）
 
 ## 编译
