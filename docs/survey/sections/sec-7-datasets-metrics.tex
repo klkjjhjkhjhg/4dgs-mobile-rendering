@@ -33,14 +33,14 @@ cross-paper comparison points.
 
 \paragraph{Real-world multi-view datasets.}
 \begin{itemize}
-  \item \textbf{Plenoptic Video}~\cite{li2022plenvdb} (Google): a
+  \item \textbf{Plenoptic Video}~\cite{li2022plenopticvideostream} (Google, separate paper from N3V below): a
         12-camera array dataset (\emph{Ballroom}, \emph{Cut~Roasted
         Beef}, etc.) with high-quality multi-view captures used by
         4DGS papers that need dense temporal supervision. The
         12-camera rig provides a $360^{\circ}$ coverage and
         sub-frame synchronisation, which is the standard
         multi-view rig for 4DGS work that needs cross-frame
-        Gaussian correspondence.
+        Gaussian correspondence. (v5.45 fix: the previous draft used \cite{li2022plenvdb} here, which is the wrong paper — \texttt{li2022plenvdb} is the 15-18-camera N3V / Neural 3D Video dataset, not the 12-camera Plenoptic Video Dataset; the two are commonly confused in 4DGS literature.)
   \item \textbf{CMU Panoptic} (CMU, 31-camera dome dataset; the original 2017 Simon et al. paper was excluded from the bibliography because it predates the 3DGS field, see INDEX G section for the underlying rig specification): multi-view,
         multi-person interactions captured by a 31-camera dome;
         the standard multi-person benchmark for 4DGS in crowd

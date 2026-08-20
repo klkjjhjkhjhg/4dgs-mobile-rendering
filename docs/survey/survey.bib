@@ -461,6 +461,15 @@
   note={paper-notes/2022-li-plenoptic-video.md. NOTE: this is the Neu3D / Neural 3D Video Synthesis paper (arxiv 2103.02597), commonly cited in 4DGS literature; the citekey "plenvdb" is a portmanteau of "Plenoptic" + "VDB" but the paper title is "Neural 3D Video Synthesis" — not "Plenoptic Video: A Simple Pipeline for Volumetric Video Streaming" (a different paper, sometimes confused with Neu3D).}
 }
 
+@misc{li2022plenopticvideostream,
+  title={Plenoptic Video: A Simple Pipeline for Volumetric Video Streaming},
+  author={{Tianye Li, Mira Slavcheva, Michael Zollhoefer, Simon Green, Christoph Lassner, Changil Kim, Tanner Schmidt, Steven Lovegrove, Michael Goesele, Richard Newcombe}},
+  booktitle={arXiv preprint arXiv:2204.12966},
+  year={2022},
+  eprint={2204.12966},
+  note={separate paper from Neu3D / Neural 3D Video Synthesis (arxiv 2103.02597 = citekey li2022plenvdb); 12-camera array capture (Ballroom, Cut Roasted Beef, etc.) used by 4DGS papers that need dense temporal supervision. The citekey in the previous draft was wrong: sec-7 used \cite{li2022plenvdb} for the 12-camera Ballroom description, but li2022plenvdb is the 15-18-camera N3V/Neural 3D Video (6 indoor scenes). v5.45 fix: split into two cite keys, li2022plenvdb for N3V and li2022plenopticvideostream for Plenoptic Video Dataset.}
+}
+
 @misc{park2021nerfies,
   title={Nerfies: Deformable Neural Radiance Fields},
   author={{Keunhong Park and Utkarsh Sinha and Peter Hedman and Jonathan T.\ Barron and Sofien Bouaziz and Dan B.\ Goldman and Ricardo Martin-Brualla and Steven M.\ Seitz}},

@@ -19,10 +19,11 @@ Vulkan~1.3 driver. Representative deployed
         outdoor 132~FPS / 4.6~MB).
         The 4D extension is still exploratory but
         the rasteriser kernel and tile-sort logic transfer directly.
-  \item Lumina~\cite{feng2025lumina} (ISCA~2025, SJTU + Rochester):
+  \item Lumina~\cite{feng2025lumina} (arxiv preprint, accepted to ISCA~2025 per paper-note inference; SJTU + Rochester):
         a mobile neural-rendering benchmark and pipeline that
         exploits computational redundancy for $4.5\times$ speed-up
-        and $5.3\times$ energy efficiency.
+        and $5.3\times$ energy efficiency
+        (paper-note-derived engineering claim; direct verification against the Lumina abstract on arxiv 2506.05682 returned 0 hits for the specific multiplier strings, so these values are treated as engineering estimates rather than direct paper measurements; see \S\ref{sec:rendering} caveat).
   \item GS-NFS~\cite{ghosh2026gsnfs} (NVIDIA Research): bandwidth-
         adaptive streaming of dynamic Gaussian splats and point
         clouds at 25~FPS decode on a Jetson~Orin edge GPU, the
