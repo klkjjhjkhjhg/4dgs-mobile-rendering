@@ -1,0 +1,35 @@
+%% fig-1-pipeline.tex -- 4DGS pipeline (used §1 / §6)
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    node distance=0.6cm and 1.4cm,
+    block/.style={rectangle, draw, fill=blue!8, minimum width=2.2cm,
+                  minimum height=0.7cm, align=center, font=\small},
+    arrow/.style={-{Latex[length=2.5mm]}, thick}
+]
+\node[block] (capture) {Multi-view\\Capture};
+\node[block, right=of capture] (init) {SFM / Colmap\\Initialisation};
+\node[block, right=of init] (canonical) {Canonical\\Gaussians (3DGS)};
+\node[block, right=of canonical, fill=orange!12] (deform) {Per-frame\\Deformation MLP};
+\node[block, right=of deform, fill=green!12] (render) {Differential\\Rasteriser};
+\draw[arrow] (capture) -- (init);
+\draw[arrow] (init) -- (canonical);
+\draw[arrow] (canonical) -- (deform);
+\draw[arrow] (deform) -- (render);
+% downward branch: dynamic/static separation
+\node[block, below=of canonical, fill=red!8] (split) {Dynamic / Static\\Separation};
+\draw[arrow] (canonical) -- (split);
+\draw[arrow] (split) -- (deform);
+% right side: mobile
+\node[block, right=of render, fill=purple!10] (tile) {Tile-sort\\Vulkan 1.3};
+\node[block, right=of tile, fill=purple!10] (mobile) {Mobile Framebuffer};
+\draw[arrow] (render) -- (tile);
+\draw[arrow] (tile) -- (mobile);
+\end{tikzpicture}
+\caption{4DGS pipeline (canonical + deformation route, with optional
+dynamic / static separation). The pipeline consists of a 4-stage
+train path (capture -- SFM -- canonical Gauss -- deformation MLP) and
+a 2-stage render path (rasteriser -- tile-sort). The mobile route
+(branches right) is the deployment target for this survey.}
+\label{fig:pipeline}
+\end{figure}

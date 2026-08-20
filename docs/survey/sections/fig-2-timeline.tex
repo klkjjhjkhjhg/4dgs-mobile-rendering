@@ -1,0 +1,51 @@
+%% fig-2-timeline.tex -- 4DGS timeline (used §1)
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    year/.style={font=\small\bfseries},
+    entry/.style={rectangle, draw, fill=blue!8, minimum width=2.0cm,
+                  minimum height=0.65cm, font=\footnotesize, align=center},
+    entry-A/.style={entry, fill=red!8},
+    entry-B/.style={entry, fill=orange!12},
+    entry-C/.style={entry, fill=green!10},
+    entry-D/.style={entry, fill=purple!10},
+    entry-E/.style={entry, fill=cyan!8},
+    lane/.style={-, thick, gray}
+]
+% Time axis
+\draw[thick, -{Latex[length=3mm]}] (0,0) -- (15.5,0) node[right, font=\small] {Year};
+\foreach \x/\y in {0/2023, 3/2024, 6/2025, 9/2026-H1} {
+  \draw[thick] (\x,0.1) -- (\x,-0.1) node[below, font=\footnotesize] {\y};
+}
+% 5 lanes (factions)
+\foreach \y/\name in {0.8/A, 1.6/B, 2.4/C, 3.2/D, 4.0/E} {
+  \node[left, font=\footnotesize\bfseries] at (0,\y) {\name};
+  \draw[lane] (0,\y) -- (15,\y);
+}
+% Entries (year, lane, name, faction)
+\node[entry-A] at (1.05, 0.8) {4DGS (Wu)};
+\node[entry-A] at (2.95, 0.8) {Deformable\\3DGS};
+\node[entry-A] at (4.5, 0.8) {4DGS-1K};
+\node[entry-A] at (8.5, 0.8) {RetimeGS};
+\node[entry-B] at (4.5, 1.6) {4DGS-CC};
+\node[entry-B] at (6.5, 1.6) {PD-4DGS};
+\node[entry-B] at (8.5, 1.6) {SharpTimeGS};
+\node[entry-C] at (4.5, 2.4) {FlashGS};
+\node[entry-C] at (7.5, 2.4) {Mobile-GS};
+\node[entry-C] at (9.0, 2.4) {Flux-GS};
+\node[entry-C] at (7.0, 2.4) {Lumina};
+\node[entry-D] at (5.0, 3.2) {4DGRT};
+\node[entry-D] at (7.5, 3.2) {AirGS};
+\node[entry-D] at (9.0, 3.2) {GS-NFS};
+\node[entry-E] at (1.5, 4.0) {3DGS\\(Kerbl)};
+\node[entry-E] at (4.0, 4.0) {Mip-Splatting};
+\node[entry-E] at (7.0, 4.0) {SeeLe};
+\node[entry-E] at (9.0, 4.0) {GaussianFluent};
+\end{tikzpicture}
+\caption{4DGS timeline (2023 -- 2026 H1). The five-faction taxonomy
+(A -- E) is shown as lanes; representative works are placed by year
+and faction. A = 4DGS representation, B = 4DGS acceleration /
+dynamic-static separation, C = rendering acceleration,
+D = streaming / mobile, E = cross-domain / 3DGS.}
+\label{fig:timeline}
+\end{figure}

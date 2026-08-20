@@ -158,6 +158,12 @@ README adopts this 30~FPS sustained target, and the
 survey's quantitative anchors in \S\ref{sec:rendering}
 are interpreted under this regime.
 
+%% Figure~\ref{fig:arch} -- Adreno 830 block diagram.
+%% Placed at the end of \S6.3 (Adreno 830 / Vulkan 1.3 Optimisation
+%% Landscape) so the Vulkan 1.3 compute + subgroup optimisation
+%% narrative has a hardware substrate visible.
+\input{sections/fig-4-arch.tex}
+
 \subsection{Project Direction}
 The companion \texttt{README.md} of this project fixes the target as
 \emph{real-time dynamic 4DGS on Snapdragon~8~Elite / Adreno~830 +
@@ -241,6 +247,13 @@ fallback. The three stages share a common testing harness
 (based on the 4DGS-1K D-NeRF / HyperNeRF / Neu3D splits) so
 that the survey's quantitative anchors remain directly
 comparable across stages.
+
+%% Figure~\ref{fig:pipeline} -- 4DGS end-to-end pipeline.
+%% Placed at the end of \S6.4 (Project Direction) so the
+%% three-stage roadmap has a visual counterpart showing the
+%% canonical + deformation + dynamic/static separation +
+%% tile-sort + mobile framebuffer sequence the project targets.
+\input{sections/fig-1-pipeline.tex}
 
 \bigskip
 \noindent\textbf{Index of paper notes backing this section}:

@@ -137,6 +137,13 @@ static separation route inherits the inference FPS of the
 underlying rasterizer, and the on-device bottleneck reduces to
 the decoder bandwidth and the tile-sort cost.
 
+%% Figure~\ref{fig:dataflow} -- canonical + deformation data flow.
+%% Placed at the end of \S3.2 so the dynamic/static separation
+%% narrative has a visual that ties the verbal description of
+%% "canonical Gaussians + per-frame deformation MLP" to the
+%% buffer-A / buffer-B split.
+\input{sections/fig-5-dataflow.tex}
+
 \subsection{Continuous-Time Representation}
 RetimeGS~\cite{wang2026retimegs} (CVPR~2026 Oral, HKUST+Netflix)
 parameterises the scene in continuous time, eliminating temporal

@@ -1,0 +1,40 @@
+%% fig-3-scatter.tex -- FPS vs storage scatter (used §5)
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    x=0.18cm, y=0.022cm,
+    label/.style={font=\footnotesize}
+]
+% Axes
+\draw[thick, -{Latex[length=2.5mm]}] (0,0) -- (50,0) node[right, font=\footnotesize] {Storage (MB)};
+\draw[thick, -{Latex[length=2.5mm]}] (0,0) -- (0,160) node[above, font=\footnotesize] {FPS};
+\node[label, anchor=north east] at (0,0) {0};
+% Reference lines
+\draw[dashed, gray] (0,30) -- (50,30) node[right, label, gray] {30 FPS};
+\draw[dashed, gray] (0,60) -- (50,60) node[right, label, gray] {60 FPS};
+\draw[dashed, gray] (0,144) -- (50,144) node[right, label, gray] {144 FPS};
+% Points (mobile/edge only). Coordinates with "?" storage are
+% plotted at x=0 with a "[storage?]" marker label, so the figure
+% still tells the reader "see this paper, but storage was not
+% reported". This avoids TikZ "(?, 25)" parse errors.
+\filldraw[red!70] (2.1, 147) circle (1.6pt) node[above, label] {Flux-GS (Snap 8 Elite)};
+\filldraw[red!70] (4.6, 132) circle (1.6pt) node[above, label] {Flux-GS outdoor};
+\filldraw[red!70] (4.6, 127) circle (1.6pt) node[above, label] {Mobile-GS};
+\filldraw[blue!70] (0, 25) circle (1.6pt) node[above, label] {GS-NFS (Jetson Orin) [storage?]};
+\filldraw[orange!70] (3.0, 99) circle (1.6pt) node[above, label] {Neo (Mobile ASIC)};
+\filldraw[gray!70] (0, 4) circle (1.6pt) node[below, label] {GaussLite (4 Hz) [storage?]};
+\filldraw[gray!70] (0, 0.5) circle (1.6pt) node[below, label] {Pocket-SLAM (desktop) [storage?]};
+\end{tikzpicture}
+\caption{FPS vs storage scatter plot for mobile / edge-GPU 4DGS
+deployments. The 60 FPS red-line is the survey's sustained target;
+the 144 FPS line is the panel-recommended minimum for VR-with-motion-
+to-photon < 7 ms. ``x'' coordinates are paper-reported per-Gaussian
+storage; points tagged ``[storage?]'' sit at x=0 because the paper
+did not report per-Gaussian storage (streaming / object-centric /
+multi-GB maps). Flux-GS and Mobile-GS cluster at the FPS target;
+GS-NFS decodes on a Jetson edge GPU but doesn't sustain 60 FPS;
+GaussLite runs at 4 Hz mapping-loop rate (different KPI). Hardware
+labels here use Snapdragon 8 Elite / Adreno 830 (Qualcomm's
+official naming post-2024), consistent with \S6.3.}
+\label{fig:scatter}
+\end{figure}

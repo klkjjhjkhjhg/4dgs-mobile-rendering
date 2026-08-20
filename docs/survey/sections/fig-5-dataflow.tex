@@ -1,0 +1,43 @@
+%% fig-5-dataflow.tex -- canonical + deformation data flow (used §3)
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    node distance=0.5cm and 0.6cm,
+    input/.style={circle, draw, fill=yellow!20, minimum size=0.7cm, font=\footnotesize},
+    flow/.style={rectangle, draw, fill=blue!8, minimum width=1.6cm,
+                 minimum height=0.8cm, font=\footnotesize, align=center},
+    decision/.style={diamond, draw, aspect=2, fill=orange!10, font=\footnotesize, inner sep=1pt},
+    sink/.style={rectangle, draw, fill=green!12, minimum width=1.4cm,
+                 minimum height=0.7cm, font=\footnotesize, align=center},
+    arrow/.style={-{Latex[length=2mm]}, thick}
+]
+% Per-frame input
+\node[input] (t) {$t$};
+% Dual branches: canonical + per-frame
+\node[flow, above right=of t] (canon) {Canonical\\Gaussians $G$};
+\node[flow, below right=of t] (defmlp) {Deformation\\MLP $\phi_\theta$};
+% Converge at decision
+\node[decision, right=2.2cm of t] (split) {Static?};
+\node[flow, above right=of split] (tran) {Identity\\transform};
+\node[flow, below right=of split] (deform) {Apply\\$\Delta x, \Delta r$};
+% Sink
+\node[sink, right=3.4cm of split] (render) {Render\\frame $t$};
+\draw[arrow] (t) -- (canon);
+\draw[arrow] (t) -- (defmlp);
+\draw[arrow] (canon) -- (split);
+\draw[arrow] (defmlp) -- (split);
+\draw[arrow] (split) -- node[above, font=\scriptsize] {Y} (tran);
+\draw[arrow] (split) -- node[below, font=\scriptsize] {N} (deform);
+\draw[arrow] (tran) -- (render);
+\draw[arrow] (deform) -- (render);
+\end{tikzpicture}
+\caption{Canonical + deformation data flow (the canonical 4DGS
+route). At each frame $t$, the canonical Gaussians $G$ and the
+shared deformation MLP $\phi_\theta$ jointly decide whether each
+Gaussian is static (identity transform, no deformation) or
+dynamic (apply $\Delta x, \Delta r$). Static Gaussians are
+rendered from a shared buffer (cacheable); dynamic Gaussians are
+rendered with per-frame deformation. This is the basis for the
+dynamic / static separation route explored in \S3.2 and \S4.1.}
+\label{fig:dataflow}
+\end{figure}
