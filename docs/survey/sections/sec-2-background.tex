@@ -34,7 +34,7 @@ covariance $\Sigma'$ via the EWA splatting equation
 $\Sigma' = J W \Sigma W^{\mathsf{T}} J^{\mathsf{T}}$, where $J$ is
 the Jacobian of the projective transformation and $W$ is the
 viewing matrix; this is the same analytic approximation introduced
-in Zwicker et al.'s 2001 EWA surface splatting, and it preserves the
+in Zwicker et al.'s~\cite{zwicker2001} 2001 EWA surface splatting, and it preserves the
 elliptical footprint of each Gaussian in image space. Second, the
 2D Gaussian is rasterised onto screen tiles and composited with the
 back-to-front $\alpha$-blending rule
@@ -46,7 +46,7 @@ through a 5D position-and-direction MLP, 3DGS evaluates exactly
 one $\alpha$-blend per contributing Gaussian; on a desktop GPU
 this yields a $\sim$65--$80\times$ training-time speed-up and
 a $\geq$1000$\times$ rendering-FPS speed-up at 1080p
-(Kerbl et al.\ 2023, Table~1, Mip-NeRF~360: 3DGS 35--45~min
+(Kerbl et al.\ 2023, Table~1, Mip-NeRF~360~\cite{barron2022mipnerf360}: 3DGS 35--45~min
 training / 134--154~FPS vs Mip-NeRF 48~h / 0.06--0.14~FPS),
 which is the empirical foundation of the entire 4DGS research
 programme discussed in this survey.
@@ -148,7 +148,7 @@ Continuous-time & $\sim$1.5$\times$ static + $t$-embed & 20--45~min & free frame
 \subsection{Mobile GPU Foundations}
 Mobile GPUs such as the Adreno 830 are constrained by: compute
 budget ($\sim$1.7--2~TFLOPs FP32, back-of-envelope from 1536 ALUs
-at $\sim$1.1~GHz; Qualcomm does not publish an official FP32
+at $\sim$1.25~GHz; Qualcomm does not publish an official FP32
 figure, and earlier-draft numbers of 2~TFLOPs actually match the
 prior-gen Adreno 750 in Snapdragon~8~Gen~3; the 2.5--3~TFLOPs
 range quoted in earlier-draft surveys post-v5.16 is the upper
@@ -206,21 +206,20 @@ prominently below.
 
 \subsubsection{Methodology recap: 5-step scan and 9-block notes.}
 The corpus of 180+ works in this survey was assembled through a
-five-step pipeline. \emph{Step~1:} a curated keyword / author
-whitelist (5G-4DGS, mobile-GS, retime, EvoGS, etc.). \emph{Step~2:}
-a weekly \texttt{arxiv\_4dgs\_scan} cron that scans
-\texttt{cs.CV} / \texttt{cs.GR}. \emph{Step~3:} a 1-hop citation
-walk from the seed papers 3DGS~\cite{kerbl20233dgs} and
-4DGS~\cite{wu20244dgs}, plus DBLP and Semantic-Scholar lookups for
-citation chains. \emph{Step~4:} each candidate is summarised in a
-nine-block paper note (title / venue / faction / one-line
-contribution / mechanism diagram / quantitative numbers /
-mobile-implication flag / open-source link / 1-hop neighbours).
-\emph{Step~5:} a cascade propagation step that re-emits the
-updated note into \texttt{survey.bib} and the per-section
-\verb|\item| block. The 9-block template, the 1-hop rule, and the
-5-step scan are inherited from the project's
-the per-paper notes (see \S\ref{sec:conclusion}) and replicated in every section footer.
+five-step pipeline. \emph{Step~1} defines a curated keyword
+and author whitelist (e.g.\ 4DGS, mobile-GS, retime, EvoGS,
+deformable 3DGS). \emph{Step~2} performs a weekly keyword scan
+of the arXiv listings under \texttt{cs.CV} and \texttt{cs.GR}.
+\emph{Step~3} does a 1-hop citation walk from the seed papers
+3DGS~\cite{kerbl20233dgs} and 4DGS~\cite{wu20244dgs}, with DBLP
+and Semantic-Scholar lookups for citation chains. \emph{Step~4}
+distils each candidate into a nine-block paper note (title /
+venue / faction / one-line contribution / mechanism diagram /
+quantitative numbers / mobile-implication flag / open-source
+link / 1-hop neighbours). \emph{Step~5} propagates the updated
+note into the per-section \verb|\item| block of the
+corresponding faction. The 9-block template and the 1-hop rule
+are kept consistent across all 180+ notes.
 
 The corpus of 180+ works is partitioned into a five-faction
 taxonomy (A = 4DGS representation, B = 4DGS acceleration /
@@ -257,35 +256,28 @@ visualised in Figure~\ref{fig:taxonomy} (a tabular
 five-faction tree).
 
 \subsection{Methodology of this Survey}
-This survey is the result of a two-year literature scan focused on
-real-time dynamic 4DGS rendering on mobile GPUs. The corpus was
-assembled from four primary sources: the arXiv listings under
-\texttt{cs.CV} and \texttt{cs.GR} (queried weekly via the project's
-\texttt{arxiv\_4dgs\_scan} cron job, which filters by a curated
-whitelist of keywords and known authors), the DBLP and Semantic
-Scholar indices cross-checked for citation chains, the CGF / TOG
-/ SIGGRAPH / CVPR / ICCV / ECCV / ICLR / ICML / NeurIPS
-proceedings between 2023 and 2026, and the public benchmarks and
-code repositories (GitHub) of the 180+ primary works discussed
-below. Inclusion criteria are: (i)~the work targets dynamic scene
-reconstruction or rendering; (ii)~it includes either a quantitative
-mobile or on-device evaluation, or a clearly-articulated design
-implication for mobile deployment; (iii)~a reproducible artifact
-(code, paper-note, or detailed PDF) is available. Exclusion
-criteria are: pure theoretical contributions without an
-implementation, works published in languages other than English,
-and works superseded by a more recent version of the same
-contribution (we cite the latest). The 180+ primary works are
-organised into a five-faction taxonomy (see Figure~\ref{fig:taxonomy})
-and three pipeline stages; the resulting 9-section structure is
-described in §1. The survey is regenerated on every push to
-\texttt{main} via a GitHub Action that compiles the PDF and
-publishes it to the project GitHub Pages; the underlying
-\texttt{scripts/assign\_survey\_section.py} and
-\texttt{scripts/extract\_paper\_summary.py} tools keep the
-\texttt{survey\_section} field, the per-section \verb|\item|
-blocks, and the \texttt{survey.bib} bibliography in sync with the
-185 representative works detailed in the per-paper notes.
+This survey is the result of a two-year literature scan focused
+on real-time dynamic 4DGS rendering on mobile GPUs. The corpus
+was assembled from four primary sources: the arXiv listings
+under \texttt{cs.CV} and \texttt{cs.GR} (filtered by a
+curated keyword and author whitelist), the DBLP and
+Semantic-Scholar indices cross-checked for citation chains, the
+CGF / TOG / SIGGRAPH / CVPR / ICCV / ECCV / ICLR / ICML / NeurIPS
+proceedings between 2023 and 2026, and the public benchmarks
+and code repositories of the 180+ primary works discussed below.
+Inclusion criteria are: (i)~the work targets dynamic scene
+reconstruction or rendering; (ii)~it includes either a
+quantitative mobile or on-device evaluation, or a clearly
+articulated design implication for mobile deployment;
+(iii)~a reproducible artifact (code, paper-PDF, or detailed
+project page) is available. Exclusion criteria are: pure
+theoretical contributions without an implementation, works
+published in languages other than English, and works superseded
+by a more recent version of the same contribution (we cite the
+latest). The 180+ primary works are organised into a
+five-faction taxonomy (see Figure~\ref{fig:taxonomy}) and three
+pipeline stages; the resulting 9-section structure is
+described in \S1.
 
 \subsection{Related Surveys and Positioning}
 Three prior surveys overlap with this work; we position our
@@ -297,10 +289,8 @@ dynamic scenes or mobile deployment. \emph{Wu et al. (2024)
 focuses on 3D reconstruction, editing, and downstream
 applications; it also predates most of the 4DGS literature.
 \emph{Chen \& Wang (2024) ``A Survey on 3D Gaussian
-Splatting''} (arXiv 2401.03890, first author Guikun Chen;
-note: the bib arXiv ID was previously 2401.03820 which
-is an unrelated PCA paper by Cai et al.) is a foundational
-terminology survey with limited depth. The present survey
+Splatting''} (arXiv 2401.03890, first author Guikun Chen) is a
+foundational terminology survey with limited depth. The present survey
 differs in three ways: (1)~it is the first to focus
 exclusively on \emph{dynamic} 4DGS rather than 3DGS;
 (2)~it is the first to provide on-device measurement
@@ -319,7 +309,5 @@ for the training-compression stage) in this survey.
 \begin{itemize}
 \item \textbf{2023-kerbl-3dgs}~\cite{kerbl20233dgs}: How to use
       anisotropic 3D Gaussians as a radiance-field representation,
-      replacing NeRF's volumetric rendering with pure splatting.
+      replacing NeRF's~\cite{mildenhall2020nerf} volumetric rendering with pure splatting.
 \end{itemize}
-\noindent\textbf{Section reading notes}:
-\S\ref{sec:conclusion} (cluster A/B).

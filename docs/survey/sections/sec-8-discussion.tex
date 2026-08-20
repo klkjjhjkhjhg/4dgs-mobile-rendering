@@ -1,5 +1,4 @@
 %% sec-8-discussion.tex -- Discussion & Future Directions
-
 \section{Discussion and Future Directions}
 \label{sec:discussion}
 
@@ -18,11 +17,13 @@
               transformer-based densifier that consumes monocular
               video at 30~FPS and emits a 4DGS scene in one pass,
               evaluated on DyCheck~\cite{gao2022dycheck}.
-        \item \textit{Project fit:} \checkmark{}~feed-forward maps
-              directly to Snapdragon~8~Elite inference throughput.
+        \item \textit{Mobile outlook:} feed-forward inference
+              maps directly to the
+              30~FPS sustained target expected on
+              current Snapdragon-class mobile GPUs.
         \item \textit{Quantitative target:} by 2027~H1, a feed-forward
               4DGS backbone that reconstructs a 10-second DyCheck clip
-              in $<$30~s on a single Adreno~830, matching the
+              in $<$30~s on a single mobile GPU, matching the
               per-scene optimisation quality of Deformable-3DGS
               (LPIPS $\le 0.18$) within $5\%$.
         \end{itemize}
@@ -38,9 +39,10 @@
               tile-sort accelerator IP synthesised for a mobile
               shader core, benchmarked against the
               Vulkan~1.3 compute path.
-        \item \textit{Project fit:} \checkmark{}~the Adreno~830
-              shader ISA and Vulkan~1.3 compute-shader model are
-              the deployment substrate.
+        \item \textit{Mobile outlook:} the Adreno shader ISA and
+              the Vulkan~1.3 compute-shader model are the
+              candidate substrate for a co-designed sort
+              accelerator.
         \item \textit{Quantitative target:} a co-designed sort
               accelerator that reduces the per-Gaussian sort cost
               by $3\times$ versus the software-only Vulkan~1.3
@@ -58,10 +60,10 @@
         \item \textit{What the next paper should look like:} a
               two-level BVH that exploits Gaussian covariance
               locality, evaluated against the rasteriser baseline
-              on Snapdragon~8~Elite.
-        \item \textit{Project fit:} \textbf{!}~mobile RT is not
-              on the immediate Snapdragon~8~Elite / Vulkan~1.3
-              hot path; keep as a 2027+ watch item.
+              on a Snapdragon-class mobile GPU.
+        \item \textit{Mobile outlook:} mobile RT is not on the
+              immediate Vulkan~1.3 hot path; keep as a 2027+
+              watch item.
         \item \textit{Quantitative target:} by 2028, a BVH-based
               4DGS ray tracer that reaches 15~FPS @ 720p on
               a future Snapdragon (Gen~5 or later) mobile GPU,
@@ -85,13 +87,14 @@
               conformance tests, integrating
               4DGS-CC~\cite{chen20254dgscc} and
               P-4DGS~\cite{wang2025p4dgs}.
-        \item \textit{Project fit:} \checkmark{}~a codec standard
-              directly benefits our project's storage bottleneck.
+        \item \textit{Mobile outlook:} a codec standard
+              directly addresses the storage bottleneck
+              observed in the surveyed mobile deployments.
         \item \textit{Quantitative target:} a reference codec that
               compresses the 4DGS-1K D-NeRF scenes to $<$20~MB
               per scene at PSNR $\ge 30$~dB, with a
               decoder-side decode time under 50~ms on
-              Adreno~830.
+              a current mobile GPU.
         \end{itemize}
 
   \item \textbf{Generative 4DGS + cross-domain fusion.} The
@@ -115,18 +118,18 @@
         \item \textit{What the next paper should look like:} a
               diffusion-based 4DGS generator that consumes a
               text prompt + a single static 3DGS seed and
-              outputs a 4DGS scene in $<$10~seconds on an
-              Adreno~830, evaluated on a held-out subset of
-              DyCheck prompts; OR a ``video in,
+              outputs a 4DGS scene in $<$10~seconds on a
+              current mobile GPU, evaluated on a held-out subset
+              of DyCheck prompts; OR a ``video in,
               simulator-in-the-loop 4DGS out'' demo running in
               real time on a mobile device.
-        \item \textit{Project fit:} \textbf{!}~exciting but
-              currently compute-bound; a Snapdragon~8~Elite
-              target is plausible only after the mobile
+        \item \textit{Mobile outlook:} exciting but
+              currently compute-bound; a mobile target
+              is plausible only after the mobile
               transformer cost analysis matures.
         \item \textit{Quantitative target:} by 2027~H2, a
               text-to-4DGS system that produces a 10-second
-              dynamic clip on a single Adreno~830 in
+              dynamic clip on a single mobile GPU in
               $<$30~seconds, with LPIPS $\le 0.20$ against the
               ground-truth clip; OR a cross-domain demo that
               combines 4DGS reconstruction with a
@@ -151,18 +154,17 @@
               reference encoder / decoder pair with bitstream
               conformance tests, distributed as an open-source
               reference implementation.
-        \item \textit{Project fit:} \checkmark{}~the
-              reference codec is the natural first deliverable
-              of the project's engineering roadmap
-              (see \S\ref{sec:mobile}).
+        \item \textit{Mobile outlook:} the reference codec
+              is the natural first deliverable for any
+              mobile-4DGS working group.
         \item \textit{Quantitative target:} a reference
               decoder that runs at 30~FPS sustained on a
-              Snapdragon~8~Elite device, on a 20~MB 4DGS
+              Snapdragon-class mobile device, on a 20~MB 4DGS
               bitstream, with PSNR $\ge 30$~dB.
         \end{itemize}
 \end{enumerate}
 
-\subsection{Why Hardware--Software Co-Design Will Dominate (Extended)}
+\subsection{Why Hardware--Software Co-Design Will Dominate}
 We expect \emph{hardware--software co-design} to matter more than
 algorithmic progress for mobile 4DGS over the next two years. The
 argument has three legs.
@@ -174,20 +176,16 @@ L2D2-GS $<$1~s in 2026 at inference) and 5--10$\times$ per-year
 gains in model size (vanilla 4DGS 60--200~MB in 2023,
 4DGS-1K $\sim$7--50~MB (D-NeRF aggregate) / $\sim$50--420~MB
 (N3V aggregate) in 2025, with per-scene ranges
-D-NeRF 3.56--16.11~MB (Ours-PP) and N3V 29.34--69.24~MB
-(Ours-PP); the earlier-draft 7--16~MB D-NeRF + 41--418~MB
-N3V range conflated averages and per-scene upper bounds
-and has been corrected),
-4DGS-CC 1.7--5.0~MB in 2025). Both
-curves are flattening: the next 3$\times$ in either dimension
-will require a fundamentally new representation (e.g. generative
+D-NeRF 3.56--16.11~MB and N3V 29.34--69.24~MB).
+Both curves are flattening: the next 3$\times$ in either dimension
+will require a fundamentally new representation (e.g.\ generative
 4DGS, see \S8.5 above), not an incremental tweak of the existing
 one.
 
 \paragraph{Second, the hardware headroom is large and quantifiable.}
-The Adreno~830's tile-sort cost (10--20\% of the frame budget at
-60~FPS, see \S\ref{sec:rendering}) is a structural artefact of
-the rasteriser's $\alpha$-blend rule
+The Adreno-class mobile GPU's tile-sort cost (10--20\% of the
+frame budget at 60~FPS, see \S\ref{sec:rendering}) is a structural
+artefact of the rasteriser's $\alpha$-blend rule
 (Equation~\eqref{eq:alpha}). No algorithm change can amortise that
 cost; only a hardware change can. Neo's Reuse-and-Update sort
 (\S\ref{sec:rendering}) is a software prototype of what a
@@ -209,47 +207,33 @@ contrarian view is therefore not ``algorithm doesn't matter''
 but rather ``the next 3$\times$ on mobile will come from
 hardware / driver / ISA co-design, not from a better MLP''.
 
-\subsection{Contrarian View: Hardware--Software Co-Design Will Dominate}
-We expect \emph{hardware--software co-design} to matter more than
-algorithmic progress for mobile 4DGS over the next two years. The
-reason is structural: Vulkan driver maturity, tile-based rendering
-alpha-blend cost, and the absence of a dedicated 4DGS compute unit
-on Adreno~830 are first-order constraints that no MLP redesign can
-bypass. In other words, even a $10\times$ better densifier will
-still hit the same alpha-blend fillrate wall. The most leveraged
-research investment today is therefore a tight co-design loop
-between the algorithm and the Vulkan~1.3 / Adreno shader ISA,
-rather than yet another MLP variant.
-
 \subsection{Broader Outlook}
 The five directions above are not project-specific; they
 generalise to any mobile-SoC target that combines a
 tile-based deferred rasteriser with a Vulkan~1.3+ driver
 (Qualcomm Snapdragon 7/8 series, MediaTek Dimensity 9000+,
 Samsung Exynos 2400, etc.). The hardware-software co-design
-thesis is a community-wide observation, not a project-local
-position.
+thesis is a community-wide observation, not tied to any
+single application. The Section~\ref{sec:mobile} quantitative
+anchors (Flux-GS, Mobile-GS, GS-NFS, Lumina) serve as the
+on-device measurement floor against which the directions
+above should be evaluated.
 
 \subsubsection{Additional related work surveyed for completeness.}
-The survey's primary bibliography covers the 60 most-cited works
-in the discussion above; the following nine paper notes were
-written during the 2026-08-13 P36 enrichment pass (commit
-\texttt{fa1b687}) and contain grounded quantitative claims that
-directly inform the future-directions discussion. They are
-cluster-cited here for reader convenience, and the per-paper
-details are in \texttt{docs/appendix/paper-notes/}. Affected
-themes: \textbf{compression + dynamic/static separation}
-(CATSplat~\cite{roh2025catsplat}, MaGS~\cite{ma2025mags},
-LUDVIG~\cite{marrie2025ludvig}, SplatTalk~\cite{thai2025splattalk},
-BezierGS~\cite{ma2025beziergs}); \textbf{self-calibrating /
-self-supervised reconstruction}
+Beyond the 60 most-cited works discussed above, the present
+survey also covers nine additional papers that inform the
+future-directions discussion but did not fit naturally into
+the in-line citations. They are cluster-cited here across
+four thematic axes: \textbf{compression and dynamic/static
+separation} (CATSplat~\cite{roh2025catsplat},
+MaGS~\cite{ma2025mags}, LUDVIG~\cite{marrie2025ludvig},
+SplatTalk~\cite{thai2025splattalk},
+BezierGS~\cite{ma2025beziergs}); \textbf{self-calibrating
+and self-supervised reconstruction}
 (Self-Cali-GS~\cite{deng2025selfcalibratinggs},
 GaussianOcc~\cite{gan2025gaussianocc}); \textbf{single-image
 free-pose generation}
-(FreeSplatter~\cite{xu2025freesplatter}); \textbf{adversarial
-robustness}
-(StealthAttack~\cite{ke2025stealthattack}).
-
-\bigskip
-\noindent\textbf{Section reading notes}:
-\S\ref{sec:conclusion} (cluster G).
+(FreeSplatter~\cite{xu2025freesplatter}). Each entry
+serves as a borderline-or-out-of-faction reference that
+expands the survey's coverage without diluting the four
+core research directions.
